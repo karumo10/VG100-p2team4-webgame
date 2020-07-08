@@ -4863,8 +4863,11 @@ var $elm$core$Result$isOk = function (result) {
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $author$project$Model$PoliceOffice = {$: 'PoliceOffice'};
 var $author$project$Model$heroIni = {height: 60, width: 20, x: 300, y: 520};
-var $author$project$Model$initial = {
+var $author$project$Model$policeOfficeAttr = {
 	exit: {hei: 120, wid: 70, x: 150, y: 480},
+	heroIni: {height: 60, width: 20, x: 300, y: 520}
+};
+var $author$project$Model$initial = {
 	hero: $author$project$Model$heroIni,
 	heroDir: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
 	heroMoveDown: false,
@@ -4872,6 +4875,7 @@ var $author$project$Model$initial = {
 	heroMoveRight: false,
 	heroMoveUp: false,
 	map: $author$project$Model$PoliceOffice,
+	mapAttr: $author$project$Model$policeOfficeAttr,
 	size: _Utils_Tuple2(1500, 800),
 	state: $author$project$Model$Playing
 };
@@ -5816,6 +5820,46 @@ var $author$project$Main$subscriptions = function (model) {
 				$elm$browser$Browser$Events$onResize($author$project$Message$Resize)
 			]));
 };
+var $author$project$Model$Park = {$: 'Park'};
+var $author$project$Update$judgeExit = function (model) {
+	var exit = model.mapAttr.exit;
+	var _v0 = _Utils_Tuple2(exit.x, exit.y);
+	var x2 = _v0.a;
+	var y2 = _v0.b;
+	var _v1 = _Utils_Tuple2(model.hero.x, model.hero.y);
+	var x1 = _v1.a;
+	var y1 = _v1.b;
+	var _v2 = _Utils_Tuple2(exit.wid, exit.hei);
+	var w2 = _v2.a;
+	var h2 = _v2.b;
+	var _v3 = _Utils_Tuple2(model.hero.width, model.hero.height);
+	var w1 = _v3.a;
+	var h1 = _v3.b;
+	return ((_Utils_cmp(x2 - w1, x1) < 1) && ((_Utils_cmp(x1, x2 + w2) < 1) && ((_Utils_cmp(y2 - h1, y1) < 1) && (_Utils_cmp(y1, y2 + h2) < 1)))) ? true : false;
+};
+var $author$project$Model$parkAttr = {
+	exit: {hei: 90, wid: 200, x: 620, y: 250},
+	heroIni: {height: 90, width: 30, x: 500, y: 250}
+};
+var $author$project$Update$mapSwitch = function (model) {
+	var map = model.map;
+	var map_ = _Utils_eq(map, $author$project$Model$PoliceOffice) ? $author$project$Model$Park : $author$project$Model$PoliceOffice;
+	var goalAttr = function () {
+		switch (map_.$) {
+			case 'PoliceOffice':
+				return $author$project$Model$policeOfficeAttr;
+			case 'Park':
+				return $author$project$Model$parkAttr;
+			default:
+				return $author$project$Model$parkAttr;
+		}
+	}();
+	var heroReset = goalAttr.heroIni;
+	var currAttr = model.mapAttr;
+	return $author$project$Update$judgeExit(model) ? _Utils_update(
+		model,
+		{hero: heroReset, map: map_, mapAttr: goalAttr}) : model;
+};
 var $author$project$Update$activateButton = F3(
 	function (interval, elapsed, state) {
 		var elapsed_ = state.elapsed + elapsed;
@@ -5946,10 +5990,11 @@ var $author$project$Update$moveHeroUD = F2(
 	});
 var $author$project$Update$animate = F2(
 	function (elapsed, model) {
-		return A2(
-			$author$project$Update$moveHeroUD,
-			elapsed,
-			A2($author$project$Update$moveHeroLR, elapsed, model));
+		return $author$project$Update$mapSwitch(
+			A2(
+				$author$project$Update$moveHeroUD,
+				elapsed,
+				A2($author$project$Update$moveHeroLR, elapsed, model)));
 	});
 var $elm$core$Basics$min = F2(
 	function (x, y) {
@@ -6123,6 +6168,7 @@ var $author$project$Update$update = F2(
 	});
 var $elm$json$Json$Decode$value = _Json_decodeValue;
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
 var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
@@ -6182,18 +6228,49 @@ var $author$project$View$renderPic = function (model) {
 		_Utils_ap(
 			_List_fromArray(
 				[
-					A2(
-					$elm$svg$Svg$image,
-					_List_fromArray(
-						[
-							$elm$svg$Svg$Attributes$xlinkHref('./police_office.png'),
-							$elm$svg$Svg$Attributes$x('0'),
-							$elm$svg$Svg$Attributes$y('0'),
-							$elm$svg$Svg$Attributes$width('900'),
-							$elm$svg$Svg$Attributes$height('630'),
-							$elm$svg$Svg$Attributes$transform('translate(0,-20)')
-						]),
-					_List_Nil)
+					function () {
+					var _v0 = model.map;
+					switch (_v0.$) {
+						case 'PoliceOffice':
+							return A2(
+								$elm$svg$Svg$image,
+								_List_fromArray(
+									[
+										$elm$svg$Svg$Attributes$xlinkHref('./police_office.png'),
+										$elm$svg$Svg$Attributes$x('0'),
+										$elm$svg$Svg$Attributes$y('0'),
+										$elm$svg$Svg$Attributes$width('900'),
+										$elm$svg$Svg$Attributes$height('630'),
+										$elm$svg$Svg$Attributes$transform('translate(0,-20)')
+									]),
+								_List_Nil);
+						case 'Park':
+							return A2(
+								$elm$svg$Svg$image,
+								_List_fromArray(
+									[
+										$elm$svg$Svg$Attributes$xlinkHref('./park.png'),
+										$elm$svg$Svg$Attributes$x('0'),
+										$elm$svg$Svg$Attributes$y('0'),
+										$elm$svg$Svg$Attributes$width('900'),
+										$elm$svg$Svg$Attributes$height('630'),
+										$elm$svg$Svg$Attributes$transform('translate(0,-20)')
+									]),
+								_List_Nil);
+						default:
+							return A2(
+								$elm$svg$Svg$rect,
+								_List_fromArray(
+									[
+										$elm$svg$Svg$Attributes$x('0'),
+										$elm$svg$Svg$Attributes$y('0'),
+										$elm$svg$Svg$Attributes$width('900'),
+										$elm$svg$Svg$Attributes$height('600'),
+										$elm$svg$Svg$Attributes$fill('black')
+									]),
+								_List_Nil);
+					}
+				}()
 				]),
 			$author$project$Tosvg$heroToSvg(model.hero)));
 };

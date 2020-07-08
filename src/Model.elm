@@ -13,6 +13,23 @@ type Map
     | Park
     | Switching -- an interface allowing player to choose where to go, also can be design as dialog box
 
+type alias MapAttr = -- things determined by map.
+    { exit : Area
+    , heroIni : Hero
+    }
+
+policeOfficeAttr : MapAttr
+policeOfficeAttr =
+    { exit = { x = 150, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    }
+
+parkAttr : MapAttr
+parkAttr =
+    { exit = { x = 620, y = 250 , wid = 200, hei = 90 }
+    , heroIni = { x = 500, y = 250, width = 30, height = 90 }
+    }
+
 type alias Area =
     { x : Float
     , y : Float
@@ -63,7 +80,7 @@ type alias Model =
     , state : State
     , size : ( Float, Float )
     , map : Map
-    , exit : Area
+    , mapAttr : MapAttr
     }
 
 initial : Model
@@ -76,8 +93,8 @@ initial =
     , heroMoveDown = False
     , state = Playing
     , size = ( 1500, 800 )
-    , map = PoliceOffice
-    , exit = { x = 150, y = 480 , wid = 70, hei = 120 } -- door at police office
+    , map = PoliceOffice -- door at police office
+    , mapAttr = policeOfficeAttr
     }
 
 

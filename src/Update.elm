@@ -1,7 +1,7 @@
 port module Update exposing (update)
 
 import Message exposing (Msg(..))
-import Model exposing (Map(..), Model, State(..))
+import Model exposing (Map(..), Model, State(..), parkAttr, policeOfficeAttr)
 
 
 port save : String -> Cmd msg
@@ -80,6 +80,7 @@ animate elapsed model =
     model
         |> moveHeroLR elapsed
         |> moveHeroUD elapsed
+        |> mapSwitch
 
 
 
@@ -197,7 +198,7 @@ moveHeroUD_ dy model =
 judgeExit : Model -> Bool
 judgeExit model =
     let
-        exit = model.exit
+        exit = model.mapAttr.exit
         ( x1, y1 ) = ( toFloat model.hero.x, toFloat model.hero.y )
         ( x2, y2 ) = ( exit.x, exit.y )
         ( w1, h1 ) = ( model.hero.width, model.hero.height )
@@ -207,27 +208,25 @@ judgeExit model =
     else False
 
 
-mapToExit : Model -> Model --exit change by map
-mapToExit model =
+
+mapSwitch : Model -> Model
+mapSwitch model =
     let
         map = model.map
-        exit =
-            case map of
-                PoliceOffice ->
-                    { x = 150, y = 480 , wid = 70, hei = 120 }
-                Park ->
-                    { x = 150, y = 480 , wid = 70, hei = 120 }
-                Switching ->
-                    { x = 150, y = 480 , wid = 70, hei = 120 }
-
+        map_ =
+            if map == PoliceOffice then Park
+            else PoliceOffice
+        currAttr = model.mapAttr
+        goalAttr =
+            case map_ of
+                PoliceOffice -> policeOfficeAttr
+                Park -> parkAttr
+                Switching -> parkAttr
+        heroReset = goalAttr.heroIni
     in
-    { model | exit = exit }
-
-
-
---mapSwitch : Model -> Model
---mapSwitch model =
-
+    if judgeExit model then
+        { model | map = map_, mapAttr = goalAttr, hero = heroReset }
+    else model
 
 
 
