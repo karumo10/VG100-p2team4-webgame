@@ -1,7 +1,7 @@
 port module Update exposing (update)
 
 import Message exposing (Msg(..))
-import Model exposing (Map(..), Model, State(..), parkAttr, policeOfficeAttr)
+import Model exposing (Map(..), Model, State(..), parkAttr, policeOfficeAttr, switchingAttr)
 
 
 port save : String -> Cmd msg
@@ -71,8 +71,23 @@ update msg model =
                 |> animate (min time 25)
                 |> saveToStorage
 
+        ToPoliceOffice ->
+            ( mapSwitch PoliceOffice model
+            , Cmd.none
+            )
+
+
+
+        ToPark ->
+            ( mapSwitch Park model
+            , Cmd.none
+            )
+
+
         Noop ->
             ( model, Cmd.none )
+
+
 
 
 animate : Float -> Model -> Model
@@ -80,7 +95,7 @@ animate elapsed model =
     model
         |> moveHeroLR elapsed
         |> moveHeroUD elapsed
-        |> mapSwitch
+        |> goToSwitching
 
 
 
@@ -209,27 +224,23 @@ judgeExit model =
 
 
 
-mapSwitch : Model -> Model
-mapSwitch model =
-    let
-        map = model.map
-        map_ =
-            if map == PoliceOffice then Park
-            else PoliceOffice
-        currAttr = model.mapAttr
-        goalAttr =
-            case map_ of
-                PoliceOffice -> policeOfficeAttr
-                Park -> parkAttr
-                Switching -> parkAttr
-        heroReset = goalAttr.heroIni
-    in
+goToSwitching : Model -> Model -- when at exit, go to switching interface
+goToSwitching model =
     if judgeExit model then
-        { model | map = map_, mapAttr = goalAttr, hero = heroReset }
+        mapSwitch Switching model
     else model
 
-
-
+mapSwitch : Map -> Model -> Model
+mapSwitch newMap model =
+    let
+        mapAttr =
+            case newMap of
+                PoliceOffice -> policeOfficeAttr
+                Park -> parkAttr
+                Switching -> switchingAttr
+        hero = mapAttr.heroIni
+    in
+    { model | hero = hero, mapAttr = mapAttr, map = newMap }
 
 
 

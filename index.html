@@ -5821,6 +5821,7 @@ var $author$project$Main$subscriptions = function (model) {
 			]));
 };
 var $author$project$Model$Park = {$: 'Park'};
+var $author$project$Model$Switching = {$: 'Switching'};
 var $author$project$Update$judgeExit = function (model) {
 	var exit = model.mapAttr.exit;
 	var _v0 = _Utils_Tuple2(exit.x, exit.y);
@@ -5841,24 +5842,29 @@ var $author$project$Model$parkAttr = {
 	exit: {hei: 90, wid: 200, x: 620, y: 250},
 	heroIni: {height: 90, width: 30, x: 500, y: 250}
 };
-var $author$project$Update$mapSwitch = function (model) {
-	var map = model.map;
-	var map_ = _Utils_eq(map, $author$project$Model$PoliceOffice) ? $author$project$Model$Park : $author$project$Model$PoliceOffice;
-	var goalAttr = function () {
-		switch (map_.$) {
-			case 'PoliceOffice':
-				return $author$project$Model$policeOfficeAttr;
-			case 'Park':
-				return $author$project$Model$parkAttr;
-			default:
-				return $author$project$Model$parkAttr;
-		}
-	}();
-	var heroReset = goalAttr.heroIni;
-	var currAttr = model.mapAttr;
-	return $author$project$Update$judgeExit(model) ? _Utils_update(
-		model,
-		{hero: heroReset, map: map_, mapAttr: goalAttr}) : model;
+var $author$project$Model$switchingAttr = {
+	exit: {hei: 0, wid: 0, x: 0, y: 0},
+	heroIni: {height: 60, width: 20, x: 6000, y: 6000}
+};
+var $author$project$Update$mapSwitch = F2(
+	function (newMap, model) {
+		var mapAttr = function () {
+			switch (newMap.$) {
+				case 'PoliceOffice':
+					return $author$project$Model$policeOfficeAttr;
+				case 'Park':
+					return $author$project$Model$parkAttr;
+				default:
+					return $author$project$Model$switchingAttr;
+			}
+		}();
+		var hero = mapAttr.heroIni;
+		return _Utils_update(
+			model,
+			{hero: hero, map: newMap, mapAttr: mapAttr});
+	});
+var $author$project$Update$goToSwitching = function (model) {
+	return $author$project$Update$judgeExit(model) ? A2($author$project$Update$mapSwitch, $author$project$Model$Switching, model) : model;
 };
 var $author$project$Update$activateButton = F3(
 	function (interval, elapsed, state) {
@@ -5990,7 +5996,7 @@ var $author$project$Update$moveHeroUD = F2(
 	});
 var $author$project$Update$animate = F2(
 	function (elapsed, model) {
-		return $author$project$Update$mapSwitch(
+		return $author$project$Update$goToSwitching(
 			A2(
 				$author$project$Update$moveHeroUD,
 				elapsed,
@@ -6162,12 +6168,115 @@ var $author$project$Update$update = F2(
 						$author$project$Update$animate,
 						A2($elm$core$Basics$min, time, 25),
 						model));
+			case 'ToPoliceOffice':
+				return _Utils_Tuple2(
+					A2($author$project$Update$mapSwitch, $author$project$Model$PoliceOffice, model),
+					$elm$core$Platform$Cmd$none);
+			case 'ToPark':
+				return _Utils_Tuple2(
+					A2($author$project$Update$mapSwitch, $author$project$Model$Park, model),
+					$elm$core$Platform$Cmd$none);
 			default:
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
 var $elm$json$Json$Decode$value = _Json_decodeValue;
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $author$project$Message$ToPark = {$: 'ToPark'};
+var $author$project$Message$ToPoliceOffice = {$: 'ToPoliceOffice'};
+var $elm$html$Html$button = _VirtualDom_node('button');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$View$renderMapButton = function (model) {
+	var _v0 = model.map;
+	if (_v0.$ === 'Switching') {
+		return A2(
+			$elm$html$Html$div,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$button,
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'background', 'blue'),
+							A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
+							A2($elm$html$Html$Attributes$style, 'left', '105px'),
+							A2($elm$html$Html$Attributes$style, 'top', '400px'),
+							A2($elm$html$Html$Attributes$style, 'color', '#f3f2e9'),
+							A2($elm$html$Html$Attributes$style, 'cursor', 'pointer'),
+							A2($elm$html$Html$Attributes$style, 'display', 'block'),
+							A2($elm$html$Html$Attributes$style, 'font-family', 'Helvetica, Arial, sans-serif'),
+							A2($elm$html$Html$Attributes$style, 'font-size', '18px'),
+							A2($elm$html$Html$Attributes$style, 'font-weight', '300'),
+							A2($elm$html$Html$Attributes$style, 'height', '80px'),
+							A2($elm$html$Html$Attributes$style, 'line-height', '60px'),
+							A2($elm$html$Html$Attributes$style, 'outline', 'none'),
+							A2($elm$html$Html$Attributes$style, 'padding', '0'),
+							A2($elm$html$Html$Attributes$style, 'width', '130px'),
+							A2($elm$html$Html$Attributes$style, 'border-style', 'inset'),
+							A2($elm$html$Html$Attributes$style, 'border-color', 'white'),
+							A2($elm$html$Html$Attributes$style, 'border-width', '6px'),
+							A2($elm$html$Html$Attributes$style, 'border-radius', '20%'),
+							$elm$html$Html$Events$onClick($author$project$Message$ToPoliceOffice)
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Police Office')
+						])),
+					A2(
+					$elm$html$Html$button,
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'background', 'red'),
+							A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
+							A2($elm$html$Html$Attributes$style, 'left', '300px'),
+							A2($elm$html$Html$Attributes$style, 'top', '400px'),
+							A2($elm$html$Html$Attributes$style, 'color', '#f3f2e9'),
+							A2($elm$html$Html$Attributes$style, 'cursor', 'pointer'),
+							A2($elm$html$Html$Attributes$style, 'display', 'block'),
+							A2($elm$html$Html$Attributes$style, 'font-family', 'Helvetica, Arial, sans-serif'),
+							A2($elm$html$Html$Attributes$style, 'font-size', '18px'),
+							A2($elm$html$Html$Attributes$style, 'font-weight', '300'),
+							A2($elm$html$Html$Attributes$style, 'height', '80px'),
+							A2($elm$html$Html$Attributes$style, 'line-height', '60px'),
+							A2($elm$html$Html$Attributes$style, 'outline', 'none'),
+							A2($elm$html$Html$Attributes$style, 'padding', '0'),
+							A2($elm$html$Html$Attributes$style, 'width', '130px'),
+							A2($elm$html$Html$Attributes$style, 'border-style', 'inset'),
+							A2($elm$html$Html$Attributes$style, 'border-color', 'white'),
+							A2($elm$html$Html$Attributes$style, 'border-width', '6px'),
+							A2($elm$html$Html$Attributes$style, 'border-radius', '20%'),
+							$elm$html$Html$Events$onClick($author$project$Message$ToPark)
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Park')
+						]))
+				]));
+	} else {
+		return A2($elm$html$Html$div, _List_Nil, _List_Nil);
+	}
+};
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
 var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
@@ -6280,7 +6389,8 @@ var $author$project$View$view = function (model) {
 		_List_Nil,
 		_List_fromArray(
 			[
-				$author$project$View$renderPic(model)
+				$author$project$View$renderPic(model),
+				$author$project$View$renderMapButton(model)
 			]));
 };
 var $elm$core$Result$withDefault = F2(

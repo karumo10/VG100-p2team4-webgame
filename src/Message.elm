@@ -14,4 +14,6 @@ type Msg
     | MoveDown Bool
     | Resize Int Int
     | GetViewport Viewport
+    | ToPoliceOffice
+    | ToPark
     | Noop
