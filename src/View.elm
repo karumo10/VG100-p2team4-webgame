@@ -5,7 +5,7 @@ import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
-import Tosvg exposing (heroToSvg , itemsToSvg)
+import Tosvg exposing (heroToSvg , itemsToSvg, elevatorQuestToSvg)
 import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
 import Items exposing ( .. )
@@ -135,9 +135,10 @@ renderPic model =
                     , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ ( heroToSvg model.hero )
-                ++ ( bob model)
-                ++ ( lee model)
-                ++ ( allen model)
+                ++ ( bob model )
+                ++ ( lee model )
+                ++ ( allen model )
+                ++ ( elevatorQuestToSvg model)
 
             Park ->
 

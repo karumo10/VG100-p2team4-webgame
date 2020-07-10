@@ -17,6 +17,7 @@ type Msg
     | ToPoliceOffice
     | ToPark
     | PickUp
+    | EnterVehicle -- including elevator and cars
     | Noop
     | InteractWith WorldModel.ID
     | UpdateDebugSearchText String

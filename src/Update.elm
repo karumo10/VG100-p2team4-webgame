@@ -98,6 +98,8 @@ update msg model =
             ( pickUp model
             , Cmd.none
             )
+        EnterVehicle ->
+            ( enterVehicles model.mapAttr.elevator model, Cmd.none)
 
 
         Noop ->
@@ -340,6 +342,24 @@ isStuck model area =
     else if downSide then DownSide
     else Err
 
+enterVehicle :  Model -> Vehicle -> Model
+enterVehicle model vehicle=
+    case vehicle.which of
+        Elevator -> elevateQuestOut vehicle model
+        Car -> model
+
+enterVehicles : List Vehicle -> Model -> Model
+enterVehicles vehicles model =
+    withDefault model (List.map (enterVehicle model) vehicles |> List.head)
+
+elevateQuestOut : Vehicle -> Model -> Model --call out the choice to which floor
+elevateQuestOut elevator model =
+    let
+        isNear = judgeAreaOverlap model elevator.area
+    in
+    if not isNear then model
+    else if model.quests == ElevatorQuest then { model | quests = NoQuest }
+    else { model | quests = ElevatorQuest }
 
 goToSwitching : Model -> Model -- when at exit, go to switching interface
 goToSwitching model =

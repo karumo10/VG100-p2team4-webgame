@@ -46,6 +46,45 @@ itemsToSvg model =
     List.map ( \a -> formSvg a) itemsLeft
 
 
+elevatorQuestToSvg : Model -> List (Svg msg)
+elevatorQuestToSvg model =
+    case model.quests of
+        ElevatorQuest ->
+            [
+                rect
+                [ x "405"
+                , y "140"
+                , width "100"
+                , height "285"
+                , strokeWidth "10px"
+                , fill "white"
+                ]
+                []
+
+            ]
+        _ ->
+            [ rect[][] ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 draftSvg : List (Svg msg)
 draftSvg =
