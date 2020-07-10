@@ -1,5 +1,5 @@
 module View exposing (..)
-import Html exposing (Html, button, div, text, ul, em)
+import Html exposing (Html, button, div, text, br, ul, em)
 import Html.Attributes exposing (style,src,type_)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
@@ -19,16 +19,38 @@ view model =
             [ renderPic model
             , renderMapButton model
             , renderdialog model
-            , div [][Html.iframe[Html.Attributes.src "./trigger.mp3"
-                    ,Html.Attributes.autoplay True
-                    ,style "display" "none"][]]
-                    , div [][Html.audio [Html.Attributes.id "player"
-                    ,Html.Attributes.autoplay True
-                    ,Html.Attributes.loop True
-                    ,src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
-                    ,type_ "audio/mp3"
-                    ][]]
+            , renderMusic
+            , axisHelper model
             ]
+
+
+axisHelper : Model -> Html Msg
+axisHelper model =
+    div []
+        [ text (model.hero.x |> Debug.toString), br [] []
+        , text (model.hero.y |> Debug.toString)
+        ]
+
+renderMusic : Html Msg
+renderMusic =
+    div []
+    [ div []
+        [ Html.iframe
+            [ Html.Attributes.src "./trigger.mp3"
+            , Html.Attributes.autoplay True
+            , style "display" "none"
+            ] []
+        ]
+    , div []
+        [ Html.audio
+            [ Html.Attributes.id "player"
+            , Html.Attributes.autoplay True
+            , Html.Attributes.loop True
+            , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+            , type_ "audio/mp3"
+            ] []
+        ]
+    ]
 
 
 renderMapButton : Model -> Html Msg

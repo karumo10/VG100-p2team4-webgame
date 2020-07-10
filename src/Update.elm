@@ -15,6 +15,8 @@ import NarrativeEngine.Syntax.NarrativeParser as NarrativeParser
 
 port save : String -> Cmd msg
 
+stride = 5          -- distance travelled by one press. If stuck in, the depth is smaller than this length
+
 
 saveToStorage : Model -> ( Model, Cmd Msg )
 saveToStorage model =
@@ -227,7 +229,18 @@ moveHeroLR_ : Int -> Model -> Model
 moveHeroLR_ dx model =
     let
         ( x, y ) = ( model.hero.x, model.hero.y )
-        x_ = x + dx * 5
+        overlapAreas = List.filter (judgeAreaOverlap model) model.mapAttr.barrier
+        x_ =
+            if List.length overlapAreas == 0 then
+                x + dx * stride -- maybe stuck. caution!
+            else if (List.filter (\a -> isStuck model a == LeftSide) overlapAreas |> List.length) /= 0 then
+                if dx > 0 then x
+                else x + dx * stride
+            else if (List.filter (\a -> isStuck model a == RightSide) overlapAreas |> List.length) /= 0 then
+                if dx < 0 then x
+                else x + dx * stride
+            else
+                x + dx * stride
         hero = model.hero
         hero_ = { hero | x = x_ }
     in
@@ -256,25 +269,76 @@ moveHeroUD_ : Int -> Model -> Model
 moveHeroUD_ dy model =
     let
         ( x, y ) = ( model.hero.x, model.hero.y )
-        y_ = y + dy * 5
+        overlapAreas = List.filter (judgeAreaOverlap model) model.mapAttr.barrier
+        y_ =
+            if List.length overlapAreas == 0 then
+                y + dy * stride
+            else if (List.filter (\a -> isStuck model a == UpSide) overlapAreas |> List.length) /= 0 then
+                if dy > 0 then y
+                else y + dy * stride
+            else if (List.filter (\a -> isStuck model a == DownSide) overlapAreas |> List.length) /= 0 then
+                if dy < 0 then y
+                else y + dy * stride
+            else
+                y + dy * stride
+
+
         hero = model.hero
         hero_ = { hero | y = y_ }
     in
     { model | hero = hero_ }
 
 
+
 judgeExit : Model -> Bool
 judgeExit model =
     let
         exit = model.mapAttr.exit
+    in
+    judgeAreaOverlap model exit
+
+
+judgeAreaOverlap : Model -> Area -> Bool -- hero overlap with some area. widely applicable
+judgeAreaOverlap model area =
+    let
         ( x1, y1 ) = ( toFloat model.hero.x, toFloat model.hero.y )
-        ( x2, y2 ) = ( exit.x, exit.y )
+        ( x2, y2 ) = ( area.x, area.y )
         ( w1, h1 ) = ( model.hero.width, model.hero.height )
-        ( w2, h2 ) = ( exit.wid, exit.hei )
+        ( w2, h2 ) = ( area.wid, area.hei )
     in
     if x2 - w1 <= x1 && x1 <= x2 + w2 && y2 - h1 <= y1 && y1 <= y2 + h2 then True
     else False
 
+type StuckStateMachine
+    = UpSide
+    | DownSide
+    | LeftSide
+    | RightSide
+    | NoStuck
+    | Err
+
+
+isStuck : Model -> Area -> StuckStateMachine
+isStuck model area =
+    let
+        ( x1, y1 ) = ( toFloat model.hero.x, toFloat model.hero.y )
+        ( x2, y2 ) = ( area.x, area.y )
+        ( w1, h1 ) = ( model.hero.width, model.hero.height )
+        ( w2, h2 ) = ( area.wid, area.hei )
+        ( yu, yd ) = ( y2 - h1, y2 + h2 )
+        ( xl, xr ) = ( x2 - w1, x2 + w2 )
+        leftSide = x1 >= xl && x1 <= xl + stride
+        rightSide = x1 >= xr - stride && x1 <= xr
+        upSide = y1 <= yu + stride && y1 >= yu
+        downSide = y1 <= yd && y1 >= yd - stride
+        corner = ( leftSide || rightSide ) && ( upSide || downSide )
+    in
+    if corner || not (judgeAreaOverlap model area) then NoStuck
+    else if leftSide then LeftSide
+    else if rightSide then RightSide
+    else if upSide then UpSide
+    else if downSide then DownSide
+    else Err
 
 
 goToSwitching : Model -> Model -- when at exit, go to switching interface
@@ -317,8 +381,8 @@ itemPickUp model item =
 pickUp : Model -> Model
 pickUp model =
     let
-        isThereAny = length ableToPick
-        ableToPick = filter (canPickUp model) model.items
+        isThereAny = List.length ableToPick
+        ableToPick = List.filter (canPickUp model) model.items
         item = withDefault gunIni (head ableToPick)
         itemsLeft = map (itemPickUp model) model.items
         g1 = model.bag.grid1
