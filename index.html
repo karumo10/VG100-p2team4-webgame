@@ -4870,7 +4870,15 @@ var $author$project$Items$bulletProofIni = {isHeld: false, isPick: false, isWear
 var $author$project$Items$Gun = {$: 'Gun'};
 var $author$project$Items$gunIni = {isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$Gun, number: 1, scene: $author$project$Items$PoliceOffice, x: 400, y: 520};
 var $author$project$Model$heroIni = {height: 60, width: 20, x: 300, y: 520};
+var $author$project$Model$policeOfficeBarrier = _List_fromArray(
+	[
+		{hei: 20, wid: 575, x: 230, y: 500},
+		{hei: 30, wid: 120, x: 370, y: 500},
+		{hei: 180, wid: 20, x: 805, y: 420},
+		{hei: 20, wid: 575, x: 230, y: 600}
+	]);
 var $author$project$Model$policeOfficeAttr = {
+	barrier: $author$project$Model$policeOfficeBarrier,
 	exit: {hei: 120, wid: 70, x: 150, y: 480},
 	heroIni: {height: 60, width: 20, x: 300, y: 520}
 };
@@ -5835,27 +5843,33 @@ var $author$project$Main$subscriptions = function (model) {
 };
 var $author$project$Items$Park = {$: 'Park'};
 var $author$project$Items$Switching = {$: 'Switching'};
+var $author$project$Update$judgeAreaOverlap = F2(
+	function (model, area) {
+		var _v0 = _Utils_Tuple2(area.x, area.y);
+		var x2 = _v0.a;
+		var y2 = _v0.b;
+		var _v1 = _Utils_Tuple2(model.hero.x, model.hero.y);
+		var x1 = _v1.a;
+		var y1 = _v1.b;
+		var _v2 = _Utils_Tuple2(area.wid, area.hei);
+		var w2 = _v2.a;
+		var h2 = _v2.b;
+		var _v3 = _Utils_Tuple2(model.hero.width, model.hero.height);
+		var w1 = _v3.a;
+		var h1 = _v3.b;
+		return ((_Utils_cmp(x2 - w1, x1) < 1) && ((_Utils_cmp(x1, x2 + w2) < 1) && ((_Utils_cmp(y2 - h1, y1) < 1) && (_Utils_cmp(y1, y2 + h2) < 1)))) ? true : false;
+	});
 var $author$project$Update$judgeExit = function (model) {
 	var exit = model.mapAttr.exit;
-	var _v0 = _Utils_Tuple2(exit.x, exit.y);
-	var x2 = _v0.a;
-	var y2 = _v0.b;
-	var _v1 = _Utils_Tuple2(model.hero.x, model.hero.y);
-	var x1 = _v1.a;
-	var y1 = _v1.b;
-	var _v2 = _Utils_Tuple2(exit.wid, exit.hei);
-	var w2 = _v2.a;
-	var h2 = _v2.b;
-	var _v3 = _Utils_Tuple2(model.hero.width, model.hero.height);
-	var w1 = _v3.a;
-	var h1 = _v3.b;
-	return ((_Utils_cmp(x2 - w1, x1) < 1) && ((_Utils_cmp(x1, x2 + w2) < 1) && ((_Utils_cmp(y2 - h1, y1) < 1) && (_Utils_cmp(y1, y2 + h2) < 1)))) ? true : false;
+	return A2($author$project$Update$judgeAreaOverlap, model, exit);
 };
 var $author$project$Model$parkAttr = {
+	barrier: _List_Nil,
 	exit: {hei: 90, wid: 200, x: 620, y: 250},
 	heroIni: {height: 90, width: 30, x: 500, y: 250}
 };
 var $author$project$Model$switchingAttr = {
+	barrier: _List_Nil,
 	exit: {hei: 0, wid: 0, x: 0, y: 0},
 	heroIni: {height: 60, width: 20, x: 6000, y: 6000}
 };
@@ -5913,13 +5927,81 @@ var $author$project$Update$directionLR = function (_v0) {
 	}
 	return 0;
 };
+var $author$project$Update$LeftSide = {$: 'LeftSide'};
+var $author$project$Update$RightSide = {$: 'RightSide'};
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var $author$project$Update$DownSide = {$: 'DownSide'};
+var $author$project$Update$Err = {$: 'Err'};
+var $author$project$Update$NoStuck = {$: 'NoStuck'};
+var $author$project$Update$UpSide = {$: 'UpSide'};
+var $elm$core$Basics$ge = _Utils_ge;
+var $elm$core$Basics$not = _Basics_not;
+var $author$project$Update$stride = 5;
+var $author$project$Update$isStuck = F2(
+	function (model, area) {
+		var _v0 = _Utils_Tuple2(area.x, area.y);
+		var x2 = _v0.a;
+		var y2 = _v0.b;
+		var _v1 = _Utils_Tuple2(model.hero.x, model.hero.y);
+		var x1 = _v1.a;
+		var y1 = _v1.b;
+		var _v2 = _Utils_Tuple2(area.wid, area.hei);
+		var w2 = _v2.a;
+		var h2 = _v2.b;
+		var _v3 = _Utils_Tuple2(model.hero.width, model.hero.height);
+		var w1 = _v3.a;
+		var h1 = _v3.b;
+		var _v4 = _Utils_Tuple2(y2 - h1, y2 + h2);
+		var yu = _v4.a;
+		var yd = _v4.b;
+		var downSide = (_Utils_cmp(y1, yd) < 1) && (_Utils_cmp(y1, yd - $author$project$Update$stride) > -1);
+		var upSide = (_Utils_cmp(y1, yu + $author$project$Update$stride) < 1) && (_Utils_cmp(y1, yu) > -1);
+		var _v5 = _Utils_Tuple2(x2 - w1, x2 + w2);
+		var xl = _v5.a;
+		var xr = _v5.b;
+		var leftSide = (_Utils_cmp(x1, xl) > -1) && (_Utils_cmp(x1, xl + $author$project$Update$stride) < 1);
+		var rightSide = (_Utils_cmp(x1, xr - $author$project$Update$stride) > -1) && (_Utils_cmp(x1, xr) < 1);
+		var corner = (leftSide || rightSide) && (upSide || downSide);
+		return (corner || (!A2($author$project$Update$judgeAreaOverlap, model, area))) ? $author$project$Update$NoStuck : (leftSide ? $author$project$Update$LeftSide : (rightSide ? $author$project$Update$RightSide : (upSide ? $author$project$Update$UpSide : (downSide ? $author$project$Update$DownSide : $author$project$Update$Err))));
+	});
+var $elm$core$Basics$neq = _Utils_notEqual;
 var $author$project$Update$moveHeroLR_ = F2(
 	function (dx, model) {
+		var overlapAreas = A2(
+			$elm$core$List$filter,
+			$author$project$Update$judgeAreaOverlap(model),
+			model.mapAttr.barrier);
 		var hero = model.hero;
 		var _v0 = _Utils_Tuple2(model.hero.x, model.hero.y);
 		var x = _v0.a;
 		var y = _v0.b;
-		var x_ = x + (dx * 5);
+		var x_ = (!$elm$core$List$length(overlapAreas)) ? (x + (dx * $author$project$Update$stride)) : ((!(!$elm$core$List$length(
+			A2(
+				$elm$core$List$filter,
+				function (a) {
+					return _Utils_eq(
+						A2($author$project$Update$isStuck, model, a),
+						$author$project$Update$LeftSide);
+				},
+				overlapAreas)))) ? ((dx > 0) ? x : (x + (dx * $author$project$Update$stride))) : ((!(!$elm$core$List$length(
+			A2(
+				$elm$core$List$filter,
+				function (a) {
+					return _Utils_eq(
+						A2($author$project$Update$isStuck, model, a),
+						$author$project$Update$RightSide);
+				},
+				overlapAreas)))) ? ((dx < 0) ? x : (x + (dx * $author$project$Update$stride))) : (x + (dx * $author$project$Update$stride))));
 		var hero_ = _Utils_update(
 			hero,
 			{x: x_});
@@ -5975,11 +6057,31 @@ var $author$project$Update$directionUD = function (_v0) {
 };
 var $author$project$Update$moveHeroUD_ = F2(
 	function (dy, model) {
+		var overlapAreas = A2(
+			$elm$core$List$filter,
+			$author$project$Update$judgeAreaOverlap(model),
+			model.mapAttr.barrier);
 		var hero = model.hero;
 		var _v0 = _Utils_Tuple2(model.hero.x, model.hero.y);
 		var x = _v0.a;
 		var y = _v0.b;
-		var y_ = y + (dy * 5);
+		var y_ = (!$elm$core$List$length(overlapAreas)) ? (y + (dy * $author$project$Update$stride)) : ((!(!$elm$core$List$length(
+			A2(
+				$elm$core$List$filter,
+				function (a) {
+					return _Utils_eq(
+						A2($author$project$Update$isStuck, model, a),
+						$author$project$Update$UpSide);
+				},
+				overlapAreas)))) ? ((dy > 0) ? y : (y + (dy * $author$project$Update$stride))) : ((!(!$elm$core$List$length(
+			A2(
+				$elm$core$List$filter,
+				function (a) {
+					return _Utils_eq(
+						A2($author$project$Update$isStuck, model, a),
+						$author$project$Update$DownSide);
+				},
+				overlapAreas)))) ? ((dy < 0) ? y : (y + (dy * $author$project$Update$stride))) : (y + (dy * $author$project$Update$stride))));
 		var hero_ = _Utils_update(
 			hero,
 			{y: y_});
@@ -6027,17 +6129,6 @@ var $author$project$Update$canPickUp = F2(
 		var distance = A2($elm$core$Basics$pow, model.hero.x - item.x, 2) + A2($elm$core$Basics$pow, model.hero.y - item.y, 2);
 		return (distance > 50) ? false : true;
 	});
-var $elm$core$List$filter = F2(
-	function (isGood, list) {
-		return A3(
-			$elm$core$List$foldr,
-			F2(
-				function (x, xs) {
-					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
-				}),
-			_List_Nil,
-			list);
-	});
 var $elm$core$List$head = function (list) {
 	if (list.b) {
 		var x = list.a;
@@ -6053,7 +6144,6 @@ var $author$project$Update$itemPickUp = F2(
 			item,
 			{isPick: true}) : item;
 	});
-var $elm$core$Basics$neq = _Utils_notEqual;
 var $elm$core$Maybe$withDefault = F2(
 	function (_default, maybe) {
 		if (maybe.$ === 'Just') {
@@ -6325,27 +6415,24 @@ var $author$project$Update$update = F2(
 		}
 	});
 var $elm$json$Json$Decode$value = _Json_decodeValue;
-var $elm$html$Html$audio = _VirtualDom_node('audio');
-var $elm$json$Json$Encode$bool = _Json_wrap;
-var $elm$html$Html$Attributes$boolProperty = F2(
-	function (key, bool) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			$elm$json$Json$Encode$bool(bool));
-	});
-var $elm$html$Html$Attributes$autoplay = $elm$html$Html$Attributes$boolProperty('autoplay');
+var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$Attributes$stringProperty = F2(
-	function (key, string) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			$elm$json$Json$Encode$string(string));
-	});
-var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
-var $elm$html$Html$iframe = _VirtualDom_node('iframe');
-var $elm$html$Html$Attributes$loop = $elm$html$Html$Attributes$boolProperty('loop');
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$core$Debug$toString = _Debug_toString;
+var $author$project$View$axisHelper = function (model) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text(
+				$elm$core$Debug$toString(model.hero.x)),
+				A2($elm$html$Html$br, _List_Nil, _List_Nil),
+				$elm$html$Html$text(
+				$elm$core$Debug$toString(model.hero.y))
+			]));
+};
 var $author$project$Message$ToPark = {$: 'ToPark'};
 var $author$project$Message$ToPoliceOffice = {$: 'ToPoliceOffice'};
 var $elm$html$Html$button = _VirtualDom_node('button');
@@ -6368,8 +6455,6 @@ var $elm$html$Html$Events$onClick = function (msg) {
 };
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$View$renderMapButton = function (model) {
 	var _v0 = model.map;
 	if (_v0.$ === 'Switching') {
@@ -6441,13 +6526,76 @@ var $author$project$View$renderMapButton = function (model) {
 		return A2($elm$html$Html$div, _List_Nil, _List_Nil);
 	}
 };
+var $elm$html$Html$audio = _VirtualDom_node('audio');
+var $elm$json$Json$Encode$bool = _Json_wrap;
+var $elm$html$Html$Attributes$boolProperty = F2(
+	function (key, bool) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$bool(bool));
+	});
+var $elm$html$Html$Attributes$autoplay = $elm$html$Html$Attributes$boolProperty('autoplay');
+var $elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$string(string));
+	});
+var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
+var $elm$html$Html$iframe = _VirtualDom_node('iframe');
+var $elm$html$Html$Attributes$loop = $elm$html$Html$Attributes$boolProperty('loop');
+var $elm$html$Html$Attributes$src = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'src',
+		_VirtualDom_noJavaScriptOrHtmlUri(url));
+};
+var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $author$project$View$renderMusic = A2(
+	$elm$html$Html$div,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$div,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$iframe,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$src('./trigger.mp3'),
+							$elm$html$Html$Attributes$autoplay(true),
+							A2($elm$html$Html$Attributes$style, 'display', 'none')
+						]),
+					_List_Nil)
+				])),
+			A2(
+			$elm$html$Html$div,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$audio,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$id('player'),
+							$elm$html$Html$Attributes$autoplay(true),
+							$elm$html$Html$Attributes$loop(true),
+							$elm$html$Html$Attributes$src('./bgm.mp3'),
+							$elm$html$Html$Attributes$type_('audio/mp3')
+						]),
+					_List_Nil)
+				]))
+		]));
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
 var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
-var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
 var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
-var $elm$core$Debug$toString = _Debug_toString;
 var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
 var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
@@ -6472,8 +6620,8 @@ var $author$project$Tosvg$heroToSvg = function (hero) {
 					$elm$core$Debug$toString(wid)),
 					$elm$svg$Svg$Attributes$height(
 					$elm$core$Debug$toString(hei)),
-					$elm$svg$Svg$Attributes$strokeWidth('5px'),
-					$elm$svg$Svg$Attributes$stroke('black')
+					$elm$svg$Svg$Attributes$strokeWidth('0px'),
+					$elm$svg$Svg$Attributes$fill('black')
 				]),
 			_List_Nil)
 		]);
@@ -6487,6 +6635,7 @@ var $author$project$Color$rgb = F3(
 		return $author$project$Color$Color(
 			{blue: blue, green: green, red: red});
 	});
+var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
 var $author$project$Color$toString = function (_v0) {
 	var red = _v0.a.red;
 	var green = _v0.a.green;
@@ -6595,13 +6744,6 @@ var $author$project$View$renderPic = function (model) {
 				$author$project$Tosvg$heroToSvg(model.hero),
 				$author$project$Tosvg$itemsToSvg(model))));
 };
-var $elm$html$Html$Attributes$src = function (url) {
-	return A2(
-		$elm$html$Html$Attributes$stringProperty,
-		'src',
-		_VirtualDom_noJavaScriptOrHtmlUri(url));
-};
-var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$View$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -6610,38 +6752,8 @@ var $author$project$View$view = function (model) {
 			[
 				$author$project$View$renderPic(model),
 				$author$project$View$renderMapButton(model),
-				A2(
-				$elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$iframe,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$src('./trigger.mp3'),
-								$elm$html$Html$Attributes$autoplay(true),
-								A2($elm$html$Html$Attributes$style, 'display', 'none')
-							]),
-						_List_Nil)
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$audio,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$id('player'),
-								$elm$html$Html$Attributes$autoplay(true),
-								$elm$html$Html$Attributes$loop(true),
-								$elm$html$Html$Attributes$src('./bgm.mp3'),
-								$elm$html$Html$Attributes$type_('audio/mp3')
-							]),
-						_List_Nil)
-					]))
+				$author$project$View$renderMusic,
+				$author$project$View$axisHelper(model)
 			]));
 };
 var $elm$core$Result$withDefault = F2(

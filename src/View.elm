@@ -1,11 +1,11 @@
 module View exposing (..)
-import Html exposing (Html, button, div, text)
+import Html exposing (Html, button, div, text, br)
 import Html.Attributes exposing (style,src,type_)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (Model)
-import Tosvg exposing (heroToSvg , itemsToSvg )
+import Tosvg exposing (draftSvg, heroToSvg, itemsToSvg)
 import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill)
 import Items exposing ( .. )
@@ -15,16 +15,38 @@ view model =
     div []
             [ renderPic model
             , renderMapButton model
-            , div [][Html.iframe[Html.Attributes.src "./trigger.mp3"
-                                                                ,Html.Attributes.autoplay True
-                                                                ,style "display" "none"][]]
-                                            , div [][Html.audio [Html.Attributes.id "player"
-                                                                ,Html.Attributes.autoplay True
-                                                                ,Html.Attributes.loop True
-                                                                ,src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
-                                                                ,type_ "audio/mp3"
-                                            ][]]
+            , renderMusic
+            , axisHelper model
             ]
+
+
+axisHelper : Model -> Html Msg
+axisHelper model =
+    div []
+        [ text (model.hero.x |> Debug.toString), br [] []
+        , text (model.hero.y |> Debug.toString)
+        ]
+
+renderMusic : Html Msg
+renderMusic =
+    div []
+    [ div []
+        [ Html.iframe
+            [ Html.Attributes.src "./trigger.mp3"
+            , Html.Attributes.autoplay True
+            , style "display" "none"
+            ] []
+        ]
+    , div []
+        [ Html.audio
+            [ Html.Attributes.id "player"
+            , Html.Attributes.autoplay True
+            , Html.Attributes.loop True
+            , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+            , type_ "audio/mp3"
+            ] []
+        ]
+    ]
 
 
 renderMapButton : Model -> Html Msg

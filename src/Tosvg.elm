@@ -19,8 +19,8 @@ heroToSvg hero =
         , y (y_ |> Debug.toString)
         , width (wid |> Debug.toString)
         , height (hei |> Debug.toString)
-        , strokeWidth "5px"
-        , stroke "black"
+        , strokeWidth "0px"
+        , fill "black"
         ]
         []
 
@@ -44,3 +44,77 @@ itemsToSvg model =
         itemsLeft = List.filter isNotPick model.items
     in
     List.map ( \a -> formSvg a) itemsLeft
+
+
+
+draftSvg : List (Svg msg)
+draftSvg =
+    [
+        line
+        [ x1 "200"
+        , y1 "0"
+        , x2 "200"
+        , y2 "600"
+        , strokeWidth "5px"
+        , stroke "black"
+        ] []
+        ,
+        line
+        [ x1 "400"
+        , y1 "0"
+        , x2 "400"
+        , y2 "600"
+        , strokeWidth "5px"
+        , stroke "black"
+        ] []
+        ,
+        line
+        [ x1 "600"
+        , y1 "0"
+        , x2 "600"
+        , y2 "600"
+        , strokeWidth "5px"
+        , stroke "black"
+        ] []
+        ,
+        line
+        [ x1 "800"
+        , y1 "0"
+        , x2 "800"
+        , y2 "600"
+        , strokeWidth "5px"
+        , stroke "black"
+        ] []
+
+        ,
+
+        line
+        [ x1 "0"
+        , y1 "200"
+        , x2 "900"
+        , y2 "200"
+        , strokeWidth "5px"
+        , stroke "black"
+        ] []
+        ,
+        line
+        [ x1 "0"
+        , y1 "400"
+        , x2 "900"
+        , y2 "400"
+        , strokeWidth "5px"
+        , stroke "black"
+        ] []
+
+
+    ]
+
+
+
+
+
+
+
+
+
+

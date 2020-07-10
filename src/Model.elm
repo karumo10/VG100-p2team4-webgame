@@ -13,24 +13,36 @@ type State
 type alias MapAttr = -- things determined by map.
     { exit : Area
     , heroIni : Hero
+    , barrier : List Area
     }
 
 policeOfficeAttr : MapAttr
 policeOfficeAttr =
     { exit = { x = 150, y = 480 , wid = 70, hei = 120 }
     , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
     }
 
 parkAttr : MapAttr
 parkAttr =
     { exit = { x = 620, y = 250 , wid = 200, hei = 90 }
     , heroIni = { x = 500, y = 250, width = 30, height = 90 }
+    , barrier = []
     }
+
+policeOfficeBarrier : List Area
+policeOfficeBarrier =
+    [ { x = 230, y = 500 , wid = 575, hei = 20 } -- f1.ceiling
+    , { x = 370, y = 500 , wid = 120, hei = 30 } -- f1.reception desk
+    , { x = 805, y = 420 , wid = 20, hei = 180 } -- f1.rightwall
+    , { x = 230, y = 600 , wid = 575, hei = 20 } -- f1.floor
+    ]
 
 switchingAttr : MapAttr
 switchingAttr =
     { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
     , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
+    , barrier = []
     }
 
 
@@ -86,6 +98,7 @@ type alias Model =
     , mapAttr : MapAttr
     , bag : Bag
     , items : List Item
+
     }
 
 initial : Model
@@ -109,7 +122,7 @@ type alias Hero =
     { x : Int
     , y : Int
     , width : Float
-    , height: Float
+    , height : Float
     }
 
 heroIni : Hero
