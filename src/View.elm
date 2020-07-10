@@ -1,6 +1,6 @@
 module View exposing (..)
 import Html exposing (Html, button, div, text)
-import Html.Attributes exposing (style)
+import Html.Attributes exposing (style,src,type_)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
@@ -14,6 +14,15 @@ view model =
     div []
             [ renderPic model
             , renderMapButton model
+            , div [][Html.iframe[Html.Attributes.src "./trigger.mp3"
+                                                    ,Html.Attributes.autoplay True
+                                                    ,style "display" "none"][]]
+                                , div [][Html.audio [Html.Attributes.id "player"
+                                                    ,Html.Attributes.autoplay True
+                                                    ,Html.Attributes.loop True
+                                                    ,src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                                                    ,type_ "audio/mp3"
+                                ][]]
             ]
 
 
