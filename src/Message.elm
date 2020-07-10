@@ -16,4 +16,5 @@ type Msg
     | GetViewport Viewport
     | ToPoliceOffice
     | ToPark
+    | PickUp
     | Noop

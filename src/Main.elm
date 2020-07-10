@@ -56,5 +56,8 @@ key on keycode =
         40 ->
             MoveDown on
 
+        81 ->
+            PickUp
+
         _ ->
             Noop
