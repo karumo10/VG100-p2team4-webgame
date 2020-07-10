@@ -1,6 +1,7 @@
 module Model exposing (..)
 import Json.Decode as Decode
 import Json.Encode as Encode
+import Items exposing (..)
 
 
 type State
@@ -8,10 +9,6 @@ type State
     | Playing
     | Stopped
 
-type Map
-    = PoliceOffice
-    | Park
-    | Switching -- an interface allowing player to choose where to go, also can be design as dialog box
 
 type alias MapAttr = -- things determined by map.
     { exit : Area
@@ -43,7 +40,6 @@ type alias Area =
     , wid : Float
     , hei : Float
     } -- a general type for object interaction (like, with door, so you can exit the police office)
-
 
 decodeState : String -> State
 decodeState string =
@@ -88,6 +84,8 @@ type alias Model =
     , size : ( Float, Float )
     , map : Map
     , mapAttr : MapAttr
+    , bag : Bag
+    , items : List Item
     }
 
 initial : Model
@@ -102,6 +100,8 @@ initial =
     , size = ( 1500, 800 )
     , map = PoliceOffice -- door at police office
     , mapAttr = policeOfficeAttr
+    , bag = bagIni
+    , items = [ gunIni , bulletProofIni ]
     }
 
 

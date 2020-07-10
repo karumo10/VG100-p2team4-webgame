@@ -4861,20 +4861,30 @@ var $elm$core$Result$isOk = function (result) {
 	}
 };
 var $elm$json$Json$Decode$field = _Json_decodeField;
-var $author$project$Model$PoliceOffice = {$: 'PoliceOffice'};
+var $author$project$Items$PoliceOffice = {$: 'PoliceOffice'};
+var $author$project$Items$Empty = {$: 'Empty'};
+var $author$project$Items$emptyIni = {isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$Empty, number: 1, scene: $author$project$Items$PoliceOffice, x: 0, y: 0};
+var $author$project$Items$bagIni = {grid1: $author$project$Items$emptyIni, grid10: $author$project$Items$emptyIni, grid2: $author$project$Items$emptyIni, grid3: $author$project$Items$emptyIni, grid4: $author$project$Items$emptyIni, grid5: $author$project$Items$emptyIni, grid6: $author$project$Items$emptyIni, grid7: $author$project$Items$emptyIni, grid8: $author$project$Items$emptyIni, grid9: $author$project$Items$emptyIni};
+var $author$project$Items$BulletProof = {$: 'BulletProof'};
+var $author$project$Items$bulletProofIni = {isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$BulletProof, number: 1, scene: $author$project$Items$PoliceOffice, x: 700, y: 500};
+var $author$project$Items$Gun = {$: 'Gun'};
+var $author$project$Items$gunIni = {isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$Gun, number: 1, scene: $author$project$Items$PoliceOffice, x: 400, y: 520};
 var $author$project$Model$heroIni = {height: 60, width: 20, x: 300, y: 520};
 var $author$project$Model$policeOfficeAttr = {
 	exit: {hei: 120, wid: 70, x: 150, y: 480},
 	heroIni: {height: 60, width: 20, x: 300, y: 520}
 };
 var $author$project$Model$initial = {
+	bag: $author$project$Items$bagIni,
 	hero: $author$project$Model$heroIni,
 	heroDir: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
 	heroMoveDown: false,
 	heroMoveLeft: false,
 	heroMoveRight: false,
 	heroMoveUp: false,
-	map: $author$project$Model$PoliceOffice,
+	items: _List_fromArray(
+		[$author$project$Items$gunIni, $author$project$Items$bulletProofIni]),
+	map: $author$project$Items$PoliceOffice,
 	mapAttr: $author$project$Model$policeOfficeAttr,
 	size: _Utils_Tuple2(1500, 800),
 	state: $author$project$Model$Playing
@@ -5236,6 +5246,7 @@ var $author$project$Message$MoveUp = function (a) {
 	return {$: 'MoveUp', a: a};
 };
 var $author$project$Message$Noop = {$: 'Noop'};
+var $author$project$Message$PickUp = {$: 'PickUp'};
 var $author$project$Main$key = F2(
 	function (on, keycode) {
 		switch (keycode) {
@@ -5247,6 +5258,8 @@ var $author$project$Main$key = F2(
 				return $author$project$Message$MoveUp(on);
 			case 40:
 				return $author$project$Message$MoveDown(on);
+			case 81:
+				return $author$project$Message$PickUp;
 			default:
 				return $author$project$Message$Noop;
 		}
@@ -5820,8 +5833,8 @@ var $author$project$Main$subscriptions = function (model) {
 				$elm$browser$Browser$Events$onResize($author$project$Message$Resize)
 			]));
 };
-var $author$project$Model$Park = {$: 'Park'};
-var $author$project$Model$Switching = {$: 'Switching'};
+var $author$project$Items$Park = {$: 'Park'};
+var $author$project$Items$Switching = {$: 'Switching'};
 var $author$project$Update$judgeExit = function (model) {
 	var exit = model.mapAttr.exit;
 	var _v0 = _Utils_Tuple2(exit.x, exit.y);
@@ -5864,7 +5877,7 @@ var $author$project$Update$mapSwitch = F2(
 			{hero: hero, map: newMap, mapAttr: mapAttr});
 	});
 var $author$project$Update$goToSwitching = function (model) {
-	return $author$project$Update$judgeExit(model) ? A2($author$project$Update$mapSwitch, $author$project$Model$Switching, model) : model;
+	return $author$project$Update$judgeExit(model) ? A2($author$project$Update$mapSwitch, $author$project$Items$Switching, model) : model;
 };
 var $author$project$Update$activateButton = F3(
 	function (interval, elapsed, state) {
@@ -6008,6 +6021,134 @@ var $elm$core$Basics$min = F2(
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $elm$core$Basics$pow = _Basics_pow;
+var $author$project$Update$canPickUp = F2(
+	function (model, item) {
+		var distance = A2($elm$core$Basics$pow, model.hero.x - item.x, 2) + A2($elm$core$Basics$pow, model.hero.y - item.y, 2);
+		return (distance > 50) ? false : true;
+	});
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $author$project$Update$itemPickUp = F2(
+	function (model, item) {
+		return A2($author$project$Update$canPickUp, model, item) ? _Utils_update(
+			item,
+			{isPick: true}) : item;
+	});
+var $elm$core$Basics$neq = _Utils_notEqual;
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $author$project$Update$pickUp = function (model) {
+	var t9 = model.bag.grid9.itemType;
+	var t8 = model.bag.grid8.itemType;
+	var t7 = model.bag.grid7.itemType;
+	var t6 = model.bag.grid6.itemType;
+	var t5 = model.bag.grid5.itemType;
+	var t4 = model.bag.grid4.itemType;
+	var t3 = model.bag.grid3.itemType;
+	var t2 = model.bag.grid2.itemType;
+	var t10 = model.bag.grid10.itemType;
+	var t1 = model.bag.grid1.itemType;
+	var itemsLeft = A2(
+		$elm$core$List$map,
+		$author$project$Update$itemPickUp(model),
+		model.items);
+	var g9 = model.bag.grid9;
+	var g8 = model.bag.grid8;
+	var g7 = model.bag.grid7;
+	var g6 = model.bag.grid6;
+	var g5 = model.bag.grid5;
+	var g4 = model.bag.grid4;
+	var g3 = model.bag.grid3;
+	var g2 = model.bag.grid2;
+	var g10 = model.bag.grid10;
+	var g1 = model.bag.grid1;
+	var ableToPick = A2(
+		$elm$core$List$filter,
+		$author$project$Update$canPickUp(model),
+		model.items);
+	var isThereAny = $elm$core$List$length(ableToPick);
+	var item = A2(
+		$elm$core$Maybe$withDefault,
+		$author$project$Items$gunIni,
+		$elm$core$List$head(ableToPick));
+	return (!isThereAny) ? model : (((isThereAny === 1) && _Utils_eq(t1, $author$project$Items$Empty)) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: item, grid10: g10, grid2: g2, grid3: g3, grid4: g4, grid5: g5, grid6: g6, grid7: g7, grid8: g8, grid9: g9},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && _Utils_eq(t2, $author$project$Items$Empty))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: g10, grid2: item, grid3: g3, grid4: g4, grid5: g5, grid6: g6, grid7: g7, grid8: g8, grid9: g9},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && ((!_Utils_eq(t2, $author$project$Items$Empty)) && _Utils_eq(t3, $author$project$Items$Empty)))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: g10, grid2: g2, grid3: item, grid4: g4, grid5: g5, grid6: g6, grid7: g7, grid8: g8, grid9: g9},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && ((!_Utils_eq(t2, $author$project$Items$Empty)) && ((!_Utils_eq(t3, $author$project$Items$Empty)) && _Utils_eq(t4, $author$project$Items$Empty))))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: g10, grid2: g2, grid3: g3, grid4: item, grid5: g5, grid6: g6, grid7: g7, grid8: g8, grid9: g9},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && ((!_Utils_eq(t2, $author$project$Items$Empty)) && ((!_Utils_eq(t3, $author$project$Items$Empty)) && ((!_Utils_eq(t4, $author$project$Items$Empty)) && _Utils_eq(t5, $author$project$Items$Empty)))))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: g10, grid2: g2, grid3: g3, grid4: g4, grid5: item, grid6: g6, grid7: g7, grid8: g8, grid9: g9},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && ((!_Utils_eq(t2, $author$project$Items$Empty)) && ((!_Utils_eq(t3, $author$project$Items$Empty)) && ((!_Utils_eq(t4, $author$project$Items$Empty)) && ((!_Utils_eq(t5, $author$project$Items$Empty)) && _Utils_eq(t6, $author$project$Items$Empty))))))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: g10, grid2: g2, grid3: g3, grid4: g4, grid5: g5, grid6: item, grid7: g7, grid8: g8, grid9: g9},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && ((!_Utils_eq(t2, $author$project$Items$Empty)) && ((!_Utils_eq(t3, $author$project$Items$Empty)) && ((!_Utils_eq(t4, $author$project$Items$Empty)) && ((!_Utils_eq(t5, $author$project$Items$Empty)) && ((!_Utils_eq(t6, $author$project$Items$Empty)) && _Utils_eq(t7, $author$project$Items$Empty)))))))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: g10, grid2: g2, grid3: g3, grid4: g4, grid5: g5, grid6: g6, grid7: item, grid8: g8, grid9: g9},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && ((!_Utils_eq(t2, $author$project$Items$Empty)) && ((!_Utils_eq(t3, $author$project$Items$Empty)) && ((!_Utils_eq(t4, $author$project$Items$Empty)) && ((!_Utils_eq(t5, $author$project$Items$Empty)) && ((!_Utils_eq(t6, $author$project$Items$Empty)) && ((!_Utils_eq(t7, $author$project$Items$Empty)) && _Utils_eq(t8, $author$project$Items$Empty))))))))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: g10, grid2: g2, grid3: g3, grid4: g4, grid5: g5, grid6: g6, grid7: g7, grid8: item, grid9: g9},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && ((!_Utils_eq(t2, $author$project$Items$Empty)) && ((!_Utils_eq(t3, $author$project$Items$Empty)) && ((!_Utils_eq(t4, $author$project$Items$Empty)) && ((!_Utils_eq(t5, $author$project$Items$Empty)) && ((!_Utils_eq(t6, $author$project$Items$Empty)) && ((!_Utils_eq(t7, $author$project$Items$Empty)) && ((!_Utils_eq(t8, $author$project$Items$Empty)) && _Utils_eq(t9, $author$project$Items$Empty)))))))))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: g10, grid2: g2, grid3: g3, grid4: g4, grid5: g5, grid6: g6, grid7: g7, grid8: g8, grid9: item},
+			items: itemsLeft
+		}) : (((isThereAny === 1) && ((!_Utils_eq(t1, $author$project$Items$Empty)) && ((!_Utils_eq(t2, $author$project$Items$Empty)) && ((!_Utils_eq(t3, $author$project$Items$Empty)) && ((!_Utils_eq(t4, $author$project$Items$Empty)) && ((!_Utils_eq(t5, $author$project$Items$Empty)) && ((!_Utils_eq(t6, $author$project$Items$Empty)) && ((!_Utils_eq(t7, $author$project$Items$Empty)) && ((!_Utils_eq(t8, $author$project$Items$Empty)) && ((!_Utils_eq(t9, $author$project$Items$Empty)) && _Utils_eq(t10, $author$project$Items$Empty))))))))))) ? _Utils_update(
+		model,
+		{
+			bag: {grid1: g1, grid10: item, grid2: g2, grid3: g3, grid4: g4, grid5: g5, grid6: g6, grid7: g7, grid8: g8, grid9: g9},
+			items: itemsLeft
+		}) : model))))))))));
+};
 var $author$project$Model$encodeState = function (state) {
 	switch (state.$) {
 		case 'Paused':
@@ -6060,7 +6201,6 @@ var $author$project$Update$saveToStorage = function (model) {
 		$author$project$Update$save(
 			A2($author$project$Model$encode, 2, model)));
 };
-var $elm$core$Basics$neq = _Utils_notEqual;
 var $author$project$Update$startMove = function (model) {
 	return ((!(!$author$project$Update$directionLR(model))) && (!(!$author$project$Update$directionUD(model)))) ? _Utils_update(
 		model,
@@ -6170,11 +6310,15 @@ var $author$project$Update$update = F2(
 						model));
 			case 'ToPoliceOffice':
 				return _Utils_Tuple2(
-					A2($author$project$Update$mapSwitch, $author$project$Model$PoliceOffice, model),
+					A2($author$project$Update$mapSwitch, $author$project$Items$PoliceOffice, model),
 					$elm$core$Platform$Cmd$none);
 			case 'ToPark':
 				return _Utils_Tuple2(
-					A2($author$project$Update$mapSwitch, $author$project$Model$Park, model),
+					A2($author$project$Update$mapSwitch, $author$project$Items$Park, model),
+					$elm$core$Platform$Cmd$none);
+			case 'PickUp':
+				return _Utils_Tuple2(
+					$author$project$Update$pickUp(model),
 					$elm$core$Platform$Cmd$none);
 			default:
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -6315,6 +6459,52 @@ var $author$project$Tosvg$heroToSvg = function (hero) {
 		]);
 };
 var $elm$svg$Svg$image = $elm$svg$Svg$trustedNode('image');
+var $author$project$Color$Color = function (a) {
+	return {$: 'Color', a: a};
+};
+var $author$project$Color$rgb = F3(
+	function (red, green, blue) {
+		return $author$project$Color$Color(
+			{blue: blue, green: green, red: red});
+	});
+var $author$project$Color$toString = function (_v0) {
+	var red = _v0.a.red;
+	var green = _v0.a.green;
+	var blue = _v0.a.blue;
+	return 'rgb(' + ($elm$core$String$fromInt(red) + (',' + ($elm$core$String$fromInt(green) + (',' + ($elm$core$String$fromInt(blue) + ')')))));
+};
+var $author$project$Tosvg$formSvg = function (item) {
+	return A2(
+		$elm$svg$Svg$rect,
+		_List_fromArray(
+			[
+				$elm$svg$Svg$Attributes$x(
+				$elm$core$Debug$toString(item.x)),
+				$elm$svg$Svg$Attributes$y(
+				$elm$core$Debug$toString(item.y)),
+				$elm$svg$Svg$Attributes$width('100'),
+				$elm$svg$Svg$Attributes$height('20'),
+				$elm$svg$Svg$Attributes$stroke(
+				$author$project$Color$toString(
+					A3($author$project$Color$rgb, 226, 0, 0))),
+				$elm$svg$Svg$Attributes$fill(
+				$author$project$Color$toString(
+					A3($author$project$Color$rgb, 248, 0, 0)))
+			]),
+		_List_Nil);
+};
+var $author$project$Items$isNotPick = function (item) {
+	return item.isPick ? false : true;
+};
+var $author$project$Tosvg$itemsToSvg = function (model) {
+	var itemsLeft = A2($elm$core$List$filter, $author$project$Items$isNotPick, model.items);
+	return A2(
+		$elm$core$List$map,
+		function (a) {
+			return $author$project$Tosvg$formSvg(a);
+		},
+		itemsLeft);
+};
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$transform = _VirtualDom_attribute('transform');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
@@ -6381,7 +6571,9 @@ var $author$project$View$renderPic = function (model) {
 					}
 				}()
 				]),
-			$author$project$Tosvg$heroToSvg(model.hero)));
+			_Utils_ap(
+				$author$project$Tosvg$heroToSvg(model.hero),
+				$author$project$Tosvg$itemsToSvg(model))));
 };
 var $author$project$View$view = function (model) {
 	return A2(

@@ -4,10 +4,11 @@ import Html.Attributes exposing (style)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
-import Model exposing (Model, Map(..))
-import Tosvg exposing (heroToSvg)
+import Model exposing (Model)
+import Tosvg exposing (heroToSvg , itemsToSvg )
 import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill)
+import Items exposing ( .. )
 
 view : Model -> Html Msg
 view model =
@@ -121,7 +122,5 @@ renderPic model =
                     , fill "black"][] --useless now
 
         ]
-
-
-        ++ ( heroToSvg model.hero )
+        ++ ( heroToSvg model.hero ) ++ ( itemsToSvg model )
         )
