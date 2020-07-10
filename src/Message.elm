@@ -1,7 +1,7 @@
 module Message exposing (Msg(..))
 
 import Browser.Dom exposing (Viewport)
-
+import NarrativeEngine.Core.WorldModel as WorldModel
 
 type Msg
     = Start
@@ -16,4 +16,7 @@ type Msg
     | GetViewport Viewport
     | ToPoliceOffice
     | ToPark
+    | PickUp
     | Noop
+    | InteractWith WorldModel.ID
+    | UpdateDebugSearchText String

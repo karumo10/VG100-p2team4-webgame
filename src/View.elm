@@ -1,19 +1,33 @@
 module View exposing (..)
-import Html exposing (Html, button, div, text)
-import Html.Attributes exposing (style)
+import Html exposing (Html, button, div, text, ul, em)
+import Html.Attributes exposing (style,src,type_)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
-import Model exposing (Model, Map(..))
-import Tosvg exposing (heroToSvg)
+import Model exposing (..)
+import Tosvg exposing (heroToSvg , itemsToSvg)
 import Svg exposing (image, rect, svg)
-import Svg.Attributes exposing (x,y,width,height,viewBox,fill)
+import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
+import Items exposing ( .. )
+import Rules exposing (..)
+import NarrativeEngine.Core.WorldModel as WorldModel
+import NarrativeEngine.Syntax.RuleParser as RuleParser
 
 view : Model -> Html Msg
 view model =
     div []
             [ renderPic model
             , renderMapButton model
+            , renderdialog model
+            , div [][Html.iframe[Html.Attributes.src "./trigger.mp3"
+                    ,Html.Attributes.autoplay True
+                    ,style "display" "none"][]]
+                    , div [][Html.audio [Html.Attributes.id "player"
+                    ,Html.Attributes.autoplay True
+                    ,Html.Attributes.loop True
+                    ,src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    ,type_ "audio/mp3"
+                    ][]]
             ]
 
 
@@ -85,43 +99,67 @@ renderPic model =
         , height "600"
         , viewBox "0 0 900 600"
         ]
-        (
-        [
+        ((
+
         case model.map of
             PoliceOffice ->
 
-                Svg.image
+                [Svg.image
                     [Svg.Attributes.xlinkHref "./police_office.png"
                     , x "0"
                     , y "0"
                     , width "900"
                     , height "630"
                     , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
-                    ] []
+                    ] []]
+                ++ ( heroToSvg model.hero )
+                ++ ( bob model)
+                ++ ( lee model)
+                ++ ( allen model)
 
             Park ->
 
-                Svg.image
+                [Svg.image
                     [Svg.Attributes.xlinkHref "./park.png"
                     , x "0"
                     , y "0"
                     , width "900"
                     , height "630"
                     , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
-                    ] []
-
+                    ] []]
+                ++ ( heroToSvg model.hero )
+                ++ ( leepark model)
+                ++ ( allenpark model)
 
             Switching ->
 
-                Svg.rect
+                [Svg.rect
                     [ x "0"
                     , y "0"
                     , width "900"
                     , height "600"
-                    , fill "black"][] --useless now
-
-        ]
+                    , fill "black"][]] --useless now
 
 
-        ++ ( heroToSvg model.hero )
+
+
+        )++ ( itemsToSvg model )
         )
+
+renderdialog : Model -> Html Msg
+renderdialog model =
+    let
+        content =
+            case  model.interacttrue of
+                True ->
+                    [em [] [ text model.story ]
+                    ,ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)
+                    ,div [][text (cbob.interacttrue|>Debug.toString)]]
+                _ ->
+                    []
+    in
+        div [ style "width" "70%", style "margin" "auto" ]
+        [ div [ style "flex" "1 1 auto", style "font-size" "2em", style "padding" "0 2em" ]
+              [em [] [ text model.story ]
+                     ,ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
+        ]
