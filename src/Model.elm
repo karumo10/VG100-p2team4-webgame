@@ -69,13 +69,25 @@ policeOfficeBarrier =
             [ ]
 
         _ ->
-            [ { x = 230, y = 500 , wid = 575, hei = 20 } -- f1.ceiling
+            [ { x = 230, y = 500 , wid = 575, hei = 20 } -- f1.ceiling (every floor 230)
+            , { x = 205, y = 260 , wid = 610, hei = 20 } -- f2.ceiling
+            , { x = 205, y = 40 , wid = 610, hei = 20 } -- f3.ceiling
             , { x = 370, y = 500 , wid = 120, hei = 30 } -- f1.reception desk
-            , { x = 805, y = 420 , wid = 20, hei = 180 } -- f1.rightwall
-            , { x = 230, y = 600 , wid = 575, hei = 20 } -- f1.floor
+            , { x = 290, y = 280 , wid = 110, hei = 20 } -- f2.left desk
+            , { x = 465, y = 280 , wid = 135, hei = 20 } -- f1.right desk
+            , { x = 645, y = 280 , wid = 30, hei = 20 } -- f1.elevator wall
+            , { x = 205, y = 280, wid = 55, hei = 20 } -- f2.bookshelf.up
+            , { x = 205, y = 300, wid = 30, hei = 20} -- f2.bookshelf.left
+            , { x = 805, y = 420 , wid = 20, hei = 180 } -- f1.right wall
+            , { x = 805, y = 190 , wid = 20, hei = 180 } -- f2.right wall
+            , { x = 805, y = -40 , wid = 20, hei = 180 } -- f3.right wall
+            , { x = 185, y = 420 , wid = 20, hei = 180 } -- f1.left wall
+            , { x = 185, y = 190 , wid = 20, hei = 180 } -- f2.left wall
+            , { x = 185, y = -40 , wid = 20, hei = 180 } -- f3.left wall
+            , { x = 205, y = 600 , wid = 600, hei = 20 } -- f1.floor
+            , { x = 205, y = 370 , wid = 600, hei = 20 } -- f2.floor
+            , { x = 205, y = 140 , wid = 600, hei = 20 } -- f3.floor
             ]
-
-
 
 policeOfficeElevator : List Vehicle
 policeOfficeElevator =
