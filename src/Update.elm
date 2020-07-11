@@ -96,6 +96,9 @@ update msg model =
 
         PickUp on->
             ( pickUp { model | heroPickUp= on }
+            , Cmd.none
+            )
+
         ElevateTo1 ->
             ( teleportHero ( 695, 520 ) model
             , Cmd.none
@@ -112,10 +115,6 @@ update msg model =
             )
 
 
-        PickUp ->
-            ( pickUp model
-            , Cmd.none
-            )
 
         EnterVehicle on ->
             case on of

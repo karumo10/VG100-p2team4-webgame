@@ -51,7 +51,7 @@ gunIni =
     , number = 1
     , scene = PoliceOffice
     , x = 400
-    , y = 520
+    , y = 530
     }
 
 bulletProofIni : Item
@@ -63,7 +63,7 @@ bulletProofIni =
     , number = 1
     , scene = PoliceOffice
     , x = 700
-    , y = 500
+    , y = 530
     }
 
 evidence1Ini : Item

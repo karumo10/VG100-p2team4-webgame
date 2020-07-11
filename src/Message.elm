@@ -20,7 +20,6 @@ type Msg
     | ElevateTo1
     | ElevateTo2
     | ElevateTo3
-    | PickUp
     | EnterVehicle Bool-- including elevator and cars
     | Noop
     | InteractWith WorldModel.ID

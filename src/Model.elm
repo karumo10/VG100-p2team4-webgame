@@ -23,7 +23,7 @@ type Mode
     | GettingCoordinates
     | Game
 gameMode______ : Mode
-gameMode______ = GettingCoordinates
+gameMode______ = Game
 
 type State
     = Paused
