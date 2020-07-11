@@ -446,7 +446,7 @@ interact model npc =
     if canInteract model npc == True then
     { npc | interacttrue = True }
     else
-    npc
+    { npc | interacttrue = False }
 
 interactable model = {model|npcs=List.map (interact model) model.npcs}
 
