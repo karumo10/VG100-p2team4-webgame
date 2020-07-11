@@ -179,7 +179,7 @@ renderPic model =
 renderdialog : Model -> Html Msg
 renderdialog model =
         div [ style "width" "70%", style "margin" "auto" ]
-        [ div [ style "flex" "1 1 auto", style "font-size" "2em", style "padding" "0 2em" ]
-              [em [] [ text model.story ]
-                     ,ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
+        [ div [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em" ]
+              [div [] [ text model.story ]
+              ,ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
         ]
