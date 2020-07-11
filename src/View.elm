@@ -5,7 +5,7 @@ import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
-import Tosvg exposing (heroToSvg , itemsToSvg)
+import Tosvg exposing (heroToSvg , itemsToSvg,energytosvg)
 import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
 import Items exposing ( .. )
@@ -165,7 +165,8 @@ renderPic model =
 
 
 
-        )++ ( itemsToSvg model )
+        )++ ( itemsToSvg model
+         ++ energytosvg model.energy model.energy_Full)
         )
 
 renderdialog : Model -> Html Msg

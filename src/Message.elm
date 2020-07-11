@@ -16,7 +16,7 @@ type Msg
     | GetViewport Viewport
     | ToPoliceOffice
     | ToPark
-    | PickUp
+    | PickUp Bool
     | Noop
     | InteractWith WorldModel.ID
     | UpdateDebugSearchText String

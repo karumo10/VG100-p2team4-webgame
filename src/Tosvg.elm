@@ -110,6 +110,50 @@ draftSvg =
     ]
 
 
+intToFloat : Int -> Float
+intToFloat a =
+    let
+        c = Debug.toString a
+        o = String.toFloat c
+    in
+    Maybe.withDefault 0 o
+
+energytosvg : Int -> Int -> List (Svg msg)
+energytosvg energy energyFull =
+    let
+        ( x_, y_ ) = ( 70, 585 )
+        wid = 10
+        lenTotal = 100
+        len = lenTotal * ( intToFloat energy / intToFloat energyFull )
+    in
+        [
+            Svg.rect
+            [ x (x_|>Debug.toString)
+            , y (y_|>Debug.toString)
+            , height (wid|>Debug.toString)
+            , width (lenTotal|>Debug.toString)
+            , fill (toString (rgb 10 10 10))
+            , stroke (toString (rgb 14 13 13))
+            , strokeWidth "5px"
+            ] []
+            ,
+            Svg.rect
+            [ x (x_|>Debug.toString)
+            , y (y_|>Debug.toString)
+            , height (wid|>Debug.toString)
+            , width (len|>Debug.toString)
+            , fill (toString (rgb 255 255 187))
+            ] []
+            ,
+            Svg.text_
+            [ x ((x_ - 70)|>Debug.toString)
+            , y ((y_ + 10)|>Debug.toString)
+            , fill "#999C86"
+            , fontSize "15"
+            , fontFamily "Segoe UI Black"
+            , textDecoration "underline"
+            ] [text "Energy"]
+        ]
 
 
 

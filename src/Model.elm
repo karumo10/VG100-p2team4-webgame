@@ -114,6 +114,7 @@ type alias Model =
     , heroMoveRight : Bool
     , heroMoveUp : Bool
     , heroMoveDown : Bool
+    , heroPickUp : Bool
     , state : State
     , size : ( Float, Float )
     , map : Map
@@ -126,6 +127,9 @@ type alias Model =
     , debug : NarrativeEngine.Debug.State
     , npcs : List NPC
     , interacttrue : Bool
+    , energy : Int
+    , energy_Full : Int
+    , energy_Cost : Int
     }
 
 initial : Model
@@ -136,6 +140,7 @@ initial =
     , heroMoveRight = False
     , heroMoveUp = False
     , heroMoveDown = False
+    , heroPickUp = False
     , state = Playing
     , size = ( 1500, 800 )
     , map = PoliceOffice -- door at police office
@@ -148,6 +153,9 @@ initial =
     , debug = NarrativeEngine.Debug.init
     , npcs = [callen, cbob, clee]
     , interacttrue = False
+    , energy = 100
+    , energy_Full = 100
+    , energy_Cost = 25
     }
 
 
@@ -164,7 +172,6 @@ heroIni =
     , y = 520
     , width = 20
     , height = 60
-
     }
 
 getDescription : NarrativeParser.Config MyEntity -> WorldModel.ID -> MyWorldModel -> String
