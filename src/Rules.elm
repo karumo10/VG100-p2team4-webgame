@@ -36,7 +36,7 @@ initialWorldModelSpec =
         ""
     , entity "LEEPOLICEOFFICE.npc.day=1.trigger=0"
         "Lee"
-        "A man who loves coffee"
+        "Well, Allen seems to have something assigned to you. Let's go and solve the case."
     , entity "BOBPOLICEOFFICE.npc.day=1.trigger=0"
         "Bob"
         "Don't disturb me. I'm reading something critical."
@@ -63,6 +63,12 @@ initialWorldModelSpec =
         ""
     , entity "NO.bobtalk.choices=0"
         "No"
+        ""
+    , entity "DOESNTMATTER.leetalk.choices=0"
+        "It doesn't matter. 'Almost' late is not late."
+        ""
+    , entity "PAYATTENTION.leetalk.choices=0"
+        "Oh, I'll pay attention to that next time."
         ""
     ]
 
@@ -103,13 +109,37 @@ rulesSpec =
                 YES.bobtalk.choices=0
                 NO.bobtalk.choices=0
             """
+        |> rule_______________________ "talk with lee"
+            """
+            ON: LEEPOLICEOFFICE.npc.day=1
+            IF: LEEPOLICEOFFICE.npc.day=1.trigger=0
+            DO: DOESNTMATTER.leetalk.choices=1
+                PAYATTENTION.leetalk.choices=1
+            """
+        |> rule_______________________ "that doesn't matter"
+            """
+            ON: DOESNTMATTER.leetalk
+            DO: LEEPOLICEOFFICE.trigger=1
+                DOESNTMATTER.leetalk.choices=0
+                PAYATTENTION.leetalk.choices=0
+            """
+        |> rule_______________________ "pay attention next time"
+            """
+            ON: PAYATTENTION.leetalk
+            DO: LEEPOLICEOFFICE.trigger=1
+                DOESNTMATTER.leetalk.choices=0
+                PAYATTENTION.leetalk.choices=0
+            """
         |> rule_______________________ "talk with allen 1"
             """
             ON: ALLENPOLICEOFFICE.day=1
             DO: ALLENPOLICEOFFICE.trigger=1
                 BOBPOLICEOFFICE.trigger=1
+                LEEPOLICEOFFICE.trigger=1
                 YES.bobtalk.choices=0
                 NO.bobtalk.choices=0
+                DOESNTMATTER.leetalk.choices=0
+                PAYATTENTION.leetalk.choices=0
             """
         |> rule_______________________ "talk with allen 2"
             """
@@ -125,13 +155,19 @@ narrative_content : Dict String String
 narrative_content =
     Dict.empty
         |> content__________________________________ "talk with bob"
-            "{BOB.trigger=1? Don't disturb me.| Good morning. What can I do for you?}"
+            "{BOBPOLICEOFFICE.trigger=1? Don't disturb me.| Good morning. What can I do for you?}"
         |> content__________________________________ "yes"
             "Don't kid me, Kay."
         |> content__________________________________ "no"
             "You'll be late, Kay."
+        |> content__________________________________ "talk with lee"
+            "{LEEPOLICEOFFICE.trigger=1? Well, Allen seems to have something assigned to you.| Hey, Kay. You are almost late at work.}"
+        |> content__________________________________ "that doesn't matter"
+            "That's what you will say. But beware of Allen scolding you."
+        |> content__________________________________ "pay attention next time"
+            "Kay? That's not like you."
         |> content__________________________________ "talk with allen 1"
-            "{ALLENPOLICEOFFICE.trigger=1? What are you waiting for? Go to the park!| Kay, you are almost late! Now go with me at once, a body is found in the park.}"
+            "{ALLENPOLICEOFFICE.trigger=1? What are you waiting for? Go to the park!(Go to the gate to go to other places.)| Kay, you are almost late! Now go with me at once, a body is found in the park.}"
         |> content__________________________________ "talk with allen 2"
             "{ALLENPARK.trigger=1? Go to ask Adkins about his alibi.| Kay, what do you think about this?}"
 
