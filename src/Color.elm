@@ -35,3 +35,12 @@ decode =
 encode : Color -> Encode.Value
 encode (Color { red, green, blue }) =
     Encode.list Encode.int [ red, green, blue ]
+
+
+colorExit = rgb 130 10 10
+
+colorBarrier = rgb 10 10 130
+
+colorElevator = rgb 10 130 10
+
+

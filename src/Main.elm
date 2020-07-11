@@ -56,8 +56,11 @@ key on keycode =
         40 ->
             MoveDown on
 
-        81 ->
+        81 -> -- q
             PickUp on
+
+        70 -> -- f
+            EnterVehicle on
 
         _ ->
             Noop

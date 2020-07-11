@@ -18,16 +18,36 @@ import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
 import Rules exposing (..)
 
+type Mode
+    = Test
+    | GettingCoordinates
+    | Game
+gameMode______ : Mode
+gameMode______ = GettingCoordinates
 
 type State
     = Paused
     | Playing
     | Stopped
 
+type alias Area =
+    { x : Float
+    , y : Float
+    , wid : Float
+    , hei : Float
+    } -- a general type for object interaction (like, with door, so you can exit the police office)
+type VehicleType
+    = Elevator
+    | Car
+type alias Vehicle =
+    { area : Area
+    , which : VehicleType
+    }
 type alias MapAttr = -- things determined by map.
     { exit : Area
     , heroIni : Hero
     , barrier : List Area
+    , elevator : List Vehicle
     , npcs : List NPC
     , story : String
     }
@@ -37,43 +57,54 @@ policeOfficeAttr =
     { exit = { x = 150, y = 480 , wid = 70, hei = 120 }
     , heroIni = { x = 300, y = 520, width = 20, height = 60 }
     , barrier = policeOfficeBarrier
+    , elevator = policeOfficeElevator
     , npcs = [callen, cbob, clee]
     , story = "Another day at work, another boring day. But I need to avoid being killed."
     }
+
+policeOfficeBarrier : List Area
+policeOfficeBarrier =
+    case gameMode______ of
+        GettingCoordinates ->
+            [ ]
+
+        _ ->
+            [ { x = 230, y = 500 , wid = 575, hei = 20 } -- f1.ceiling
+            , { x = 370, y = 500 , wid = 120, hei = 30 } -- f1.reception desk
+            , { x = 805, y = 420 , wid = 20, hei = 180 } -- f1.rightwall
+            , { x = 230, y = 600 , wid = 575, hei = 20 } -- f1.floor
+            ]
+
+
+
+policeOfficeElevator : List Vehicle
+policeOfficeElevator =
+    [ { area = { x = 660, y = 430, wid = 115, hei = 110 }, which = Elevator }
+    , { area = { x = 675, y = 195, wid = 100, hei = 110 }, which = Elevator }
+    , { area = { x = 660, y = 0, wid = 115, hei = 85 }, which = Elevator } ]
 
 parkAttr : MapAttr
 parkAttr =
     { exit = { x = 620, y = 250 , wid = 200, hei = 90 }
     , heroIni = { x = 500, y = 250, width = 30, height = 90 }
     , barrier = []
+    , elevator = []
     , npcs = [pallen, plee]
     , story = "I arrive at the park. This is a desolate place."
     }
 
-policeOfficeBarrier : List Area
-policeOfficeBarrier =
-    [ { x = 230, y = 500 , wid = 575, hei = 20 } -- f1.ceiling
-    , { x = 370, y = 500 , wid = 120, hei = 30 } -- f1.reception desk
-    , { x = 805, y = 420 , wid = 20, hei = 180 } -- f1.rightwall
-    , { x = 230, y = 600 , wid = 575, hei = 20 } -- f1.floor
-    ]
 
 switchingAttr : MapAttr
 switchingAttr =
     { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
     , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
     , barrier = []
+    , elevator = []
     , npcs = []
     , story = ""
     }
 
 
-type alias Area =
-    { x : Float
-    , y : Float
-    , wid : Float
-    , hei : Float
-    } -- a general type for object interaction (like, with door, so you can exit the police office)
 
 decodeState : String -> State
 decodeState string =
@@ -130,6 +161,7 @@ type alias Model =
     , energy : Int
     , energy_Full : Int
     , energy_Cost : Int
+    , quests : Quest
     }
 
 initial : Model
@@ -156,8 +188,12 @@ initial =
     , energy = 100
     , energy_Full = 100
     , energy_Cost = 25
+    , quests = NoQuest
     }
 
+type Quest
+    = ElevatorQuest
+    | NoQuest
 
 type alias Hero =
     { x : Int

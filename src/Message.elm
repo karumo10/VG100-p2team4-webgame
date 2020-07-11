@@ -17,6 +17,11 @@ type Msg
     | ToPoliceOffice
     | ToPark
     | PickUp Bool
+    | ElevateTo1
+    | ElevateTo2
+    | ElevateTo3
+    | PickUp
+    | EnterVehicle Bool-- including elevator and cars
     | Noop
     | InteractWith WorldModel.ID
     | UpdateDebugSearchText String

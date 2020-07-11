@@ -5,7 +5,7 @@ import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
-import Tosvg exposing (heroToSvg , itemsToSvg,energytosvg)
+import Tosvg exposing (elevatorQuestToSvg, heroToSvg , itemsToSvg, energytosvg, testToSvg)
 import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
 import Items exposing ( .. )
@@ -24,12 +24,16 @@ view model =
             ]
 
 
+
 axisHelper : Model -> Html Msg
 axisHelper model =
-    div []
-        [ text (model.hero.x |> Debug.toString), br [] []
-        , text (model.hero.y |> Debug.toString)
-        ]
+    if gameMode______ /= Game then
+        div []
+            [ text (model.hero.x |> Debug.toString), br [] []
+            , text (model.hero.y |> Debug.toString)
+            ]
+    else
+    div [] []
 
 renderMusic : Html Msg
 renderMusic =
@@ -134,10 +138,12 @@ renderPic model =
                     , height "630"
                     , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
+                ++ ( bob model )
+                ++ ( lee model )
+                ++ ( allen model )
+                ++ ( elevatorQuestToSvg model )
                 ++ ( heroToSvg model.hero )
-                ++ ( bob model)
-                ++ ( lee model)
-                ++ ( allen model)
+
 
             Park ->
 
@@ -166,7 +172,8 @@ renderPic model =
 
 
         )++ ( itemsToSvg model
-         ++ energytosvg model.energy model.energy_Full)
+         ++ energytosvg model.energy model.energy_Full
+         ++ testToSvg model )
         )
 
 renderdialog : Model -> Html Msg

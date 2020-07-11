@@ -95,9 +95,34 @@ update msg model =
             )
 
         PickUp on->
-            ( pickUp {model | heroPickUp= on}
+            ( pickUp { model | heroPickUp= on }
+        ElevateTo1 ->
+            ( teleportHero ( 695, 520 ) model
             , Cmd.none
             )
+
+        ElevateTo2 ->
+            ( teleportHero ( 695, 290 ) model
+            , Cmd.none
+            )
+
+        ElevateTo3 ->
+            ( teleportHero ( 695, 60 ) model
+            , Cmd.none
+            )
+
+
+        PickUp ->
+            ( pickUp model
+            , Cmd.none
+            )
+
+        EnterVehicle on ->
+            case on of
+                True ->
+                    ( enterElevators model, Cmd.none)
+                False ->
+                    ( model, Cmd.none )
 
 
         Noop ->
@@ -151,6 +176,14 @@ animate elapsed model =
         |> goToSwitching
         |> judgeInteract
         |> interactable
+
+teleportHero : ( Int, Int ) -> Model -> Model
+teleportHero ( x, y ) model =
+    let
+        hero = model.hero
+        hero_ = { hero | x = x, y = y }
+    in
+    { model | hero = hero_ }
 
 
 
@@ -281,8 +314,6 @@ moveHeroUD_ dy model =
                 else y + dy * stride
             else
                 y + dy * stride
-
-
         hero = model.hero
         hero_ = { hero | y = y_ }
     in
@@ -339,6 +370,38 @@ isStuck model area =
     else if upSide then UpSide
     else if downSide then DownSide
     else Err
+
+judgeWhichVehicle :  Model -> Vehicle -> Bool
+judgeWhichVehicle model vehicle=
+    case vehicle.which of
+        Elevator -> elevateQuestOut vehicle model
+        Car -> False -- not implemented now.
+
+
+enterElevators : Model -> Model
+enterElevators model =
+    let
+        elevators = model.mapAttr.elevator
+        --elevatorAreas = List.map (\a -> a.area) elevators
+        isNearList = List.map (judgeWhichVehicle model) elevators
+        isNear = List.foldl (||) False isNearList
+        questCurr = model.quests
+    in
+    if (isNear) then
+        case questCurr of
+            ElevatorQuest ->
+                { model | quests = NoQuest }
+            NoQuest ->
+                { model | quests = ElevatorQuest }
+    else model
+
+
+elevateQuestOut : Vehicle -> Model -> Bool --call out the choice to which floor
+elevateQuestOut elevator model =
+    let
+        isNear = judgeAreaOverlap model elevator.area
+    in
+    isNear
 
 
 goToSwitching : Model -> Model -- when at exit, go to switching interface
