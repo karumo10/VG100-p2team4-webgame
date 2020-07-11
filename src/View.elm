@@ -148,16 +148,6 @@ renderPic model =
 
 renderdialog : Model -> Html Msg
 renderdialog model =
-    let
-        content =
-            case  model.interacttrue of
-                True ->
-                    [em [] [ text model.story ]
-                    ,ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)
-                    ,div [][text (cbob.interacttrue|>Debug.toString)]]
-                _ ->
-                    []
-    in
         div [ style "width" "70%", style "margin" "auto" ]
         [ div [ style "flex" "1 1 auto", style "font-size" "2em", style "padding" "0 2em" ]
               [em [] [ text model.story ]
