@@ -436,8 +436,8 @@ plee =
 pallen : NPC
 pallen =
     { itemType = Allen
-    , x = 600
-    , y = 270
+    , x = 300
+    , y = 500
     , interacttrue = False
     }
 

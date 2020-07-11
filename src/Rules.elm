@@ -141,10 +141,15 @@ rulesSpec =
                 DOESNTMATTER.leetalk.choices=0
                 PAYATTENTION.leetalk.choices=0
             """
-        |> rule_______________________ "talk with allen 2"
+        |> rule_______________________ "talk with allen park"
             """
             ON: ALLENPARK.day=1
             DO: ALLENPARK.trigger=1
+            """
+        |> rule_______________________ "talk with lee park"
+            """
+            ON: LEEPARK.day=1
+            DO: LEEPARK.trigger=1
             """
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -168,8 +173,10 @@ narrative_content =
             "Kay? That's not like you."
         |> content__________________________________ "talk with allen 1"
             "{ALLENPOLICEOFFICE.trigger=1? What are you waiting for? Go to the park!(Go to the gate to go to other places.)| Kay, you are almost late! Now go with me at once, a body is found in the park.}"
-        |> content__________________________________ "talk with allen 2"
+        |> content__________________________________ "talk with allen park"
             "{ALLENPARK.trigger=1? Go to ask Adkins about his alibi.| Kay, what do you think about this?}"
+        |> content__________________________________ "talk with lee park"
+            "{LEEPARK.trigger=1? What a pity! He died here when he knew he had a great future.| I'll assist the medical examiner in obtaining autopsy results. Can you go to help Allen?}"
 
 parsedData =
     let
