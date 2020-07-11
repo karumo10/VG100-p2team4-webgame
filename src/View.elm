@@ -5,7 +5,7 @@ import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
-import Tosvg exposing (elevatorQuestToSvg, heroToSvg , itemsToSvg, energytosvg, testToSvg)
+import Tosvg exposing (..)
 import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
 import Items exposing ( .. )
@@ -157,7 +157,7 @@ renderPic model =
                     ] []]
                 ++ ( heroToSvg model.hero )
                 ++ ( leepark model)
-                ++ ( allenpark model)
+                ++ ( allenpark model )
 
             Switching ->
 

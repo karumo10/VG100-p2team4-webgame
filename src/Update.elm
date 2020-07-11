@@ -119,7 +119,7 @@ update msg model =
         EnterVehicle on ->
             case on of
                 True ->
-                    ( enterElevators model, Cmd.none)
+                    ( enterElevators model, Cmd.none )
                 False ->
                     ( model, Cmd.none )
 
@@ -127,39 +127,20 @@ update msg model =
         Noop ->
             ( model, Cmd.none )
 
-        InteractWith trigger ->
-                    -- we need to check if any rule matched
-            case Rules.findMatchingRule trigger parsedData model.worldModel of
-                Just ( matchedRuleID, { changes } ) ->
-                    ({ model
-                    | worldModel = WorldModel.applyChanges changes trigger model.worldModel
-                    , story =
-                                    -- get the story from narrative content (we also need to
-                                    -- parse it)
-                    Dict.get matchedRuleID narrative_content
-                        |> Maybe.withDefault ("ERROR finding narrative content for " ++ matchedRuleID)
-                        |> NarrativeParser.parse (makeConfig trigger matchedRuleID model)
-                                        -- The parser can break up a narrative into chunks
-                                        -- (for pagination for example), but in our case we
-                                        -- use the whole thing, so we just take the head.
-                        |> List.head
-                        |> Maybe.withDefault ("ERROR parsing narrative content for " ++ matchedRuleID)
-                    , ruleCounts = Dict.update matchedRuleID (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
-                    , debug = model.debug
-                                  |> NarrativeEngine.Debug.setLastMatchedRuleId matchedRuleID
-                                  |> NarrativeEngine.Debug.setLastInteractionId trigger
-                    }, Cmd.none)
+        InteractByKey on ->
+            case on of
+                True ->
+                    case model.interacttrue of
+                        True ->
+                            ( interactByKey model, Cmd.none )
+                        _ ->
+                            ( model, Cmd.none )
+                False ->
+                    ( model, Cmd.none )
 
-                Nothing ->
-                            -- no rule matched, so lets just show the description of the
-                            -- entity that the player interacted with
-                    ({ model
-                    | story = getDescription (makeConfig trigger trigger model) trigger model.worldModel
-                    , ruleCounts = Dict.update trigger (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
-                    , debug = model.debug
-                                  |> NarrativeEngine.Debug.setLastMatchedRuleId trigger
-                                  |> NarrativeEngine.Debug.setLastInteractionId trigger
-                    }, Cmd.none)
+
+        InteractWith trigger ->
+            interactWith__core trigger model
 
         UpdateDebugSearchText searchText ->
                     ({ model | debug = NarrativeEngine.Debug.updateSearch searchText model.debug }, Cmd.none)
@@ -528,3 +509,61 @@ judgeinteract npc=
 
 judgeInteract model =
     { model|interacttrue = (List.member True (List.map judgeinteract model.npcs)) }
+
+interactWith__core : WorldModel.ID -> Model -> ( Model, Cmd Msg )
+interactWith__core trigger model =
+                    -- we need to check if any rule matched
+         case Rules.findMatchingRule trigger parsedData model.worldModel of
+                Just ( matchedRuleID, { changes } ) ->
+                    ({ model
+                    | worldModel = WorldModel.applyChanges changes trigger model.worldModel
+                    , story =
+                                    -- get the story from narrative content (we also need to
+                                    -- parse it)
+                    Dict.get matchedRuleID narrative_content
+                        |> Maybe.withDefault ("ERROR finding narrative content for " ++ matchedRuleID)
+                        |> NarrativeParser.parse (makeConfig trigger matchedRuleID model)
+                                        -- The parser can break up a narrative into chunks
+                                        -- (for pagination for example), but in our case we
+                                        -- use the whole thing, so we just take the head.
+                        |> List.head
+                        |> Maybe.withDefault ("ERROR parsing narrative content for " ++ matchedRuleID)
+                    , ruleCounts = Dict.update matchedRuleID (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
+                    , debug = model.debug
+                                  |> NarrativeEngine.Debug.setLastMatchedRuleId matchedRuleID
+                                  |> NarrativeEngine.Debug.setLastInteractionId trigger
+                    }, Cmd.none)
+
+                Nothing ->
+                            -- no rule matched, so lets just show the description of the
+                            -- entity that the player interacted with
+                    ({ model
+                    | story = getDescription (makeConfig trigger trigger model) trigger model.worldModel
+                    , ruleCounts = Dict.update trigger (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
+                    , debug = model.debug
+                                  |> NarrativeEngine.Debug.setLastMatchedRuleId trigger
+                                  |> NarrativeEngine.Debug.setLastInteractionId trigger
+                    }, Cmd.none)
+
+
+
+interactByKey : Model -> Model
+interactByKey model =
+    let
+        trueNPCs = List.filter (\a -> a.interacttrue == True) model.npcs
+        currNPC = withDefault emptyNPC (List.head trueNPCs)
+        currTrigger
+            = query currNPC.description model.worldModel
+            |> List.map Tuple.first -- get List ID
+            |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
+            |> withDefault "no such npc"
+        model_ = interactWith__core currTrigger model |> Tuple.first
+    in
+    if List.isEmpty trueNPCs then
+        model
+    else
+        model_
+
+
+
+

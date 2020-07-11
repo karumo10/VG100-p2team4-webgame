@@ -281,47 +281,10 @@ encode indent model =
 -- characters
 
 query : String -> MyWorldModel -> List ( WorldModel.ID, MyEntity )
-query q worldModel=
+query q worldModel =
     RuleParser.parseMatcher q
         |> Result.map (\parsedMatcher -> WorldModel.query parsedMatcher worldModel)
         |> Result.withDefault []
-
-entityView : NPC -> (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
-entityView npc ((id, { name }), model) =
-    let
-        msg =
-            case model.interacttrue of
-                True ->
-                    InteractWith id
-                _ ->
-                    Noop
-        ( x_, y_ ) = ( npc.area.x, npc.area.y )
-        ( wid, hei ) = ( npc.area.wid, npc.area.hei )
-
-    in
-        rect
-        [ x (x_ |> Debug.toString)
-        , y (y_ |> Debug.toString)
-        , width (wid |> Debug.toString)
-        , height (hei |> Debug.toString)
-        , strokeWidth "5px", stroke "#191970"
-        , onClick (msg)
-        ]
-        []
-
-entityViewchoices : ( WorldModel.ID, MyEntity ) -> Html Msg
-entityViewchoices ( id, { name } ) =
-    li [ onClick <| InteractWith id, style "cursor" "pointer" ] [ text name ]
-
-bob model = List.map (entityView cBob) (List.map2 Tuple.pair (query "BOBPOLICEOFFICE.npc.day=1" model.worldModel) [model])
-
-lee model = List.map (entityView cLee) (List.map2 Tuple.pair (query "LEEPOLICEOFFICE.npc.day=1" model.worldModel) [model])
-
-allen model = List.map (entityView cAllen) (List.map2 Tuple.pair (query "ALLENPOLICEOFFICE.npc.day=1" model.worldModel) [model])
-
-allenpark model = List.map (entityView pAllen) (List.map2 Tuple.pair (query "ALLENPARK.npc.day=1" model.worldModel) [model])
-
-leepark model = List.map (entityView pLee) (List.map2 Tuple.pair (query "LEEPARK.npc.day=1" model.worldModel) [model])
 
 type NPCType
     = Bob
@@ -336,7 +299,22 @@ type alias NPC =
     { itemType : NPCType
     , area : Area
     , interacttrue : Bool
+    , description : String
     }
+
+emptyNPC : NPC
+emptyNPC =
+    { itemType = None
+    , area =
+        { x = 4000
+        , y = 2700
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = ""
+    }
+
 
 cLee : NPC
 cLee =
@@ -348,6 +326,7 @@ cLee =
         , hei = 60
         }
     , interacttrue = False
+    , description = "LEEPOLICEOFFICE.npc.day=1"
     }
 
 
@@ -361,6 +340,7 @@ cBob =
         , hei = 60
         }
     , interacttrue = False
+    , description = "BOBPOLICEOFFICE.npc.day=1"
     }
 
 cAllen : NPC
@@ -373,6 +353,7 @@ cAllen =
         , hei = 60
         }
     , interacttrue = False
+    , description = "ALLENPOLICEOFFICE.npc.day=1"
     }
 
 pLee : NPC
@@ -385,6 +366,7 @@ pLee =
         , hei = 60
         }
     , interacttrue = False
+    , description = "LEEPARK.npc.day=1"
     }
 
 pAllen : NPC
@@ -397,6 +379,7 @@ pAllen =
         , hei = 60
         }
     , interacttrue = False
+    , description = "ALLENPARK.npc.day=1"
     }
 
 
