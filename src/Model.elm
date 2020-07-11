@@ -58,7 +58,7 @@ policeOfficeAttr =
     , heroIni = { x = 300, y = 520, width = 20, height = 60 }
     , barrier = policeOfficeBarrier
     , elevator = policeOfficeElevator
-    , npcs = [callen, cbob, clee]
+    , npcs = [cAllen, cBob, cLee]
     , story = "Another day at work, another boring day. But I need to avoid being killed."
     }
 
@@ -101,7 +101,7 @@ parkAttr =
     , heroIni = { x = 500, y = 250, width = 30, height = 90 }
     , barrier = []
     , elevator = []
-    , npcs = [pallen, plee]
+    , npcs = [pAllen, pLee]
     , story = "I arrive at the park. This is a desolate place."
     }
 
@@ -195,7 +195,7 @@ initial =
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the police chief, Jonathon, because I know his scandal. I need to avoid being killed."
     , ruleCounts = Dict.empty
     , debug = NarrativeEngine.Debug.init
-    , npcs = [callen, cbob, clee]
+    , npcs = [cAllen, cBob, cLee]
     , interacttrue = False
     , energy = 100
     , energy_Full = 100
@@ -286,8 +286,8 @@ query q worldModel=
         |> Result.map (\parsedMatcher -> WorldModel.query parsedMatcher worldModel)
         |> Result.withDefault []
 
-entityViewBob : (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
-entityViewBob ((id, { name }), model) =
+entityView : NPC -> (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
+entityView npc ((id, { name }), model) =
     let
         msg =
             case model.interacttrue of
@@ -295,77 +295,15 @@ entityViewBob ((id, { name }), model) =
                     InteractWith id
                 _ ->
                     Noop
-    in
-        rect
-        [ x "450", y "520", width "20", height "60"
-        , strokeWidth "5px", stroke "#191970"
-        , onClick (msg)
-        ]
-        []
+        ( x_, y_ ) = ( npc.area.x, npc.area.y )
+        ( wid, hei ) = ( npc.area.wid, npc.area.hei )
 
-entityViewLee : (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
-entityViewLee ((id, { name }), model) =
-    let
-        msg =
-            case model.interacttrue of
-                True ->
-                    InteractWith id
-                _ ->
-                    Noop
     in
         rect
-        [ x "400", y "270", width "20", height "60"
-        , strokeWidth "5px", stroke "#191970"
-        , onClick (msg)
-        ]
-        []
-
-entityViewAllen : (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
-entityViewAllen ((id, { name }), model) =
-    let
-        msg =
-            case model.interacttrue of
-                True ->
-                    InteractWith id
-                _ ->
-                    Noop
-    in
-        rect
-        [ x "600", y "270", width "20", height "60"
-        , strokeWidth "5px", stroke "#191970"
-        , onClick (msg)
-        ]
-        []
-
-entityViewAllenPark : (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
-entityViewAllenPark ((id, { name }), model) =
-    let
-        msg =
-            case model.interacttrue of
-                True ->
-                    InteractWith id
-                _ ->
-                    Noop
-    in
-        rect
-        [ x "300", y "500", width "20", height "60"
-        , strokeWidth "5px", stroke "#191970"
-        , onClick (msg)
-        ]
-        []
-
-entityViewLeePark : (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
-entityViewLeePark ((id, { name }), model) =
-    let
-        msg =
-            case model.interacttrue of
-                True ->
-                    InteractWith id
-                _ ->
-                    Noop
-    in
-        rect
-        [ x "400", y "270", width "20", height "60"
+        [ x (x_ |> Debug.toString)
+        , y (y_ |> Debug.toString)
+        , width (wid |> Debug.toString)
+        , height (hei |> Debug.toString)
         , strokeWidth "5px", stroke "#191970"
         , onClick (msg)
         ]
@@ -375,15 +313,15 @@ entityViewchoices : ( WorldModel.ID, MyEntity ) -> Html Msg
 entityViewchoices ( id, { name } ) =
     li [ onClick <| InteractWith id, style "cursor" "pointer" ] [ text name ]
 
-bob model = List.map entityViewBob (List.map2 Tuple.pair (query "BOBPOLICEOFFICE.npc.day=1" model.worldModel) [model])
+bob model = List.map (entityView cBob) (List.map2 Tuple.pair (query "BOBPOLICEOFFICE.npc.day=1" model.worldModel) [model])
 
-lee model = List.map entityViewLee (List.map2 Tuple.pair (query "LEEPOLICEOFFICE.npc.day=1" model.worldModel) [model])
+lee model = List.map (entityView cLee) (List.map2 Tuple.pair (query "LEEPOLICEOFFICE.npc.day=1" model.worldModel) [model])
 
-allen model = List.map entityViewAllen (List.map2 Tuple.pair (query "ALLENPOLICEOFFICE.npc.day=1" model.worldModel) [model])
+allen model = List.map (entityView cAllen) (List.map2 Tuple.pair (query "ALLENPOLICEOFFICE.npc.day=1" model.worldModel) [model])
 
-allenpark model = List.map entityViewAllenPark (List.map2 Tuple.pair (query "ALLENPARK.npc.day=1" model.worldModel) [model])
+allenpark model = List.map (entityView pAllen) (List.map2 Tuple.pair (query "ALLENPARK.npc.day=1" model.worldModel) [model])
 
-leepark model = List.map entityViewLeePark (List.map2 Tuple.pair (query "LEEPARK.npc.day=1" model.worldModel) [model])
+leepark model = List.map (entityView pLee) (List.map2 Tuple.pair (query "LEEPARK.npc.day=1" model.worldModel) [model])
 
 type NPCType
     = Bob
@@ -396,48 +334,68 @@ type NPCType
 
 type alias NPC =
     { itemType : NPCType
-    , x : Int
-    , y : Int
+    , area : Area
     , interacttrue : Bool
     }
 
-clee : NPC
-clee =
+cLee : NPC
+cLee =
     { itemType = Lee
-    , x = 400
-    , y = 270
+    , area =
+        { x = 400
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
     , interacttrue = False
     }
 
-cbob : NPC
-cbob =
+
+cBob : NPC
+cBob =
     { itemType = Bob
-    , x = 450
-    , y = 520
+    , area =
+        { x = 450
+        , y = 520
+        , wid = 20
+        , hei = 60
+        }
     , interacttrue = False
     }
 
-callen : NPC
-callen =
+cAllen : NPC
+cAllen =
     { itemType = Allen
-    , x = 600
-    , y = 270
+        , area =
+        { x = 600
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
     , interacttrue = False
     }
 
-plee : NPC
-plee =
+pLee : NPC
+pLee =
     { itemType = Lee
-    , x = 400
-    , y = 270
+    , area =
+        { x = 400
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
     , interacttrue = False
     }
 
-pallen : NPC
-pallen =
+pAllen : NPC
+pAllen =
     { itemType = Allen
-    , x = 300
-    , y = 500
+    , area =
+        { x = 300
+        , y = 500
+        , wid = 20
+        , hei = 60
+        }
     , interacttrue = False
     }
 
