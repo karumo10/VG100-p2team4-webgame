@@ -508,15 +508,9 @@ pickUp model =
     else
     model
 
-canInteract : Model -> NPC -> Bool
-canInteract model npc=
-    let
-        distance = ( model.hero.x - npc.x)^2 + ( model.hero.y - npc.y)^2
-    in
-    if distance > 100 then
-    False
-    else
-    True
+canInteract : Model -> NPC ->  Bool
+canInteract model npc  =
+    judgeAreaOverlap model npc.area
 
 interact : Model -> NPC -> NPC
 interact model npc =
