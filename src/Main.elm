@@ -60,7 +60,7 @@ key on keycode =
             PickUp
 
         70 -> -- f
-            EnterVehicle
+            EnterVehicle on
 
         _ ->
             Noop

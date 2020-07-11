@@ -94,12 +94,33 @@ update msg model =
             , Cmd.none
             )
 
+        ElevateTo1 ->
+            ( teleportHero ( 695, 520 ) model
+            , Cmd.none
+            )
+
+        ElevateTo2 ->
+            ( teleportHero ( 695, 290 ) model
+            , Cmd.none
+            )
+
+        ElevateTo3 ->
+            ( teleportHero ( 695, 60 ) model
+            , Cmd.none
+            )
+
+
         PickUp ->
             ( pickUp model
             , Cmd.none
             )
-        EnterVehicle ->
-            ( enterVehicles model.mapAttr.elevator model, Cmd.none)
+
+        EnterVehicle on ->
+            case on of
+                True ->
+                    ( enterElevators model, Cmd.none)
+                False ->
+                    ( model, Cmd.none )
 
 
         Noop ->
@@ -154,6 +175,14 @@ animate elapsed model =
         |> judgeInteract
         |> interactable
 
+teleportHero : ( Int, Int ) -> Model -> Model
+teleportHero ( x, y ) model =
+    let
+        hero = model.hero
+        hero_ = { hero | x = x, y = y }
+    in
+    { model | hero = hero_ }
+
 
 
 directionLR : Model -> Int
@@ -192,6 +221,8 @@ startMove model =
         { model | heroDir = ( Nothing, Just { active = True, elapsed = 0 } ) }
     else
         { model | heroDir = ( Nothing, Nothing ) }
+
+
 
 
 activateButton : Float -> Float -> { a | active : Bool, elapsed : Float } -> { a | active : Bool, elapsed : Float } -- to ban pressing one button to make the hero move too fast
@@ -283,8 +314,6 @@ moveHeroUD_ dy model =
                 else y + dy * stride
             else
                 y + dy * stride
-
-
         hero = model.hero
         hero_ = { hero | y = y_ }
     in
@@ -342,24 +371,38 @@ isStuck model area =
     else if downSide then DownSide
     else Err
 
-enterVehicle :  Model -> Vehicle -> Model
-enterVehicle model vehicle=
+judgeWhichVehicle :  Model -> Vehicle -> Bool
+judgeWhichVehicle model vehicle=
     case vehicle.which of
         Elevator -> elevateQuestOut vehicle model
-        Car -> model
+        Car -> False -- not implemented now.
 
-enterVehicles : List Vehicle -> Model -> Model
-enterVehicles vehicles model =
-    withDefault model (List.map (enterVehicle model) vehicles |> List.head)
 
-elevateQuestOut : Vehicle -> Model -> Model --call out the choice to which floor
+enterElevators : Model -> Model
+enterElevators model =
+    let
+        elevators = model.mapAttr.elevator
+        --elevatorAreas = List.map (\a -> a.area) elevators
+        isNearList = List.map (judgeWhichVehicle model) elevators
+        isNear = List.foldl (||) False isNearList
+        questCurr = model.quests
+    in
+    if (isNear) then
+        case questCurr of
+            ElevatorQuest ->
+                { model | quests = NoQuest }
+            NoQuest ->
+                { model | quests = ElevatorQuest }
+    else model
+
+
+elevateQuestOut : Vehicle -> Model -> Bool --call out the choice to which floor
 elevateQuestOut elevator model =
     let
         isNear = judgeAreaOverlap model elevator.area
     in
-    if not isNear then model
-    else if model.quests == ElevatorQuest then { model | quests = NoQuest }
-    else { model | quests = ElevatorQuest }
+    isNear
+
 
 goToSwitching : Model -> Model -- when at exit, go to switching interface
 goToSwitching model =

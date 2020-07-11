@@ -27,7 +27,7 @@ view model =
 
 axisHelper : Model -> Html Msg
 axisHelper model =
-    if gameMode /= Game then
+    if gameMode______ /= Game then
         div []
             [ text (model.hero.x |> Debug.toString), br [] []
             , text (model.hero.y |> Debug.toString)
@@ -138,11 +138,12 @@ renderPic model =
                     , height "630"
                     , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
-                ++ ( heroToSvg model.hero )
                 ++ ( bob model )
                 ++ ( lee model )
                 ++ ( allen model )
-                ++ ( elevatorQuestToSvg model)
+                ++ ( elevatorQuestToSvg model )
+                ++ ( heroToSvg model.hero )
+
 
             Park ->
 

@@ -22,8 +22,8 @@ type Mode
     = Test
     | GettingCoordinates
     | Game
-gameMode : Mode
-gameMode = GettingCoordinates
+gameMode______ : Mode
+gameMode______ = GettingCoordinates
 
 type State
     = Paused
@@ -64,7 +64,7 @@ policeOfficeAttr =
 
 policeOfficeBarrier : List Area
 policeOfficeBarrier =
-    case gameMode of
+    case gameMode______ of
         GettingCoordinates ->
             [ ]
 
