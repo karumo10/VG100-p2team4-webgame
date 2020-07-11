@@ -5,7 +5,7 @@ import List exposing (filter)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Items exposing (..)
-import Color exposing (Color,rgb, toString)
+import Color exposing (..)
 
 heroToSvg : Hero -> List (Svg msg)
 heroToSvg hero =
@@ -65,8 +65,53 @@ elevatorQuestToSvg model =
         _ ->
             [ rect[][] ]
 
+areaToSvg : Area -> Color -> List (Svg msg)
+areaToSvg area color =
+        let
+            ( x_, y_ ) = ( area.x, area.y )
+            ( wid, hei ) = ( area.wid, area.hei )
+            color_ = Color.toString color
+        in
+        [
+            rect
+            [ x (x_ |> Debug.toString)
+            , y (y_ |> Debug.toString)
+            , width (wid |> Debug.toString)
+            , height (hei |> Debug.toString)
+            , strokeWidth "0px"
+            , fill color_
+            ]
+            []
 
+        ]
 
+exitToSvg : Area -> List (Svg msg)
+exitToSvg area =
+    areaToSvg area colorExit
+
+elevatorToSvg : Area -> List (Svg msg)
+elevatorToSvg area =
+    areaToSvg area colorElevator
+
+barrierToSvg : Area -> List (Svg msg)
+barrierToSvg area =
+    areaToSvg area colorBarrier
+
+testToSvg : Model -> List (Svg msg)
+testToSvg model =
+    let
+        mapAttr = model.mapAttr
+        exitSvgList = exitToSvg mapAttr.exit
+        barrierSvgListList = List.map barrierToSvg mapAttr.barrier
+        barrierSvgList = List.foldl (++) [] barrierSvgListList
+        elevatorAreas = List.map (\a -> a.area) mapAttr.elevator
+        elevatorSvgListList = List.map elevatorToSvg elevatorAreas
+        elevatorSvgList = List.foldl (++) [] elevatorSvgListList
+    in
+    case Model.gameMode of
+        Test ->
+            exitSvgList ++ barrierSvgList ++ elevatorSvgList
+        _ -> [ rect [] [] ]
 
 
 

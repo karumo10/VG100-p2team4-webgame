@@ -5,7 +5,7 @@ import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
-import Tosvg exposing (heroToSvg , itemsToSvg, elevatorQuestToSvg)
+import Tosvg exposing (elevatorQuestToSvg, heroToSvg, itemsToSvg, testToSvg)
 import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
 import Items exposing ( .. )
@@ -24,12 +24,16 @@ view model =
             ]
 
 
+
 axisHelper : Model -> Html Msg
 axisHelper model =
-    div []
-        [ text (model.hero.x |> Debug.toString), br [] []
-        , text (model.hero.y |> Debug.toString)
-        ]
+    if gameMode /= Game then
+        div []
+            [ text (model.hero.x |> Debug.toString), br [] []
+            , text (model.hero.y |> Debug.toString)
+            ]
+    else
+    div [] []
 
 renderMusic : Html Msg
 renderMusic =
@@ -166,7 +170,7 @@ renderPic model =
 
 
 
-        )++ ( itemsToSvg model )
+        )++ ( itemsToSvg model ) ++ ( testToSvg model )
         )
 
 renderdialog : Model -> Html Msg

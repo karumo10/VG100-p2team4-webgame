@@ -19,10 +19,11 @@ import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth
 import Rules exposing (..)
 
 type Mode
-    = Test --for getting coordinates!
+    = Test
+    | GettingCoordinates
     | Game
-mode : Mode
-mode = Test
+gameMode : Mode
+gameMode = GettingCoordinates
 
 type State
     = Paused
@@ -59,20 +60,21 @@ policeOfficeAttr =
     , elevator = policeOfficeElevator
     , npcs = [callen, cbob, clee]
     , story = "Another day at work, another boring day. But I need to avoid being killed."
-
     }
+
 policeOfficeBarrier : List Area
 policeOfficeBarrier =
-    case mode of
-        Game ->
+    case gameMode of
+        GettingCoordinates ->
+            [ ]
+
+        _ ->
             [ { x = 230, y = 500 , wid = 575, hei = 20 } -- f1.ceiling
             , { x = 370, y = 500 , wid = 120, hei = 30 } -- f1.reception desk
             , { x = 805, y = 420 , wid = 20, hei = 180 } -- f1.rightwall
             , { x = 230, y = 600 , wid = 575, hei = 20 } -- f1.floor
             ]
 
-        Test ->
-            [ ]
 
 
 policeOfficeElevator : List Vehicle
