@@ -66,7 +66,7 @@ renderMapButton model =
             button
             [ Html.Attributes.style "background" "blue"
             , style "position" "absolute"
-            , style "left" "105px"
+            , style "left" "100px"
             , style "top" "400px"
             , Html.Attributes.style "color" "#f3f2e9"
             , Html.Attributes.style "cursor" "pointer"
@@ -110,6 +110,32 @@ renderMapButton model =
             , onClick ToPark
             ]
             [ Html.text "Park" ]
+            ,
+            button
+            [ Html.Attributes.style "background" "red"
+            , style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "400px"
+            , Html.Attributes.style "color" "#f3f2e9"
+            , Html.Attributes.style "cursor" "pointer"
+            , Html.Attributes.style "display" "block"
+            , Html.Attributes.style "font-family" "Helvetica, Arial, sans-serif"
+            , Html.Attributes.style "font-size" "18px"
+            , Html.Attributes.style "font-weight" "300"
+            , Html.Attributes.style "height" "80px"
+            , Html.Attributes.style "line-height" "60px"
+            , Html.Attributes.style "outline" "none"
+            , Html.Attributes.style "padding" "0"
+            , Html.Attributes.style "width" "130px"
+            , style "border-style" "inset"
+            , style "border-color" "white"
+            , style "border-width" "6px"
+            , style "border-radius" "20%"
+            , onClick ToHome
+            ]
+            [ Html.text "Home" ]
+
+
             ]
 
 
@@ -169,10 +195,24 @@ renderPic model =
                     , fill "black"][]] --useless now
 
 
+            Home ->
+                [Svg.image
+                    [Svg.Attributes.xlinkHref "./Kay's_home.png"
+                    , x "0"
+                    , y "0"
+                    , width "900"
+                    , height "630"
+                    , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ ( elevatorQuestToSvg model )
+                ++ ( heroToSvg model.hero )
 
 
-        )++ ( itemsToSvg model
-         ++ energytosvg model.energy model.energy_Full
+
+
+
+        )++ (
+          energytosvg model.energy model.energy_Full
          ++ testToSvg model )
         )
 

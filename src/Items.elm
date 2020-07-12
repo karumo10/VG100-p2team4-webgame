@@ -16,6 +16,7 @@ type ItemType
 type Map
     = PoliceOffice
     | Park
+    | Home
     | Switching -- an interface allowing player to choose where to go, also can be design as dialog box
 
 type alias Item =

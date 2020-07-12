@@ -86,13 +86,16 @@ update msg model =
             ( mapSwitch PoliceOffice model
             , Cmd.none
             )
-
-
-
         ToPark ->
             ( mapSwitch Park model
             , Cmd.none
             )
+        ToHome ->
+            ( mapSwitch Home model
+            , Cmd.none
+            )
+
+
 
         PickUp on->
             ( pickUp { model | heroPickUp= on }
@@ -100,19 +103,41 @@ update msg model =
             )
 
         ElevateTo1 ->
-            ( teleportHero ( 695, 520 ) model
-            , Cmd.none
-            )
+            case model.map of
+                PoliceOffice ->
+                    ( teleportHero ( 695, 520 ) model
+                    , Cmd.none
+                    )
+                Home ->
+                     ( teleportHero ( 795, 520 ) model
+                     , Cmd.none
+                     )
+                _ -> (model,Cmd.none)
+
 
         ElevateTo2 ->
-            ( teleportHero ( 695, 290 ) model
-            , Cmd.none
-            )
+            case model.map of
+                PoliceOffice ->
+                    ( teleportHero ( 695, 290 ) model
+                    , Cmd.none
+                    )
+                Home ->
+                     ( teleportHero ( 795, 290 ) model
+                     , Cmd.none
+                     )
+                _ -> (model,Cmd.none)
 
         ElevateTo3 ->
-            ( teleportHero ( 695, 60 ) model
-            , Cmd.none
-            )
+            case model.map of
+                PoliceOffice ->
+                    ( teleportHero ( 695, 60 ) model
+                    , Cmd.none
+                    )
+                Home ->
+                     ( teleportHero ( 795, 60 ) model
+                     , Cmd.none
+                     )
+                _ -> (model,Cmd.none)
 
 
 
@@ -397,6 +422,7 @@ mapSwitch newMap model =
             case newMap of
                 PoliceOffice -> policeOfficeAttr
                 Park -> parkAttr
+                Home -> homeAttr
                 Switching -> switchingAttr
         hero = mapAttr.heroIni
         npcs = mapAttr.npcs

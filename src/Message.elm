@@ -17,6 +17,7 @@ type Msg
     | InteractByKey Bool
     | ToPoliceOffice
     | ToPark
+    | ToHome
     | PickUp Bool
     | ElevateTo1
     | ElevateTo2

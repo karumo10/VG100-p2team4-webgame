@@ -67,7 +67,6 @@ policeOfficeBarrier =
     case gameMode______ of
         GettingCoordinates ->
             [ ]
-
         _ ->
             [ { x = 230, y = 500 , wid = 575, hei = 20 } -- f1.ceiling (every floor 230)
             , { x = 205, y = 260 , wid = 610, hei = 20 } -- f2.ceiling
@@ -89,11 +88,43 @@ policeOfficeBarrier =
             , { x = 205, y = 140 , wid = 600, hei = 20 } -- f3.floor
             ]
 
+homeBarrier : List Area
+homeBarrier =
+    case gameMode______ of
+        GettingCoordinates ->
+            [ ]
+        _ ->
+            [ { x = 290, y = 500 , wid = 575, hei = 20 } -- f1.ceiling (every floor 230)
+            , { x = 205, y = 260 , wid = 610, hei = 20 } -- f2.ceiling
+            , { x = 265, y = 40 , wid = 610, hei = 20 } -- f3.ceiling
+            , { x = 475, y = 280 , wid = 45, hei = 20 } -- f1.right desk
+            , { x = 205, y = 300, wid = 30, hei = 20} -- f2.bookshelf.left
+            , { x = 235, y = 275, wid = 50, hei = 20} --f2.left corner
+            , { x = 590, y = 55, wid = 30, hei = 20 } --f3.lap
+            , { x = 570, y = 60, wid = 20, hei = 80 } -- f3.bedwall
+            , { x = 655, y = 60, wid = 95, hei = 20 } -- f3.shelf
+            , { x = 865, y = 420 , wid = 20, hei = 180 } -- f1.right wall
+            , { x = 865, y = 190 , wid = 20, hei = 180 } -- f2.right wall
+            , { x = 865, y = -40 , wid = 20, hei = 180 } -- f3.right wall
+            , { x = 185, y = 420 , wid = 20, hei = 180 } -- f1.left wall
+            , { x = 185, y = 190 , wid = 20, hei = 180 } -- f2.left wall
+            , { x = 185, y = -40 , wid = 20, hei = 180 } -- f3.left wall
+            , { x = 205, y = 600 , wid = 660, hei = 20 } -- f1.floor
+            , { x = 205, y = 370 , wid = 660, hei = 20 } -- f2.floor
+            , { x = 205, y = 140 , wid = 660, hei = 20 } -- f3.floor
+            ]
+
 policeOfficeElevator : List Vehicle
 policeOfficeElevator =
     [ { area = { x = 660, y = 430, wid = 115, hei = 110 }, which = Elevator }
     , { area = { x = 675, y = 195, wid = 100, hei = 110 }, which = Elevator }
     , { area = { x = 660, y = 0, wid = 115, hei = 85 }, which = Elevator } ]
+
+homeElevator : List Vehicle
+homeElevator =
+    [ { area = { x = 760, y = 430, wid = 115, hei = 110 }, which = Elevator }
+    , { area = { x = 775, y = 195, wid = 100, hei = 110 }, which = Elevator }
+    , { area = { x = 760, y = 0, wid = 115, hei = 85 }, which = Elevator } ]
 
 parkAttr : MapAttr
 parkAttr =
@@ -105,6 +136,15 @@ parkAttr =
     , story = "I arrive at the park. This is a desolate place."
     }
 
+homeAttr : MapAttr
+homeAttr =
+    { exit = { x = 345, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 400, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , elevator = homeElevator
+    , npcs = []
+    , story = ""
+    }
 
 switchingAttr : MapAttr
 switchingAttr =
