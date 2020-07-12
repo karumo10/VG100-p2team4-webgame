@@ -90,6 +90,18 @@ emptyIni =
     , y = 0
     }
 
+emptyPickUp: Item
+emptyPickUp =
+    { itemType = Empty
+    , isPick = True
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = PoliceOffice
+    , x = 0
+    , y = 0
+    }
+
 bagIni : Bag
 bagIni =
     { grid1 = emptyIni

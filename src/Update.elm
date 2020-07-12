@@ -416,7 +416,7 @@ canPickUp model item=
 
 itemPickUp : Model -> Item -> Item
 itemPickUp model item =
-    if canPickUp model item == True then
+    if canPickUp model item && canpickUp_energy model && model.heroPickUp &&(item.isPick ==False) then
     { item | isPick = True }
     else
     item
@@ -431,15 +431,23 @@ canpickUp_energy model =
     True
     else
     False
+
+filter_picked_item : Item-> Bool
+filter_picked_item item=
+    if item.isPick ==True then
+    False
+    else
+    True
 pickUp : Model -> Model
 pickUp model =
     let
         isPickUp = model.heroPickUp --is player doing pick up commands
-        isThereAny = List.length ableToPick
         ableToPick = List.filter (canPickUp model) model.items --depends on distance
+        isThereAny = List.length ableToPick
         abletoPick2 =canpickUp_energy model --depends on energy
         item = withDefault gunIni (head ableToPick)
-        itemsLeft = map (itemPickUp model) model.items
+        carry_out_pick_up = List.map (itemPickUp model) model.items ---this step just change the property but not filter
+        itemsLeft = List.filter filter_picked_item carry_out_pick_up
         g1 = model.bag.grid1
         g2 = model.bag.grid2
         g3 = model.bag.grid3
@@ -464,10 +472,13 @@ pickUp model =
         energy_ = energy - model.energy_Cost
 
     in
-    if isThereAny == 0 || not abletoPick2 || not isPickUp then
+
+    if not isPickUp then
     model
+    else if not abletoPick2 then
+    {model|story="Energy is not enough!"}
     else if isThereAny == 1 && t1 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_ }
+    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_ ,story="get it" }
     else if isThereAny == 1 && t1 /= Empty && t2 == Empty && abletoPick2 && isPickUp then
     { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 == Empty && abletoPick2 && isPickUp then
@@ -486,6 +497,8 @@ pickUp model =
     { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty && abletoPick2 && isPickUp then
     { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 0 then
+        {model| story="Nothing to pick up！"}
     else
     model
 
