@@ -513,8 +513,6 @@ pickUp model =
 
     if not isPickUp then
     model
-    else if not abletoPick2 then
-    {model|story="Energy is not enough!"}
     else if isThereAny == 1 && t1 == Empty && abletoPick2 && isPickUp then
     { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_ ,story="get it" }
     else if isThereAny == 1 && t1 /= Empty && t2 == Empty && abletoPick2 && isPickUp then
@@ -536,7 +534,9 @@ pickUp model =
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty && abletoPick2 && isPickUp then
     { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item } , items = itemsLeft , energy=energy_}
     else if isThereAny == 0 then
-        {model| story="Nothing to pick up！"}
+    {model| story="Nothing to pick up！"}
+    else if not abletoPick2 then
+    {model|story="Energy is not enough!"}
     else
     model
 
