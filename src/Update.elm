@@ -119,7 +119,7 @@ update msg model =
         EnterVehicle on ->
             case on of
                 True ->
-                    ( enterElevators model, Cmd.none)
+                    ( enterElevators model, Cmd.none )
                 False ->
                     ( model, Cmd.none )
 
@@ -127,43 +127,36 @@ update msg model =
         Noop ->
             ( model, Cmd.none )
 
-        InteractWith trigger ->
-                    -- we need to check if any rule matched
-            case Rules.findMatchingRule trigger parsedData model.worldModel of
-                Just ( matchedRuleID, { changes } ) ->
-                    ({ model
-                    | worldModel = WorldModel.applyChanges changes trigger model.worldModel
-                    , story =
-                                    -- get the story from narrative content (we also need to
-                                    -- parse it)
-                    Dict.get matchedRuleID narrative_content
-                        |> Maybe.withDefault ("ERROR finding narrative content for " ++ matchedRuleID)
-                        |> NarrativeParser.parse (makeConfig trigger matchedRuleID model)
-                                        -- The parser can break up a narrative into chunks
-                                        -- (for pagination for example), but in our case we
-                                        -- use the whole thing, so we just take the head.
-                        |> List.head
-                        |> Maybe.withDefault ("ERROR parsing narrative content for " ++ matchedRuleID)
-                    , ruleCounts = Dict.update matchedRuleID (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
-                    , debug = model.debug
-                                  |> NarrativeEngine.Debug.setLastMatchedRuleId matchedRuleID
-                                  |> NarrativeEngine.Debug.setLastInteractionId trigger
-                    }, Cmd.none)
+        InteractByKey on ->
+            case on of
+                True ->
+                    case model.interacttrue of
+                        True ->
+                            ( interactByKey model, Cmd.none )
+                        _ ->
+                            ( model, Cmd.none )
+                False ->
+                    ( model, Cmd.none )
 
-                Nothing ->
-                            -- no rule matched, so lets just show the description of the
-                            -- entity that the player interacted with
-                    ({ model
-                    | story = getDescription (makeConfig trigger trigger model) trigger model.worldModel
-                    , ruleCounts = Dict.update trigger (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
-                    , debug = model.debug
-                                  |> NarrativeEngine.Debug.setLastMatchedRuleId trigger
-                                  |> NarrativeEngine.Debug.setLastInteractionId trigger
-                    }, Cmd.none)
+
+        InteractWith trigger ->
+            interactWith__core trigger model
 
         UpdateDebugSearchText searchText ->
                     ({ model | debug = NarrativeEngine.Debug.updateSearch searchText model.debug }, Cmd.none)
 
+        Adkinscatch ->
+            ({ model | correctsolved = (model.correctsolved + 1), conclusion = 0
+                     , story = "I think Adkins's alibi is not always valid since he has his own office. He was the boss, so no one would disturb him and he could go out without anyone noticing. I told this to Allen, and he got the monitoring of Adkins's firm and found Brennan entered the firm without coming out. Then Adkins admitted that he killed Brennan because he was compared to Brennan from an early age. Everyone knew Brennan but no one heard him. Even Catherine was attracted only to Brennan. This is a tragedy of envy." }
+            , Cmd.none)
+
+        Catherinecatch ->
+            ({ model | conclusion = 0, story = "I think Catherine's alibi is not always valid. We had her in custody, but we cannot found the key evidence. Catherine was devastated and refused to admit she had killed Brennan. We had to release her in the end, but everyone around him was talking about her..." }
+            , Cmd.none)
+
+        Robbery ->
+            ({ model | conclusion = 0, story = "I think this is just a robbery, though the message sent to Catherine was very strange. We comforted the two people who had lost important people, and issued an arrest warrant, but nothing came of it..." }
+            , Cmd.none)
 
 
 
@@ -435,7 +428,7 @@ canPickUp model item=
 
 itemPickUp : Model -> Item -> Item
 itemPickUp model item =
-    if canPickUp model item == True then
+    if canPickUp model item && canpickUp_energy model && model.heroPickUp &&(item.isPick ==False) then
     { item | isPick = True }
     else
     item
@@ -450,15 +443,23 @@ canpickUp_energy model =
     True
     else
     False
+
+filter_picked_item : Item-> Bool
+filter_picked_item item=
+    if item.isPick ==True then
+    False
+    else
+    True
 pickUp : Model -> Model
 pickUp model =
     let
         isPickUp = model.heroPickUp --is player doing pick up commands
-        isThereAny = List.length ableToPick
         ableToPick = List.filter (canPickUp model) model.items --depends on distance
+        isThereAny = List.length ableToPick
         abletoPick2 =canpickUp_energy model --depends on energy
         item = withDefault gunIni (head ableToPick)
-        itemsLeft = map (itemPickUp model) model.items
+        carry_out_pick_up = List.map (itemPickUp model) model.items ---this step just change the property but not filter
+        itemsLeft = List.filter filter_picked_item carry_out_pick_up
         g1 = model.bag.grid1
         g2 = model.bag.grid2
         g3 = model.bag.grid3
@@ -483,10 +484,13 @@ pickUp model =
         energy_ = energy - model.energy_Cost
 
     in
-    if isThereAny == 0 || not abletoPick2 || not isPickUp then
+
+    if not isPickUp then
     model
+    else if not abletoPick2 then
+    {model|story="Energy is not enough!"}
     else if isThereAny == 1 && t1 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_ }
+    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_ ,story="get it" }
     else if isThereAny == 1 && t1 /= Empty && t2 == Empty && abletoPick2 && isPickUp then
     { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 == Empty && abletoPick2 && isPickUp then
@@ -505,18 +509,14 @@ pickUp model =
     { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty && abletoPick2 && isPickUp then
     { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 0 then
+        {model| story="Nothing to pick up！"}
     else
     model
 
-canInteract : Model -> NPC -> Bool
-canInteract model npc=
-    let
-        distance = ( model.hero.x - npc.x)^2 + ( model.hero.y - npc.y)^2
-    in
-    if distance > 100 then
-    False
-    else
-    True
+canInteract : Model -> NPC ->  Bool
+canInteract model npc  =
+    judgeAreaOverlap model npc.area
 
 interact : Model -> NPC -> NPC
 interact model npc =
@@ -534,3 +534,61 @@ judgeinteract npc=
 
 judgeInteract model =
     { model|interacttrue = (List.member True (List.map judgeinteract model.npcs)) }
+
+interactWith__core : WorldModel.ID -> Model -> ( Model, Cmd Msg )
+interactWith__core trigger model =
+                    -- we need to check if any rule matched
+         case Rules.findMatchingRule trigger parsedData model.worldModel of
+                Just ( matchedRuleID, { changes } ) ->
+                    ({ model
+                    | worldModel = WorldModel.applyChanges changes trigger model.worldModel
+                    , story =
+                                    -- get the story from narrative content (we also need to
+                                    -- parse it)
+                    Dict.get matchedRuleID narrative_content
+                        |> Maybe.withDefault ("ERROR finding narrative content for " ++ matchedRuleID)
+                        |> NarrativeParser.parse (makeConfig trigger matchedRuleID model)
+                                        -- The parser can break up a narrative into chunks
+                                        -- (for pagination for example), but in our case we
+                                        -- use the whole thing, so we just take the head.
+                        |> List.head
+                        |> Maybe.withDefault ("ERROR parsing narrative content for " ++ matchedRuleID)
+                    , ruleCounts = Dict.update matchedRuleID (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
+                    , debug = model.debug
+                                  |> NarrativeEngine.Debug.setLastMatchedRuleId matchedRuleID
+                                  |> NarrativeEngine.Debug.setLastInteractionId trigger
+                    }, Cmd.none)
+
+                Nothing ->
+                            -- no rule matched, so lets just show the description of the
+                            -- entity that the player interacted with
+                    ({ model
+                    | story = getDescription (makeConfig trigger trigger model) trigger model.worldModel
+                    , ruleCounts = Dict.update trigger (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
+                    , debug = model.debug
+                                  |> NarrativeEngine.Debug.setLastMatchedRuleId trigger
+                                  |> NarrativeEngine.Debug.setLastInteractionId trigger
+                    }, Cmd.none)
+
+
+
+interactByKey : Model -> Model
+interactByKey model =
+    let
+        trueNPCs = List.filter (\a -> a.interacttrue == True) model.npcs
+        currNPC = withDefault emptyNPC (List.head trueNPCs)
+        currTrigger
+            = query currNPC.description model.worldModel
+            |> List.map Tuple.first -- get List ID
+            |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
+            |> withDefault "no such npc"
+        model_ = interactWith__core currTrigger model |> Tuple.first
+    in
+    if List.isEmpty trueNPCs then
+        model
+    else
+        model_
+
+
+
+

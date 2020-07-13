@@ -8,7 +8,12 @@ import Svg.Attributes exposing (..)
 import Items exposing (..)
 import Color exposing (..)
 import Message exposing (Msg(..))
-import Svg.Events exposing (onMouseOver)
+import Rules exposing (..)
+import NarrativeEngine.Core.WorldModel as WorldModel
+import Html exposing (Html, button, div, li, h3, ul, em)
+import Html.Attributes exposing (style)
+import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
+
 
 heroToSvg : Hero -> List (Svg msg)
 heroToSvg hero =
@@ -176,84 +181,46 @@ testToSvg model =
         _ -> [ rect [] [] ]
 
 
+entityView : NPC -> (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
+entityView npc ((id, { name }), model) =
+    let
+        msg =
+            case model.interacttrue of
+                True ->
+                    InteractWith id
+                _ ->
+                    Noop
+        ( x_, y_ ) = ( npc.area.x, npc.area.y )
+        ( wid, hei ) = ( npc.area.wid, npc.area.hei )
 
+    in
+        rect
+        [ x (x_ |> Debug.toString)
+        , y (y_ |> Debug.toString)
+        , width (wid |> Debug.toString)
+        , height (hei |> Debug.toString)
+        , strokeWidth "5px", stroke "#191970"
+        , onClick (msg)
+        ]
+        []
 
+entityViewchoices : ( WorldModel.ID, MyEntity ) -> Html Msg
+entityViewchoices ( id, { name } ) =
+    li [ onClick <| InteractWith id, Html.Attributes.style "cursor" "pointer" ] [ text name ]
 
+bob model = List.map (entityView cBob) (List.map2 Tuple.pair (query "BOBPOLICEOFFICE.npc.day=1" model.worldModel) [model])
 
+lee model = List.map (entityView cLee) (List.map2 Tuple.pair (query "LEEPOLICEOFFICE.npc.day=1" model.worldModel) [model])
 
+allen model = List.map (entityView cAllen) (List.map2 Tuple.pair (query "ALLENPOLICEOFFICE.npc.day=1" model.worldModel) [model])
 
+allenpark model = List.map (entityView pAllen) (List.map2 Tuple.pair (query "ALLENPARK.npc.day=1" model.worldModel) [model])
 
+leepark model = List.map (entityView pLee) (List.map2 Tuple.pair (query "LEEPARK.npc.day=1" model.worldModel) [model])
 
+adkinspark model = List.map (entityView pAdkins) (List.map2 Tuple.pair (query "ADKINS.npc.day=1" model.worldModel) [model])
 
-
-
-
-
-
-
-
-
-draftSvg : List (Svg msg)
-draftSvg =
-    [
-        line
-        [ x1 "200"
-        , y1 "0"
-        , x2 "200"
-        , y2 "600"
-        , strokeWidth "5px"
-        , stroke "black"
-        ] []
-        ,
-        line
-        [ x1 "400"
-        , y1 "0"
-        , x2 "400"
-        , y2 "600"
-        , strokeWidth "5px"
-        , stroke "black"
-        ] []
-        ,
-        line
-        [ x1 "600"
-        , y1 "0"
-        , x2 "600"
-        , y2 "600"
-        , strokeWidth "5px"
-        , stroke "black"
-        ] []
-        ,
-        line
-        [ x1 "800"
-        , y1 "0"
-        , x2 "800"
-        , y2 "600"
-        , strokeWidth "5px"
-        , stroke "black"
-        ] []
-
-        ,
-
-        line
-        [ x1 "0"
-        , y1 "200"
-        , x2 "900"
-        , y2 "200"
-        , strokeWidth "5px"
-        , stroke "black"
-        ] []
-        ,
-        line
-        [ x1 "0"
-        , y1 "400"
-        , x2 "900"
-        , y2 "400"
-        , strokeWidth "5px"
-        , stroke "black"
-        ] []
-
-
-    ]
+catherinepark model = List.map (entityView pCatherine) (List.map2 Tuple.pair (query "CATHERINE.npc.day=1" model.worldModel) [model])
 
 
 intToFloat : Int -> Float

@@ -14,6 +14,7 @@ type Msg
     | MoveDown Bool
     | Resize Int Int
     | GetViewport Viewport
+    | InteractByKey Bool
     | ToPoliceOffice
     | ToPark
     | PickUp Bool
@@ -24,3 +25,6 @@ type Msg
     | Noop
     | InteractWith WorldModel.ID
     | UpdateDebugSearchText String
+    | Catherinecatch
+    | Adkinscatch
+    | Robbery

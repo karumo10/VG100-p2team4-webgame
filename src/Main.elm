@@ -62,5 +62,8 @@ key on keycode =
         70 -> -- f
             EnterVehicle on
 
+        88 -> -- x
+            InteractByKey on
+
         _ ->
             Noop
