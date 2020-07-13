@@ -170,6 +170,18 @@ update msg model =
         UpdateDebugSearchText searchText ->
                     ({ model | debug = NarrativeEngine.Debug.updateSearch searchText model.debug }, Cmd.none)
 
+        Adkinscatch ->
+            ({ model | correctsolved = (model.correctsolved + 1), conclusion = 0
+                     , story = "I think Adkins's alibi is not always valid since he has his own office. He was the boss, so no one would disturb him and he could go out without anyone noticing. I told this to Allen, and he got the monitoring of Adkins's firm and found Brennan entered the firm without coming out. Then Adkins admitted that he killed Brennan because he was compared to Brennan from an early age. Everyone knew Brennan but no one heard him. Even Catherine was attracted only to Brennan. This is a tragedy of envy." }
+            , Cmd.none)
+
+        Catherinecatch ->
+            ({ model | conclusion = 0, story = "I think Catherine's alibi is not always valid. We had her in custody, but we cannot found the key evidence. Catherine was devastated and refused to admit she had killed Brennan. We had to release her in the end, but everyone around him was talking about her..." }
+            , Cmd.none)
+
+        Robbery ->
+            ({ model | conclusion = 0, story = "I think this is just a robbery, though the message sent to Catherine was very strange. We comforted the two people who had lost important people, and issued an arrest warrant, but nothing came of it..." }
+            , Cmd.none)
 
 
 

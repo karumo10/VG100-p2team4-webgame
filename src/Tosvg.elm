@@ -1,6 +1,6 @@
 module Tosvg exposing (..)
 
-
+import Html.Events exposing (onClick)
 import Model exposing (..)
 import List exposing (filter)
 import Svg exposing (..)
@@ -217,6 +217,10 @@ allen model = List.map (entityView cAllen) (List.map2 Tuple.pair (query "ALLENPO
 allenpark model = List.map (entityView pAllen) (List.map2 Tuple.pair (query "ALLENPARK.npc.day=1" model.worldModel) [model])
 
 leepark model = List.map (entityView pLee) (List.map2 Tuple.pair (query "LEEPARK.npc.day=1" model.worldModel) [model])
+
+adkinspark model = List.map (entityView pAdkins) (List.map2 Tuple.pair (query "ADKINS.npc.day=1" model.worldModel) [model])
+
+catherinepark model = List.map (entityView pCatherine) (List.map2 Tuple.pair (query "CATHERINE.npc.day=1" model.worldModel) [model])
 
 
 intToFloat : Int -> Float

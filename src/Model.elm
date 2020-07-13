@@ -132,7 +132,7 @@ parkAttr =
     , heroIni = { x = 500, y = 250, width = 30, height = 90 }
     , barrier = []
     , elevator = []
-    , npcs = [pAllen, pLee]
+    , npcs = [pAllen, pLee, pAdkins, pCatherine]
     , story = "I arrive at the park. This is a desolate place."
     }
 
@@ -214,6 +214,8 @@ type alias Model =
     , energy_Full : Int
     , energy_Cost : Int
     , quests : Quest
+    , correctsolved : Int
+    , conclusion : Float
     }
 
 initial : Model
@@ -241,6 +243,8 @@ initial =
     , energy_Full = 100
     , energy_Cost = 25
     , quests = NoQuest
+    , correctsolved = 0
+    , conclusion = 1
     }
 
 type Quest
@@ -355,7 +359,6 @@ emptyNPC =
     , description = ""
     }
 
-
 cLee : NPC
 cLee =
     { itemType = Lee
@@ -368,7 +371,6 @@ cLee =
     , interacttrue = False
     , description = "LEEPOLICEOFFICE.npc.day=1"
     }
-
 
 cBob : NPC
 cBob =
@@ -422,13 +424,31 @@ pAllen =
     , description = "ALLENPARK.npc.day=1"
     }
 
+pAdkins : NPC
+pAdkins =
+    { itemType = Adkins
+    , area =
+        { x = 450
+        , y = 400
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "ADKINS.npc.day=1"
+    }
 
-
-
-
-
-
-
+pCatherine : NPC
+pCatherine =
+    { itemType = Catherine
+    , area =
+        { x = 400
+        , y = 400
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "CATHERINE.npc.day=1"
+    }
 
 
 

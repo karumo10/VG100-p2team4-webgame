@@ -26,3 +26,6 @@ type Msg
     | Noop
     | InteractWith WorldModel.ID
     | UpdateDebugSearchText String
+    | Catherinecatch
+    | Adkinscatch
+    | Robbery

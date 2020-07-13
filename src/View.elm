@@ -183,7 +183,9 @@ renderPic model =
                     ] []]
                 ++ ( heroToSvg model.hero )
                 ++ ( leepark model)
-                ++ ( allenpark model )
+                ++ ( allenpark model)
+                ++ ( adkinspark model)
+                ++ ( catherinepark model)
 
             Switching ->
 
@@ -220,6 +222,16 @@ renderdialog : Model -> Html Msg
 renderdialog model =
         div [ style "width" "70%", style "margin" "auto" ]
         [ div [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em" ]
-              [div [] [ text model.story ]
-              ,ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
+              ([div [] [ text model.story ]
+              ,ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)
+              ]++
+              case model.map of
+                  Park ->
+                      [ button [onClick Catherinecatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Catherine"]
+                      , button [onClick Adkinscatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Adkins"]
+                      , button [onClick Robbery, style "opacity" (model.conclusion|>Debug.toString)] [text "This is a robbery."]
+                      ]
+                  _ ->
+                      []
+              )
         ]
