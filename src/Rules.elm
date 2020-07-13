@@ -340,9 +340,24 @@ rulesSpec =
             """
         |> rule_______________________ "talk with allen park 2"
             """
-            ON: ALLENPARK.day=1.trigger=2
+            ON: CATHERINE.trigger=1
             DO: ALLENPARK.trigger=3
                 BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                CATHERINEASK.choices=0
+                CATHERINEALIBI.choices=0
+                ADKINSASK.choices=0
+                ADKINSALIBI.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
+            """
+        |> rule_______________________ "park default"  -- To fix the bug of choices
+            """
+            ON: ALLENPARK.day=1.trigger=2
+            IF: ADKINS.trigger=1
+            DO: BODYPARKSHOES.choices=0
                 SCARONNECK.choices=0
                 BELONGINGS.choices=0
                 CATHERINEASK.choices=0
