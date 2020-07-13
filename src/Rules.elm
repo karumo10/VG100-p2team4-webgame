@@ -180,6 +180,13 @@ rulesSpec =
                 SHOE.allentalkpark.choices=1
                 WEAPON.allentalkpark.choices=1
                 ALLENPARK.trigger=1
+                BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                CATHERINEASK.choices=0
+                CATHERINEALIBI.choices=0
+                ADKINSASK.choices=0
+                ADKINSALIBI.choices=0
             """
         |> rule_______________________ "nothing"
             """
@@ -215,6 +222,13 @@ rulesSpec =
                 BODYPARKSHOES.choices=1
                 SCARONNECK.choices=1
                 BELONGINGS.choices=1
+                CATHERINEASK.choices=0
+                CATHERINEALIBI.choices=0
+                ADKINSASK.choices=0
+                ADKINSALIBI.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
             """
         |> rule_______________________ "invest shoes"
             """
@@ -240,18 +254,44 @@ rulesSpec =
             IF: ADKINS.trigger=0
             DO: ADKINS.trigger=1
                 ADKINSALIBI.choices=1
+                BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                CATHERINEASK.choices=0
+                CATHERINEALIBI.choices=0
+                ADKINSASK.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
             """
         |> rule_______________________ "ask adkins alibi"
             """
             ON: ADKINSALIBI.choices=1
             DO: ADKINSALIBI.choices=0
                 ADKINSASK.choices=1
+                BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                CATHERINEASK.choices=0
+                CATHERINEALIBI.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
             """
         |> rule_______________________ "ask adkins alibi2"
             """
             ON: ADKINSASK.choices=1
             DO: ADKINSASK.choices=0
                 ALLENPARK.day=1.trigger=2
+                BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                CATHERINEASK.choices=0
+                CATHERINEALIBI.choices=0
+                ADKINSALIBI.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
             """
         |> rule_______________________ "talk with catherine"
             """
@@ -259,23 +299,59 @@ rulesSpec =
             IF: CATHERINE.trigger=0
             DO: CATHERINE.trigger=1
                 CATHERINEALIBI.choices=1
+                BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                CATHERINEASK.choices=0
+                ADKINSASK.choices=0
+                ADKINSALIBI.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
             """
         |> rule_______________________ "ask catherine alibi"
             """
             ON: CATHERINEALIBI.choices=1
             DO: CATHERINEALIBI.choices=0
                 CATHERINEASK.choices=1
+                BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                ADKINSASK.choices=0
+                ADKINSALIBI.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
             """
         |> rule_______________________ "ask catherine alibi2"
             """
             ON: CATHERINEASK.choices=1
             DO: CATHERINEASK.choices=0
                 ALLENPARK.day=1.trigger=2
+                BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                CATHERINEALIBI.choices=0
+                ADKINSASK.choices=0
+                ADKINSALIBI.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
             """
         |> rule_______________________ "talk with allen park 2"
             """
             ON: ALLENPARK.day=1.trigger=2
             DO: ALLENPARK.trigger=3
+                BODYPARKSHOES.choices=0
+                SCARONNECK.choices=0
+                BELONGINGS.choices=0
+                CATHERINEASK.choices=0
+                CATHERINEALIBI.choices=0
+                ADKINSASK.choices=0
+                ADKINSALIBI.choices=0
+                NOTHING.allentalkpark.choices=0
+                SHOE.allentalkpark.choices=0
+                WEAPON.allentalkpark.choices=0
             """
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
