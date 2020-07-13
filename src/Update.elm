@@ -122,7 +122,7 @@ update msg model =
                     , Cmd.none
                     )
                 Home ->
-                     ( teleportHero ( 795, 290 ) model
+                     ( teleportHero ( 795, 280 ) model
                      , Cmd.none
                      )
                 _ -> (model,Cmd.none)
@@ -134,7 +134,7 @@ update msg model =
                     , Cmd.none
                     )
                 Home ->
-                     ( teleportHero ( 795, 60 ) model
+                     ( teleportHero ( 795, 65 ) model
                      , Cmd.none
                      )
                 _ -> (model,Cmd.none)

@@ -177,7 +177,7 @@ testToSvg model =
     in
     case Model.gameMode______ of
         Test ->
-            exitSvgList ++ barrierSvgList ++ elevatorSvgList
+            elevatorSvgList ++ exitSvgList ++ barrierSvgList
         _ -> [ rect [] [] ]
 
 

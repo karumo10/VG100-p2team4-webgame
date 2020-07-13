@@ -25,6 +25,7 @@ type Mode
 gameMode______ : Mode
 gameMode______ = Game
 
+
 type State
     = Paused
     | Playing
@@ -74,7 +75,7 @@ policeOfficeBarrier =
             , { x = 370, y = 500 , wid = 120, hei = 30 } -- f1.reception desk
             , { x = 290, y = 280 , wid = 110, hei = 20 } -- f2.left desk
             , { x = 465, y = 280 , wid = 135, hei = 20 } -- f1.right desk
-            , { x = 645, y = 280 , wid = 30, hei = 20 } -- f1.elevator wall
+            , { x = 645, y = 280 , wid = 30, hei = 20 } -- f2.elevator wall
             , { x = 205, y = 280, wid = 55, hei = 20 } -- f2.bookshelf.up
             , { x = 205, y = 300, wid = 30, hei = 20} -- f2.bookshelf.left
             , { x = 805, y = 420 , wid = 20, hei = 180 } -- f1.right wall
@@ -95,23 +96,24 @@ homeBarrier =
             [ ]
         _ ->
             [ { x = 290, y = 500 , wid = 575, hei = 20 } -- f1.ceiling (every floor 230)
-            , { x = 205, y = 260 , wid = 610, hei = 20 } -- f2.ceiling
-            , { x = 265, y = 40 , wid = 610, hei = 20 } -- f3.ceiling
-            , { x = 475, y = 280 , wid = 45, hei = 20 } -- f1.right desk
+            , { x = 205, y = 260 , wid = 650, hei = 20 } -- f2.ceiling
+            , { x = 265, y = 45 , wid = 610, hei = 20 } -- f3.ceiling
+            , { x = 475, y = 280 , wid = 45, hei = 20 } -- f2.door
+            , { x = 695, y = 520 , wid = 45, hei = 20 } -- f1.door
             , { x = 205, y = 300, wid = 30, hei = 20} -- f2.bookshelf.left
             , { x = 235, y = 275, wid = 50, hei = 20} --f2.left corner
-            , { x = 590, y = 55, wid = 30, hei = 20 } --f3.lap
-            , { x = 570, y = 60, wid = 20, hei = 80 } -- f3.bedwall
+            , { x = 590, y = 60, wid = 30, hei = 20 } --f3.bedside lap
+            , { x = 570, y = 65, wid = 20, hei = 80 } -- f3.bedwall
             , { x = 655, y = 60, wid = 95, hei = 20 } -- f3.shelf
-            , { x = 865, y = 420 , wid = 20, hei = 180 } -- f1.right wall
-            , { x = 865, y = 190 , wid = 20, hei = 180 } -- f2.right wall
-            , { x = 865, y = -40 , wid = 20, hei = 180 } -- f3.right wall
+            , { x = 825, y = 520 , wid = 20, hei = 80 } -- f1.right wall
+            , { x = 825, y = 280 , wid = 20, hei = 80 } -- f2.right wall
+            , { x = 835, y = 65 , wid = 20, hei = 80 } -- f3.right wall
             , { x = 185, y = 420 , wid = 20, hei = 180 } -- f1.left wall
             , { x = 185, y = 190 , wid = 20, hei = 180 } -- f2.left wall
             , { x = 185, y = -40 , wid = 20, hei = 180 } -- f3.left wall
             , { x = 205, y = 600 , wid = 660, hei = 20 } -- f1.floor
-            , { x = 205, y = 370 , wid = 660, hei = 20 } -- f2.floor
-            , { x = 205, y = 140 , wid = 660, hei = 20 } -- f3.floor
+            , { x = 205, y = 360 , wid = 660, hei = 20 } -- f2.floor
+            , { x = 205, y = 145 , wid = 660, hei = 20 } -- f3.floor
             ]
 
 policeOfficeElevator : List Vehicle
