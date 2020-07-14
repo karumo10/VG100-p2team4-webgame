@@ -11,7 +11,6 @@ import Items exposing ( .. )
 import Rules exposing (..)
 import NarrativeEngine.Core.WorldModel as WorldModel
 import NarrativeEngine.Syntax.RuleParser as RuleParser
-import Css exposing (borderRadius, px, hover, textDecoration, underline)
 import Html exposing (Html, button, div, text, br, ul, em)
 
 pixelWidth : Float
@@ -247,7 +246,8 @@ renderPic model =
 
         )++ (
           energytosvg model.energy model.energy_Full
-         ++ testToSvg model )
+         ++ testToSvg model
+         ++ itemsToSvg model )
         )
 
 renderdialog : Model -> Html Msg

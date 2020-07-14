@@ -48,8 +48,9 @@ itemsToSvg : Model -> List ( Svg msg )
 itemsToSvg model =
     let
         itemsLeft = List.filter isNotPick model.items
+        itemsExact = List.filter (isItemAtMap model) itemsLeft
     in
-    List.map ( \a -> formSvg a) itemsLeft
+    List.map ( \a -> formSvg a) itemsExact
 
 
 elevatorQuestToSvg : Model -> List (Svg Msg)

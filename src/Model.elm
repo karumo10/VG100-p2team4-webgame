@@ -456,7 +456,12 @@ pCatherine =
     , description = "CATHERINE.npc.day=1"
     }
 
-
+isItemAtMap : Model -> Item -> Bool
+isItemAtMap model item =
+    if model.map == item.scene then
+    True
+    else
+    False
 
 
 

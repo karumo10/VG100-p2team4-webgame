@@ -62,7 +62,7 @@ bulletProofIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = PoliceOffice
+    , scene = Park
     , x = 700
     , y = 530
     }
@@ -86,7 +86,7 @@ emptyIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = PoliceOffice
+    , scene = Park
     , x = 0
     , y = 0
     }
