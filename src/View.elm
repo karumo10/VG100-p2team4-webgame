@@ -1,17 +1,18 @@
 module View exposing (..)
-import Html exposing (Html, button, div, text, br, ul, em)
-import Html.Attributes exposing (style,src,type_)
+import Html.Attributes exposing (style,src,type_,autoplay,id,loop)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
 import Tosvg exposing (..)
 import Svg exposing (image, rect, svg)
-import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
+import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth,xlinkHref,transform)
 import Items exposing ( .. )
 import Rules exposing (..)
 import NarrativeEngine.Core.WorldModel as WorldModel
 import NarrativeEngine.Syntax.RuleParser as RuleParser
+import Css exposing (borderRadius, px, hover, textDecoration, underline)
+import Html exposing (Html, button, div, text, br, ul, em)
 
 pixelWidth : Float
 pixelWidth =
@@ -25,16 +26,14 @@ pixelHeight =
 view : Model -> Html Msg
 view model =
     let
-            ( w, h ) =
-                model.size
-
-            r =
+        ( w, h ) =
+            model.size
+        r =
                 if w / h > pixelWidth / pixelHeight then
                     min 1 (h / pixelHeight)
-
                 else
                     min 1 (w / pixelWidth)
-        in
+    in
         div
         [ style "width" "100%"
         , style "height" "100%"
@@ -50,12 +49,12 @@ view model =
         , style "top" (String.fromFloat ((h - pixelHeight * r) / 2) ++ "px")
         , style "transform-origin" "0 0"
         , style "transform" ("scale(" ++ String.fromFloat r ++ ")")]
-            [ renderPic model
-            , renderMapButton model
-            , renderdialog model
-            , renderMusic
-            , axisHelper model
-            ]]
+        [ renderPic model
+        , renderMapButton model
+        , renderdialog model
+        , renderMusic
+        , axisHelper model
+        ]]
 
 
 
@@ -74,16 +73,16 @@ renderMusic =
     div []
     [ div []
         [ Html.iframe
-            [ Html.Attributes.src "./trigger.mp3"
-            , Html.Attributes.autoplay True
+            [ src "./trigger.mp3"
+            , autoplay True
             , style "display" "none"
             ] []
         ]
     , div []
         [ Html.audio
-            [ Html.Attributes.id "player"
-            , Html.Attributes.autoplay True
-            , Html.Attributes.loop True
+            [ id "player"
+            , autoplay True
+            , loop True
             , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
             , type_ "audio/mp3"
             ] []
@@ -191,16 +190,16 @@ renderPic model =
             PoliceOffice ->
 
                 [Svg.image
-                    [Svg.Attributes.xlinkHref "./police_office.png"
+                    [ xlinkHref "./police_office.png"
                     , x "0"
                     , y "0"
                     , width "900"
                     , height "630"
-                    , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
-                ++ ( bob model )
-                ++ ( lee model )
-                ++ ( allen model )
+                ++ [ entityView cBob ]
+                ++ [ entityView cLee ]
+                ++ [ entityView cAllen ]
                 ++ ( elevatorQuestToSvg model )
                 ++ ( heroToSvg model.hero )
 
@@ -208,18 +207,18 @@ renderPic model =
             Park ->
 
                 [Svg.image
-                    [Svg.Attributes.xlinkHref "./park.png"
+                    [ xlinkHref "./park.png"
                     , x "0"
                     , y "0"
                     , width "900"
                     , height "630"
-                    , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ ( heroToSvg model.hero )
-                ++ ( leepark model)
-                ++ ( allenpark model)
-                ++ ( adkinspark model)
-                ++ ( catherinepark model)
+                ++ [ entityView pLee ]
+                ++ [ entityView pAllen ]
+                ++ [ entityView pAdkins ]
+                ++ [ entityView pCatherine ]
 
             Switching ->
 
@@ -230,15 +229,14 @@ renderPic model =
                     , height "600"
                     , fill "black"][]] --useless now
 
-
             Home ->
                 [Svg.image
-                    [Svg.Attributes.xlinkHref "./Kay's_home.png"
+                    [ xlinkHref "./Kay's_home.png"
                     , x "0"
                     , y "0"
                     , width "900"
                     , height "630"
-                    , Svg.Attributes.transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ ( elevatorQuestToSvg model )
                 ++ ( heroToSvg model.hero )

@@ -171,7 +171,7 @@ update msg model =
             interactWith__core trigger model
 
         UpdateDebugSearchText searchText ->
-                    ({ model | debug = NarrativeEngine.Debug.updateSearch searchText model.debug }, Cmd.none)
+            ({ model | debug = NarrativeEngine.Debug.updateSearch searchText model.debug }, Cmd.none)
 
         Adkinscatch ->
             ({ model | correctsolved = (model.correctsolved + 1), conclusion = 0
