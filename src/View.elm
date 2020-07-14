@@ -20,7 +20,7 @@ pixelWidth =
 
 pixelHeight : Float
 pixelHeight =
-    550
+    800
 
 view : Model -> Html Msg
 view model =
@@ -35,7 +35,14 @@ view model =
                 else
                     min 1 (w / pixelWidth)
         in
-    div [style "width" (String.fromFloat pixelWidth ++ "px")
+ div
+        [ style "width" "100%"
+        , style "height" "100%"
+        , style "position" "absolute"
+        , style "left" "0"
+        , style "top" "0"
+        ]
+    [div [style "width" (String.fromFloat pixelWidth ++ "px")
                      , style "height" (String.fromFloat pixelHeight ++ "px")
                      , style "position" "absolute"
                      , style "left" (String.fromFloat ((w - pixelWidth * r) / 2) ++ "px")
@@ -47,7 +54,7 @@ view model =
             , renderdialog model
             , renderMusic
             , axisHelper model
-            ]
+            ]]
 
 
 
