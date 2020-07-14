@@ -156,7 +156,7 @@ update msg model =
             case on of
                 True ->
                     let
-                        model_={model|heroInteractWithNpc=True}
+                        model_={model|heroInteractWithNpc=True} --If there is no farther use, I will delete this.
                     in
                     case model.interacttrue of
                         True ->
@@ -556,7 +556,7 @@ isEnergyEnoughInteract model =
 
 canInteract : Model -> NPC ->  Bool
 canInteract model npc  =
-    if (judgeAreaOverlap model npc.area == True)&&(isEnergyEnoughInteract model == True)&&model.heroInteractWithNpc == True then
+    if (judgeAreaOverlap model npc.area == True)&&(isEnergyEnoughInteract model == True) then
     True
     else
     False
