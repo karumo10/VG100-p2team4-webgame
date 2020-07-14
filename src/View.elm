@@ -13,9 +13,35 @@ import Rules exposing (..)
 import NarrativeEngine.Core.WorldModel as WorldModel
 import NarrativeEngine.Syntax.RuleParser as RuleParser
 
+pixelWidth : Float
+pixelWidth =
+    1500
+
+
+pixelHeight : Float
+pixelHeight =
+    550
+
 view : Model -> Html Msg
 view model =
-    div []
+    let
+            ( w, h ) =
+                model.size
+
+            r =
+                if w / h > pixelWidth / pixelHeight then
+                    min 1 (h / pixelHeight)
+
+                else
+                    min 1 (w / pixelWidth)
+        in
+    div [style "width" (String.fromFloat pixelWidth ++ "px")
+                     , style "height" (String.fromFloat pixelHeight ++ "px")
+                     , style "position" "absolute"
+                     , style "left" (String.fromFloat ((w - pixelWidth * r) / 2) ++ "px")
+                     , style "top" (String.fromFloat ((h - pixelHeight * r) / 2) ++ "px")
+                     , style "transform-origin" "0 0"
+                     , style "transform" ("scale(" ++ String.fromFloat r ++ ")")]
             [ renderPic model
             , renderMapButton model
             , renderdialog model
