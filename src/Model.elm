@@ -200,6 +200,7 @@ type alias Model =
     , heroMoveUp : Bool
     , heroMoveDown : Bool
     , heroPickUp : Bool
+    , heroInteractWithNpc : Bool
     , state : State
     , size : ( Float, Float )
     , map : Map
@@ -214,7 +215,8 @@ type alias Model =
     , interacttrue : Bool
     , energy : Int
     , energy_Full : Int
-    , energy_Cost : Int
+    , energy_Cost_pickup : Int
+    , energy_Cost_interact : Int
     , quests : Quest
     , correctsolved : Int
     , conclusion : Float
@@ -229,6 +231,7 @@ initial =
     , heroMoveUp = False
     , heroMoveDown = False
     , heroPickUp = False
+    , heroInteractWithNpc = False
     , state = Playing
     , size = ( 1500, 800 )
     , map = PoliceOffice -- door at police office
@@ -243,7 +246,8 @@ initial =
     , interacttrue = False
     , energy = 60
     , energy_Full = 100
-    , energy_Cost = 25
+    , energy_Cost_pickup = 25
+    , energy_Cost_interact = 5
     , quests = NoQuest
     , correctsolved = 0
     , conclusion = 1

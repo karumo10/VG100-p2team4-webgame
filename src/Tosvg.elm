@@ -259,13 +259,22 @@ energytosvg energy energyFull =
             ] []
             ,
             Svg.text_
-            [ x ((x_ - 70)|>Debug.toString)
+            [ x ((x_ - 72)|>Debug.toString)
             , y ((y_ + 10)|>Debug.toString)
             , fill "#999C86"
             , fontSize "15"
             , fontFamily "Segoe UI Black"
             , textDecoration "underline"
             ] [text "Energy"]
+            ,
+            Svg.text_
+            [ x ((x_ - 20)|>Debug.toString)
+            , y ((y_ + 10)|>Debug.toString)
+            , textDecoration "underline"
+            , fill "#999C86"
+            , fontSize "15"
+            , fontFamily "Segoe UI Black"
+            ] [text (Debug.toString energy)]
         ]
 
 

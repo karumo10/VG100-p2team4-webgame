@@ -155,11 +155,14 @@ update msg model =
         InteractByKey on ->
             case on of
                 True ->
+                    let
+                        model_={model|heroInteractWithNpc=True}
+                    in
                     case model.interacttrue of
                         True ->
-                            ( interactByKey model, Cmd.none )
+                            ( interactByKey model_, Cmd.none )
                         _ ->
-                            ( model, Cmd.none )
+                            ( model_, Cmd.none )
                 False ->
                     ( model, Cmd.none )
 
@@ -454,16 +457,16 @@ canPickUp model item=
 
 itemPickUp : Model -> Item -> Item
 itemPickUp model item =
-    if canPickUp model item && canpickUp_energy model && model.heroPickUp &&(item.isPick ==False) then
+    if canPickUp model item && isEnergyEnoughPickUp model && model.heroPickUp &&(item.isPick ==False) then
     { item | isPick = True }
     else
     item
 
-canpickUp_energy : Model-> Bool
-canpickUp_energy model =
+isEnergyEnoughPickUp: Model-> Bool
+isEnergyEnoughPickUp model =
     let
         energy = model.energy
-        energy_Cost = model.energy_Cost
+        energy_Cost = model.energy_Cost_pickup
     in
     if (energy - energy_Cost)>=0 then
     True
@@ -482,7 +485,7 @@ pickUp model =
         isPickUp = model.heroPickUp --is player doing pick up commands
         ableToPick = List.filter (canPickUp model) model.items --depends on distance
         isThereAny = List.length ableToPick
-        abletoPick2 =canpickUp_energy model --depends on energy
+        abletoPick2 =isEnergyEnoughPickUp model --depends on energy
         item = withDefault gunIni (head ableToPick)
         carry_out_pick_up = List.map (itemPickUp model) model.items ---this step just change the property but not filter
         itemsLeft = List.filter filter_picked_item carry_out_pick_up
@@ -507,7 +510,7 @@ pickUp model =
         t9 = model.bag.grid9.itemType
         t10 = model.bag.grid10.itemType
         energy = model.energy
-        energy_ = energy - model.energy_Cost
+        energy_ = energy - model.energy_Cost_pickup
 
     in
 
@@ -540,9 +543,23 @@ pickUp model =
     else
     model
 
+isEnergyEnoughInteract: Model-> Bool
+isEnergyEnoughInteract model =
+    let
+        energy = model.energy
+        energy_Cost = model.energy_Cost_interact
+    in
+    if (energy - energy_Cost)>=0 then
+    True
+    else
+    False
+
 canInteract : Model -> NPC ->  Bool
 canInteract model npc  =
-    judgeAreaOverlap model npc.area
+    if (judgeAreaOverlap model npc.area == True)&&(isEnergyEnoughInteract model == True)&&model.heroInteractWithNpc == True then
+    True
+    else
+    False
 
 interact : Model -> NPC -> NPC
 interact model npc =
@@ -551,7 +568,21 @@ interact model npc =
     else
     { npc | interacttrue = False }
 
-interactable model = {model|npcs=List.map (interact model) model.npcs}
+
+boolToint: Bool-> Int
+boolToint bool =
+    case bool of
+        True ->1
+        False -> 0
+
+interactable : Model-> Model
+interactable model =
+    let
+      interacted_npcs= List.map (interact model) model.npcs
+      --bool_of_interacted_npcs=(not (List.isEmpty(List.filter (canInteract model) model.npcs)))&&model.heroInteractWithNpc
+      --energy_left=model.energy - boolToint(bool_of_interacted_npcs) * model.energy_Cost
+    in
+      {model|npcs=interacted_npcs}--,energy=energy_left}
 
 judgeinteract npc=
     case npc.interacttrue of
@@ -583,6 +614,7 @@ interactWith__core trigger model =
                     , debug = model.debug
                                   |> NarrativeEngine.Debug.setLastMatchedRuleId matchedRuleID
                                   |> NarrativeEngine.Debug.setLastInteractionId trigger
+                    , energy = model.energy - model.energy_Cost_interact
                     }, Cmd.none)
 
                 Nothing ->
