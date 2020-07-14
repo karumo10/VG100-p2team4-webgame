@@ -15,12 +15,12 @@ import NarrativeEngine.Syntax.RuleParser as RuleParser
 
 pixelWidth : Float
 pixelWidth =
-    1500
+    900
 
 
 pixelHeight : Float
 pixelHeight =
-    800
+    600
 
 view : Model -> Html Msg
 view model =
@@ -35,20 +35,21 @@ view model =
                 else
                     min 1 (w / pixelWidth)
         in
- div
+        div
         [ style "width" "100%"
         , style "height" "100%"
         , style "position" "absolute"
         , style "left" "0"
         , style "top" "0"
         ]
-    [div [style "width" (String.fromFloat pixelWidth ++ "px")
-                     , style "height" (String.fromFloat pixelHeight ++ "px")
-                     , style "position" "absolute"
-                     , style "left" (String.fromFloat ((w - pixelWidth * r) / 2) ++ "px")
-                     , style "top" (String.fromFloat ((h - pixelHeight * r) / 2) ++ "px")
-                     , style "transform-origin" "0 0"
-                     , style "transform" ("scale(" ++ String.fromFloat r ++ ")")]
+        [ div
+        [ style "width" (String.fromFloat pixelWidth ++ "px")
+        , style "height" (String.fromFloat pixelHeight ++ "px")
+        , style "position" "absolute"
+        , style "left" (String.fromFloat ((w - pixelWidth * r) / 2) ++ "px")
+        , style "top" (String.fromFloat ((h - pixelHeight * r) / 2) ++ "px")
+        , style "transform-origin" "0 0"
+        , style "transform" ("scale(" ++ String.fromFloat r ++ ")")]
             [ renderPic model
             , renderMapButton model
             , renderdialog model
@@ -97,21 +98,21 @@ renderMapButton model =
             div []
             [
             button
-            [ Html.Attributes.style "background" "blue"
+            [ style "background" "blue"
             , style "position" "absolute"
             , style "left" "100px"
             , style "top" "400px"
-            , Html.Attributes.style "color" "#f3f2e9"
-            , Html.Attributes.style "cursor" "pointer"
-            , Html.Attributes.style "display" "block"
-            , Html.Attributes.style "font-family" "Helvetica, Arial, sans-serif"
-            , Html.Attributes.style "font-size" "18px"
-            , Html.Attributes.style "font-weight" "300"
-            , Html.Attributes.style "height" "80px"
-            , Html.Attributes.style "line-height" "60px"
-            , Html.Attributes.style "outline" "none"
-            , Html.Attributes.style "padding" "0"
-            , Html.Attributes.style "width" "130px"
+            , style "color" "#f3f2e9"
+            , style "cursor" "pointer"
+            , style "display" "block"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "18px"
+            , style "font-weight" "300"
+            , style "height" "80px"
+            , style "line-height" "60px"
+            , style "outline" "none"
+            , style "padding" "0"
+            , style "width" "130px"
             , style "border-style" "inset"
             , style "border-color" "white"
             , style "border-width" "6px"
@@ -121,21 +122,21 @@ renderMapButton model =
             [ Html.text "Police Office" ]
             ,
             button
-            [ Html.Attributes.style "background" "red"
+            [ style "background" "red"
             , style "position" "absolute"
             , style "left" "300px"
             , style "top" "400px"
-            , Html.Attributes.style "color" "#f3f2e9"
-            , Html.Attributes.style "cursor" "pointer"
-            , Html.Attributes.style "display" "block"
-            , Html.Attributes.style "font-family" "Helvetica, Arial, sans-serif"
-            , Html.Attributes.style "font-size" "18px"
-            , Html.Attributes.style "font-weight" "300"
-            , Html.Attributes.style "height" "80px"
-            , Html.Attributes.style "line-height" "60px"
-            , Html.Attributes.style "outline" "none"
-            , Html.Attributes.style "padding" "0"
-            , Html.Attributes.style "width" "130px"
+            , style "color" "#f3f2e9"
+            , style "cursor" "pointer"
+            , style "display" "block"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "18px"
+            , style "font-weight" "300"
+            , style "height" "80px"
+            , style "line-height" "60px"
+            , style "outline" "none"
+            , style "padding" "0"
+            , style "width" "130px"
             , style "border-style" "inset"
             , style "border-color" "white"
             , style "border-width" "6px"
@@ -145,21 +146,21 @@ renderMapButton model =
             [ Html.text "Park" ]
             ,
             button
-            [ Html.Attributes.style "background" "red"
+            [ style "background" "red"
             , style "position" "absolute"
             , style "left" "500px"
             , style "top" "400px"
-            , Html.Attributes.style "color" "#f3f2e9"
-            , Html.Attributes.style "cursor" "pointer"
-            , Html.Attributes.style "display" "block"
-            , Html.Attributes.style "font-family" "Helvetica, Arial, sans-serif"
-            , Html.Attributes.style "font-size" "18px"
-            , Html.Attributes.style "font-weight" "300"
-            , Html.Attributes.style "height" "80px"
-            , Html.Attributes.style "line-height" "60px"
-            , Html.Attributes.style "outline" "none"
-            , Html.Attributes.style "padding" "0"
-            , Html.Attributes.style "width" "130px"
+            , style "color" "#f3f2e9"
+            , style "cursor" "pointer"
+            , style "display" "block"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "18px"
+            , style "font-weight" "300"
+            , style "height" "80px"
+            , style "line-height" "60px"
+            , style "outline" "none"
+            , style "padding" "0"
+            , style "width" "130px"
             , style "border-style" "inset"
             , style "border-color" "white"
             , style "border-width" "6px"
