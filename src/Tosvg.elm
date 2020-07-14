@@ -1,10 +1,8 @@
 module Tosvg exposing (..)
 
-import Html.Events exposing (onClick)
 import Model exposing (..)
-import List exposing (filter)
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
+import Svg exposing (Svg, rect, text_, text)
+import Svg.Attributes exposing (x, y, width, height, strokeWidth, fill, stroke, fontSize, fontFamily, textDecoration)
 import Items exposing (..)
 import Color exposing (..)
 import Message exposing (Msg(..))
@@ -181,15 +179,9 @@ testToSvg model =
         _ -> [ rect [] [] ]
 
 
-entityView : NPC -> (( WorldModel.ID, MyEntity ), Model) ->  Svg.Svg Msg
-entityView npc ((id, { name }), model) =
+entityView : NPC ->  Svg Msg
+entityView npc =
     let
-        msg =
-            case model.interacttrue of
-                True ->
-                    InteractWith id
-                _ ->
-                    Noop
         ( x_, y_ ) = ( npc.area.x, npc.area.y )
         ( wid, hei ) = ( npc.area.wid, npc.area.hei )
 
@@ -200,28 +192,12 @@ entityView npc ((id, { name }), model) =
         , width (wid |> Debug.toString)
         , height (hei |> Debug.toString)
         , strokeWidth "5px", stroke "#191970"
-        , onClick (msg)
         ]
         []
 
 entityViewchoices : ( WorldModel.ID, MyEntity ) -> Html Msg
 entityViewchoices ( id, { name } ) =
-    li [ onClick <| InteractWith id, Html.Attributes.style "cursor" "pointer" ] [ text name ]
-
-bob model = List.map (entityView cBob) (List.map2 Tuple.pair (query "BOBPOLICEOFFICE.npc.day=1" model.worldModel) [model])
-
-lee model = List.map (entityView cLee) (List.map2 Tuple.pair (query "LEEPOLICEOFFICE.npc.day=1" model.worldModel) [model])
-
-allen model = List.map (entityView cAllen) (List.map2 Tuple.pair (query "ALLENPOLICEOFFICE.npc.day=1" model.worldModel) [model])
-
-allenpark model = List.map (entityView pAllen) (List.map2 Tuple.pair (query "ALLENPARK.npc.day=1" model.worldModel) [model])
-
-leepark model = List.map (entityView pLee) (List.map2 Tuple.pair (query "LEEPARK.npc.day=1" model.worldModel) [model])
-
-adkinspark model = List.map (entityView pAdkins) (List.map2 Tuple.pair (query "ADKINS.npc.day=1" model.worldModel) [model])
-
-catherinepark model = List.map (entityView pCatherine) (List.map2 Tuple.pair (query "CATHERINE.npc.day=1" model.worldModel) [model])
-
+    li [ onClick <| InteractWith id, style "cursor" "pointer" ] [ text name ]
 
 intToFloat : Int -> Float
 intToFloat a =
@@ -240,7 +216,7 @@ energytosvg energy energyFull =
         len = lenTotal * ( intToFloat energy / intToFloat energyFull )
     in
         [
-            Svg.rect
+            rect
             [ x (x_|>Debug.toString)
             , y (y_|>Debug.toString)
             , height (wid|>Debug.toString)
@@ -250,7 +226,7 @@ energytosvg energy energyFull =
             , strokeWidth "5px"
             ] []
             ,
-            Svg.rect
+            rect
             [ x (x_|>Debug.toString)
             , y (y_|>Debug.toString)
             , height (wid|>Debug.toString)
@@ -258,7 +234,7 @@ energytosvg energy energyFull =
             , fill (toString (rgb 255 255 187))
             ] []
             ,
-            Svg.text_
+            text_
             [ x ((x_ - 72)|>Debug.toString)
             , y ((y_ + 10)|>Debug.toString)
             , fill "#999C86"
@@ -267,7 +243,7 @@ energytosvg energy energyFull =
             , textDecoration "underline"
             ] [text "Energy"]
             ,
-            Svg.text_
+            text_
             [ x ((x_ - 20)|>Debug.toString)
             , y ((y_ + 10)|>Debug.toString)
             , textDecoration "underline"
