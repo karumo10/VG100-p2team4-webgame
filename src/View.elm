@@ -298,14 +298,14 @@ rendersuspectlist model =
         suspect =
             case model.map of
                 Park ->
-                    [ button [onClick Catherinecatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Catherine"]
-                    , button [onClick Adkinscatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Adkins"]
-                    , button [onClick Robbery, style "opacity" (model.conclusion|>Debug.toString)] [text "This is a robbery."]
+                    [ div [onClick Catherinecatch, style "opacity" (model.conclusion|>Debug.toString), class "btn btn-sm animated-button thar-three"] [text "Catherine"]
+                    , div [onClick Adkinscatch, style "opacity" (model.conclusion|>Debug.toString), class "btn btn-sm animated-button thar-three"] [text "Adkins"]
+                    , div [onClick Robbery, style "opacity" (model.conclusion|>Debug.toString), class "btn btn-sm animated-button thar-three"] [text "This is a robbery."]
                     ]
                 _ ->
                     []
     in
         [Html.input [Html.Attributes.type_ "checkbox", id "menu-toggle"][]
         ,Html.label [Html.Attributes.for "menu-toggle", class "menu-icon"][Html.i [class "fa fa-bars"][]]
-        ,div [class "slideout-sidebar"] suspect
+        ,div [class "slideout-sidebar"] [div [class "container"] suspect]
         ]
