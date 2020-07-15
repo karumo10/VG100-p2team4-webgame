@@ -1,5 +1,5 @@
 module View exposing (..)
-import Html.Attributes exposing (style,src,type_,autoplay,id,loop)
+import Html.Attributes exposing (style,src,type_,autoplay,id,loop,class)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
@@ -34,7 +34,7 @@ view model =
         [ style "width" "100%"
         , style "height" "100%"
         ]
-        [ div
+        ([ div
         [ style "width" (String.fromFloat pixelWidth ++ "px")
         , style "height" (String.fromFloat pixelHeight ++ "px")
         , style "position" "absolute"
@@ -51,6 +51,7 @@ view model =
         , renderMusic
         , axisHelper model
         ]]
+        ++ (rendersuspectlist model))
 
 
 
@@ -293,11 +294,18 @@ renderportrait model =
         portr
 
 rendersuspectlist model =
-    case model.map of
-        Park ->
-            [ button [onClick Catherinecatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Catherine"]
-            , button [onClick Adkinscatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Adkins"]
-            , button [onClick Robbery, style "opacity" (model.conclusion|>Debug.toString)] [text "This is a robbery."]
-            ]
-        _ ->
-            []
+    let
+        suspect =
+            case model.map of
+                Park ->
+                    [ button [onClick Catherinecatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Catherine"]
+                    , button [onClick Adkinscatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Adkins"]
+                    , button [onClick Robbery, style "opacity" (model.conclusion|>Debug.toString)] [text "This is a robbery."]
+                    ]
+                _ ->
+                    []
+    in
+        [Html.input [Html.Attributes.type_ "checkbox", id "menu-toggle"][]
+        ,Html.label [Html.Attributes.for "menu-toggle", class "menu-icon"][Html.i [class "fa fa-bars"][]]
+        ,div [class "slideout-sidebar"] suspect
+        ]
