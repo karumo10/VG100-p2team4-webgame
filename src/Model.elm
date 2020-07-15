@@ -220,6 +220,7 @@ type alias Model =
     , quests : Quest
     , correctsolved : Int
     , conclusion : Float
+    , portrait : String
     }
 
 initial : Model
@@ -251,6 +252,7 @@ initial =
     , quests = NoQuest
     , correctsolved = 0
     , conclusion = 1
+    , portrait = ""
     }
 
 type Quest

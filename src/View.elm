@@ -5,22 +5,19 @@ import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
 import Tosvg exposing (..)
-import Svg exposing (image, rect, svg)
+import Svg exposing (image, rect, svg, Svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth,xlinkHref,transform)
 import Items exposing ( .. )
-import Rules exposing (..)
-import NarrativeEngine.Core.WorldModel as WorldModel
-import NarrativeEngine.Syntax.RuleParser as RuleParser
-import Html exposing (Html, button, div, text, br, ul, em)
+import Html exposing (Html, button, div, text, br, ul, p)
 
 pixelWidth : Float
 pixelWidth =
-    900
+    1050
 
 
 pixelHeight : Float
 pixelHeight =
-    600
+    700
 
 view : Model -> Html Msg
 view model =
@@ -28,24 +25,24 @@ view model =
         ( w, h ) =
             model.size
         r =
-                if w / h > pixelWidth / pixelHeight then
-                    min 1 (h / pixelHeight)
-                else
-                    min 1 (w / pixelWidth)
+            if w / h > pixelWidth / pixelHeight then
+                min 1 (h / pixelHeight)
+            else
+                min 1 (w / pixelWidth)
     in
         div
         [ style "width" "100%"
         , style "height" "100%"
-        , style "position" "absolute"
-        , style "left" "0"
-        , style "top" "0"
         ]
         [ div
         [ style "width" (String.fromFloat pixelWidth ++ "px")
         , style "height" (String.fromFloat pixelHeight ++ "px")
         , style "position" "absolute"
-        , style "left" (String.fromFloat ((w - pixelWidth * r) / 2) ++ "px")
-        , style "top" (String.fromFloat ((h - pixelHeight * r) / 2) ++ "px")
+        , style "margin" "auto"
+        , style "left" "0"
+        , style "top" "0"
+        , style "right" "0"
+        , style "bottom" "0"
         , style "transform-origin" "0 0"
         , style "transform" ("scale(" ++ String.fromFloat r ++ ")")]
         [ renderPic model
@@ -179,9 +176,9 @@ renderMapButton model =
 renderPic : Model -> Html Msg
 renderPic model =
     svg
-        [ width "900"
-        , height "600"
-        , viewBox "0 0 900 600"
+        [ width "1050"
+        , height "700"
+        , viewBox "0 0 1200 800"
         ]
         ((
 
@@ -189,7 +186,7 @@ renderPic model =
             PoliceOffice ->
 
                 [Svg.image
-                    [ xlinkHref "./police_office.png"
+                    [ xlinkHref "./police_office.png" -- I'll change all the maps into 1050*630... ——Lan Wang
                     , x "0"
                     , y "0"
                     , width "900"
@@ -199,8 +196,11 @@ renderPic model =
                 ++ [ entityView cBob ]
                 ++ [ entityView cLee ]
                 ++ [ entityView cAllen ]
-                ++ ( elevatorQuestToSvg model )
                 ++ ( heroToSvg model.hero )
+                ++ [renderdialog model]
+                ++ [renderchoice model]
+                ++ ( elevatorQuestToSvg model )
+                ++ [renderportrait model]
 
 
             Park ->
@@ -218,6 +218,9 @@ renderPic model =
                 ++ [ entityView pAllen ]
                 ++ [ entityView pAdkins ]
                 ++ [ entityView pCatherine ]
+                ++ [renderdialog model]
+                ++ [renderchoice model]
+                ++ [renderportrait model]
 
             Switching ->
 
@@ -237,8 +240,11 @@ renderPic model =
                     , height "630"
                     , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
+                ++ [renderdialog model]
+                ++ [renderchoice model]
                 ++ ( elevatorQuestToSvg model )
                 ++ ( heroToSvg model.hero )
+                ++ [renderportrait model]
 
 
 
@@ -250,20 +256,48 @@ renderPic model =
          ++ itemsToSvg model )
         )
 
-renderdialog : Model -> Html Msg
+renderdialog : Model -> Svg Msg
 renderdialog model =
-        div [ style "width" "70%", style "margin" "auto" ]
-        [ div [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em" ]
-              ([div [] [ text model.story ]
-              ,ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)
-              ]++
-              case model.map of
-                  Park ->
-                      [ button [onClick Catherinecatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Catherine"]
-                      , button [onClick Adkinscatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Adkins"]
-                      , button [onClick Robbery, style "opacity" (model.conclusion|>Debug.toString)] [text "This is a robbery."]
+    Svg.foreignObject [ x "200", y "600", width "1000", height "150"]
+                      [ p [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em", Html.Attributes.class "inset" ]
+                          [ text model.story ]
                       ]
-                  _ ->
-                      []
-              )
-        ]
+
+renderchoice : Model -> Svg Msg
+renderchoice model =
+    let
+        opacity =
+            case (query "*.choices=1" model.worldModel) of
+                [] -> "0"
+                _ -> "1"
+    in
+        Svg.foreignObject [ x "200", y "200", width "500", height "100%", style "opacity" opacity]
+                          [ p [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em", Html.Attributes.class "inset" ]
+                              [ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
+                          ]
+
+renderportrait : Model -> Svg Msg
+renderportrait model =
+    let
+        portr =
+            case model.portrait of
+                "" ->
+                    Svg.image [ Svg.Attributes.xlinkHref ("./player.png")
+                              , x "10", y "610", width "140", height "140"
+                              ] []
+                _ ->
+                    Svg.image [ Svg.Attributes.xlinkHref ("./"++model.portrait++".png")
+                              , x "10", y "610", width "140", height "140"
+                              ] []
+    in
+        portr
+
+rendersuspectlist model =
+    case model.map of
+        Park ->
+            [ button [onClick Catherinecatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Catherine"]
+            , button [onClick Adkinscatch, style "opacity" (model.conclusion|>Debug.toString)] [text "Adkins"]
+            , button [onClick Robbery, style "opacity" (model.conclusion|>Debug.toString)] [text "This is a robbery."]
+            ]
+        _ ->
+            []
