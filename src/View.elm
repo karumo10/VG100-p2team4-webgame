@@ -168,6 +168,35 @@ renderMapButton model =
 
             ]
 
+        EnergyDrain ->
+            div []
+             [
+             button
+             [ style "background" "red"
+             , style "position" "absolute"
+             , style "left" "500px"
+             , style "top" "400px"
+             , style "color" "#f3f2e9"
+             , style "cursor" "pointer"
+             , style "display" "block"
+             , style "font-family" "Helvetica, Arial, sans-serif"
+             , style "font-size" "18px"
+             , style "font-weight" "300"
+             , style "height" "80px"
+             , style "line-height" "60px"
+             , style "outline" "none"
+             , style "padding" "0"
+             , style "width" "130px"
+             , style "border-style" "inset"
+             , style "border-color" "white"
+             , style "border-width" "6px"
+             , style "border-radius" "20%"
+             , onClick ToHome
+             ]
+             [ Html.text "Home" ]
+
+
+                        ]
 
         _ ->
             div [] []
@@ -231,6 +260,14 @@ renderPic model =
                     , width "900"
                     , height "600"
                     , fill "black"][]] --useless now
+
+            EnergyDrain ->
+
+                [Svg.rect
+                    [ x "0"
+                    , y "0"
+                    , width "900"
+                    , height "600"][]]
 
             Home ->
                 [Svg.image

@@ -221,6 +221,7 @@ type alias Model =
     , correctsolved : Int
     , conclusion : Float
     , portrait : String
+    , havegonehome : Bool --should be initialized every single day ; Update:I have given up usage of this, if it is not used in alpha version,it can be deleted
     }
 
 initial : Model
@@ -245,7 +246,7 @@ initial =
     , debug = NarrativeEngine.Debug.init
     , npcs = [cAllen, cBob, cLee]
     , interacttrue = False
-    , energy = 60
+    , energy = 20
     , energy_Full = 100
     , energy_Cost_pickup = 25
     , energy_Cost_interact = 5
@@ -253,6 +254,7 @@ initial =
     , correctsolved = 0
     , conclusion = 1
     , portrait = ""
+    , havegonehome = False
     }
 
 type Quest

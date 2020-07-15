@@ -199,6 +199,7 @@ animate elapsed model =
         |> interactable
         |> myItem
 
+
 teleportHero : ( Int, Int ) -> Model -> Model
 teleportHero ( x, y ) model =
     let
@@ -429,7 +430,10 @@ elevateQuestOut elevator model =
 goToSwitching : Model -> Model -- when at exit, go to switching interface
 goToSwitching model =
     if judgeExit model then
+        if model.energy > 0 then
         mapSwitch Switching model
+        else
+        mapSwitch EnergyDrain model
     else model
 
 mapSwitch : Map -> Model -> Model
@@ -441,6 +445,7 @@ mapSwitch newMap model =
                 Park -> parkAttr
                 Home -> homeAttr
                 Switching -> switchingAttr
+                EnergyDrain -> switchingAttr
         hero = mapAttr.heroIni
         npcs = mapAttr.npcs
         story = mapAttr.story
@@ -545,7 +550,7 @@ pickUp model =
     else
     model
 
-isEnergyEnoughInteract: Model-> Bool
+isEnergyEnoughInteract: Model-> Bool -- I will see whether this function is still needed as I have changed the way to judge whether can interact
 isEnergyEnoughInteract model =
     let
         energy = model.energy
@@ -556,16 +561,21 @@ isEnergyEnoughInteract model =
     else
     False
 
-canInteract : Model -> NPC ->  Bool
+type Interact
+     =Okay
+     |TooFar
+
+canInteract : Model -> NPC -> Interact
 canInteract model npc  =
-    if (judgeAreaOverlap model npc.area == True)&&(isEnergyEnoughInteract model == True) then
-    True
+    if (judgeAreaOverlap model npc.area == True) then
+    Okay
     else
-    False
+    TooFar
+
 
 interact : Model -> NPC -> NPC
 interact model npc =
-    if canInteract model npc == True then
+    if canInteract model npc == Okay then
     { npc | interacttrue = True }
     else
     { npc | interacttrue = False }
@@ -643,9 +653,13 @@ interactByKey model =
             |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
             |> withDefault "no such npc"
         model_ = interactWith__core currTrigger model |> Tuple.first
+        energy = model.energy
+        energy_ = energy - model.energy_Cost_interact
     in
     if List.isEmpty trueNPCs then
         model
+    else if energy_ < 0 then
+        {model| story="Ah.... Why am I feel so tired, I should go home for a sleep......"}
     else
         model_
 
