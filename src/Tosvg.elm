@@ -1,8 +1,8 @@
 module Tosvg exposing (..)
 
 import Model exposing (..)
-import Svg exposing (Svg, rect, text_, text)
-import Svg.Attributes exposing (x, y, width, height, strokeWidth, fill, stroke, fontSize, fontFamily, textDecoration)
+import Svg exposing (Svg, rect, text_, text, circle)
+import Svg.Attributes exposing (x, y, width, height, strokeWidth, fill, stroke, fontSize, fontFamily, textDecoration, cx, cy, r)
 import Items exposing (..)
 import Color exposing (..)
 import Message exposing (Msg(..))
@@ -198,6 +198,25 @@ entityView npc =
 entityViewchoices : ( WorldModel.ID, MyEntity ) -> Html Msg
 entityViewchoices ( id, { name } ) =
     li [ onClick <| InteractWith id, style "cursor" "pointer" ] [ text name ]
+
+getnpc : NPC -> String
+getnpc npc =
+    let
+        npc_ =
+            case npc.interacttrue of
+                True ->
+                    npc.description
+                _ ->
+                    ""
+    in
+        npc_
+
+getnpc_ : Model -> List String
+getnpc_ model =
+    List.map getnpc model.npcs
+
+getdescription model =
+    List.filter (\x -> x /= "") (getnpc_ model)
 
 intToFloat : Int -> Float
 intToFloat a =

@@ -11,6 +11,7 @@ import NarrativeEngine.Core.Rules as Rules
 import NarrativeEngine.Core.WorldModel as WorldModel
 import NarrativeEngine.Debug
 import NarrativeEngine.Syntax.NarrativeParser as NarrativeParser
+import Tosvg exposing (..)
 
 
 port save : String -> Cmd msg
@@ -196,6 +197,7 @@ animate elapsed model =
         |> goToSwitching
         |> judgeInteract
         |> interactable
+        |> myItem
 
 teleportHero : ( Int, Int ) -> Model -> Model
 teleportHero ( x, y ) model =
@@ -647,6 +649,7 @@ interactByKey model =
     else
         model_
 
-
+myItem : Model -> Model
+myItem model = {model | portrait = (Maybe.withDefault "" (List.head (getdescription model)))}
 
 
