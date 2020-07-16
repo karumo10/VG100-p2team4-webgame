@@ -219,9 +219,8 @@ renderPic model =
                     [ xlinkHref "./police_office.png" -- I'll change all the maps into 1050*630... ——Lan Wang
                     , x "0"
                     , y "0"
-                    , width "900"
-                    , height "630"
-                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , width "1200"
+                    , transform "translate(0,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ [ entityView cBob ]
                 ++ [ entityView cLee ]
@@ -239,7 +238,7 @@ renderPic model =
                     [ xlinkHref "./park.png"
                     , x "0"
                     , y "0"
-                    , width "900"
+                    , width "1200"
                     , height "630"
                     , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
@@ -257,7 +256,7 @@ renderPic model =
                 [Svg.rect
                     [ x "0"
                     , y "0"
-                    , width "900"
+                    , width "1200"
                     , height "600"
                     , fill "black"][]] --useless now
 
@@ -274,7 +273,7 @@ renderPic model =
                     [ xlinkHref "./Kay's_home.png"
                     , x "0"
                     , y "0"
-                    , width "900"
+                    , width "1200"
                     , height "630"
                     , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
@@ -296,8 +295,8 @@ renderPic model =
 
 renderdialog : Model -> Svg Msg
 renderdialog model =
-    Svg.foreignObject [ x "200", y "600", width "1000", height "150"]
-                      [ p [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em", Html.Attributes.class "inset" ]
+    Svg.foreignObject [ x "200", y "630", width "1000", height "150"]
+                      [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset" ]
                           [ text model.story ]
                       ]
 
@@ -310,7 +309,7 @@ renderchoice model =
                 _ -> "1"
     in
         Svg.foreignObject [ x "200", y "200", width "500", height "100%", style "opacity" opacity ]
-                          [ p [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em", Html.Attributes.class "inset" ]
+                          [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset" ]
                               [ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
                           ]
 
@@ -321,11 +320,11 @@ renderportrait model =
             case model.portrait of
                 "" ->
                     Svg.image [ Svg.Attributes.xlinkHref ("./player.png")
-                              , x "10", y "610", width "140", height "140"
+                              , x "10", y "640", width "140", height "140"
                               ] []
                 _ ->
                     Svg.image [ Svg.Attributes.xlinkHref ("./"++model.portrait++".png")
-                              , x "10", y "610", width "140", height "140"
+                              , x "10", y "640", width "140", height "140"
                               ] []
     in
         portr
