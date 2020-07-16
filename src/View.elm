@@ -309,7 +309,7 @@ renderchoice model =
                 [] -> "0"
                 _ -> "1"
     in
-        Svg.foreignObject [ x "200", y "200", width "500", height "100%", style "opacity" opacity]
+        Svg.foreignObject [ x "200", y "200", width "500", height "100%", style "opacity" opacity ]
                           [ p [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em", Html.Attributes.class "inset" ]
                               [ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
                           ]

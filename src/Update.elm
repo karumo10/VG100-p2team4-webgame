@@ -198,6 +198,8 @@ animate elapsed model =
         |> judgeInteract
         |> interactable
         |> myItem
+        |> judgeIsMakingChoices
+
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -287,16 +289,20 @@ moveHeroLR_ dx model =
         ( x, y ) = ( model.hero.x, model.hero.y )
         overlapAreas = List.filter (judgeAreaOverlap model) model.mapAttr.barrier
         x_ =
-            if List.length overlapAreas == 0 then
-                x + dx * stride -- maybe stuck. caution!
-            else if (List.filter (\a -> isStuck model a == LeftSide) overlapAreas |> List.length) /= 0 then
-                if dx > 0 then x
-                else x + dx * stride
-            else if (List.filter (\a -> isStuck model a == RightSide) overlapAreas |> List.length) /= 0 then
-                if dx < 0 then x
-                else x + dx * stride
-            else
-                x + dx * stride
+            case model.playerDoing of
+                AbleToWalk ->
+                    if List.length overlapAreas == 0 then
+                        x + dx * stride
+                    else if (List.filter (\a -> isStuck model a == LeftSide) overlapAreas |> List.length) /= 0 then
+                        if dx > 0 then x
+                        else x + dx * stride
+                    else if (List.filter (\a -> isStuck model a == RightSide) overlapAreas |> List.length) /= 0 then
+                        if dx < 0 then x
+                        else x + dx * stride
+                    else
+                        x + dx * stride
+                MakingChoices ->
+                    x
         hero = model.hero
         hero_ = { hero | x = x_ }
     in
@@ -327,16 +333,20 @@ moveHeroUD_ dy model =
         ( x, y ) = ( model.hero.x, model.hero.y )
         overlapAreas = List.filter (judgeAreaOverlap model) model.mapAttr.barrier
         y_ =
-            if List.length overlapAreas == 0 then
-                y + dy * stride
-            else if (List.filter (\a -> isStuck model a == UpSide) overlapAreas |> List.length) /= 0 then
-                if dy > 0 then y
-                else y + dy * stride
-            else if (List.filter (\a -> isStuck model a == DownSide) overlapAreas |> List.length) /= 0 then
-                if dy < 0 then y
-                else y + dy * stride
-            else
-                y + dy * stride
+            case model.playerDoing of
+                AbleToWalk ->
+                    if List.length overlapAreas == 0 then
+                        y + dy * stride
+                    else if (List.filter (\a -> isStuck model a == UpSide) overlapAreas |> List.length) /= 0 then
+                        if dy > 0 then y
+                        else y + dy * stride
+                    else if (List.filter (\a -> isStuck model a == DownSide) overlapAreas |> List.length) /= 0 then
+                        if dy < 0 then y
+                        else y + dy * stride
+                    else
+                        y + dy * stride
+                MakingChoices ->
+                    y
         hero = model.hero
         hero_ = { hero | y = y_ }
     in
@@ -659,11 +669,41 @@ interactByKey model =
     if List.isEmpty trueNPCs then
         model
     else if energy_ < 0 then
-        {model| story="Ah.... Why am I feel so tired, I should go home for a sleep......"}
+        {model| story = "Ah.... Why am I feel so tired, I should go home for a sleep......"}
     else
         model_
 
 myItem : Model -> Model
 myItem model = {model | portrait = (Maybe.withDefault "" (List.head (getdescription model)))}
+
+
+judgeIsMakingChoices : Model -> Model
+judgeIsMakingChoices model =
+    let
+        isMakingChoices = query "*.choices=1" model.worldModel /= []
+        playerState =
+            case isMakingChoices of
+                True ->
+                    MakingChoices
+                False ->
+                    AbleToWalk
+    in
+    { model | playerDoing = playerState }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

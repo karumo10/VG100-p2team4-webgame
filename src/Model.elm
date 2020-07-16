@@ -31,6 +31,10 @@ type State
     | Playing
     | Stopped
 
+type PlayerDoing
+    = MakingChoices
+    | AbleToWalk -- you cant walk when making choices! also here can add some other states when it's needed
+
 type alias Area =
     { x : Float
     , y : Float
@@ -222,6 +226,8 @@ type alias Model =
     , conclusion : Float
     , portrait : String
     , havegonehome : Bool --should be initialized every single day ; Update:I have given up usage of this, if it is not used in alpha version,it can be deleted
+    , playerDoing : PlayerDoing
+
     }
 
 initial : Model
@@ -255,6 +261,7 @@ initial =
     , conclusion = 1
     , portrait = ""
     , havegonehome = False
+    , playerDoing = AbleToWalk
     }
 
 type Quest
