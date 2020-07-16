@@ -1,0 +1,107 @@
+Changelog for P2
+
+
+
+2020-07-08 20:40 Kaiwen Zhang Initial Commit (Create the repository)
+2020-07-09 03:10 Yuxiang Zhou basic interface; background pic;hero move
+2020-07-09 04:03 Yuxiang Zhou map switching. exit & hero spawn point packed with map 
+
+2020-07-09 11:36 Yuxiang Zhou map switching in a new switch page(using buttons) 
+
+2020-07-10 13:10 Kaiwen Zhang fix makefile location
+
+2020-07-10 14:29 Kaiwen Zhang a trial for autoplay bgm
+
+2020-07-10 15:17 Yiming Zhang Player is able to pick up and put items in his bag.
+
+2020-07-10 15:54 Kaiwen Zhang restore changes from backup
+
+2020-07-10 23:21 Lan Wang Able to interact with NPCs
+
+2020-07-10 23:42 Yuxiang Zhou valid walking on floor1 (cannot pass barriers like desk)
+
+2020-07-11 00:01 Yuxiang Zhou compiled index.html and package installed elm.json
+
+2020-07-11 00:47 Yuxiang Zhou Tech #362: finish the trial of makefile changes
+
+2020-07-11 03:04 Yuxiang Zhou Feature #364, the basic frame of elevator(press f); poor call-out floor-choosing interface
+
+2020-07-11 09:47 Lan Wang Fix the problem when interacting with NPCs.
+
+2020-07-11 14:43 Yuxiang Zhou Feature #365 test mode finished
+
+2020-07-11 16:29 Kaiwen Zhang Feature#291 Add energy system each time pick up one item will cost 1/4 of energy. Fix a bug in pick up system that carry out one pick up will be count as two times by changing pickup to pickup Bool
+
+2020-07-11 18:02 Yuxiang Zhou Feature #364 elevator finished
+
+2020-07-11 18:25 Yuxiang Zhou Feature #364 elevator finished. Change the position of items
+
+2020-07-11 19:25 Yuxiang Zhou Feature #308 valid walking for MVP finished. (floor 1,2,3)
+
+2020-07-11 23:24 Lan Wang Change and add some interactions with NPCs.
+
+2020-07-11 23:58 Lan Wang Change and fix some interactions with NPCs.
+
+2020-07-12 00:27 Yuxiang Zhou Enhancement #395 Interact with NPC using rectangle overlapping. Also some code simplification
+
+2020-07-12 02:59 Yuxiang Zhou Enhancement #396, use X to interact with npcs; some codes moved to the more exact files
+
+2020-07-12 18:26 Kaiwen Zhang Bug #373 fixed Original code just change the picked up items property to ispicked up but not filter it out. Feature #291 solve the bug which means the energy system is compatible to the picked up and for test, I changed the original energy to 60.
+
+2020-07-12 23:17 Lan Wang Add the map of Kay's home.
+
+2020-07-12 23:55 Yuxiang Zhou MVP version(home walking)
+
+2020-07-13 16:06 Lan Wang Complete the first case narrative.
+
+2020-07-13 17:16 Yuxiang Zhou Operations in README
+
+2020-07-13 17:59 Yuxiang Zhou #307 More reasonable contact determination in home
+
+2020-07-13 18:45 Lan Wang Fix the bug #468
+
+2020-07-13 21:17 Kaiwen Zhang fix the logic of text after the picking up
+
+2020-07-13 22:17 Lan Wang Fix the bug.
+
+2020-07-14 11:54 Kaiwen Zhang Feature #480 Energy system for interacting completed for each single interaction will cost 5 energy
+
+2020-07-14 12:48 Kaiwen Zhang Feature #493 implemented basic resize feature
+
+2020-07-14 16:08 Kaiwen Zhang Bug #495 solved
+
+2020-07-14 17:45 Lan Wang Delete the click event of NPCs; change some formats.
+
+2020-07-14 17:47 Yuxiang Zhou put the game window at the center of screen
+
+2020-07-14 20:17 Yiming Zhang Items will appear in different places.
+
+2020-07-15 13:36 Lan Wang change visualizations; add portrait
+
+2020-07-15 16:34 Lan Wang add the slide-out list of suspects
+
+2020-07-15 17:01 Lan Wang change the makefile
+
+2020-07-15 22:08 Lan Wang change the visualization of buttons in the list of suspects
+
+2020-07-16 00:53 Kaiwen Zhang Feature #502 Limitations of energy system is added. Besides, the energy system for interacting has been changed a little as the original way is not so proper. Now, when during the interaction of NPC, if player's energy goes to lower than 0, he or she can finish the talking but can do nothing else. When trying to interact with other NPCs, a message will tell him or her to go home and when going to the exit, there will only be the choice of home on the map.
+
+2020-07-16 11:11 Kaiwen Zhang add .gitignore
+
+2020-07-16 12:01 Yuxiang Zhou Bug #555 (Solution for #468: let the player cannot move while making choices). also rm --cached ./build/style.js
+
+
+
+
+
+
+
+
+
+
+
+***
+
+
+
+Created by AURORA.
