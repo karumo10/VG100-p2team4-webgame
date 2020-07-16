@@ -12,6 +12,7 @@ import NarrativeEngine.Core.WorldModel as WorldModel
 import NarrativeEngine.Debug
 import NarrativeEngine.Syntax.NarrativeParser as NarrativeParser
 import Tosvg exposing (..)
+import Areas exposing (..)
 
 
 port save : String -> Cmd msg
@@ -106,11 +107,11 @@ update msg model =
         ElevateTo1 ->
             case model.map of
                 PoliceOffice ->
-                    ( teleportHero ( 695, 520 ) model
+                    ( teleportHero ( 865, 520 ) model
                     , Cmd.none
                     )
                 Home ->
-                     ( teleportHero ( 795, 520 ) model
+                     ( teleportHero ( 1070, 520 ) model
                      , Cmd.none
                      )
                 _ -> (model,Cmd.none)
@@ -119,11 +120,11 @@ update msg model =
         ElevateTo2 ->
             case model.map of
                 PoliceOffice ->
-                    ( teleportHero ( 695, 290 ) model
+                    ( teleportHero ( 865, 290 ) model
                     , Cmd.none
                     )
                 Home ->
-                     ( teleportHero ( 795, 280 ) model
+                     ( teleportHero ( 1065, 290 ) model
                      , Cmd.none
                      )
                 _ -> (model,Cmd.none)
@@ -131,11 +132,11 @@ update msg model =
         ElevateTo3 ->
             case model.map of
                 PoliceOffice ->
-                    ( teleportHero ( 695, 60 ) model
+                    ( teleportHero ( 865, 60 ) model
                     , Cmd.none
                     )
                 Home ->
-                     ( teleportHero ( 795, 65 ) model
+                     ( teleportHero ( 1050, 80 ) model
                      , Cmd.none
                      )
                 _ -> (model,Cmd.none)
@@ -145,10 +146,21 @@ update msg model =
         EnterVehicle on ->
             case on of
                 True ->
-                    ( enterElevators model, Cmd.none )
+                    ( model
+                    |> enterBed
+                    |> enterElevators
+                    , Cmd.none )
                 False ->
                     ( model, Cmd.none )
-
+        Sleep choice ->
+            case choice of
+                True ->
+                    let
+                        model_ = mapSwitch DreamMaze model
+                    in
+                    ( { model_ | quests = NoQuest }, Cmd.none )
+                False ->
+                    ( { model | quests = NoQuest }, Cmd.none )
 
         Noop ->
             ( model, Cmd.none )
@@ -238,17 +250,20 @@ update msg model =
 
 
 
+
+
+
 animate : Float -> Model -> Model
 animate elapsed model =
     model
         |> moveHeroLR elapsed
         |> moveHeroUD elapsed
+        |> hintTrigger
         |> goToSwitching
         |> judgeInteract
         |> interactable
         |> myItem
         |> judgeIsMakingChoices
-
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -342,6 +357,8 @@ moveHeroLR_ dx model =
                 AbleToWalk ->
                     if List.length overlapAreas == 0 then
                         x + dx * stride
+                    else if not (List.isEmpty (List.filter (\a -> isStuck model a == LeftSide) overlapAreas)) && not (List.isEmpty (List.filter(\a -> isStuck model a == RightSide) overlapAreas)) then
+                        x
                     else if (List.filter (\a -> isStuck model a == LeftSide) overlapAreas |> List.length) /= 0 then
                         if dx > 0 then x
                         else x + dx * stride
@@ -386,6 +403,8 @@ moveHeroUD_ dy model =
                 AbleToWalk ->
                     if List.length overlapAreas == 0 then
                         y + dy * stride
+                    else if not (List.isEmpty (List.filter (\a -> isStuck model a == UpSide) overlapAreas)) && not (List.isEmpty (List.filter(\a -> isStuck model a == DownSide) overlapAreas)) then
+                        y
                     else if (List.filter (\a -> isStuck model a == UpSide) overlapAreas |> List.length) /= 0 then
                         if dy > 0 then y
                         else y + dy * stride
@@ -440,10 +459,10 @@ isStuck model area =
         ( w2, h2 ) = ( area.wid, area.hei )
         ( yu, yd ) = ( y2 - h1, y2 + h2 )
         ( xl, xr ) = ( x2 - w1, x2 + w2 )
-        leftSide = x1 >= xl && x1 <= xl + stride
-        rightSide = x1 >= xr - stride && x1 <= xr
-        upSide = y1 <= yu + stride && y1 >= yu
-        downSide = y1 <= yd && y1 >= yd - stride
+        leftSide = x1 >= xl && x1 < xl + stride
+        rightSide = x1 > xr - stride && x1 <= xr
+        upSide = y1 < yu + stride && y1 >= yu
+        downSide = y1 <= yd && y1 > yd - stride
         corner = ( leftSide || rightSide ) && ( upSide || downSide )
     in
     if corner || not (judgeAreaOverlap model area) then NoStuck
@@ -453,19 +472,32 @@ isStuck model area =
     else if downSide then DownSide
     else Err
 
-judgeWhichVehicle :  Model -> Vehicle -> Bool
-judgeWhichVehicle model vehicle=
-    case vehicle.which of
-        Elevator -> elevateQuestOut vehicle model
-        Car -> False -- not implemented now.
+
+
+enterBed : Model -> Model
+enterBed model =
+    let
+        beds = List.filter (\a -> a.which == Bed) model.mapAttr.vehicle
+        isNearList = List.map (isVehicleNearBy model) beds
+        isNear = List.foldl (||) False isNearList
+        questCurr = model.quests
+    in
+    if (isNear) then
+        case questCurr of
+            BedQuest ->
+                { model | quests = NoQuest }
+            _ ->
+                { model | quests = BedQuest }
+    else model
+
 
 
 enterElevators : Model -> Model
 enterElevators model =
     let
-        elevators = model.mapAttr.elevator
+        elevators = List.filter (\a -> a.which == Elevator) model.mapAttr.vehicle
         --elevatorAreas = List.map (\a -> a.area) elevators
-        isNearList = List.map (judgeWhichVehicle model) elevators
+        isNearList = List.map (isVehicleNearBy model) elevators
         isNear = List.foldl (||) False isNearList
         questCurr = model.quests
     in
@@ -473,15 +505,15 @@ enterElevators model =
         case questCurr of
             ElevatorQuest ->
                 { model | quests = NoQuest }
-            NoQuest ->
+            _ ->
                 { model | quests = ElevatorQuest }
     else model
 
 
-elevateQuestOut : Vehicle -> Model -> Bool --call out the choice to which floor
-elevateQuestOut elevator model =
+isVehicleNearBy : Model -> Vehicle -> Bool
+isVehicleNearBy model vehicle =
     let
-        isNear = judgeAreaOverlap model elevator.area
+        isNear = judgeAreaOverlap model vehicle.area
     in
     isNear
 
@@ -489,11 +521,26 @@ elevateQuestOut elevator model =
 goToSwitching : Model -> Model -- when at exit, go to switching interface
 goToSwitching model =
     if judgeExit model then
-        if model.energy > 0 then
-        mapSwitch Switching model
+        if model.map /= DreamMaze then
+            if model.energy > 0 then
+            mapSwitch Switching model
+            else
+            mapSwitch EnergyDrain model
         else
-        mapSwitch EnergyDrain model
+            wakeUp model
     else model
+
+wakeUp : Model -> Model
+wakeUp model =
+    let
+        day = model.day + 1
+        model_ = mapSwitch Home model |> teleportHero ( 840, 100 ) -- bed side
+        story = "It's time to get up... Uhh, indeed a weird dream."
+        energy = model_.energy_Full
+    in
+    { model_ | story = story, day = day, energy = energy }
+
+
 
 mapSwitch : Map -> Model -> Model
 mapSwitch newMap model =
@@ -504,7 +551,8 @@ mapSwitch newMap model =
                 Park -> parkAttr
                 Home -> homeAttr
                 Switching -> switchingAttr
-                EnergyDrain -> switchingAttr
+                EnergyDrain -> energyDrainAttr
+                DreamMaze -> dreamMazeAttr
         hero = mapAttr.heroIni
         npcs = mapAttr.npcs
         story = mapAttr.story
@@ -739,6 +787,19 @@ judgeIsMakingChoices model =
     in
     { model | playerDoing = playerState }
 
+hintTrigger : Model -> Model
+hintTrigger model =
+    let
+        hints = model.mapAttr.hint
+        story = model.story
+        hintsAvailable = List.filter (\a -> judgeAreaOverlap model a.area) hints
+        story_ = hintsAvailable
+            |> List.map (\a -> a.content)
+            |> List.head
+            |> withDefault story
+
+    in
+    { model | story = story_ }
 
 
 

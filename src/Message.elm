@@ -18,6 +18,7 @@ type Msg
     | ToPoliceOffice
     | ToPark
     | ToHome
+    | Sleep Bool
     | PickUp Bool
     | ElevateTo1
     | ElevateTo2
@@ -41,3 +42,4 @@ type Msg
     | RenderGrid8Detail
     | RenderGrid9Detail
     | RenderGrid10Detail
+

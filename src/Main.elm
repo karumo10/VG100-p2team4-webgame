@@ -59,11 +59,13 @@ key on keycode =
         81 -> -- q
             PickUp on
 
-        70 -> -- f
+        70 -> -- f (elevator&bed)
             EnterVehicle on
 
         88 -> -- x
             InteractByKey on
 
+        192 -> --` for test
+            Sleep on
         _ ->
             Noop

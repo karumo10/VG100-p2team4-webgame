@@ -8,10 +8,10 @@ import Color exposing (..)
 import Message exposing (Msg(..))
 import Rules exposing (..)
 import NarrativeEngine.Core.WorldModel as WorldModel
-import Html exposing (Html, button, div, li, h3, ul, em)
+import Html exposing (Html, button, div, li, h3, ul, em, p)
 import Html.Attributes exposing (style)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
-
+import Areas exposing (..)
 
 heroToSvg : Hero -> List (Svg msg)
 heroToSvg hero =
@@ -26,7 +26,7 @@ heroToSvg hero =
         , width (wid |> Debug.toString)
         , height (hei |> Debug.toString)
         , strokeWidth "0px"
-        , fill "black"
+        , fill "pink"
         ]
         []
 
@@ -131,6 +131,25 @@ elevatorQuestToSvg model =
         _ ->
             [ rect[][] ]
 
+
+bedQuestToSvg : Model -> Svg Msg
+bedQuestToSvg model =
+    case model.quests of
+        BedQuest ->
+            Svg.foreignObject
+                [ x "200", y "200", width "500", height "100%", style "opacity" "1" ]
+                [ p [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em", Html.Attributes.class "inset" ]
+                    [ ul []
+                    [ li [ onClick (Sleep True), Html.Attributes.class "click-on" ]  [ Html.text "Let me sleep for a while."]
+                    , li [ onClick (Sleep False), Html.Attributes.class "click-on" ] [ Html.text "I can still work..."]
+                    ]
+                    ]
+                ]
+
+        _ ->  rect [] []
+
+
+
 areaToSvg : Area -> Color -> List (Svg msg)
 areaToSvg area color =
         let
@@ -170,7 +189,7 @@ testToSvg model =
         exitSvgList = exitToSvg mapAttr.exit
         barrierSvgListList = List.map barrierToSvg mapAttr.barrier
         barrierSvgList = List.foldl (++) [] barrierSvgListList
-        elevatorAreas = List.map (\a -> a.area) mapAttr.elevator
+        elevatorAreas = List.map (\a -> a.area) mapAttr.vehicle
         elevatorSvgListList = List.map elevatorToSvg elevatorAreas
         elevatorSvgList = List.foldl (++) [] elevatorSvgListList
     in
@@ -195,6 +214,10 @@ entityView npc =
         , strokeWidth "5px", stroke "#191970"
         ]
         []
+
+
+
+
 
 entityViewchoices : ( WorldModel.ID, MyEntity ) -> Html Msg
 entityViewchoices ( id, { name } ) =
@@ -226,6 +249,22 @@ intToFloat a =
         o = String.toFloat c
     in
     Maybe.withDefault 0 o
+
+dayToSvg : Model -> List (Svg msg)
+dayToSvg model =
+    [
+        text_
+        [ x "20"
+        , y "20"
+        , fill "black"
+        , fontSize "20"
+        , fontFamily "Segoe UI Black"
+        ] [text ("Day " ++ (Debug.toString model.day))]
+
+    ]
+
+
+
 
 energytosvg : Int -> Int -> List (Svg msg)
 energytosvg energy energyFull =

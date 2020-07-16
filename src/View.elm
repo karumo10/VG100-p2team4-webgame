@@ -47,7 +47,7 @@ view model =
         , style "transform" ("scale(" ++ String.fromFloat r ++ ")")]
         [ renderPic model
         , renderMapButton model
-        , renderdialog model
+        --, renderdialog model
         , renderMusic
         , axisHelper model
         , renderBagButton model
@@ -232,36 +232,40 @@ renderPic model =
                     , x "0"
                     , y "0"
                     , width "1200"
-                    , transform "translate(0,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , height "600"
+                    , transform "translate(-30,0)"
                     ] []]
                 ++ [ entityView cBob ]
                 ++ [ entityView cLee ]
                 ++ [ entityView cAllen ]
                 ++ ( heroToSvg model.hero )
-                ++ [renderdialog model]
-                ++ [renderchoice model]
+                ++ [ renderdialog model ]
+                ++ [ renderchoice model ]
                 ++ ( elevatorQuestToSvg model )
-                ++ [renderportrait model]
-
+                ++ [ renderportrait model ]
+                ++ [ bedQuestToSvg model ]
+                ++ energytosvg model.energy model.energy_Full
 
             Park ->
 
-                [Svg.image
+                [ Svg.image
                     [ xlinkHref "./park.png"
                     , x "0"
                     , y "0"
                     , width "1200"
-                    , height "630"
-                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
-                    ] []]
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ]
                 ++ ( heroToSvg model.hero )
                 ++ [ entityView pLee ]
                 ++ [ entityView pAllen ]
                 ++ [ entityView pAdkins ]
                 ++ [ entityView pCatherine ]
-                ++ [renderdialog model]
-                ++ [renderchoice model]
-                ++ [renderportrait model]
+                ++ [ renderdialog model ]
+                ++ [ renderchoice model ]
+                ++ [ renderportrait model ]
+                ++ [ bedQuestToSvg model ]
+                ++ energytosvg model.energy model.energy_Full
 
             Switching ->
 
@@ -270,15 +274,17 @@ renderPic model =
                     , y "0"
                     , width "1200"
                     , height "600"
-                    , fill "black"][]] --useless now
+                    , fill "black"][]]
+                ++ [ renderdialog model ]
 
             EnergyDrain ->
 
                 [Svg.rect
                     [ x "0"
                     , y "0"
-                    , width "900"
+                    , width "1200"
                     , height "600"][]]
+                ++ [ renderdialog model ]
 
             Home ->
                 [Svg.image
@@ -286,23 +292,39 @@ renderPic model =
                     , x "0"
                     , y "0"
                     , width "1200"
-                    , height "630"
-                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ [renderdialog model]
                 ++ [renderchoice model]
                 ++ ( elevatorQuestToSvg model )
                 ++ ( heroToSvg model.hero )
                 ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [ renderdialog model ]
+                ++ energytosvg model.energy model.energy_Full
+
+
+            DreamMaze ->
+                [Svg.image
+                    [ xlinkHref "./dream_maze_1.png"
+                    , x "0"
+                    , y "0"
+                    , width "900"
+                    , height "630"
+                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ ( heroToSvg model.hero )
+                ++ [ renderdialog model ]
 
 
 
 
 
-        )++ (
-          energytosvg model.energy model.energy_Full
-         ++ testToSvg model
-         ++ itemsToSvg model )
+        ) ++
+        ( testToSvg model
+        ++ itemsToSvg model
+        ++ dayToSvg model )
         )
 
 renderdialog : Model -> Svg Msg
