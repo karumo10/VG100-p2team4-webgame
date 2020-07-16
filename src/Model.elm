@@ -17,6 +17,7 @@ import Message exposing (Msg(..))
 import Svg exposing (image, rect, svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth)
 import Rules exposing (..)
+import Areas exposing (..)
 
 type Mode
     = Test
@@ -35,121 +36,97 @@ type PlayerDoing
     = MakingChoices
     | AbleToWalk -- you cant walk when making choices! also here can add some other states when it's needed
 
-type alias Area =
-    { x : Float
-    , y : Float
-    , wid : Float
-    , hei : Float
-    } -- a general type for object interaction (like, with door, so you can exit the police office)
 type VehicleType
     = Elevator
+    | Bed
     | Car
+
 type alias Vehicle =
     { area : Area
     , which : VehicleType
     }
+
+type alias Hint =
+    { area : Area
+    , content : String
+    }
+
 type alias MapAttr = -- things determined by map.
     { exit : Area
     , heroIni : Hero
     , barrier : List Area
-    , elevator : List Vehicle
+    , hint : List Hint
+    , vehicle : List Vehicle
     , npcs : List NPC
     , story : String
     }
 
-policeOfficeAttr : MapAttr
-policeOfficeAttr =
-    { exit = { x = 150, y = 480 , wid = 70, hei = 120 }
-    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
-    , barrier = policeOfficeBarrier
-    , elevator = policeOfficeElevator
-    , npcs = [cAllen, cBob, cLee]
-    , story = "Another day at work, another boring day. But I need to avoid being killed."
-    }
 
 policeOfficeBarrier : List Area
 policeOfficeBarrier =
     case gameMode______ of
         GettingCoordinates ->
             [ ]
-        _ ->
-            [ { x = 230, y = 500 , wid = 575, hei = 20 } -- f1.ceiling (every floor 230)
-            , { x = 205, y = 260 , wid = 610, hei = 20 } -- f2.ceiling
-            , { x = 205, y = 40 , wid = 610, hei = 20 } -- f3.ceiling
-            , { x = 370, y = 500 , wid = 120, hei = 30 } -- f1.reception desk
-            , { x = 290, y = 280 , wid = 110, hei = 20 } -- f2.left desk
-            , { x = 465, y = 280 , wid = 135, hei = 20 } -- f1.right desk
-            , { x = 645, y = 280 , wid = 30, hei = 20 } -- f2.elevator wall
-            , { x = 205, y = 280, wid = 55, hei = 20 } -- f2.bookshelf.up
-            , { x = 205, y = 300, wid = 30, hei = 20} -- f2.bookshelf.left
-            , { x = 805, y = 420 , wid = 20, hei = 180 } -- f1.right wall
-            , { x = 805, y = 190 , wid = 20, hei = 180 } -- f2.right wall
-            , { x = 805, y = -40 , wid = 20, hei = 180 } -- f3.right wall
-            , { x = 185, y = 420 , wid = 20, hei = 180 } -- f1.left wall
-            , { x = 185, y = 190 , wid = 20, hei = 180 } -- f2.left wall
-            , { x = 185, y = -40 , wid = 20, hei = 180 } -- f3.left wall
-            , { x = 205, y = 600 , wid = 600, hei = 20 } -- f1.floor
-            , { x = 205, y = 370 , wid = 600, hei = 20 } -- f2.floor
-            , { x = 205, y = 140 , wid = 600, hei = 20 } -- f3.floor
-            ]
+        _ -> policeBarrierList
 
 homeBarrier : List Area
 homeBarrier =
     case gameMode______ of
         GettingCoordinates ->
             [ ]
-        _ ->
-            [ { x = 290, y = 500 , wid = 575, hei = 20 } -- f1.ceiling (every floor 230)
-            , { x = 205, y = 260 , wid = 650, hei = 20 } -- f2.ceiling
-            , { x = 265, y = 45 , wid = 610, hei = 20 } -- f3.ceiling
-            , { x = 475, y = 280 , wid = 45, hei = 20 } -- f2.door
-            , { x = 695, y = 520 , wid = 45, hei = 20 } -- f1.door
-            , { x = 205, y = 300, wid = 30, hei = 20} -- f2.bookshelf.left
-            , { x = 235, y = 275, wid = 50, hei = 20} --f2.left corner
-            , { x = 590, y = 60, wid = 30, hei = 20 } --f3.bedside lap
-            , { x = 570, y = 65, wid = 20, hei = 80 } -- f3.bedwall
-            , { x = 655, y = 60, wid = 95, hei = 20 } -- f3.shelf
-            , { x = 825, y = 520 , wid = 20, hei = 80 } -- f1.right wall
-            , { x = 825, y = 280 , wid = 20, hei = 80 } -- f2.right wall
-            , { x = 835, y = 65 , wid = 20, hei = 80 } -- f3.right wall
-            , { x = 185, y = 420 , wid = 20, hei = 180 } -- f1.left wall
-            , { x = 185, y = 190 , wid = 20, hei = 180 } -- f2.left wall
-            , { x = 185, y = -40 , wid = 20, hei = 180 } -- f3.left wall
-            , { x = 205, y = 600 , wid = 660, hei = 20 } -- f1.floor
-            , { x = 205, y = 360 , wid = 660, hei = 20 } -- f2.floor
-            , { x = 205, y = 145 , wid = 660, hei = 20 } -- f3.floor
-            ]
+        _ -> homeBarrierList
 
-policeOfficeElevator : List Vehicle
-policeOfficeElevator =
-    [ { area = { x = 660, y = 430, wid = 115, hei = 110 }, which = Elevator }
-    , { area = { x = 675, y = 195, wid = 100, hei = 110 }, which = Elevator }
-    , { area = { x = 660, y = 0, wid = 115, hei = 85 }, which = Elevator } ]
+maze1Barrier : List Area
+maze1Barrier =
+    case gameMode______ of
+        GettingCoordinates ->
+            [ ]
+        _ -> mazeList
 
-homeElevator : List Vehicle
-homeElevator =
-    [ { area = { x = 760, y = 430, wid = 115, hei = 110 }, which = Elevator }
-    , { area = { x = 775, y = 195, wid = 100, hei = 110 }, which = Elevator }
-    , { area = { x = 760, y = 0, wid = 115, hei = 85 }, which = Elevator } ]
+policeOfficeVehicle : List Vehicle
+policeOfficeVehicle =
+    [ { area = { x = 820, y = 430, wid = 115, hei = 110 }, which = Elevator }
+    , { area = { x = 835, y = 195, wid = 100, hei = 110 }, which = Elevator }
+    , { area = { x = 820, y = 0, wid = 115, hei = 85 }, which = Elevator } ]
+
+homeVehicle : List Vehicle
+homeVehicle =
+    [ { area = { x = 1050, y = 430, wid = 115, hei = 110 }, which = Elevator }
+    , { area = { x = 1065, y = 195, wid = 100, hei = 110 }, which = Elevator }
+    , { area = { x = 1050, y = 80, wid = 115, hei = 85 }, which = Elevator }
+    , { area = { x = 855, y = 65, wid = 55, hei = 85 }, which = Bed } ]
+
+policeOfficeAttr : MapAttr
+policeOfficeAttr =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , npcs = [cAllen, cBob, cLee]
+    , story = "Another day at work, another boring day. But I need to avoid being killed."
+    }
 
 parkAttr : MapAttr
 parkAttr =
     { exit = { x = 620, y = 250 , wid = 200, hei = 90 }
     , heroIni = { x = 500, y = 250, width = 30, height = 90 }
     , barrier = []
-    , elevator = []
+    , hint = []
+    , vehicle = []
     , npcs = [pAllen, pLee, pAdkins, pCatherine]
     , story = "I arrive at the park. This is a desolate place."
     }
 
 homeAttr : MapAttr
 homeAttr =
-    { exit = { x = 345, y = 450 , wid = 20, hei = 150 }
-    , heroIni = { x = 400, y = 520, width = 20, height = 60 }
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
     , barrier = homeBarrier
-    , elevator = homeElevator
+    , hint = []
+    , vehicle = homeVehicle
     , npcs = []
-    , story = ""
+    , story = "Home, sweet home."
     }
 
 switchingAttr : MapAttr
@@ -157,10 +134,41 @@ switchingAttr =
     { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
     , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
     , barrier = []
-    , elevator = []
+    , hint = []
+    , vehicle = []
     , npcs = []
-    , story = ""
+    , story = "Where to go?"
     }
+energyDrainAttr : MapAttr
+energyDrainAttr =
+    { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
+    , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , npcs = []
+    , story = "I'm tired...all I desire is somewhere to take a nap."
+    }
+
+
+
+dreamMazeAttr : MapAttr
+dreamMazeAttr =
+    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    , barrier = maze1Barrier
+    , hint = hintsMaze1
+    , vehicle = []
+    , npcs = []
+    , story = "Where is here...?"
+    }
+
+hintsMaze1 : List Hint
+hintsMaze1 =
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "hint1" }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "hint2" }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "hint3" }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "hint4" } ]
 
 
 
@@ -207,6 +215,7 @@ type alias Model =
     , heroInteractWithNpc : Bool
     , state : State
     , size : ( Float, Float )
+    , day : Int
     , map : Map
     , mapAttr : MapAttr
     , bag : Bag
@@ -242,6 +251,7 @@ initial =
     , heroInteractWithNpc = False
     , state = Playing
     , size = ( 900, 600 )
+    , day = 1
     , map = PoliceOffice -- door at police office
     , mapAttr = policeOfficeAttr
     , bag = bagIni
@@ -252,7 +262,7 @@ initial =
     , debug = NarrativeEngine.Debug.init
     , npcs = [cAllen, cBob, cLee]
     , interacttrue = False
-    , energy = 20
+    , energy = 0
     , energy_Full = 100
     , energy_Cost_pickup = 25
     , energy_Cost_interact = 5
@@ -264,8 +274,9 @@ initial =
     , playerDoing = AbleToWalk
     }
 
-type Quest
+type Quest -- if not 'NoQuest', should not move.
     = ElevatorQuest
+    | BedQuest
     | NoQuest
 
 type alias Hero =

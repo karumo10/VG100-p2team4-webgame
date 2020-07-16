@@ -90,8 +90,12 @@ Changelog for P2
 
 2020-07-16 12:01 Yuxiang Zhou Bug #555 (Solution for #468: let the player cannot move while making choices). also rm --cached ./build/style.js
 
-
-
+2020-07-17 02:29 Yuxiang Zhou
++ Feature #581 (After the energy is used up, the hero needs to go to bed, interact with the bed, and sleep. Then he will be in the Dream Maze, in which he will discover some hint. When he wakes up, one day will pass, and his energy will recover.)
++ New map implemented within new barrier box models.
++ Use F to interact with bed, and choose to sleep
++ golden key: press ``` to enter dream
++ Maze-solving in dream: move the player in the maze, when near the hint chunk, hint will be delivered as a `story`. when reach the exit, player will wake up
 
 
 

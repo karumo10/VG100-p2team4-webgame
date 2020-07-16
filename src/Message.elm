@@ -18,6 +18,7 @@ type Msg
     | ToPoliceOffice
     | ToPark
     | ToHome
+    | Sleep Bool
     | PickUp Bool
     | ElevateTo1
     | ElevateTo2
@@ -29,3 +30,4 @@ type Msg
     | Catherinecatch
     | Adkinscatch
     | Robbery
+
