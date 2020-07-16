@@ -227,7 +227,8 @@ type alias Model =
     , portrait : String
     , havegonehome : Bool --should be initialized every single day ; Update:I have given up usage of this, if it is not used in alpha version,it can be deleted
     , playerDoing : PlayerDoing
-
+    , isBagOpen : Bool --When should the bag be presented
+    , whichGridIsOpen : Int
     }
 
 initial : Model
@@ -262,6 +263,8 @@ initial =
     , portrait = ""
     , havegonehome = False
     , playerDoing = AbleToWalk
+    , isBagOpen = False
+    , whichGridIsOpen = 0
     }
 
 type Quest

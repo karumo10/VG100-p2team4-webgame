@@ -187,6 +187,55 @@ update msg model =
             ({ model | conclusion = 0, story = "I think this is just a robbery, though the message sent to Catherine was very strange. We comforted the two people who had lost important people, and issued an arrest warrant, but nothing came of it..." }
             , Cmd.none)
 
+        OpenBag ->
+            ({ model | isBagOpen = True , whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        CloseBag ->
+            ({ model | isBagOpen = False , whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid1Detail ->
+            ({ model | whichGridIsOpen = 1 }
+            , Cmd.none)
+
+        RenderGrid2Detail ->
+            ({ model | whichGridIsOpen = 2 }
+            , Cmd.none)
+
+        RenderGrid3Detail ->
+            ({ model | whichGridIsOpen = 3 }
+            , Cmd.none)
+
+        RenderGrid4Detail ->
+            ({ model | whichGridIsOpen = 4 }
+            , Cmd.none)
+
+        RenderGrid5Detail ->
+            ({ model | whichGridIsOpen = 5 }
+            , Cmd.none)
+
+        RenderGrid6Detail ->
+            ({ model | whichGridIsOpen = 6 }
+            , Cmd.none)
+
+        RenderGrid7Detail ->
+            ({ model | whichGridIsOpen = 7 }
+            , Cmd.none)
+
+        RenderGrid8Detail ->
+            ({ model | whichGridIsOpen = 8 }
+            , Cmd.none)
+
+        RenderGrid9Detail ->
+            ({ model | whichGridIsOpen = 9 }
+            , Cmd.none)
+
+        RenderGrid10Detail ->
+            ({ model | whichGridIsOpen = 10 }
+            , Cmd.none)
+
+
 
 
 animate : Float -> Model -> Model

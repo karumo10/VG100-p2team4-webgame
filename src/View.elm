@@ -50,6 +50,18 @@ view model =
         , renderdialog model
         , renderMusic
         , axisHelper model
+        , renderBagButton model
+        , renderBag model
+        , renderGrid1Detail model
+        , renderGrid2Detail model
+        , renderGrid3Detail model
+        , renderGrid4Detail model
+        , renderGrid5Detail model
+        , renderGrid6Detail model
+        , renderGrid7Detail model
+        , renderGrid8Detail model
+        , renderGrid9Detail model
+        , renderGrid10Detail model
         ]]
         ++ (rendersuspectlist model))
 
@@ -345,3 +357,418 @@ rendersuspectlist model =
         ,Html.label [Html.Attributes.for "menu-toggle", class "menu-icon"][Html.i [class "fa fa-bars"][]]
         ,div [class "slideout-sidebar"] [div [class "container"] suspect]
         ]
+
+renderBagButton : Model -> Html Msg
+renderBagButton model =
+    if model.isBagOpen == True then
+    button
+                [ style "background" "red"
+                , style "position" "absolute"
+                , style "left" "850px"
+                , style "top" "400px"
+                , style "color" "#f3f2e9"
+                , style "cursor" "pointer"
+                , style "display" "block"
+                , style "font-family" "Helvetica, Arial, sans-serif"
+                , style "font-size" "18px"
+                , style "font-weight" "300"
+                , style "height" "80px"
+                , style "line-height" "60px"
+                , style "outline" "none"
+                , style "padding" "0"
+                , style "width" "130px"
+                , style "border-style" "inset"
+                , style "border-color" "white"
+                , style "border-width" "6px"
+                , style "border-radius" "20%"
+                , onClick CloseBag
+                ]
+                [ Html.text "Close" ]
+    else
+    button
+                [ style "background" "red"
+                , style "position" "absolute"
+                , style "left" "850px"
+                , style "top" "400px"
+                , style "color" "#f3f2e9"
+                , style "cursor" "pointer"
+                , style "display" "block"
+                , style "font-family" "Helvetica, Arial, sans-serif"
+                , style "font-size" "18px"
+                , style "font-weight" "300"
+                , style "height" "80px"
+                , style "line-height" "60px"
+                , style "outline" "none"
+                , style "padding" "0"
+                , style "width" "130px"
+                , style "border-style" "inset"
+                , style "border-color" "white"
+                , style "border-width" "6px"
+                , style "border-radius" "20%"
+                , onClick OpenBag
+                ]
+                [ Html.text "Open" ]
+
+
+
+renderBag : Model -> Html Msg
+renderBag model =
+    case model.isBagOpen of
+        False ->
+            div[][]
+        True ->
+            div []
+            [
+            button
+            [ onClick RenderGrid1Detail
+            , Html.Attributes.style "width" "60px"
+            , Html.Attributes.style "height" "60px"
+            , Html.Attributes.style "font-size" "18px"
+            , style "position" "absolute"
+            , style "left" "100px"
+            , style "top" "100px"
+            ] [ text "G1" ],
+
+            button
+            [ onClick RenderGrid2Detail
+            , Html.Attributes.style "width" "60px"
+            , Html.Attributes.style "height" "60px"
+            , Html.Attributes.style "font-size" "18px"
+            , style "position" "absolute"
+            , style "left" "100px"
+            , style "top" "180px"
+            ] [ text "G2" ],
+
+            button
+            [ onClick RenderGrid3Detail
+            , Html.Attributes.style "width" "60px"
+            , Html.Attributes.style "height" "60px"
+            , Html.Attributes.style "font-size" "18px"
+            , style "position" "absolute"
+            , style "left" "100px"
+            , style "top" "260px"
+            ] [ text "G3" ],
+
+            button
+            [ onClick RenderGrid4Detail
+            , Html.Attributes.style "width" "60px"
+            , Html.Attributes.style "height" "60px"
+            , Html.Attributes.style "font-size" "18px"
+            , style "position" "absolute"
+            , style "left" "100px"
+            , style "top" "340px"
+            ] [ text "G4" ],
+
+            button
+            [ onClick RenderGrid5Detail
+            , Html.Attributes.style "width" "60px"
+            , Html.Attributes.style "height" "60px"
+            , Html.Attributes.style "font-size" "18px"
+            , style "position" "absolute"
+            , style "left" "100px"
+            , style "top" "420px"
+            ] [ text "G5" ],
+
+            button
+            [ onClick RenderGrid6Detail
+            , Html.Attributes.style "width" "60px"
+            , Html.Attributes.style "height" "60px"
+            , Html.Attributes.style "font-size" "18px"
+            , style "position" "absolute"
+            , style "left" "180px"
+            , style "top" "100px"
+            ] [ text "G6" ],
+
+            button
+            [ onClick RenderGrid7Detail
+            , Html.Attributes.style "width" "60px"
+            , Html.Attributes.style "height" "60px"
+            , Html.Attributes.style "font-size" "18px"
+            , style "position" "absolute"
+            , style "left" "180px"
+            , style "top" "180px"
+            ] [ text "G7" ],
+
+             button
+             [ onClick RenderGrid8Detail
+             , Html.Attributes.style "width" "60px"
+             , Html.Attributes.style "height" "60px"
+             , Html.Attributes.style "font-size" "18px"
+             , style "position" "absolute"
+             , style "left" "180px"
+             , style "top" "260px"
+             ] [ text "G8" ],
+
+              button
+              [ onClick RenderGrid9Detail
+              , Html.Attributes.style "width" "60px"
+              , Html.Attributes.style "height" "60px"
+              , Html.Attributes.style "font-size" "18px"
+              , style "position" "absolute"
+              , style "left" "180px"
+              , style "top" "340px"
+              ] [ text "G9" ],
+
+              button
+              [ onClick RenderGrid10Detail
+              , Html.Attributes.style "width" "60px"
+              , Html.Attributes.style "height" "60px"
+              , Html.Attributes.style "font-size" "18px"
+              , style "position" "absolute"
+              , style "left" "180px"
+              , style "top" "420px"
+              ] [ text "G10" ]
+
+              ]
+
+renderGrid1Detail : Model -> Html Msg
+renderGrid1Detail model =
+    if model.whichGridIsOpen == 1 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid2Detail : Model -> Html Msg
+renderGrid2Detail model =
+    if model.whichGridIsOpen == 2 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid3Detail : Model -> Html Msg
+renderGrid3Detail model=
+    if model.whichGridIsOpen == 3 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid4Detail : Model -> Html Msg
+renderGrid4Detail model =
+    if model.whichGridIsOpen == 4 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid5Detail : Model -> Html Msg
+renderGrid5Detail model =
+    if model.whichGridIsOpen == 5 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid6Detail : Model -> Html Msg
+renderGrid6Detail model=
+    if model.whichGridIsOpen == 6 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid7Detail : Model -> Html Msg
+renderGrid7Detail model=
+    if model.whichGridIsOpen == 7 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid8Detail : Model -> Html Msg
+renderGrid8Detail model =
+    if model.whichGridIsOpen == 8 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid9Detail : Model -> Html Msg
+renderGrid9Detail model=
+    if model.whichGridIsOpen == 9 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+renderGrid10Detail : Model -> Html Msg
+renderGrid10Detail model =
+    if model.whichGridIsOpen == 10 then
+    div
+      [ style "border-style" "inset"
+      , style "border-color" "white"
+      , style "border-width" "6px"
+      , style "border-radius" "20%"
+      , style "width" "500px"
+      , style "height" "20px"
+      , style "background-color" "white"
+      , style "position" "absolute"
+      , style "left" "300px"
+      , style "top" "300px"
+      , style "text-align" "center"
+      , style "margin" "auto"
+      , style "font-family" "Helvetica, Arial, sans-serif"
+      , style "font-size" "18px"
+      , style "font-weight" "300"
+      ]
+      [ Html.text ( "The information of this grid " )
+    ]
+    else
+    div [][]
+
+
