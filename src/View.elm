@@ -63,7 +63,8 @@ view model =
         , renderGrid9Detail model
         , renderGrid10Detail model
         ]]
-        ++ (rendersuspectlist model))
+        ++ (rendersuspectlist model)
+        ++ ( elevatorQuestToSvg model ))
 
 
 
@@ -241,7 +242,6 @@ renderPic model =
                 ++ ( heroToSvg model.hero )
                 ++ [ renderdialog model ]
                 ++ [ renderchoice model ]
-                ++ ( elevatorQuestToSvg model )
                 ++ [ renderportrait model ]
                 ++ [ bedQuestToSvg model ]
                 ++ energytosvg model.energy model.energy_Full
@@ -297,7 +297,6 @@ renderPic model =
                     ] []]
                 ++ [renderdialog model]
                 ++ [renderchoice model]
-                ++ ( elevatorQuestToSvg model )
                 ++ ( heroToSvg model.hero )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]

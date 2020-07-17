@@ -53,83 +53,53 @@ itemsToSvg model =
     List.map ( \a -> formSvg a) itemsExact
 
 
-elevatorQuestToSvg : Model -> List (Svg Msg)
+elevatorQuestToSvg : Model -> List (Html Msg)
 elevatorQuestToSvg model =
     case model.quests of
         ElevatorQuest ->
-            [
-                rect
-                [ x "405"
-                , y "140"
-                , width "100"
-                , height "280"
-                , strokeWidth "0px"
-                , stroke "black"
-                , fill "grey"
-                ]
-                [] -- choice board
-
-            ,
-                rect
-                [ x "415"
-                , y "150"
-                , width "80"
-                , height "80"
-                , strokeWidth "5px"
-                , stroke "black"
-                , fill "white"
-                , onClick ElevateTo1
-                ]
-                [] -- f1
-            ,
-                rect
-                [ x "415"
-                , y "240"
-                , width "80"
-                , height "80"
-                , strokeWidth "5px"
-                , stroke "black"
-                , fill "white"
-                , onClick ElevateTo2
-                ]
-                [] -- f2
-            ,
-                rect
-                [ x "415"
-                , y "330"
-                , width "80"
-                , height "80"
-                , strokeWidth "5px"
-                , stroke "black"
-                , fill "white"
-                , onClick ElevateTo3
-                ]
-                [] -- f3
-            ,
-                text_
-                [ x "445"
-                , y "200"
-                , fill "black"
-                , fontSize "40px"
-                ] [ text "1" ]
-            ,
-                text_
-                [ x "445"
-                , y "290"
-                , fill "black"
-                , fontSize "40px"
-                ] [ text "2" ]
-            ,
-                text_
-                [ x "445"
-                , y "380"
-                , fill "black"
-                , fontSize "40px"
-                ] [ text "3" ]
-
-            ]
+            [div [Html.Attributes.class "main", Html.Attributes.class "basicBox"]
+                [Svg.svg [ width "100"
+                         , height "280"
+                         , Svg.Attributes.viewBox "0 0 100 280"
+                         ]
+                         [ rect [ x "10" , y "10"
+                                , width "80" , height "80"
+                                , strokeWidth "5px"
+                                , stroke "black"
+                                , fill "none"
+                                , onClick ElevateTo1
+                                , Svg.Attributes.class "h"
+                                ] [] -- f1
+                         , rect [ x "10", y "100"
+                                , width "80", height "80"
+                                , strokeWidth "5px"
+                                , stroke "black"
+                                , fill "white"
+                                , onClick ElevateTo2
+                                , Svg.Attributes.class "h"
+                                ] [] -- f2
+                         , rect [ x "10", y "190"
+                                , width "80", height "80"
+                                , strokeWidth "5px"
+                                , stroke "black"
+                                , fill "white"
+                                , onClick ElevateTo3
+                                , Svg.Attributes.class "h"
+                                ] [] -- f3
+                         , text_ [ x "35", y "60"
+                                 , fill "#F7CA18"
+                                 , fontSize "40px"
+                                 ] [ text "1" ]
+                         , text_ [ x "35", y "150"
+                                 , fill "#F7CA18"
+                                 , fontSize "40px"
+                                 ] [ text "2" ]
+                         , text_ [ x "35", y "240"
+                                 , fill "#F7CA18"
+                                 , fontSize "40px"
+                                 ] [ text "3" ]]] ]
         _ ->
-            [ rect[][] ]
+            [ div[][] ]
 
 
 bedQuestToSvg : Model -> Svg Msg
