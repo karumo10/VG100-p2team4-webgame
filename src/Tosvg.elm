@@ -29,8 +29,27 @@ heroToSvg hero =
         , fill "pink"
         ]
         []
-
     ]
+
+heroToSvgInMaze : Hero -> List (Svg msg)
+heroToSvgInMaze hero =
+    let
+        ( wid, hei ) = ( hero.width, hero.height )
+        ( x_, y_ ) = ( toFloat hero.x + wid/2, toFloat hero.y + hei/2 )
+        r_ = ( min wid hei ) / 2
+    in
+    [
+        circle
+        [ cx (x_ |> Debug.toString)
+        , cy (y_ |> Debug.toString)
+        , r (r_ |> Debug.toString)
+        , strokeWidth "0px"
+        , fill "url(#hero-ball-maze)"
+        ]
+        []
+    ]
+
+
 
 formSvg : Item -> Svg msg
 formSvg item =
@@ -107,7 +126,7 @@ bedQuestToSvg model =
     case model.quests of
         BedQuest ->
             Svg.foreignObject
-                [ x "200", y "200", width "500", height "100%", style "opacity" "1" ]
+                [ x "350", y "200", width "500", height "100%", style "opacity" "1" ]
                 [ p [ style "flex" "1 1 auto", style "font-size" "1.5em", style "padding" "0 1em", Html.Attributes.class "inset" ]
                     [ ul []
                     [ li [ onClick (Sleep True), Html.Attributes.class "click-on" ]  [ Html.text "Let me sleep for a while."]
