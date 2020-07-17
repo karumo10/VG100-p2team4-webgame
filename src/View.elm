@@ -222,8 +222,15 @@ renderPic model =
         , height "700"
         , viewBox "0 0 1200 800"
         ]
-        ((
-
+        (
+        [ Svg.defs [] [ Svg.radialGradient
+            [ Svg.Attributes.id "hero-ball-maze"
+            , Svg.Attributes.x1 "0", Svg.Attributes.x2 "0", Svg.Attributes.y1 "0", Svg.Attributes.y2 "1"]
+            [ Svg.stop [ Svg.Attributes.offset "50%", Svg.Attributes.stopColor "white" ] []
+            , Svg.stop [ Svg.Attributes.offset "100%", Svg.Attributes.stopColor "black" ] []
+            ] ]
+        ] ++
+        (
         case model.map of
             PoliceOffice ->
 
@@ -313,8 +320,9 @@ renderPic model =
                     , width "900"
                     , height "630"
                     , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
-                    ] []]
-                ++ ( heroToSvg model.hero )
+                    ] [] ]
+                --++ heroToSvg model.hero
+                ++ ( heroToSvgInMaze model.hero )
                 ++ [ renderdialog model ]
 
 
@@ -342,7 +350,7 @@ renderchoice model =
                 [] -> "0"
                 _ -> "1"
     in
-        Svg.foreignObject [ x "200", y "200", width "500", height "100%", style "opacity" opacity ]
+        Svg.foreignObject [ x "350", y "200", width "500", height "100%", style "opacity" opacity ]
                           [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset" ]
                               [ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
                           ]
