@@ -237,7 +237,13 @@ entityView npc =
         ]
         []
 
-
+npcListView : Model -> List (Svg Msg)
+npcListView model =
+    let
+        npcList = model.npcs
+        npcSvgList = List.map entityView npcList
+    in
+    npcSvgList
 
 
 

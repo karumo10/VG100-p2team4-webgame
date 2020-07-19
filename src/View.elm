@@ -295,9 +295,7 @@ renderPic model =
                     , height "600"
                     , transform "translate(-30,0)"
                     ] []]
-                ++ [ entityView cBob ]
-                ++ [ entityView cLee ]
-                ++ [ entityView cAllen ]
+                ++ npcListView model
                 ++ ( heroToSvg model.hero )
                 ++ [ renderdialog model ]
                 ++ [ renderchoice model ]

@@ -125,7 +125,18 @@ policeOfficeAttr =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , npcs = [cAllen, cBob, cLee]
+    , npcs = [cAllen_day1, cBob, cLee]
+    , story = "Another day at work, another boring day. But I need to avoid being killed."
+    }
+
+policeOfficeAttr_day2 : MapAttr
+policeOfficeAttr_day2 =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , npcs = [cAllen_day2, cBob, cLee]
     , story = "Another day at work, another boring day. But I need to avoid being killed."
     }
 
@@ -309,7 +320,7 @@ initial =
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the police chief, Jonathon, because I know his scandal. I need to avoid being killed."
     , ruleCounts = Dict.empty
     , debug = NarrativeEngine.Debug.init
-    , npcs = [cAllen, cBob, cLee]
+    , npcs = [cAllen_day1, cBob, cLee, cAllen_day1]
     , interacttrue = False
     , energy = 50
     , energy_Full = 100
@@ -464,8 +475,8 @@ cBob =
     , description = "BOBPOLICEOFFICE.npc.day=1"
     }
 
-cAllen : NPC
-cAllen =
+cAllen_day1 : NPC
+cAllen_day1 =
     { itemType = Allen
         , area =
         { x = 600
@@ -476,6 +487,20 @@ cAllen =
     , interacttrue = False
     , description = "ALLENPOLICEOFFICE.npc.day=1"
     }
+
+cAllen_day2 : NPC
+cAllen_day2 =
+    { itemType = Allen
+        , area =
+        { x = 600
+        , y = 500
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "ALLENPOLICEOFFICEDAY2.npc.day=2"
+    }
+
 
 pLee : NPC
 pLee =
