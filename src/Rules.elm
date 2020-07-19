@@ -61,9 +61,9 @@ initialWorldModelSpec =
     , entity "JOURNALISTBODYDAY2.npc.day=2.trigger=0"
         "JournalistBody"
         "No...I dare not look at that pairs of eyes again. That pairs of eeire pallor seems gazing at me, though I'm quite sure that a dead never hurts people."
-    , entity "LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=0"
+    , entity "LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=2"
         "Lee"
-        "It seems that we should wait for forensic for further report about his death and before that, let us discover whether there exists other evidence in his home."
+        "Well, It seems that we should wait for forensic for further report about his death and before that, let us discover whether there exists other evidence in his home. You know, the instructions from above, Mr. Boss."
 
     -- items
     , entity "BODYPARKSHOES.choices=0"
@@ -121,13 +121,16 @@ initialWorldModelSpec =
         "Ah... So what happens?"
         ""
     , entity "HEADACHE1DAY2.choices=0"
-        "!!!ARRRRAGH!!!! (HEADCHE...) Why this guy looks so ……?"
+        "!!!"
         ""
-    , entity "HEADCHE2DAY2.choices=0"
+    , entity "HEADACHE2DAY2.choices=0"
         "Take a breathe."
         ""
-    , entity "HEADCHE3DAY2.choices=0"
-        "Take a DEEP breathe. Yeah, now calm down a little anyway."
+    , entity "HEADACHE3DAY2.choices=0"
+        "...Take a DEEP breathe. "
+        ""
+    , entity "DISGUISEFEAR.day2.choices=0"
+        "(You are too shocked to utter a word; but you cannot tell why.)"
         ""
     ]
 
@@ -438,6 +441,14 @@ rulesSpec =
             IF: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
             DO: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0
             """
+
+        |> rule_______________________ "lee order you check body"
+            """
+            ON: LEEJOURNALISTHOMEDAY2.npc.day=2
+            IF: JOURNALISTBODYDAY2.npc.day=2.trigger=0
+                LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=2
+            DO: LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=2
+            """
         |> rule_______________________ "glance at body"
             """
             ON: JOURNALISTBODYDAY2.npc.day=2
@@ -463,7 +474,31 @@ rulesSpec =
             ON: HEADACHE3DAY2
             IF: HEADACHE3DAY2.choices=1
             DO: HEADACHE3DAY2.choices=0
+                JOURNALISTBODYDAY2.npc.day=2.trigger=1
             """
+        |> rule_______________________ "comfort by lee"
+            """
+            ON: LEEJOURNALISTHOMEDAY2.npc.day=2
+            IF: LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=2
+                JOURNALISTBODYDAY2.npc.day=2.trigger=1
+            DO: DISGUISEFEAR.day2.choices=1
+            """
+        |> rule_______________________ "ok to lee"
+            """
+            ON: DISGUISEFEAR.day2
+            IF: DISGUISEFEAR.day2.choices=1
+            DO: DISGUISEFEAR.day2.choices=0
+                LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=1
+            """
+        |> rule_______________________ "lee's contempt"
+            """
+            ON: LEEJOURNALISTHOMEDAY2.npc.day=2
+            IF: LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=1
+            DO: LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=0
+            """
+
+
+
 
 
 
@@ -531,14 +566,22 @@ narrative_content =
             "So what happens to him?"
         |> content__________________________________ "allen tells the case"
             "He was founded dead in his home this morning; it seems that he had been staying at home for a long time. Mr.Jonathan told me that you should go to investigate the scene with Lee."
+        |> content__________________________________ "lee order you check body"
+            "Oh, Kay, you arrived! The body is there, you can check it."
         |> content__________________________________ "glance at body"
             "The poor journalist lied on his bed, with a knife stabbed into his chest. Damn it, maggots! Clearly he had died for days..."
         |> content__________________________________ "headache1"
             "ARRRRAGH!!!! (HEADCHE...) Why this guy looks so ……? (DIZZY,SEVERE HEADACHE)"
         |> content__________________________________ "headache2"
-            "Take a breathe."
+            "......"
         |> content__________________________________ "headache3"
-            "Take a DEEP breathe. Yeah, now calm down a little anyway."
+            "Well, now calm down a little anyway."
+        |> content__________________________________ "comfort by lee"
+            "Hey bro! Are you OK? Your face looks so pale."
+        |> content__________________________________ "ok to lee"
+            "...(slightly nod)"
+        |> content__________________________________ "lee's contempt"
+            "Hhh, being afraid of, (laugh) maggots after that? (coughs to disguise laugh) Rrrrelax, bro! They will not eat you."
 parsedData =
     let
             -- This is how we "merge" our extra fields into the entity record.

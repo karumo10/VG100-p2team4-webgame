@@ -314,10 +314,7 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ]
                 ++ ( heroToSvg model.hero )
-                ++ [ entityView pLee ]
-                ++ [ entityView pAllen ]
-                ++ [ entityView pAdkins ]
-                ++ [ entityView pCatherine ]
+                ++ npcListView model
                 ++ [ renderdialog model ]
                 ++ [ renderchoice model ]
                 ++ [ renderportrait model ]
@@ -384,12 +381,13 @@ renderPic model =
                     , height "600"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
-                ++ [ renderdialog model ]
-                ++ [ renderchoice model ]
+                ++ npcListView model
                 ++ ( heroToSvg model.hero )
+                ++ [ renderdialog model ]
                 ++ [ renderportrait model]
                 ++ [ bedQuestToSvg model ]
                 ++ [ renderdialog model ]
+                ++ [ renderchoice model ]
                 ++ energytosvg model.energy model.energy_Full
 
 

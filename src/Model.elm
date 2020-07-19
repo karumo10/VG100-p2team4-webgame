@@ -567,7 +567,7 @@ jonaliLee =
         , hei = 180
         }
     , interacttrue = False
-    , description = "CATHERINE.npc.day=1"
+    , description = "LEEJOURNALISTHOMEDAY2.npc.day=2"
     }
 
 jonaliBody : NPC
@@ -580,7 +580,7 @@ jonaliBody =
         , hei = 60
         }
     , interacttrue = False
-    , description = "CATHERINE.npc.day=1"
+    , description = "JOURNALISTBODYDAY2.npc.day=2"
     }
 
 
