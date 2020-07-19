@@ -56,7 +56,7 @@ initialWorldModelSpec =
         "Adkins"
         "Our dream hasn't come true yet... You are so talented, but why is fate so unfair?"
         --- x
-    , entity "ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0"
+    , entity "ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=3"
         "Allen"
         "What are you waiting for? Go ahead to the reporter's house!"
 
@@ -113,6 +113,9 @@ initialWorldModelSpec =
     , entity "FORGOT2.allentalkoffice.choices=0"
         "Sorry Sir, I can't recall that..."
         ""
+    , entity "ASKALLENABOUTREPORTER.allentalkoffice.choices=0"
+        "Ah... So what happens?"
+        ""
     ]
 
 type alias MyRule =
@@ -152,27 +155,7 @@ rulesSpec =
                 YES.bobtalk.choices=0
                 NO.bobtalk.choices=0
             """
-        |> rule_______________________ "allen is impatient"
-            """
-            ON: ALLENPOLICEOFFICEDAY2.npc.day=2
-            IF: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0
-            DO: FORGOT1.allentalkoffice.choices=1
-                FORGOT2.allentalkoffice.choices=1
-            """
-        |> rule_______________________ "forgot 1"
-            """
-            ON: FORGOT1.allentalkoffice
-            DO: FORGOT1.allentalkoffice.choices=0
-                FORGOT2.allentalkoffice.choices=0
-                ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
-            """
-        |> rule_______________________ "forgot 2"
-            """
-            ON: FORGOT2.allentalkoffice
-            DO: FORGOT1.allentalkoffice.choices=0
-                FORGOT2.allentalkoffice.choices=0
-                ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
-            """
+
         |> rule_______________________ "talk with lee"
             """
             ON: LEEPOLICEOFFICE.npc.day=1
@@ -401,6 +384,48 @@ rulesSpec =
                 SHOE.allentalkpark.choices=0
                 WEAPON.allentalkpark.choices=0
             """
+        |> rule_______________________ "allen is impatient"
+            """
+            ON: ALLENPOLICEOFFICEDAY2.npc.day=2
+            IF: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=3
+            DO: FORGOT1.allentalkoffice.choices=1
+                FORGOT2.allentalkoffice.choices=1
+            """
+        |> rule_______________________ "forgot 1"
+            """
+            ON: FORGOT1.allentalkoffice
+            DO: FORGOT1.allentalkoffice.choices=0
+                FORGOT2.allentalkoffice.choices=0
+                ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=2
+            """
+        |> rule_______________________ "forgot 2"
+            """
+            ON: FORGOT2.allentalkoffice
+            DO: FORGOT1.allentalkoffice.choices=0
+                FORGOT2.allentalkoffice.choices=0
+                ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=2
+            """
+        |> rule_______________________ "allen laugh"
+            """
+            ON: ALLENPOLICEOFFICEDAY2.npc.day=2
+            IF: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=2
+            DO: ASKALLENABOUTREPORTER.allentalkoffice.choices=1
+            """
+        |> rule_______________________ "ask allen about reporter"
+            """
+            ON: ASKALLENABOUTREPORTER.allentalkoffice
+            IF: ASKALLENABOUTREPORTER.allentalkoffice.choices=1
+            DO: ASKALLENABOUTREPORTER.allentalkoffice.choices=0
+                ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
+            """
+
+        |> rule_______________________ "allen tells the case"
+            """
+            ON: ALLENPOLICEOFFICEDAY2.npc.day=2
+            IF: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
+            DO: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0
+            """
+
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
 content__________________________________ =
@@ -454,11 +479,17 @@ narrative_content =
         |> content__________________________________ "ask adkins alibi2"
             "Actually... Please don't tell Catherine this; I'm afraid she can't take it. Brennan told me he wanted to propose to her today, and he asked me how to give her a surprise. I met him at my office at 8 p.m. last night, and talked for...about 20 minutes? I suggested him to propose to her in this park because here is a peaceful place. Then he left my office... Maybe he wanted to find a good place here, but..."
         |> content__________________________________ "allen is impatient"
-            "{ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0? Morning Kay. Do you remember the case I told you the first day you come to office after you have recovered from car accident? | Allen seems in a mood of impatience, which is indeed his nature.}"
+            "Morning Kay. Do you remember the case I told you the first day you come to office after you have recovered from car accident? "
+        |> content__________________________________ "allen laugh"
+            "Hahaha, still caught in a memory lost, ain't you? Never mind. A living stupid Kay is always better than a dead clever Kay! ……It's that missing reporter. You have seen this reporter before; he had come to office to find you at the day that you were seriously injured in the car accident."
         |> content__________________________________ "forgot 1"
             "Umm...which case?"
         |> content__________________________________ "forgot 2"
             "Sorry sir, I have no idea about it."
+        |> content__________________________________ "ask allen about reporter"
+            "So what happens to him?"
+        |> content__________________________________ "allen tells the case"
+            "He was founded dead in his home this morning; it seems that he had been staying at home for a long time. Mr.Jonathan told me that you should go to investigate the scene with Lee."
 
 parsedData =
     let
