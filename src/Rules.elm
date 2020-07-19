@@ -55,11 +55,15 @@ initialWorldModelSpec =
     , entity "ADKINS.npc.day=1.trigger=0.suspect=0"
         "Adkins"
         "Our dream hasn't come true yet... You are so talented, but why is fate so unfair?"
-        --- x
     , entity "ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=3"
         "Allen"
         "What are you waiting for? Go ahead to the reporter's house!"
-
+    , entity "JOURNALISTBODYDAY2.npc.day=2.trigger=0"
+        "JournalistBody"
+        "No...I dare not look at that pairs of eyes again. That pairs of eeire pallor seems gazing at me, though I'm quite sure that a dead never hurts people."
+    , entity "LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=0"
+        "Lee"
+        "It seems that we should wait for forensic for further report about his death and before that, let us discover whether there exists other evidence in his home."
 
     -- items
     , entity "BODYPARKSHOES.choices=0"
@@ -115,6 +119,15 @@ initialWorldModelSpec =
         ""
     , entity "ASKALLENABOUTREPORTER.allentalkoffice.choices=0"
         "Ah... So what happens?"
+        ""
+    , entity "HEADACHE1DAY2.choices=0"
+        "!!!ARRRRAGH!!!! (HEADCHE...) Why this guy looks so ……?"
+        ""
+    , entity "HEADCHE2DAY2.choices=0"
+        "Take a breathe."
+        ""
+    , entity "HEADCHE3DAY2.choices=0"
+        "Take a DEEP breathe. Yeah, now calm down a little anyway."
         ""
     ]
 
@@ -425,6 +438,34 @@ rulesSpec =
             IF: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
             DO: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0
             """
+        |> rule_______________________ "glance at body"
+            """
+            ON: JOURNALISTBODYDAY2.npc.day=2
+            IF: JOURNALISTBODYDAY2.npc.day=2.trigger=0
+            DO: HEADACHE1DAY2.choices=1
+            """
+        |> rule_______________________ "headache1"
+            """
+            ON: HEADACHE1DAY2
+            IF: HEADACHE1DAY2.choices=1
+            DO: HEADACHE1DAY2.choices=0
+                HEADACHE2DAY2.choices=1
+            """
+        |> rule_______________________ "headache2"
+            """
+            ON: HEADACHE2DAY2
+            IF: HEADACHE2DAY2.choices=1
+            DO: HEADACHE2DAY2.choices=0
+                HEADACHE3DAY2.choices=1
+            """
+        |> rule_______________________ "headache3"
+            """
+            ON: HEADACHE3DAY2
+            IF: HEADACHE3DAY2.choices=1
+            DO: HEADACHE3DAY2.choices=0
+            """
+
+
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -490,7 +531,14 @@ narrative_content =
             "So what happens to him?"
         |> content__________________________________ "allen tells the case"
             "He was founded dead in his home this morning; it seems that he had been staying at home for a long time. Mr.Jonathan told me that you should go to investigate the scene with Lee."
-
+        |> content__________________________________ "glance at body"
+            "The poor journalist lied on his bed, with a knife stabbed into his chest. Damn it, maggots! Clearly he had died for days..."
+        |> content__________________________________ "headache1"
+            "ARRRRAGH!!!! (HEADCHE...) Why this guy looks so ……? (DIZZY,SEVERE HEADACHE)"
+        |> content__________________________________ "headache2"
+            "Take a breathe."
+        |> content__________________________________ "headache3"
+            "Take a DEEP breathe. Yeah, now calm down a little anyway."
 parsedData =
     let
             -- This is how we "merge" our extra fields into the entity record.
