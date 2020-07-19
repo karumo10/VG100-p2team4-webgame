@@ -22,6 +22,9 @@ type Map
     | DreamMaze
     | Journalist
     | NightClub
+    | StarterPage
+    | Story
+    | AboutUs
 
 type alias Item =
     { itemType : ItemType

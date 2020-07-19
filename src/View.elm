@@ -62,6 +62,10 @@ view model =
         , renderGrid8Detail model
         , renderGrid9Detail model
         , renderGrid10Detail model
+        , renderStartButton model
+        , renderAboutUsButton model
+        , renderStoryButton model
+        , renderBackButton model
         ]]
         ++ (rendersuspectlist model)
         ++ ( elevatorQuestToSvg model ))
@@ -410,8 +414,14 @@ renderPic model =
 
 
 
+            StarterPage ->
+                [div [][]]
 
+            Story ->
+                [div [][]]
 
+            AboutUs ->
+                [div [][]]
 
 
         ) ++
@@ -475,7 +485,7 @@ rendersuspectlist model =
 
 renderBagButton : Model -> Html Msg
 renderBagButton model =
-    if model.isBagOpen == True then
+    if model.isBagOpen == True && model.map /= StarterPage && model.map /= AboutUs && model.map /= Story then
     button
                 [ style "background" "red"
                 , style "position" "absolute"
@@ -498,8 +508,8 @@ renderBagButton model =
                 , style "border-radius" "20%"
                 , onClick CloseBag
                 ]
-                [ Html.text "Close" ]
-    else
+                [ Html.text "Close the bag" ]
+    else if model.isBagOpen == False && model.map /= StarterPage && model.map /= AboutUs && model.map /= Story then
     button
                 [ style "background" "red"
                 , style "position" "absolute"
@@ -522,7 +532,10 @@ renderBagButton model =
                 , style "border-radius" "20%"
                 , onClick OpenBag
                 ]
-                [ Html.text "Open" ]
+                [ Html.text "Open the bag" ]
+    else
+    div [][]
+
 
 
 
@@ -886,4 +899,118 @@ renderGrid10Detail model =
     else
     div [][]
 
+renderStartButton : Model -> Html Msg
+renderStartButton model =
+    if model.map == StarterPage then
+    button
+                [ style "background" "red"
+                , style "position" "absolute"
+                , style "left" "500px"
+                , style "top" "350px"
+                , style "color" "#f3f2e9"
+                , style "cursor" "pointer"
+                , style "display" "block"
+                , style "font-family" "Helvetica, Arial, sans-serif"
+                , style "font-size" "18px"
+                , style "font-weight" "300"
+                , style "height" "80px"
+                , style "line-height" "60px"
+                , style "outline" "none"
+                , style "padding" "0"
+                , style "width" "130px"
+                , style "border-style" "inset"
+                , style "border-color" "white"
+                , style "border-width" "6px"
+                , style "border-radius" "20%"
+                , onClick StartGame
+                ]
+                [ Html.text "Start" ]
+    else
+    div [][]
 
+renderStoryButton : Model -> Html Msg
+renderStoryButton model =
+    if model.map == StarterPage then
+    button
+                [ style "background" "red"
+                , style "position" "absolute"
+                , style "left" "700px"
+                , style "top" "350px"
+                , style "color" "#f3f2e9"
+                , style "cursor" "pointer"
+                , style "display" "block"
+                , style "font-family" "Helvetica, Arial, sans-serif"
+                , style "font-size" "18px"
+                , style "font-weight" "300"
+                , style "height" "80px"
+                , style "line-height" "60px"
+                , style "outline" "none"
+                , style "padding" "0"
+                , style "width" "130px"
+                , style "border-style" "inset"
+                , style "border-color" "white"
+                , style "border-width" "6px"
+                , style "border-radius" "20%"
+                , onClick ViewStory
+                ]
+                [ Html.text "Story" ]
+    else
+    div [][]
+
+renderAboutUsButton : Model -> Html Msg
+renderAboutUsButton model =
+    if model.map == StarterPage then
+    button
+                [ style "background" "red"
+                , style "position" "absolute"
+                , style "left" "300px"
+                , style "top" "350px"
+                , style "color" "#f3f2e9"
+                , style "cursor" "pointer"
+                , style "display" "block"
+                , style "font-family" "Helvetica, Arial, sans-serif"
+                , style "font-size" "18px"
+                , style "font-weight" "300"
+                , style "height" "80px"
+                , style "line-height" "60px"
+                , style "outline" "none"
+                , style "padding" "0"
+                , style "width" "130px"
+                , style "border-style" "inset"
+                , style "border-color" "white"
+                , style "border-width" "6px"
+                , style "border-radius" "20%"
+                , onClick ViewAboutUs
+                ]
+                [ Html.text "About Us" ]
+    else
+    div [][]
+
+renderBackButton : Model -> Html Msg
+renderBackButton model =
+    if model.map == Story || model.map == AboutUs then
+    button
+                [ style "background" "red"
+                , style "position" "absolute"
+                , style "left" "300px"
+                , style "top" "350px"
+                , style "color" "#f3f2e9"
+                , style "cursor" "pointer"
+                , style "display" "block"
+                , style "font-family" "Helvetica, Arial, sans-serif"
+                , style "font-size" "18px"
+                , style "font-weight" "300"
+                , style "height" "80px"
+                , style "line-height" "60px"
+                , style "outline" "none"
+                , style "padding" "0"
+                , style "width" "130px"
+                , style "border-style" "inset"
+                , style "border-color" "white"
+                , style "border-width" "6px"
+                , style "border-radius" "20%"
+                , onClick BackToStarter
+                ]
+                [ Html.text "Back to Start menu" ]
+    else
+    div [][]

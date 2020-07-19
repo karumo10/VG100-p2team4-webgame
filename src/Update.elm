@@ -266,6 +266,24 @@ update msg model =
             ({ model | whichGridIsOpen = 10 }
             , Cmd.none)
 
+        StartGame ->
+            ({ model | map = PoliceOffice }
+            , Cmd.none)
+
+        ViewAboutUs ->
+            ({ model | map = AboutUs }
+            , Cmd.none)
+
+        ViewStory ->
+            ({ model | map = Story }
+            , Cmd.none)
+
+        BackToStarter ->
+            ({ model | map = StarterPage }
+            , Cmd.none)
+
+
+
 
 
 
@@ -576,7 +594,10 @@ mapSwitch newMap model =
                 Park -> parkAttr
                 Home -> homeAttr
                 Switching -> switchingAttr
-                EnergyDrain -> energyDrainAttr
+                EnergyDrain -> switchingAttr
+                StarterPage -> switchingAttr
+                Story -> switchingAttr
+                AboutUs -> switchingAttr
                 DreamMaze -> dreamMazeAttr
                 Journalist -> journalistAttr
                 NightClub -> nightClubAttr
