@@ -55,6 +55,11 @@ initialWorldModelSpec =
     , entity "ADKINS.npc.day=1.trigger=0.suspect=0"
         "Adkins"
         "Our dream hasn't come true yet... You are so talented, but why is fate so unfair?"
+        --- x
+    , entity "ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0"
+        "Allen"
+        "What are you waiting for? Go ahead to the reporter's house!"
+
 
     -- items
     , entity "BODYPARKSHOES.choices=0"
@@ -101,6 +106,13 @@ initialWorldModelSpec =
     , entity "CATHERINEASK.choices=0"
         "When did you see Brennan last time? Do you know why he came here last night?"
         ""
+    -- x
+    , entity "FORGOT1.allentalkoffice.choices=0"
+        "Umm...which case?"
+        ""
+    , entity "FORGOT2.allentalkoffice.choices=0"
+        "Sorry Sir, I can't recall that..."
+        ""
     ]
 
 type alias MyRule =
@@ -139,6 +151,27 @@ rulesSpec =
             DO: BOBPOLICEOFFICE.trigger=1
                 YES.bobtalk.choices=0
                 NO.bobtalk.choices=0
+            """
+        |> rule_______________________ "allen is impatient"
+            """
+            ON: ALLENPOLICEOFFICEDAY2.npc.day=2
+            IF: ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0
+            DO: FORGOT1.allentalkoffice.choices=1
+                FORGOT2.allentalkoffice.choices=1
+            """
+        |> rule_______________________ "forgot 1"
+            """
+            ON: FORGOT1.allentalkoffice
+            DO: FORGOT1.allentalkoffice.choices=0
+                FORGOT2.allentalkoffice.choices=0
+                ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
+            """
+        |> rule_______________________ "forgot 2"
+            """
+            ON: FORGOT2.allentalkoffice
+            DO: FORGOT1.allentalkoffice.choices=0
+                FORGOT2.allentalkoffice.choices=0
+                ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
             """
         |> rule_______________________ "talk with lee"
             """
@@ -420,6 +453,12 @@ narrative_content =
             "Yesterday we had lunch together and then watched a movie. I haven't seen him since we parted at 3 p.m. yesterday. We didn't live together because we haven't got married yet. I don't know why he must go such a stark place at night. He never told me that."
         |> content__________________________________ "ask adkins alibi2"
             "Actually... Please don't tell Catherine this; I'm afraid she can't take it. Brennan told me he wanted to propose to her today, and he asked me how to give her a surprise. I met him at my office at 8 p.m. last night, and talked for...about 20 minutes? I suggested him to propose to her in this park because here is a peaceful place. Then he left my office... Maybe he wanted to find a good place here, but..."
+        |> content__________________________________ "allen is impatient"
+            "{ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=0? Morning Kay. Do you remember the case I told you the first day you come to office after you have recovered from car accident? | Allen seems in a mood of impatience, which is indeed his nature.}"
+        |> content__________________________________ "forgot 1"
+            "Umm...which case?"
+        |> content__________________________________ "forgot 2"
+            "Sorry sir, I have no idea about it."
 
 parsedData =
     let

@@ -585,22 +585,53 @@ wakeUp model =
 
 
 
+
 mapSwitch : Map -> Model -> Model
 mapSwitch newMap model =
     let
         mapAttr =
-            case newMap of
-                PoliceOffice -> policeOfficeAttr
-                Park -> parkAttr
-                Home -> homeAttr
-                Switching -> switchingAttr
-                EnergyDrain -> switchingAttr
-                StarterPage -> switchingAttr
-                Story -> switchingAttr
-                AboutUs -> switchingAttr
-                DreamMaze -> dreamMazeAttr
-                Journalist -> journalistAttr
-                NightClub -> nightClubAttr
+            case model.day of
+                1 ->
+                    case newMap of
+                        PoliceOffice -> policeOfficeAttr
+                        Park -> parkAttr
+                        Home -> homeAttr
+                        Switching -> switchingAttr
+                        EnergyDrain -> switchingAttr
+                        StarterPage -> switchingAttr
+                        Story -> switchingAttr
+                        AboutUs -> switchingAttr
+                        DreamMaze -> dreamMazeAttr
+                        Journalist -> journalistAttr
+                        NightClub -> nightClubAttr
+                2 ->
+                    case newMap of
+                        PoliceOffice -> policeOfficeAttr_day2
+                        Park -> parkAttr
+                        Home -> homeAttr
+                        Switching -> switchingAttr
+                        EnergyDrain -> switchingAttr
+                        StarterPage -> switchingAttr
+                        Story -> switchingAttr
+                        AboutUs -> switchingAttr
+                        DreamMaze -> dreamMazeAttr
+                        Journalist -> journalistAttr
+                        NightClub -> nightClubAttr
+                _ ->
+                   case newMap of
+                        PoliceOffice -> policeOfficeAttr_day2
+                        Park -> parkAttr
+                        Home -> homeAttr
+                        Switching -> switchingAttr
+                        EnergyDrain -> switchingAttr
+                        StarterPage -> switchingAttr
+                        Story -> switchingAttr
+                        AboutUs -> switchingAttr
+                        DreamMaze -> dreamMazeAttr
+                        Journalist -> journalistAttr
+                        NightClub -> nightClubAttr
+
+
 
         hero = mapAttr.heroIni
         npcs = mapAttr.npcs
