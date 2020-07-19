@@ -169,7 +169,7 @@ journalistAttr =
     , barrier = journalistBarrier
     , hint = []
     , vehicle = []
-    , npcs = []
+    , npcs = [jonaliBody,jonaliLee]
     , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
     }
 
@@ -427,6 +427,7 @@ type NPCType
     | Adkins
     | Catherine
     | Jonathon
+    | JournalistBody
     | None
 
 type alias NPC =
@@ -502,6 +503,8 @@ cAllen_day2 =
     }
 
 
+
+
 pLee : NPC
 pLee =
     { itemType = Lee
@@ -553,6 +556,37 @@ pCatherine =
     , interacttrue = False
     , description = "CATHERINE.npc.day=1"
     }
+
+jonaliLee : NPC
+jonaliLee =
+    { itemType = Lee
+    , area =
+        { x = 900
+        , y = 345
+        , wid = 60
+        , hei = 180
+        }
+    , interacttrue = False
+    , description = "CATHERINE.npc.day=1"
+    }
+
+jonaliBody : NPC
+jonaliBody =
+    { itemType = JournalistBody
+    , area =
+        { x = 600
+        , y = 400
+        , wid = 180
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "CATHERINE.npc.day=1"
+    }
+
+
+
+
+
 
 isItemAtMap : Model -> Item -> Bool
 isItemAtMap model item =
