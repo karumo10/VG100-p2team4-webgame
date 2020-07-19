@@ -19,6 +19,7 @@ type Map
     | Home
     | Switching -- an interface allowing player to choose where to go, also can be design as dialog box
     | EnergyDrain --no energy, home is the only choice
+    | StarterPage
 
 type alias Item =
     { itemType : ItemType

@@ -62,6 +62,7 @@ view model =
         , renderGrid8Detail model
         , renderGrid9Detail model
         , renderGrid10Detail model
+        , renderStartButton model
         ]]
         ++ (rendersuspectlist model))
 
@@ -295,8 +296,8 @@ renderPic model =
                 ++ ( heroToSvg model.hero )
                 ++ [renderportrait model]
 
-
-
+            StarterPage ->
+                [div [][]]
 
 
         )++ (
@@ -360,7 +361,7 @@ rendersuspectlist model =
 
 renderBagButton : Model -> Html Msg
 renderBagButton model =
-    if model.isBagOpen == True then
+    if model.isBagOpen == True && model.map /= StarterPage then
     button
                 [ style "background" "red"
                 , style "position" "absolute"
@@ -383,8 +384,8 @@ renderBagButton model =
                 , style "border-radius" "20%"
                 , onClick CloseBag
                 ]
-                [ Html.text "Close" ]
-    else
+                [ Html.text "Close the bag" ]
+    else if model.isBagOpen == False && model.map /= StarterPage then
     button
                 [ style "background" "red"
                 , style "position" "absolute"
@@ -407,7 +408,10 @@ renderBagButton model =
                 , style "border-radius" "20%"
                 , onClick OpenBag
                 ]
-                [ Html.text "Open" ]
+                [ Html.text "Open the bag" ]
+    else
+    div [][]
+
 
 
 
@@ -771,4 +775,31 @@ renderGrid10Detail model =
     else
     div [][]
 
-
+renderStartButton : Model -> Html Msg
+renderStartButton model =
+    if model.map == StarterPage then
+    button
+                [ style "background" "red"
+                , style "position" "absolute"
+                , style "left" "500px"
+                , style "top" "350px"
+                , style "color" "#f3f2e9"
+                , style "cursor" "pointer"
+                , style "display" "block"
+                , style "font-family" "Helvetica, Arial, sans-serif"
+                , style "font-size" "18px"
+                , style "font-weight" "300"
+                , style "height" "80px"
+                , style "line-height" "60px"
+                , style "outline" "none"
+                , style "padding" "0"
+                , style "width" "130px"
+                , style "border-style" "inset"
+                , style "border-color" "white"
+                , style "border-width" "6px"
+                , style "border-radius" "20%"
+                , onClick StartGame
+                ]
+                [ Html.text "Start" ]
+    else
+    div [][]

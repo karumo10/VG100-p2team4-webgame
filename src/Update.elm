@@ -235,6 +235,12 @@ update msg model =
             ({ model | whichGridIsOpen = 10 }
             , Cmd.none)
 
+        StartGame ->
+            ({ model | map = PoliceOffice }
+            , Cmd.none)
+
+
+
 
 
 
@@ -505,6 +511,7 @@ mapSwitch newMap model =
                 Home -> homeAttr
                 Switching -> switchingAttr
                 EnergyDrain -> switchingAttr
+                StarterPage -> switchingAttr
         hero = mapAttr.heroIni
         npcs = mapAttr.npcs
         story = mapAttr.story
