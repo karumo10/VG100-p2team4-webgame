@@ -176,7 +176,55 @@ renderMapButton model =
             , style "border-radius" "20%"
             , onClick ToHome
             ]
-            [ Html.text "Home" ]
+            [ Html.text "Home1" ]
+            ,
+            button
+            [ style "background" "red"
+            , style "position" "absolute"
+            , style "left" "100px"
+            , style "top" "200px"
+            , style "color" "#f3f2e9"
+            , style "cursor" "pointer"
+            , style "display" "block"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "18px"
+            , style "font-weight" "300"
+            , style "height" "80px"
+            , style "line-height" "60px"
+            , style "outline" "none"
+            , style "padding" "0"
+            , style "width" "130px"
+            , style "border-style" "inset"
+            , style "border-color" "white"
+            , style "border-width" "6px"
+            , style "border-radius" "20%"
+            , onClick ToJournalist
+            ]
+            [ Html.text "Journalist's Home" ]
+            ,
+            button
+            [ style "background" "red"
+            , style "position" "absolute"
+            , style "left" "300px"
+            , style "top" "200px"
+            , style "color" "#f3f2e9"
+            , style "cursor" "pointer"
+            , style "display" "block"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "18px"
+            , style "font-weight" "300"
+            , style "height" "80px"
+            , style "line-height" "60px"
+            , style "outline" "none"
+            , style "padding" "0"
+            , style "width" "130px"
+            , style "border-style" "inset"
+            , style "border-color" "white"
+            , style "border-width" "6px"
+            , style "border-radius" "20%"
+            , onClick ToNightClub
+            ]
+            [ Html.text "NightClub" ]
 
 
             ]
@@ -325,6 +373,44 @@ renderPic model =
                 ++ [ renderdialog model ]
 
 
+            Journalist ->
+                [ Svg.image
+                    [ xlinkHref "./journalist's_home.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ [ renderdialog model ]
+                ++ [ renderchoice model ]
+                ++ ( heroToSvg model.hero )
+                ++ [ renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [ renderdialog model ]
+                ++ energytosvg model.energy model.energy_Full
+
+
+            NightClub ->
+                [ Svg.image
+                    [ xlinkHref "./nightclub.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ [renderdialog model]
+                ++ [renderchoice model]
+                ++ ( heroToSvg model.hero )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [ renderdialog model ]
+                ++ energytosvg model.energy model.energy_Full
+
+
+
+
 
 
 
@@ -393,7 +479,7 @@ renderBagButton model =
     button
                 [ style "background" "red"
                 , style "position" "absolute"
-                , style "left" "850px"
+                , style "left" "1050px"
                 , style "top" "400px"
                 , style "color" "#f3f2e9"
                 , style "cursor" "pointer"
@@ -417,7 +503,7 @@ renderBagButton model =
     button
                 [ style "background" "red"
                 , style "position" "absolute"
-                , style "left" "850px"
+                , style "left" "1050px"
                 , style "top" "400px"
                 , style "color" "#f3f2e9"
                 , style "cursor" "pointer"

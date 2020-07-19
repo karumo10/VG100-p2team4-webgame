@@ -60,6 +60,28 @@ policeBarrierList =
             , { x = 205, y = 150 , wid = 755, hei = 20 } -- f3.floor
             ]
 
+nightClubBarrierList : List Area
+nightClubBarrierList =
+            [ { x = 150, y = 435 , wid = 910, hei = 20 } -- f1.ceiling (every floor 230)
+            , { x = 150, y = 115 , wid = 910, hei = 20 } -- f2.ceiling
+            , { x = 940, y = 135, wid = 30, hei = 10 } --f2.door
+            , { x = 190, y = 455 , wid = 370, hei = 20 } -- f1.bar chairs
+            , { x = 615, y = 450 , wid = 245, hei = 20 } -- f1.table chairs
+            , { x = 555, y = 130 , wid = 260, hei = 20 } -- f2.table chairs
+            , { x = 1060, y = 320 , wid = 20, hei = 300 } -- f1.right wall
+            , { x = 1060, y = 0 , wid = 20, hei = 275 } -- f2.right wall
+            --, { x = 185, y = 420 , wid = 20, hei = 180 } -- f1.left wall
+            , { x = 535, y = 0 , wid = 20, hei = 275 } -- f2.left wall
+            , { x = 145, y = 600, wid = 1000, hei = 20 } --f1.floor
+            , { x = 145, y = 275, wid = 1000, hei = 20 } -- f2.floor
+            ]
+
+journalistBarrierList : List Area
+journalistBarrierList =
+            [ { x = 100, y = 530, wid = 960, hei = 20 }
+            , { x = 100, y = 280, wid = 960, hei = 20 }
+            , { x = 210, y = 305, wid = 535, hei = 20 }
+            , { x = 955, y = 300, wid = 20, hei = 250 } ]
 
 
 type alias PreArea = -- for maze

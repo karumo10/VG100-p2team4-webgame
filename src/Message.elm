@@ -18,6 +18,8 @@ type Msg
     | ToPoliceOffice
     | ToPark
     | ToHome
+    | ToJournalist
+    | ToNightClub
     | Sleep Bool
     | PickUp Bool
     | ElevateTo1

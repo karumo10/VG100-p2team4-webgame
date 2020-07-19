@@ -20,9 +20,10 @@ import Rules exposing (..)
 import Areas exposing (..)
 
 type Mode
-    = Test
+    = CollisionTest
     | GettingCoordinates
     | Game
+    | TotalTest
 gameMode______ : Mode
 gameMode______ = Game
 
@@ -76,12 +77,27 @@ homeBarrier =
             [ ]
         _ -> homeBarrierList
 
+journalistBarrier : List Area
+journalistBarrier =
+    case gameMode______ of
+        GettingCoordinates ->
+            [ ]
+        _ -> journalistBarrierList
+
+
 maze1Barrier : List Area
 maze1Barrier =
     case gameMode______ of
         GettingCoordinates ->
             [ ]
         _ -> mazeList
+
+nightClubBarrier : List Area
+nightClubBarrier =
+    case gameMode______ of
+        GettingCoordinates ->
+            [ ]
+        _ -> nightClubBarrierList
 
 policeOfficeVehicle : List Vehicle
 policeOfficeVehicle =
@@ -95,6 +111,12 @@ homeVehicle =
     , { area = { x = 1065, y = 195, wid = 100, hei = 110 }, which = Elevator }
     , { area = { x = 1050, y = 80, wid = 115, hei = 85 }, which = Elevator }
     , { area = { x = 855, y = 65, wid = 55, hei = 85 }, which = Bed } ]
+
+nightClubVehicle : List Vehicle
+nightClubVehicle =
+    [ { area = { x = 1050, y = 430, wid = 115, hei = 110 }, which = Elevator }
+    , { area = { x = 1050, y = 195, wid = 100, hei = 110 }, which = Elevator } ]
+
 
 policeOfficeAttr : MapAttr
 policeOfficeAttr =
@@ -128,6 +150,32 @@ homeAttr =
     , npcs = []
     , story = "Home, sweet home."
     }
+
+journalistAttr : MapAttr
+journalistAttr =
+    { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
+    , heroIni = { x = 205, y = 335, width = 60, height = 180 }
+    , barrier = journalistBarrier
+    , hint = []
+    , vehicle = []
+    , npcs = []
+    , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
+    }
+
+nightClubAttr : MapAttr
+nightClubAttr =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = nightClubBarrier
+    , hint = []
+    , vehicle = nightClubVehicle
+    , npcs = []
+    , story = "It's the place where lust and alcoholism intertwined; but now only sin reigns."
+    }
+
+
+
+
 
 switchingAttr : MapAttr
 switchingAttr =

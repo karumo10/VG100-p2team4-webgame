@@ -20,6 +20,8 @@ type Map
     | Switching -- an interface allowing player to choose where to go, also can be design as dialog box
     | EnergyDrain --no energy, home is the only choice
     | DreamMaze
+    | Journalist
+    | NightClub
 
 type alias Item =
     { itemType : ItemType

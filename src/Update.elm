@@ -96,6 +96,14 @@ update msg model =
             ( mapSwitch Home model
             , Cmd.none
             )
+        ToJournalist ->
+            ( mapSwitch Journalist model
+            , Cmd.none
+            )
+        ToNightClub ->
+            ( mapSwitch NightClub model
+            , Cmd.none
+            )
 
 
 
@@ -114,6 +122,11 @@ update msg model =
                      ( teleportHero ( 1070, 520 ) model
                      , Cmd.none
                      )
+                NightClub ->
+                     ( teleportHero ( 1015, 470 ) model
+                     , Cmd.none
+                     )
+
                 _ -> (model,Cmd.none)
 
 
@@ -127,6 +140,12 @@ update msg model =
                      ( teleportHero ( 1065, 290 ) model
                      , Cmd.none
                      )
+
+                NightClub ->
+                     ( teleportHero ( 1015, 150 ) model
+                     , Cmd.none
+                     )
+
                 _ -> (model,Cmd.none)
 
         ElevateTo3 ->
@@ -353,22 +372,25 @@ moveHeroLR_ dx model =
         ( x, y ) = ( model.hero.x, model.hero.y )
         overlapAreas = List.filter (judgeAreaOverlap model) model.mapAttr.barrier
         x_ =
-            case model.playerDoing of
-                AbleToWalk ->
-                    if List.length overlapAreas == 0 then
-                        x + dx * stride
-                    else if not (List.isEmpty (List.filter (\a -> isStuck model a == LeftSide) overlapAreas)) && not (List.isEmpty (List.filter(\a -> isStuck model a == RightSide) overlapAreas)) then
-                        x
-                    else if (List.filter (\a -> isStuck model a == LeftSide) overlapAreas |> List.length) /= 0 then
-                        if dx > 0 then x
-                        else x + dx * stride
-                    else if (List.filter (\a -> isStuck model a == RightSide) overlapAreas |> List.length) /= 0 then
-                        if dx < 0 then x
-                        else x + dx * stride
-                    else
-                        x + dx * stride
-                MakingChoices ->
-                    x
+            case gameMode______ of
+                TotalTest -> x + dx * stride
+                _ ->
+                    case model.playerDoing of
+                        AbleToWalk ->
+                            if List.length overlapAreas == 0 then
+                                x + dx * stride
+                            else if not (List.isEmpty (List.filter (\a -> isStuck model a == LeftSide) overlapAreas)) && not (List.isEmpty (List.filter(\a -> isStuck model a == RightSide) overlapAreas)) then
+                                x
+                            else if (List.filter (\a -> isStuck model a == LeftSide) overlapAreas |> List.length) /= 0 then
+                                if dx > 0 then x
+                                else x + dx * stride
+                            else if (List.filter (\a -> isStuck model a == RightSide) overlapAreas |> List.length) /= 0 then
+                                if dx < 0 then x
+                                else x + dx * stride
+                            else
+                                x + dx * stride
+                        MakingChoices ->
+                            x
         hero = model.hero
         hero_ = { hero | x = x_ }
     in
@@ -399,22 +421,25 @@ moveHeroUD_ dy model =
         ( x, y ) = ( model.hero.x, model.hero.y )
         overlapAreas = List.filter (judgeAreaOverlap model) model.mapAttr.barrier
         y_ =
-            case model.playerDoing of
-                AbleToWalk ->
-                    if List.length overlapAreas == 0 then
-                        y + dy * stride
-                    else if not (List.isEmpty (List.filter (\a -> isStuck model a == UpSide) overlapAreas)) && not (List.isEmpty (List.filter(\a -> isStuck model a == DownSide) overlapAreas)) then
-                        y
-                    else if (List.filter (\a -> isStuck model a == UpSide) overlapAreas |> List.length) /= 0 then
-                        if dy > 0 then y
-                        else y + dy * stride
-                    else if (List.filter (\a -> isStuck model a == DownSide) overlapAreas |> List.length) /= 0 then
-                        if dy < 0 then y
-                        else y + dy * stride
-                    else
-                        y + dy * stride
-                MakingChoices ->
-                    y
+            case gameMode______ of
+                TotalTest -> y + dy * stride
+                _ ->
+                    case model.playerDoing of
+                        AbleToWalk ->
+                            if List.length overlapAreas == 0 then
+                                y + dy * stride
+                            else if not (List.isEmpty (List.filter (\a -> isStuck model a == UpSide) overlapAreas)) && not (List.isEmpty (List.filter(\a -> isStuck model a == DownSide) overlapAreas)) then
+                                y
+                            else if (List.filter (\a -> isStuck model a == UpSide) overlapAreas |> List.length) /= 0 then
+                                if dy > 0 then y
+                                else y + dy * stride
+                            else if (List.filter (\a -> isStuck model a == DownSide) overlapAreas |> List.length) /= 0 then
+                                if dy < 0 then y
+                                else y + dy * stride
+                            else
+                                y + dy * stride
+                        MakingChoices ->
+                            y
         hero = model.hero
         hero_ = { hero | y = y_ }
     in
@@ -553,6 +578,9 @@ mapSwitch newMap model =
                 Switching -> switchingAttr
                 EnergyDrain -> energyDrainAttr
                 DreamMaze -> dreamMazeAttr
+                Journalist -> journalistAttr
+                NightClub -> nightClubAttr
+
         hero = mapAttr.heroIni
         npcs = mapAttr.npcs
         story = mapAttr.story

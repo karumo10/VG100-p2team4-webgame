@@ -97,12 +97,14 @@ Changelog for P2
 + golden key: press ``` to enter dream
 + Maze-solving in dream: move the player in the maze, when near the hint chunk, hint will be delivered as a `story`. when reach the exit, player will wake up
 
+2020-07-17 12:58 Lan Wang change the visualization of the elevator.
+
 2020-07-17 16:05 Yuxiang Zhou
 + Bug #613: The npc and player size in park is adjusted to 110*330
 + Bug #614: In the maze, the hero is a circle (r=10) now
 + Bug #646: The dialog box is in the center
 
-
+2020-07-19 16:55 Yuxiang Zhou Feature #785 The new maps, elevators, and new judgement of barriers. Also move the position of backpack button
 
 
 
