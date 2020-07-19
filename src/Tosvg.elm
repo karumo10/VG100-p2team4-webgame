@@ -235,7 +235,7 @@ entityView npc =
         , y (y_ |> Debug.toString)
         , width (wid |> Debug.toString)
         , height (hei |> Debug.toString)
-        , strokeWidth "5px", stroke "#191970"
+        , Svg.Attributes.opacity "0"
         ]
         []
 
