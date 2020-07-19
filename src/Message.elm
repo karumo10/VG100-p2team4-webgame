@@ -42,3 +42,6 @@ type Msg
     | RenderGrid9Detail
     | RenderGrid10Detail
     | StartGame
+    | ViewAboutUs
+    | ViewStory
+    | BackToStarter

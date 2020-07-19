@@ -239,6 +239,18 @@ update msg model =
             ({ model | map = PoliceOffice }
             , Cmd.none)
 
+        ViewAboutUs ->
+            ({ model | map = AboutUs }
+            , Cmd.none)
+
+        ViewStory ->
+            ({ model | map = Story }
+            , Cmd.none)
+
+        BackToStarter ->
+            ({ model | map = StarterPage }
+            , Cmd.none)
+
 
 
 
@@ -512,6 +524,8 @@ mapSwitch newMap model =
                 Switching -> switchingAttr
                 EnergyDrain -> switchingAttr
                 StarterPage -> switchingAttr
+                Story -> switchingAttr
+                AboutUs -> switchingAttr
         hero = mapAttr.heroIni
         npcs = mapAttr.npcs
         story = mapAttr.story
