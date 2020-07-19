@@ -109,8 +109,8 @@ policeOfficeAttr =
 
 parkAttr : MapAttr
 parkAttr =
-    { exit = { x = 620, y = 250 , wid = 200, hei = 90 }
-    , heroIni = { x = 500, y = 250, width = 30, height = 90 }
+    { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
+    , heroIni = { x = 500, y = 250, width = 60, height = 180 }
     , barrier = []
     , hint = []
     , vehicle = []
@@ -263,7 +263,7 @@ initial =
     , debug = NarrativeEngine.Debug.init
     , npcs = [cAllen, cBob, cLee]
     , interacttrue = False
-    , energy = 0
+    , energy = 50
     , energy_Full = 100
     , energy_Cost_pickup = 25
     , energy_Cost_interact = 5
@@ -433,10 +433,10 @@ pLee : NPC
 pLee =
     { itemType = Lee
     , area =
-        { x = 400
-        , y = 270
-        , wid = 20
-        , hei = 60
+        { x = 810
+        , y = 120
+        , wid = 60
+        , hei = 180
         }
     , interacttrue = False
     , description = "LEEPARK.npc.day=1"
@@ -446,10 +446,10 @@ pAllen : NPC
 pAllen =
     { itemType = Allen
     , area =
-        { x = 300
-        , y = 500
-        , wid = 20
-        , hei = 60
+        { x = 405
+        , y = 295
+        , wid = 60
+        , hei = 180
         }
     , interacttrue = False
     , description = "ALLENPARK.npc.day=1"
@@ -459,10 +459,10 @@ pAdkins : NPC
 pAdkins =
     { itemType = Adkins
     , area =
-        { x = 450
-        , y = 400
-        , wid = 20
-        , hei = 60
+        { x = 870
+        , y = 405
+        , wid = 60
+        , hei = 180
         }
     , interacttrue = False
     , description = "ADKINS.npc.day=1"
@@ -472,10 +472,10 @@ pCatherine : NPC
 pCatherine =
     { itemType = Catherine
     , area =
-        { x = 400
-        , y = 400
-        , wid = 20
-        , hei = 60
+        { x = 725
+        , y = 345
+        , wid = 60
+        , hei = 180
         }
     , interacttrue = False
     , description = "CATHERINE.npc.day=1"
