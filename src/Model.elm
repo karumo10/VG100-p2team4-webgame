@@ -125,7 +125,7 @@ policeOfficeAttr =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , npcs = [cAllen_day1, cBob, cLee]
+    , npcs = List.filter (\a -> a.place == ( PoliceOffice, Day1 )) allNPCs
     , story = "Another day at work, another boring day. But I need to avoid being killed."
     }
 
@@ -136,7 +136,7 @@ policeOfficeAttr_day2 =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , npcs = [cAllen_day2, cBob, cLee]
+    , npcs = List.filter (\a -> a.place == ( PoliceOffice, Day2 )) allNPCs
     , story = "Another day at work, another boring day. But I need to avoid being killed."
     }
 
@@ -147,7 +147,7 @@ parkAttr =
     , barrier = []
     , hint = []
     , vehicle = []
-    , npcs = [pAllen, pLee, pAdkins, pCatherine]
+    , npcs = List.filter (\a -> a.place == ( Park, Day1 )) allNPCs
     , story = "I arrive at the park. This is a desolate place."
     }
 
@@ -158,7 +158,7 @@ homeAttr =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , npcs = []
+    , npcs = List.filter (\a -> a.place == ( Home, Day1 )) allNPCs
     , story = "Home, sweet home."
     }
 
@@ -169,7 +169,7 @@ journalistAttr =
     , barrier = journalistBarrier
     , hint = []
     , vehicle = []
-    , npcs = [jonaliBody,jonaliLee, jonaliEvidence]
+    , npcs = List.filter (\a -> a.place == ( Journalist, Day2 )) allNPCs
     , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
     }
 
@@ -180,7 +180,7 @@ nightClubAttr =
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
-    , npcs = []
+    , npcs = List.filter (\a -> a.place == ( NightClub, Day2 )) allNPCs
     , story = "It's the place where lust and alcoholism intertwined; but now only sin reigns."
     }
 
@@ -320,7 +320,7 @@ initial =
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the police chief, Jonathon, because I know his scandal. I need to avoid being killed."
     , ruleCounts = Dict.empty
     , debug = NarrativeEngine.Debug.init
-    , npcs = [cAllen_day1, cBob, cLee, cAllen_day1]
+    , npcs = List.filter (\a -> a.place == (PoliceOffice, Day1)) allNPCs
     , interacttrue = False
     , energy = 1000
     , energy_Full = 100
@@ -615,7 +615,8 @@ jonaliEvidence =
     , place = ( Journalist, Day2 )
     }
 
-
+allNPCs: List NPC
+allNPCs = [cLee, cBob, cAllen_day1, cAllen_day2, pLee, pAllen, pAdkins, pCatherine, jonaliLee, jonaliEvidence, jonaliBody]
 
 
 
