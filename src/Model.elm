@@ -170,7 +170,7 @@ parkAttr_day1 =
 parkAttr_day2 : MapAttr
 parkAttr_day2 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
-    , heroIni = { x = 500, y = 250, width = 60, height = 180 }
+    , heroIni = { x = 500, y = 250, width = 50, height = 180 }
     , barrier = []
     , hint = []
     , vehicle = []
