@@ -431,11 +431,17 @@ type NPCType
     | JonaliEvi
     | None
 
+type Day
+    = Day1
+    | Day2
+    | Nowhere
+
 type alias NPC =
     { itemType : NPCType
     , area : Area
     , interacttrue : Bool
     , description : String
+    , place : ( Map, Day )
     }
 
 emptyNPC : NPC
@@ -449,6 +455,7 @@ emptyNPC =
         }
     , interacttrue = False
     , description = ""
+    , place = ( Switching, Nowhere )
     }
 
 cLee : NPC
@@ -462,6 +469,7 @@ cLee =
         }
     , interacttrue = False
     , description = "LEEPOLICEOFFICE.npc.day=1"
+    , place = ( PoliceOffice , Day1 )
     }
 
 cBob : NPC
@@ -475,6 +483,7 @@ cBob =
         }
     , interacttrue = False
     , description = "BOBPOLICEOFFICE.npc.day=1"
+    , place = ( PoliceOffice , Day1 )
     }
 
 cAllen_day1 : NPC
@@ -488,6 +497,7 @@ cAllen_day1 =
         }
     , interacttrue = False
     , description = "ALLENPOLICEOFFICE.npc.day=1"
+    , place = ( PoliceOffice , Day1 )
     }
 
 cAllen_day2 : NPC
@@ -501,6 +511,7 @@ cAllen_day2 =
         }
     , interacttrue = False
     , description = "ALLENPOLICEOFFICEDAY2.npc.day=2"
+    , place = ( PoliceOffice , Day2 )
     }
 
 
@@ -517,6 +528,7 @@ pLee =
         }
     , interacttrue = False
     , description = "LEEPARK.npc.day=1"
+    , place = ( Park , Day1 )
     }
 
 pAllen : NPC
@@ -530,6 +542,7 @@ pAllen =
         }
     , interacttrue = False
     , description = "ALLENPARK.npc.day=1"
+    , place = ( Park , Day1 )
     }
 
 pAdkins : NPC
@@ -543,6 +556,7 @@ pAdkins =
         }
     , interacttrue = False
     , description = "ADKINS.npc.day=1"
+    , place = ( Park , Day1 )
     }
 
 pCatherine : NPC
@@ -556,6 +570,7 @@ pCatherine =
         }
     , interacttrue = False
     , description = "CATHERINE.npc.day=1"
+    , place = ( Park , Day1 )
     }
 
 jonaliLee : NPC
@@ -569,6 +584,7 @@ jonaliLee =
         }
     , interacttrue = False
     , description = "LEEJOURNALISTHOMEDAY2.npc.day=2"
+    , place = ( Journalist, Day2 )
     }
 
 jonaliBody : NPC
@@ -582,6 +598,7 @@ jonaliBody =
         }
     , interacttrue = False
     , description = "JOURNALISTBODYDAY2.npc.day=2"
+    , place = ( Journalist, Day2 )
     }
 
 jonaliEvidence : NPC
@@ -595,6 +612,7 @@ jonaliEvidence =
         }
     , interacttrue = False
     , description = "EVIDENCEJONALI.evidence.day=2"
+    , place = ( Journalist, Day2 )
     }
 
 
