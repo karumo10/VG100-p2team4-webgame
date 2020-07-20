@@ -586,53 +586,25 @@ wakeUp model =
 mapSwitch : Map -> Model -> Model
 mapSwitch newMap model =
     let
-        mapAttr =
+        dayState =
             case model.day of
-                1 ->
-                    case newMap of
-                        PoliceOffice -> policeOfficeAttr_day1
-                        Park -> parkAttr_day1
-                        Home -> homeAttr_day1
-                        Switching -> switchingAttr
-                        EnergyDrain -> switchingAttr
-                        StarterPage -> switchingAttr
-                        Story -> switchingAttr
-                        AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr_day1
-                        Journalist -> journalistAttr_day1
-                        NightClub -> nightClubAttr_day1
-                2 ->
-                    case newMap of
-                        PoliceOffice -> policeOfficeAttr_day2
-                        Park -> parkAttr_day2
-                        Home -> homeAttr_day2
-                        Switching -> switchingAttr
-                        EnergyDrain -> switchingAttr
-                        StarterPage -> switchingAttr
-                        Story -> switchingAttr
-                        AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr_day1
-                        Journalist -> journalistAttr_day2
-                        NightClub -> nightClubAttr_day2
+                1 -> Day1
+                2 -> Day2
+                _ -> Day2
+        scene = ( newMap, dayState )
+        mapAttr
+            =
+            case newMap of
+                Switching -> switchingAttr --including drainenergy, switching & start page
                 _ ->
-                   case newMap of
-                        PoliceOffice -> policeOfficeAttr_day2
-                        Park -> parkAttr_day2
-                        Home -> homeAttr_day2
-                        Switching -> switchingAttr
-                        EnergyDrain -> switchingAttr
-                        StarterPage -> switchingAttr
-                        Story -> switchingAttr
-                        AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr_day1
-                        Journalist -> journalistAttr_day2
-                        NightClub -> nightClubAttr_day2
+                    List.filter (\a -> a.scene == scene) model.mapAttr_all
+                    |> List.head
+                    |> withDefault switchingAttr
         hero = mapAttr.heroIni
         npcs = List.filter (\a -> a.place == mapAttr.scene) allNPCs
         story = mapAttr.story
     in
     { model | hero = hero, mapAttr = mapAttr, map = newMap, npcs_curr = npcs, story = story }
-
 
 
 

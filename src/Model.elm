@@ -700,7 +700,6 @@ jonaliBody =
     , description = "JOURNALISTBODYDAY2.npc.day=2"
     , place = ( Journalist, Day2 )
     , isFinished = False
-
     }
 
 jonaliEvidence : NPC
