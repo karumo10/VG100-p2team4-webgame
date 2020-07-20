@@ -295,6 +295,9 @@ animate elapsed model =
     model
         |> moveHeroLR elapsed
         |> moveHeroUD elapsed
+        |> npcsFinishedUpdate
+        |> mapsFinishedUpdate
+        |> specialUpdates
         |> hintTrigger
         |> goToSwitching
         |> judgeInteract
@@ -577,25 +580,27 @@ wakeUp : Model -> Model
 wakeUp model =
     let
         day = model.day + 1
+        dayState =
+            case day of
+                1 -> Day1
+                2 -> Day2
+                3 -> Day3
+                _ -> TooBigOrSmall
         model_ = mapSwitch Home model |> teleportHero ( 840, 100 ) -- bed side
         story = "It's time to get up... Uhh, indeed a weird dream."
         energy = model_.energy_Full
     in
-    { model_ | story = story, day = day, energy = energy }
+    { model_ | story = story, day = day, energy = energy, dayState = dayState }
 
 mapSwitch : Map -> Model -> Model
 mapSwitch newMap model =
     let
-        dayState =
-            case model.day of
-                1 -> Day1
-                2 -> Day2
-                _ -> Day2
+        dayState = model.dayState
         scene = ( newMap, dayState )
         mapAttr
             =
             case newMap of
-                Switching -> switchingAttr --including drainenergy, switching & start page
+                Switching -> switchingAttr -- including drainenergy, switching & start page
                 _ ->
                     List.filter (\a -> a.scene == scene) model.mapAttr_all
                     |> List.head
@@ -901,6 +906,27 @@ hintTrigger model =
     { model | story = story_ }
 
 
+
+
+--- specially made functions for specific scenes.
+specialUpdates : Model -> Model -- put it every iterate
+specialUpdates model
+    = model
+    |> day2JournalistFinishedUpdate
+
+
+
+day2JournalistFinishedUpdate : Model -> Model
+day2JournalistFinishedUpdate model =
+    let
+        journalist_day2_map = List.filter (\a -> a.scene == (Journalist, Day2) ) model.mapAttr_all
+            |> List.head
+            |> withDefault journalistAttr_day2
+        isFinished = journalist_day2_map.isFinished
+    in
+    case isFinished of
+        False -> model
+        True -> { model | dayState = Day2_Finished }
 
 
 
