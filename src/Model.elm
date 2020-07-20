@@ -158,7 +158,7 @@ policeOfficeAttr_day2_finished =
 parkAttr_day1 : MapAttr
 parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
-    , heroIni = { x = 500, y = 250, width = 60, height = 180 }
+    , heroIni = { x = 500, y = 250, width = 50, height = 180 }
     , barrier = []
     , hint = []
     , vehicle = []
@@ -170,7 +170,7 @@ parkAttr_day1 =
 parkAttr_day2 : MapAttr
 parkAttr_day2 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
-    , heroIni = { x = 500, y = 250, width = 60, height = 180 }
+    , heroIni = { x = 500, y = 250, width = 50, height = 180 }
     , barrier = []
     , hint = []
     , vehicle = []
@@ -607,7 +607,7 @@ cLee_day1 : NPC
 cLee_day1 =
     { itemType = Lee
     , area =
-        { x = 400
+        { x = 375
         , y = 270
         , wid = 20
         , hei = 60
@@ -652,7 +652,7 @@ cBob_day1 : NPC
 cBob_day1 =
     { itemType = Bob
     , area =
-        { x = 450
+        { x = 460
         , y = 520
         , wid = 20
         , hei = 60
@@ -745,8 +745,8 @@ pLee : NPC
 pLee =
     { itemType = Lee
     , area =
-        { x = 810
-        , y = 120
+        { x = 180
+        , y = 410
         , wid = 60
         , hei = 180
         }
@@ -761,10 +761,10 @@ pAllen : NPC
 pAllen =
     { itemType = Allen
     , area =
-        { x = 405
-        , y = 295
+        { x = 390
+        , y = 320
         , wid = 60
-        , hei = 180
+        , hei = 240
         }
     , interacttrue = False
     , description = "ALLENPARK.npc.day=1"
@@ -777,9 +777,9 @@ pAdkins : NPC
 pAdkins =
     { itemType = Adkins
     , area =
-        { x = 870
-        , y = 405
-        , wid = 60
+        { x = 660
+        , y = 100
+        , wid = 40
         , hei = 180
         }
     , interacttrue = False
@@ -793,9 +793,9 @@ pCatherine : NPC
 pCatherine =
     { itemType = Catherine
     , area =
-        { x = 725
-        , y = 345
-        , wid = 60
+        { x = 600
+        , y = 100
+        , wid = 40
         , hei = 180
         }
     , interacttrue = False

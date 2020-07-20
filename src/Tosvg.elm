@@ -16,17 +16,15 @@ import Areas exposing (..)
 heroToSvg : Hero -> List (Svg msg)
 heroToSvg hero =
     let
-        ( x_, y_ ) = ( toFloat hero.x, toFloat hero.y )
-        ( wid, hei ) = ( hero.width, hero.height )
+        ( x_, y_ ) = ( toFloat (hero.x), toFloat (hero.y - 50) )
+        ( wid, hei ) = ( hero.width*2, hero.height*2 )
     in
     [
-        rect
+        Svg.image
         [ x (x_ |> Debug.toString)
         , y (y_ |> Debug.toString)
         , width (wid |> Debug.toString)
-        , height (hei |> Debug.toString)
-        , strokeWidth "0px"
-        , fill "pink"
+        , Svg.Attributes.xlinkHref "./hero.png"
         ]
         []
     ]
@@ -235,7 +233,7 @@ entityView npc =
         , y (y_ |> Debug.toString)
         , width (wid |> Debug.toString)
         , height (hei |> Debug.toString)
-        , strokeWidth "5px", stroke "#191970"
+        , Svg.Attributes.opacity "0"
         ]
         []
 
