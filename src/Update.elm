@@ -583,9 +583,6 @@ wakeUp model =
     in
     { model_ | story = story, day = day, energy = energy }
 
-
-
-
 mapSwitch : Map -> Model -> Model
 mapSwitch newMap model =
     let
@@ -593,51 +590,51 @@ mapSwitch newMap model =
             case model.day of
                 1 ->
                     case newMap of
-                        PoliceOffice -> policeOfficeAttr
-                        Park -> parkAttr
-                        Home -> homeAttr
+                        PoliceOffice -> policeOfficeAttr_day1
+                        Park -> parkAttr_day1
+                        Home -> homeAttr_day1
                         Switching -> switchingAttr
                         EnergyDrain -> switchingAttr
                         StarterPage -> switchingAttr
                         Story -> switchingAttr
                         AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr_Day1
-                        Journalist -> journalistAttr
-                        NightClub -> nightClubAttr
+                        DreamMaze -> dreamMazeAttr_day1
+                        Journalist -> journalistAttr_day1
+                        NightClub -> nightClubAttr_day1
                 2 ->
                     case newMap of
                         PoliceOffice -> policeOfficeAttr_day2
-                        Park -> parkAttr
-                        Home -> homeAttr
+                        Park -> parkAttr_day2
+                        Home -> homeAttr_day2
                         Switching -> switchingAttr
                         EnergyDrain -> switchingAttr
                         StarterPage -> switchingAttr
                         Story -> switchingAttr
                         AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr_Day1
-                        Journalist -> journalistAttr
-                        NightClub -> nightClubAttr
+                        DreamMaze -> dreamMazeAttr_day1
+                        Journalist -> journalistAttr_day2
+                        NightClub -> nightClubAttr_day2
                 _ ->
                    case newMap of
                         PoliceOffice -> policeOfficeAttr_day2
-                        Park -> parkAttr
-                        Home -> homeAttr
+                        Park -> parkAttr_day2
+                        Home -> homeAttr_day2
                         Switching -> switchingAttr
                         EnergyDrain -> switchingAttr
                         StarterPage -> switchingAttr
                         Story -> switchingAttr
                         AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr_Day1
-                        Journalist -> journalistAttr
-                        NightClub -> nightClubAttr
-
-
-
+                        DreamMaze -> dreamMazeAttr_day1
+                        Journalist -> journalistAttr_day2
+                        NightClub -> nightClubAttr_day2
         hero = mapAttr.heroIni
         npcs = List.filter (\a -> a.place == mapAttr.scene) allNPCs
         story = mapAttr.story
     in
     { model | hero = hero, mapAttr = mapAttr, map = newMap, npcs_curr = npcs, story = story }
+
+
+
 
 canPickUp : Model -> Item -> Bool
 canPickUp model item=

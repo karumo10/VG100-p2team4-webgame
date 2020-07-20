@@ -120,8 +120,8 @@ nightClubVehicle =
     , { area = { x = 1050, y = 195, wid = 100, hei = 110 }, which = Elevator } ]
 
 
-policeOfficeAttr : MapAttr
-policeOfficeAttr =
+policeOfficeAttr_day1 : MapAttr
+policeOfficeAttr_day1 =
     { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
     , heroIni = { x = 300, y = 520, width = 20, height = 60 }
     , barrier = policeOfficeBarrier
@@ -145,8 +145,8 @@ policeOfficeAttr_day2 =
 
     }
 
-parkAttr : MapAttr
-parkAttr =
+parkAttr_day1 : MapAttr
+parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
     , heroIni = { x = 500, y = 250, width = 60, height = 180 }
     , barrier = []
@@ -155,11 +155,22 @@ parkAttr =
     , story = "I arrive at the park. This is a desolate place."
     , scene = ( Park, Day1 )
     , isFinished = False
-
+    }
+parkAttr_day2 : MapAttr
+parkAttr_day2 =
+    { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
+    , heroIni = { x = 500, y = 250, width = 60, height = 180 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , story = "I arrive at the park. This is a desolate place."
+    , scene = ( Park, Day2 )
+    , isFinished = False
     }
 
-homeAttr : MapAttr
-homeAttr =
+
+homeAttr_day1 : MapAttr
+homeAttr_day1 =
     { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
     , heroIni = { x = 665, y = 520, width = 20, height = 60 }
     , barrier = homeBarrier
@@ -171,8 +182,34 @@ homeAttr =
 
     }
 
-journalistAttr : MapAttr
-journalistAttr =
+homeAttr_day2 : MapAttr
+homeAttr_day2 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Home, sweet home."
+    , scene = ( Home, Day2 )
+    , isFinished = False
+
+    }
+journalistAttr_day1 : MapAttr
+journalistAttr_day1 =
+    { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
+    , heroIni = { x = 205, y = 335, width = 60, height = 180 }
+    , barrier = journalistBarrier
+    , hint = []
+    , vehicle = []
+    , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
+    , scene = ( Journalist, Day1 )
+    , isFinished = False
+
+    }
+
+
+journalistAttr_day2 : MapAttr
+journalistAttr_day2 =
     { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
     , heroIni = { x = 205, y = 335, width = 60, height = 180 }
     , barrier = journalistBarrier
@@ -184,19 +221,41 @@ journalistAttr =
 
     }
 
-nightClubAttr : MapAttr
-nightClubAttr =
+nightClubAttr_day1 : MapAttr
+nightClubAttr_day1 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = nightClubBarrier
+    , hint = []
+    , vehicle = nightClubVehicle
+    , story = "It's the place where lust and alcoholism intertwined."
+    , scene = ( NightClub, Day1 )
+    , isFinished = False
+    }
+
+nightClubAttr_day2 : MapAttr
+nightClubAttr_day2 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = nightClubBarrier
+    , hint = []
+    , vehicle = nightClubVehicle
+    , story = "It's the place where lust and alcoholism intertwined."
+    , scene = ( NightClub, Day2 )
+    , isFinished = False
+    }
+
+nightClubAttr_day3 : MapAttr
+nightClubAttr_day3 =
     { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
     , heroIni = { x = 150, y = 475, width = 40, height = 120 }
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
     , story = "It's the place where lust and alcoholism intertwined; but now only sin reigns."
-    , scene = ( NightClub, Day2 ) --SHOULD BE DAY3
+    , scene = ( NightClub, Day3 )
     , isFinished = False
-
     }
-
 
 
 
@@ -213,23 +272,24 @@ switchingAttr =
     , isFinished = False
 
     }
-energyDrainAttr : MapAttr
-energyDrainAttr =
-    { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
-    , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
-    , barrier = []
-    , hint = []
-    , vehicle = []
-    , story = "I'm tired...all I desire is somewhere to take a nap."
-    , scene = ( Switching, Nowhere )
-    , isFinished = False
 
-    }
+--energyDrainAttr : MapAttr
+--energyDrainAttr =
+--    { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
+--    , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
+--    , barrier = []
+--    , hint = []
+--    , vehicle = []
+--    , story = "I'm tired...all I desire is somewhere to take a nap."
+--    , scene = ( Switching, Nowhere )
+--    , isFinished = False
+--
+--    }
 
 
 
-dreamMazeAttr_Day1 : MapAttr
-dreamMazeAttr_Day1 =
+dreamMazeAttr_day1 : MapAttr
+dreamMazeAttr_day1 =
     { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
@@ -331,9 +391,9 @@ initial =
     , heroInteractWithNpc = False
     , state = Playing
     , size = ( 900, 600 )
-    , day = 2
+    , day = 1
     , map = StarterPage -- door at police office
-    , mapAttr = policeOfficeAttr
+    , mapAttr = policeOfficeAttr_day1
     , bag = bagIni
     , items = [ gunIni , bulletProofIni ]
     , worldModel = initialWorldModel
@@ -456,6 +516,7 @@ type NPCType
 type Day
     = Day1
     | Day2
+    | Day3
     | Nowhere
 
 type alias NPC =
@@ -658,7 +719,11 @@ jonaliEvidence =
     }
 
 allMapAttrs : List MapAttr
-allMapAttrs = [nightClubAttr, parkAttr, policeOfficeAttr, policeOfficeAttr_day2, journalistAttr, homeAttr, dreamMazeAttr_Day1, switchingAttr, energyDrainAttr]
+allMapAttrs =
+    [ dreamMazeAttr_day1, homeAttr_day1, parkAttr_day1, policeOfficeAttr_day1, nightClubAttr_day1, journalistAttr_day1
+    , homeAttr_day2, parkAttr_day2, policeOfficeAttr_day2, nightClubAttr_day2, journalistAttr_day2
+    , nightClubAttr_day3
+    , switchingAttr]
 
 
 allNPCs: List NPC
