@@ -42,6 +42,7 @@ type VehicleType
     | Bed
     | Car
 
+type alias Scene = ( Map, Day )
 type alias Vehicle =
     { area : Area
     , which : VehicleType
@@ -58,8 +59,9 @@ type alias MapAttr = -- things determined by map.
     , barrier : List Area
     , hint : List Hint
     , vehicle : List Vehicle
-    , npcs : List NPC
     , story : String
+    , scene : Scene
+    , isFinished : Bool
     }
 
 
@@ -125,8 +127,9 @@ policeOfficeAttr =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , npcs = List.filter (\a -> a.place == ( PoliceOffice, Day1 )) allNPCs
     , story = "Another day at work, another boring day. But I need to avoid being killed."
+    , scene = ( PoliceOffice, Day1 )
+    , isFinished = False
     }
 
 policeOfficeAttr_day2 : MapAttr
@@ -136,8 +139,10 @@ policeOfficeAttr_day2 =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , npcs = List.filter (\a -> a.place == ( PoliceOffice, Day2 )) allNPCs
     , story = "Another day at work, another boring day. But I need to avoid being killed."
+    , scene = ( PoliceOffice, Day2 )
+    , isFinished = False
+
     }
 
 parkAttr : MapAttr
@@ -147,8 +152,10 @@ parkAttr =
     , barrier = []
     , hint = []
     , vehicle = []
-    , npcs = List.filter (\a -> a.place == ( Park, Day1 )) allNPCs
     , story = "I arrive at the park. This is a desolate place."
+    , scene = ( Park, Day1 )
+    , isFinished = False
+
     }
 
 homeAttr : MapAttr
@@ -158,8 +165,10 @@ homeAttr =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , npcs = List.filter (\a -> a.place == ( Home, Day1 )) allNPCs
     , story = "Home, sweet home."
+    , scene = ( Home, Day1 )
+    , isFinished = False
+
     }
 
 journalistAttr : MapAttr
@@ -169,8 +178,10 @@ journalistAttr =
     , barrier = journalistBarrier
     , hint = []
     , vehicle = []
-    , npcs = List.filter (\a -> a.place == ( Journalist, Day2 )) allNPCs
     , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
+    , scene = ( Journalist, Day2 )
+    , isFinished = False
+
     }
 
 nightClubAttr : MapAttr
@@ -180,8 +191,10 @@ nightClubAttr =
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
-    , npcs = List.filter (\a -> a.place == ( NightClub, Day2 )) allNPCs
     , story = "It's the place where lust and alcoholism intertwined; but now only sin reigns."
+    , scene = ( NightClub, Day2 ) --SHOULD BE DAY3
+    , isFinished = False
+
     }
 
 
@@ -195,8 +208,10 @@ switchingAttr =
     , barrier = []
     , hint = []
     , vehicle = []
-    , npcs = []
     , story = "Where to go?"
+    , scene = ( Switching, Nowhere )
+    , isFinished = False
+
     }
 energyDrainAttr : MapAttr
 energyDrainAttr =
@@ -205,21 +220,24 @@ energyDrainAttr =
     , barrier = []
     , hint = []
     , vehicle = []
-    , npcs = []
     , story = "I'm tired...all I desire is somewhere to take a nap."
+    , scene = ( Switching, Nowhere )
+    , isFinished = False
+
     }
 
 
 
-dreamMazeAttr : MapAttr
-dreamMazeAttr =
+dreamMazeAttr_Day1 : MapAttr
+dreamMazeAttr_Day1 =
     { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze1
     , vehicle = []
-    , npcs = []
     , story = "Where is here...?"
+    , scene = ( DreamMaze, Day1 )
+    , isFinished = False
     }
 
 hintsMaze1 : List Hint
@@ -283,7 +301,9 @@ type alias Model =
     , story : String
     , ruleCounts : Dict String Int
     , debug : NarrativeEngine.Debug.State
-    , npcs : List NPC
+    , npcs_curr : List NPC
+    , npcs_all : List NPC
+    , mapAttr_all : List MapAttr
     , interacttrue : Bool
     , energy : Int
     , energy_Full : Int
@@ -320,7 +340,9 @@ initial =
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the police chief, Jonathon, because I know his scandal. I need to avoid being killed."
     , ruleCounts = Dict.empty
     , debug = NarrativeEngine.Debug.init
-    , npcs = List.filter (\a -> a.place == (PoliceOffice, Day1)) allNPCs
+    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day1)) allNPCs
+    , npcs_all = allNPCs
+    , mapAttr_all = allMapAttrs
     , interacttrue = False
     , energy = 1000
     , energy_Full = 100
@@ -441,7 +463,8 @@ type alias NPC =
     , area : Area
     , interacttrue : Bool
     , description : String
-    , place : ( Map, Day )
+    , place : Scene
+    , isFinished : Bool --which means he is finished
     }
 
 emptyNPC : NPC
@@ -456,6 +479,7 @@ emptyNPC =
     , interacttrue = False
     , description = ""
     , place = ( Switching, Nowhere )
+    , isFinished = True
     }
 
 cLee : NPC
@@ -470,6 +494,7 @@ cLee =
     , interacttrue = False
     , description = "LEEPOLICEOFFICE.npc.day=1"
     , place = ( PoliceOffice , Day1 )
+    , isFinished = False
     }
 
 cBob : NPC
@@ -484,6 +509,7 @@ cBob =
     , interacttrue = False
     , description = "BOBPOLICEOFFICE.npc.day=1"
     , place = ( PoliceOffice , Day1 )
+    , isFinished = False
     }
 
 cAllen_day1 : NPC
@@ -498,6 +524,7 @@ cAllen_day1 =
     , interacttrue = False
     , description = "ALLENPOLICEOFFICE.npc.day=1"
     , place = ( PoliceOffice , Day1 )
+    , isFinished = False
     }
 
 cAllen_day2 : NPC
@@ -512,6 +539,8 @@ cAllen_day2 =
     , interacttrue = False
     , description = "ALLENPOLICEOFFICEDAY2.npc.day=2"
     , place = ( PoliceOffice , Day2 )
+    , isFinished = False
+
     }
 
 
@@ -529,6 +558,8 @@ pLee =
     , interacttrue = False
     , description = "LEEPARK.npc.day=1"
     , place = ( Park , Day1 )
+    , isFinished = False
+
     }
 
 pAllen : NPC
@@ -543,6 +574,8 @@ pAllen =
     , interacttrue = False
     , description = "ALLENPARK.npc.day=1"
     , place = ( Park , Day1 )
+    , isFinished = False
+
     }
 
 pAdkins : NPC
@@ -557,6 +590,8 @@ pAdkins =
     , interacttrue = False
     , description = "ADKINS.npc.day=1"
     , place = ( Park , Day1 )
+    , isFinished = False
+
     }
 
 pCatherine : NPC
@@ -571,6 +606,8 @@ pCatherine =
     , interacttrue = False
     , description = "CATHERINE.npc.day=1"
     , place = ( Park , Day1 )
+    , isFinished = False
+
     }
 
 jonaliLee : NPC
@@ -585,6 +622,8 @@ jonaliLee =
     , interacttrue = False
     , description = "LEEJOURNALISTHOMEDAY2.npc.day=2"
     , place = ( Journalist, Day2 )
+    , isFinished = False
+
     }
 
 jonaliBody : NPC
@@ -599,6 +638,8 @@ jonaliBody =
     , interacttrue = False
     , description = "JOURNALISTBODYDAY2.npc.day=2"
     , place = ( Journalist, Day2 )
+    , isFinished = False
+
     }
 
 jonaliEvidence : NPC
@@ -613,10 +654,20 @@ jonaliEvidence =
     , interacttrue = False
     , description = "EVIDENCEJONALI.evidence.day=2"
     , place = ( Journalist, Day2 )
+    , isFinished = False
     }
+
+allMapAttrs : List MapAttr
+allMapAttrs = [nightClubAttr, parkAttr, policeOfficeAttr, policeOfficeAttr_day2, journalistAttr, homeAttr, dreamMazeAttr_Day1, switchingAttr, energyDrainAttr]
+
 
 allNPCs: List NPC
 allNPCs = [cLee, cBob, cAllen_day1, cAllen_day2, pLee, pAllen, pAdkins, pCatherine, jonaliLee, jonaliEvidence, jonaliBody]
+
+type alias MapState =
+    { scene : Scene
+    , isFinished : Bool
+    }
 
 
 

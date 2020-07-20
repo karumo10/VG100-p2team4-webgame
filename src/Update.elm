@@ -601,7 +601,7 @@ mapSwitch newMap model =
                         StarterPage -> switchingAttr
                         Story -> switchingAttr
                         AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr
+                        DreamMaze -> dreamMazeAttr_Day1
                         Journalist -> journalistAttr
                         NightClub -> nightClubAttr
                 2 ->
@@ -614,7 +614,7 @@ mapSwitch newMap model =
                         StarterPage -> switchingAttr
                         Story -> switchingAttr
                         AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr
+                        DreamMaze -> dreamMazeAttr_Day1
                         Journalist -> journalistAttr
                         NightClub -> nightClubAttr
                 _ ->
@@ -627,17 +627,17 @@ mapSwitch newMap model =
                         StarterPage -> switchingAttr
                         Story -> switchingAttr
                         AboutUs -> switchingAttr
-                        DreamMaze -> dreamMazeAttr
+                        DreamMaze -> dreamMazeAttr_Day1
                         Journalist -> journalistAttr
                         NightClub -> nightClubAttr
 
 
 
         hero = mapAttr.heroIni
-        npcs = mapAttr.npcs
+        npcs = List.filter (\a -> a.place == mapAttr.scene) allNPCs
         story = mapAttr.story
     in
-    { model | hero = hero, mapAttr = mapAttr, map = newMap, npcs = npcs, story = story }
+    { model | hero = hero, mapAttr = mapAttr, map = newMap, npcs_curr = npcs, story = story }
 
 canPickUp : Model -> Item -> Bool
 canPickUp model item=
@@ -777,19 +777,20 @@ boolToint bool =
 interactable : Model-> Model
 interactable model =
     let
-      interacted_npcs= List.map (interact model) model.npcs
+      interacted_npcs= List.map (interact model) model.npcs_curr
       --bool_of_interacted_npcs=(not (List.isEmpty(List.filter (canInteract model) model.npcs)))&&model.heroInteractWithNpc
       --energy_left=model.energy - boolToint(bool_of_interacted_npcs) * model.energy_Cost
     in
-      {model|npcs=interacted_npcs}--,energy=energy_left}
+      {model|npcs_curr=interacted_npcs}--,energy=energy_left}
 
 judgeinteract npc=
     case npc.interacttrue of
         True -> True
         _ -> False
 
+judgeInteract : Model -> Model
 judgeInteract model =
-    { model|interacttrue = (List.member True (List.map judgeinteract model.npcs)) }
+    { model|interacttrue = (List.member True (List.map judgeinteract model.npcs_curr)) }
 
 interactWith__core : WorldModel.ID -> Model -> ( Model, Cmd Msg )
 interactWith__core trigger model =
@@ -831,18 +832,63 @@ interactWith__core trigger model =
                                   |> NarrativeEngine.Debug.setLastInteractionId trigger
                     }, Cmd.none)
 
+singleNpcFinishedUpdate : Model -> NPC -> NPC
+singleNpcFinishedUpdate model npc =
+    let
+        trigger =
+                query npc.description model.worldModel
+                |> List.map Tuple.first -- get List ID
+                |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
+                |> withDefault "$my$own$error$msg$: no such npc, in updating NPCs."
+
+        state = Rules.findMatchingRule trigger parsedData model.worldModel
+        isFinished =
+            case state of
+                Nothing -> True
+                _ -> False
+    in
+    { npc | isFinished = isFinished }
+
+
+npcsFinishedUpdate : Model -> Model -- do it every iteration!
+npcsFinishedUpdate model =
+    let
+        npcs_all = model.npcs_all
+        npcs_all_ = List.map (singleNpcFinishedUpdate model) npcs_all
+    in
+    { model | npcs_all = npcs_all_ }
+
+singleMapFinishedUpdate : Model -> MapAttr -> MapAttr -- update the mapattr, if all the npcs in one mapattr is finished, then, it will has a True 'isFInished' field
+singleMapFinishedUpdate model mapAttr =
+    let
+        scene = mapAttr.scene
+        npcsInScene = List.filter (\a -> a.place == scene) model.npcs_all
+        isFinished = List.foldr (&&) True (npcsInScene |> List.map (\a -> a.isFinished))
+
+    in
+    { mapAttr | isFinished = isFinished }
+
+mapsFinishedUpdate : Model -> Model -- do it every iteration
+mapsFinishedUpdate model =
+    let
+        mapAttrs = model.mapAttr_all
+        mapAttrs_ = List.map (singleMapFinishedUpdate model) mapAttrs
+    in
+    { model | mapAttr_all = mapAttrs_ }
+
+
 
 
 interactByKey : Model -> Model
 interactByKey model =
     let
-        trueNPCs = List.filter (\a -> a.interacttrue == True) model.npcs
+        trueNPCs = List.filter (\a -> a.interacttrue == True) model.npcs_curr
         currNPC = withDefault emptyNPC (List.head trueNPCs) -- only one NPC is interacting
         currTrigger
             = query currNPC.description model.worldModel
             |> List.map Tuple.first -- get List ID
             |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
-            |> withDefault "$my$own$error$msg$: no such npc"
+            |> withDefault "$my$own$error$msg$: no such npc, in interact by X"
         model_ = interactWith__core currTrigger model |> Tuple.first
         energy = model.energy
         energy_ = energy - model.energy_Cost_interact
