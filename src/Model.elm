@@ -169,7 +169,7 @@ journalistAttr =
     , barrier = journalistBarrier
     , hint = []
     , vehicle = []
-    , npcs = [jonaliBody,jonaliLee]
+    , npcs = [jonaliBody,jonaliLee, jonaliEvidence]
     , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
     }
 
@@ -311,7 +311,7 @@ initial =
     , heroInteractWithNpc = False
     , state = Playing
     , size = ( 900, 600 )
-    , day = 1
+    , day = 2
     , map = StarterPage -- door at police office
     , mapAttr = policeOfficeAttr
     , bag = bagIni
@@ -322,7 +322,7 @@ initial =
     , debug = NarrativeEngine.Debug.init
     , npcs = [cAllen_day1, cBob, cLee, cAllen_day1]
     , interacttrue = False
-    , energy = 50
+    , energy = 1000
     , energy_Full = 100
     , energy_Cost_pickup = 25
     , energy_Cost_interact = 5
@@ -428,6 +428,7 @@ type NPCType
     | Catherine
     | Jonathon
     | JournalistBody
+    | JonaliEvi
     | None
 
 type alias NPC =
@@ -581,6 +582,19 @@ jonaliBody =
         }
     , interacttrue = False
     , description = "JOURNALISTBODYDAY2.npc.day=2"
+    }
+
+jonaliEvidence : NPC
+jonaliEvidence =
+    { itemType = JonaliEvi
+    , area =
+        { x = 200
+        , y = 300
+        , wid = 100
+        , hei = 40
+        }
+    , interacttrue = False
+    , description = "EVIDENCEJONALI.evidence.day=2"
     }
 
 
