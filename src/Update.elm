@@ -838,7 +838,7 @@ interactByKey model =
             = query currNPC.description model.worldModel
             |> List.map Tuple.first -- get List ID
             |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
-            |> withDefault "no such npc"
+            |> withDefault "; $my$own$error$msg$: no such npc"
         model_ = interactWith__core currTrigger model |> Tuple.first
         energy = model.energy
         energy_ = energy - model.energy_Cost_interact

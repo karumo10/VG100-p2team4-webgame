@@ -60,11 +60,19 @@ initialWorldModelSpec =
         "What are you waiting for? Go ahead to the reporter's house!"
     , entity "JOURNALISTBODYDAY2.npc.day=2.trigger=0"
         "JournalistBody"
-        "No...I dare not look at that pairs of eyes again. That pairs of eeire pallor seems gazing at me, though I'm quite sure that a dead never hurts people."
+        "No...I dare not look at that pairs of eyes again. That pairs of eerie pallor seems gazing at me, though I'm quite sure that a dead never hurts people."
     , entity "LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=2"
         "Lee"
         "Well, It seems that we should wait for forensic for further report about his death and before that, let us discover whether there exists other evidence in his home. You know, the instructions from above, Mr. Boss."
-
+    , entity "EVIDENCEJONALI.evidence.day=2.trigger=2"
+        "Evidence on journalist's desk"
+        "\"Hurry up, bro! Let's back to the office!\" Lee is calling you. Alas, you can't take more, or your behaviour will be exposed."
+    , entity "POLICEMEN_DAY2.npcs.day=2.trigger=0"
+        "other police"
+        "Talk with Lee, he has something to talk with you."
+    , entity "LEE_POLICEOFFICE_DAY2.npc.day2.trigger=2"
+        "lee day2"
+        "Don’t pay too much attention on this case! It’s time to go to home, Kay."
     -- items
     , entity "BODYPARKSHOES.choices=0"
         "The shoes of Brennan."
@@ -75,6 +83,7 @@ initialWorldModelSpec =
     , entity "BELONGINGS.choices=0"
         "The belongings of Brennan."
         "Nothing is left."
+
 
     -- choices
     , entity "YES.bobtalk.choices=0"
@@ -130,7 +139,16 @@ initialWorldModelSpec =
         "...Take a DEEP breathe. "
         ""
     , entity "DISGUISEFEAR.day2.choices=0"
-        "(You are too shocked to utter a word; but you cannot tell why.)"
+        "( You are too shocked to utter a word; but you cannot tell why. ) "
+        ""
+    , entity "CHOOSEWHICHTAKEDISK.day2.choices=0"
+        "Take the hard disk."
+        ""
+    , entity "CHOOSEWHICHTAKENOTE.day2.choices=0"
+        "Take the note."
+        ""
+    , entity "ASK_LEE_WHY.day2.choices=0"
+        "What? Why someone will carry out a suicide in such cruel way? And why the conclusion is made so hurriedly? Can I have a look at the report of the autopsy?"
         ""
     ]
 
@@ -496,6 +514,57 @@ rulesSpec =
             IF: LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=1
             DO: LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=0
             """
+        |> rule_______________________ "check the evidences but failed"
+            """
+            ON: EVIDENCEJONALI.evidence.day=2
+            IF: LEEJOURNALISTHOMEDAY2.npc.day=2.!trigger=0
+            DO: EVIDENCEJONALI.evidence.day=2.trigger=2
+            """
+        |> rule_______________________ "check the evidences and succeeded"
+            """
+            ON: EVIDENCEJONALI.evidence.day=2
+            IF: LEEJOURNALISTHOMEDAY2.npc.day=2.trigger=0
+                EVIDENCEJONALI.evidence.day=2.trigger=2
+            DO: EVIDENCEJONALI.evidence.day=2.trigger=1
+                CHOOSEWHICHTAKEDISK.day2.choices=1
+                CHOOSEWHICHTAKENOTE.day2.choices=1
+            """
+        |> rule_______________________ "take disk"
+            """
+            ON: CHOOSEWHICHTAKEDISK.day2
+            DO: CHOOSEWHICHTAKEDISK.day2.choices=0
+                CHOOSEWHICHTAKENOTE.day2.choices=0
+                EVIDENCEJONALI.evidence.day=2.trigger=0
+            """
+        |> rule_______________________ "take note"
+            """
+            ON: CHOOSEWHICHTAKENOTE.day2
+            DO: CHOOSEWHICHTAKEDISK.day2.choices=0
+                CHOOSEWHICHTAKENOTE.day2.choices=0
+                EVIDENCEJONALI.evidence.day=2.trigger=0
+            """
+        |> rule_______________________ "lee explain suicide"
+            """
+            ON: LEE_POLICEOFFICE_DAY2.npc.day2
+            IF: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=2
+            DO: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=1
+                ASK_LEE_WHY.day2.choices=1
+            """
+        |> rule_______________________ "not suicide"
+            """
+            ON: ASK_LEE_WHY.day2
+            IF: ASK_LEE_WHY.day2.choices=1
+            DO: ASK_LEE_WHY.day2.choices=0
+                LEE_POLICEOFFICE_DAY2.npc.day2.trigger=0
+            """
+        |> rule_______________________ "lee explain jonathan"
+            """
+            ON: LEE_POLICEOFFICE_DAY2.npc.day2
+            IF: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=0
+            DO: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=3
+            """
+
+
 
 
 
@@ -582,6 +651,24 @@ narrative_content =
             "...(slightly nod)"
         |> content__________________________________ "lee's contempt"
             "Hhh, being afraid of, (laugh) maggots after that? (coughs to disguise laugh) Rrrrelax, bro! They will not eat you."
+        |> content__________________________________ "check the evidences but failed"
+            "A hard disk and a piece of note. It's not the proper time to check them now."
+        |> content__________________________________ "check the evidences and succeeded"
+            "This disk... note... they seems... A glut of sense of curiosity grasped you. Who am I? This question was lingering in your mind. You decide to break the rule of the Office, and try to bring these evidence.  "
+        |> content__________________________________ "take disk"
+            "You took the disk. Somehow a feeling come up in your brain: you know the code of this hard disk."
+        |> content__________________________________ "take note"
+            "A plain note with some text on it... No time to see what's on that."
+        |> content__________________________________ "lee explain suicide"
+            "Ugh, Jonathon said that according to the report of autopsy, it can be judged as a suicide accident with no advanced evidence."
+        |> content__________________________________ "lee explain jonathan"
+            "Nope. You also forgot Jonathon’s rule after that accident, huh? Each time a case is considered as solved by him, all relative evidence will be locked. Don’t, challenge, Jonathon’s, authority. And the stabbed-death, well, maybe just the Identification guys found out heroine in his body? Never understand poor guys like him. Don’t pay too much attention on this case. It’s time to go to home, Kay."
+        |> content__________________________________ "not suicide"
+            "What? Why someone will carry out a suicide in such cruel way? And why the conclusion is made so hurriedly? Can I have a look at the report of the autopsy?"
+
+
+
+
 parsedData =
     let
             -- This is how we "merge" our extra fields into the entity record.
