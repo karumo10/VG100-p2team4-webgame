@@ -242,7 +242,7 @@ entityView npc =
 npcListView : Model -> List (Svg Msg)
 npcListView model =
     let
-        npcList = model.npcs
+        npcList = model.npcs_curr
         npcSvgList = List.map entityView npcList
     in
     npcSvgList
@@ -267,7 +267,7 @@ getnpc npc =
 
 getnpc_ : Model -> List String
 getnpc_ model =
-    List.map getnpc model.npcs
+    List.map getnpc model.npcs_curr
 
 getdescription model =
     List.filter (\x -> x /= "") (getnpc_ model)
