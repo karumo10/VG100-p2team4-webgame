@@ -16,8 +16,8 @@ import Areas exposing (..)
 heroToSvg : Hero -> List (Svg msg)
 heroToSvg hero =
     let
-        ( x_, y_ ) = ( toFloat (hero.x - 70), toFloat (hero.y - 70) )
-        ( wid, hei ) = ( hero.width*10, hero.height*10 )
+        ( x_, y_ ) = ( toFloat (hero.x), toFloat (hero.y - 50) )
+        ( wid, hei ) = ( hero.width*2, hero.height*2 )
     in
     [
         Svg.image
