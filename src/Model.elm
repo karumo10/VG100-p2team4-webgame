@@ -203,8 +203,20 @@ homeAttr_day2 =
     , story = "Home, sweet home."
     , scene = ( Home, Day2 )
     , isFinished = False
-
     }
+
+homeAttr_day2_finished : MapAttr
+homeAttr_day2_finished =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "What a tired day!"
+    , scene = ( Home, Day2_Finished )
+    , isFinished = False
+    }
+
 journalistAttr_day1 : MapAttr
 journalistAttr_day1 =
     { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
@@ -311,12 +323,44 @@ dreamMazeAttr_day1 =
     , isFinished = False
     }
 
+dreamMazeAttr_day2 : MapAttr
+dreamMazeAttr_day2 =
+    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    , barrier = maze1Barrier
+    , hint = hintsMaze1
+    , vehicle = []
+    , story = "Maze again? Really odd... "
+    , scene = ( DreamMaze, Day2 )
+    , isFinished = False
+    }
+
+dreamMazeAttr_day2_finished : MapAttr
+dreamMazeAttr_day2_finished =
+    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    , barrier = maze1Barrier
+    , hint = hintsMaze2
+    , vehicle = []
+    , story = "Maze again? Really odd... "
+    , scene = ( DreamMaze, Day2_Finished )
+    , isFinished = False
+    }
+
+
 hintsMaze1 : List Hint
 hintsMaze1 =
     [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "hint1" }
     , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "hint2" }
     , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "hint3" }
     , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "hint4" } ]
+
+hintsMaze2 : List Hint
+hintsMaze2 =
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "...It's quite interesting: now, you are me, I am you... You know that Jonathon is a bad guy as you write it in your novel? Even more interesting..." }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Ah, it seems that you have lost some memory, my friends. I can tell you something. It's quite weird that the day we planned to meet in the office, I was called to help inspect a night club. Do you think so? Who will inspect a night club at morning?..." }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don’t know which evidence you take in \"your\" home. They are both useful but you should pay attention how to use them properly, my dear friend..." }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "...Listen! What is whirring and whizzing? Double, double! Toil and trouble; fire burn and cauldron bubble! ..." } ]
 
 
 
@@ -815,8 +859,8 @@ jonaliEvidence =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1
-    , homeAttr_day1, homeAttr_day2
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished
     , parkAttr_day1, parkAttr_day2
     , journalistAttr_day1, journalistAttr_day2
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished

@@ -912,12 +912,13 @@ hintTrigger model =
 specialUpdates : Model -> Model -- put it every iterate
 specialUpdates model
     = model
-    |> day2JournalistFinishedUpdate
+    |> day2_journalist_finished_update
+    |> day2_office_finished_finished_update
 
 
 
-day2JournalistFinishedUpdate : Model -> Model
-day2JournalistFinishedUpdate model =
+day2_journalist_finished_update : Model -> Model -- format: (IMPORTANT) `time`_`mapname`_finished_update
+day2_journalist_finished_update model =
     let
         journalist_day2_map = List.filter (\a -> a.scene == (Journalist, Day2) ) model.mapAttr_all
             |> List.head
@@ -927,6 +928,25 @@ day2JournalistFinishedUpdate model =
     case isFinished of
         False -> model
         True -> { model | dayState = Day2_Finished }
+
+day2_office_finished_finished_update : Model -> Model --"office_finished" is a map name, haha
+day2_office_finished_finished_update model =
+    let
+        office_finished_day2_map = List.filter (\a -> a.scene == ( PoliceOffice, Day2_Finished ) ) model.mapAttr_all
+            |> List.head
+            |> withDefault journalistAttr_day2
+        isFinished = office_finished_day2_map.isFinished
+        homeAttr = List.filter (\a -> a.scene == ( Home, Day2_Finished ) ) model.mapAttr_all
+            |> List.head
+            |> withDefault journalistAttr_day2
+        story_ = "So strange... why there will be a role who has the same appearance as myself in my story? He even knows about me and dies? Oh, I don't submit the evidence brought from the scene, I shall have an inspection on it."
+        homeAttr_ = { homeAttr | story = story_ }
+        mapAttr_all_ = [ homeAttr_ ] ++ List.filter (\a -> a.scene /= ( Home, Day2_Finished ) ) model.mapAttr_all
+
+    in
+    case isFinished of
+        False -> model
+        True -> { model | mapAttr_all = mapAttr_all_ }
 
 
 
