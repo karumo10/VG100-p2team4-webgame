@@ -72,7 +72,9 @@ initialWorldModelSpec =
         "Talk with Lee, he has something to talk with you."
     , entity "LEE_POLICEOFFICE_DAY2.npc.day2.trigger=2"
         "lee day2"
-        "Don’t pay too much attention on this case! It’s time to go to home, Kay."
+        "Don't pay too much attention on this case! It's time to go to home, Kay."
+
+
     -- items
     , entity "BODYPARKSHOES.choices=0"
         "The shoes of Brennan."
@@ -662,7 +664,7 @@ narrative_content =
         |> content__________________________________ "lee explain suicide"
             "Ugh, Jonathon said that according to the report of autopsy, it can be judged as a suicide accident with no advanced evidence."
         |> content__________________________________ "lee explain jonathan"
-            "Nope. You also forgot Jonathon’s rule after that accident, huh? Each time a case is considered as solved by him, all relative evidence will be locked. Don’t, challenge, Jonathon’s, authority. And the stabbed-death, well, maybe just the Identification guys found out heroine in his body? Never understand poor guys like him. Don’t pay too much attention on this case. It’s time to go to home, Kay."
+            "Nope. You also forgot Jonathon's rule after that accident, huh? Each time a case is considered as solved by him, all relative evidence will be locked. Don't, challenge, Jonathon's, authority. And the stabbed-death, well, maybe just the Identification guys found out heroine in his body? Never understand poor guys like him. "
         |> content__________________________________ "not suicide"
             "What? Why someone will carry out a suicide in such cruel way? And why the conclusion is made so hurriedly? Can I have a look at the report of the autopsy?"
 

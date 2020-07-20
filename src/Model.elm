@@ -142,7 +142,17 @@ policeOfficeAttr_day2 =
     , story = "Another day at work, another boring day. But I need to avoid being killed."
     , scene = ( PoliceOffice, Day2 )
     , isFinished = False
-
+    }
+policeOfficeAttr_day2_finished : MapAttr
+policeOfficeAttr_day2_finished =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , story = "I'm back to the police office."
+    , scene = ( PoliceOffice, Day2_Finished )
+    , isFinished = False -- this map is not finished
     }
 
 parkAttr_day1 : MapAttr
@@ -156,6 +166,7 @@ parkAttr_day1 =
     , scene = ( Park, Day1 )
     , isFinished = False
     }
+
 parkAttr_day2 : MapAttr
 parkAttr_day2 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
@@ -353,6 +364,7 @@ type alias Model =
     , state : State
     , size : ( Float, Float )
     , day : Int
+    , dayState : Day
     , map : Map
     , mapAttr : MapAttr
     , bag : Bag
@@ -391,7 +403,8 @@ initial =
     , heroInteractWithNpc = False
     , state = Playing
     , size = ( 900, 600 )
-    , day = 1
+    , day = 2
+    , dayState = Day2
     , map = StarterPage -- door at police office
     , mapAttr = policeOfficeAttr_day1
     , bag = bagIni
@@ -404,8 +417,8 @@ initial =
     , npcs_all = allNPCs
     , mapAttr_all = allMapAttrs
     , interacttrue = False
-    , energy = 1000
-    , energy_Full = 100
+    , energy = 150
+    , energy_Full = 150
     , energy_Cost_pickup = 25
     , energy_Cost_interact = 5
     , quests = NoQuest
@@ -516,8 +529,11 @@ type NPCType
 type Day
     = Day1
     | Day2
+    | Day2_Finished
     | Day3
     | Nowhere
+    | TooBigOrSmall
+
 
 type alias NPC =
     { itemType : NPCType
@@ -543,8 +559,8 @@ emptyNPC =
     , isFinished = True
     }
 
-cLee : NPC
-cLee =
+cLee_day1 : NPC
+cLee_day1 =
     { itemType = Lee
     , area =
         { x = 400
@@ -558,8 +574,38 @@ cLee =
     , isFinished = False
     }
 
-cBob : NPC
-cBob =
+cLee_day2 : NPC --he is not here at the first of day2
+cLee_day2 =
+    { itemType = Lee
+    , area =
+        { x = 1000
+        , y = 1000
+        , wid = 0
+        , hei = 0
+        }
+    , interacttrue = False
+    , description = "LEEPOLICEOFFICE.npc.day=1"
+    , place = ( PoliceOffice , Day2 )
+    , isFinished = False
+    }
+
+cLee_day2_finished : NPC
+cLee_day2_finished =
+    { itemType = Lee
+    , area =
+        { x = 300
+        , y = 500
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "LEE_POLICEOFFICE_DAY2.npc.day2"
+    , place = ( PoliceOffice , Day2_Finished )
+    , isFinished = False
+    }
+
+cBob_day1 : NPC
+cBob_day1 =
     { itemType = Bob
     , area =
         { x = 450
@@ -572,6 +618,37 @@ cBob =
     , place = ( PoliceOffice , Day1 )
     , isFinished = False
     }
+
+cBob_day2 : NPC
+cBob_day2 =
+    { itemType = Bob
+    , area =
+        { x = 450
+        , y = 520
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "BOBPOLICEOFFICE.npc.day=1"
+    , place = ( PoliceOffice , Day2 )
+    , isFinished = False
+    }
+
+cBob_day2_finished : NPC
+cBob_day2_finished =
+    { itemType = Bob
+    , area =
+        { x = 450
+        , y = 520
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "POLICEMEN_DAY2.npcs.day=2"
+    , place = ( PoliceOffice , Day2_Finished )
+    , isFinished = False
+    }
+
 
 cAllen_day1 : NPC
 cAllen_day1 =
@@ -601,9 +678,22 @@ cAllen_day2 =
     , description = "ALLENPOLICEOFFICEDAY2.npc.day=2"
     , place = ( PoliceOffice , Day2 )
     , isFinished = False
-
     }
 
+cAllen_day2_finished : NPC
+cAllen_day2_finished =
+    { itemType = Allen
+        , area =
+        { x = 600
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "POLICEMEN_DAY2.npcs.day=2"
+    , place = ( PoliceOffice , Day2_Finished )
+    , isFinished = False
+    }
 
 
 
@@ -706,8 +796,8 @@ jonaliEvidence : NPC
 jonaliEvidence =
     { itemType = JonaliEvi
     , area =
-        { x = 200
-        , y = 300
+        { x = 300
+        , y = 350
         , wid = 100
         , hei = 40
         }
@@ -717,16 +807,30 @@ jonaliEvidence =
     , isFinished = False
     }
 
+--type alias Scene_Finished =
+--    { scene : Scene
+--    , isFinished :
+--    }
+
+
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, homeAttr_day1, parkAttr_day1, policeOfficeAttr_day1, nightClubAttr_day1, journalistAttr_day1
-    , homeAttr_day2, parkAttr_day2, policeOfficeAttr_day2, nightClubAttr_day2, journalistAttr_day2
-    , nightClubAttr_day3
+    [ dreamMazeAttr_day1
+    , homeAttr_day1, homeAttr_day2
+    , parkAttr_day1, parkAttr_day2
+    , journalistAttr_day1, journalistAttr_day2
+    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished
+    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day3
     , switchingAttr]
 
 
 allNPCs: List NPC
-allNPCs = [cLee, cBob, cAllen_day1, cAllen_day2, pLee, pAllen, pAdkins, pCatherine, jonaliLee, jonaliEvidence, jonaliBody]
+allNPCs =
+    [ cLee_day1, cLee_day2, cLee_day2_finished
+    , cBob_day1, cBob_day2, cBob_day2_finished
+    , cAllen_day1, cAllen_day2, cAllen_day2_finished
+    , pLee, pAllen, pAdkins, pCatherine
+    , jonaliLee, jonaliEvidence, jonaliBody]
 
 type alias MapState =
     { scene : Scene
