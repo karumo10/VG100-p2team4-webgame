@@ -819,6 +819,10 @@ interactWith__core trigger model =
                 Nothing ->
                             -- no rule matched, so lets just show the description of the
                             -- entity that the player interacted with
+                            -- ***
+                            -- (by Yuxiang Zhou: this just means this NPC will not say anything new!
+                            -- So we can use this to mark certain NPC as "finished".
+                            -- This will be helpful for us to pass the information out of the engine.
                     ({ model
                     | story = getDescription (makeConfig trigger trigger model) trigger model.worldModel
                     , ruleCounts = Dict.update trigger (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
@@ -833,12 +837,12 @@ interactByKey : Model -> Model
 interactByKey model =
     let
         trueNPCs = List.filter (\a -> a.interacttrue == True) model.npcs
-        currNPC = withDefault emptyNPC (List.head trueNPCs)
+        currNPC = withDefault emptyNPC (List.head trueNPCs) -- only one NPC is interacting
         currTrigger
             = query currNPC.description model.worldModel
             |> List.map Tuple.first -- get List ID
             |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
-            |> withDefault "; $my$own$error$msg$: no such npc"
+            |> withDefault "$my$own$error$msg$: no such npc"
         model_ = interactWith__core currTrigger model |> Tuple.first
         energy = model.energy
         energy_ = energy - model.energy_Cost_interact
