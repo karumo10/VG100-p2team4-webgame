@@ -865,7 +865,7 @@ allMapAttrs =
     , journalistAttr_day1, journalistAttr_day2
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day3
-    , switchingAttr]
+    , switchingAttr ]
 
 
 allNPCs: List NPC
@@ -874,7 +874,7 @@ allNPCs =
     , cBob_day1, cBob_day2, cBob_day2_finished
     , cAllen_day1, cAllen_day2, cAllen_day2_finished
     , pLee, pAllen, pAdkins, pCatherine
-    , jonaliLee, jonaliEvidence, jonaliBody]
+    , jonaliLee, jonaliEvidence, jonaliBody ]
 
 type alias MapState =
     { scene : Scene

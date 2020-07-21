@@ -177,11 +177,11 @@ rulesSpec =
             DO: YES.bobtalk.choices=1
                 NO.bobtalk.choices=1
             """
-        |> rule_______________________ "yes"
+        |> rule_______________________ "yes" --the choice player has chosen is -1.
             """
             ON: YES.bobtalk
             DO: BOBPOLICEOFFICE.trigger=1
-                YES.bobtalk.choices=0
+                YES.bobtalk.choices=-1
                 NO.bobtalk.choices=0
             """
         |> rule_______________________ "no"
@@ -189,7 +189,7 @@ rulesSpec =
             ON: NO.bobtalk
             DO: BOBPOLICEOFFICE.trigger=1
                 YES.bobtalk.choices=0
-                NO.bobtalk.choices=0
+                NO.bobtalk.choices=-1
             """
 
         |> rule_______________________ "talk with lee"
@@ -430,7 +430,7 @@ rulesSpec =
         |> rule_______________________ "forgot 1"
             """
             ON: FORGOT1.allentalkoffice
-            DO: FORGOT1.allentalkoffice.choices=0
+            DO: FORGOT1.allentalkoffice.choices=-1
                 FORGOT2.allentalkoffice.choices=0
                 ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=2
             """
@@ -438,7 +438,7 @@ rulesSpec =
             """
             ON: FORGOT2.allentalkoffice
             DO: FORGOT1.allentalkoffice.choices=0
-                FORGOT2.allentalkoffice.choices=0
+                FORGOT2.allentalkoffice.choices=-1
                 ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=2
             """
         |> rule_______________________ "allen laugh"
@@ -451,7 +451,7 @@ rulesSpec =
             """
             ON: ASKALLENABOUTREPORTER.allentalkoffice
             IF: ASKALLENABOUTREPORTER.allentalkoffice.choices=1
-            DO: ASKALLENABOUTREPORTER.allentalkoffice.choices=0
+            DO: ASKALLENABOUTREPORTER.allentalkoffice.choices=-1
                 ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
             """
 
@@ -534,7 +534,7 @@ rulesSpec =
         |> rule_______________________ "take disk"
             """
             ON: CHOOSEWHICHTAKEDISK.day2
-            DO: CHOOSEWHICHTAKEDISK.day2.choices=0
+            DO: CHOOSEWHICHTAKEDISK.day2.choices=-1
                 CHOOSEWHICHTAKENOTE.day2.choices=0
                 EVIDENCEJONALI.evidence.day=2.trigger=0
             """
@@ -542,7 +542,7 @@ rulesSpec =
             """
             ON: CHOOSEWHICHTAKENOTE.day2
             DO: CHOOSEWHICHTAKEDISK.day2.choices=0
-                CHOOSEWHICHTAKENOTE.day2.choices=0
+                CHOOSEWHICHTAKENOTE.day2.choices=-1
                 EVIDENCEJONALI.evidence.day=2.trigger=0
             """
         |> rule_______________________ "lee explain suicide"
