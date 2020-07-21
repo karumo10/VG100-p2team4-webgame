@@ -74,6 +74,30 @@ bulletProofIni =
     , y = 530
     }
 
+noteIni : Item
+noteIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    }
+
+diskIni : Item
+diskIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    }
+
 evidence1Ini : Item
 evidence1Ini =
     { itemType = Evidence1
