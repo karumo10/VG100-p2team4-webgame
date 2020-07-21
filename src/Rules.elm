@@ -451,7 +451,7 @@ rulesSpec =
             """
             ON: ASKALLENABOUTREPORTER.allentalkoffice
             IF: ASKALLENABOUTREPORTER.allentalkoffice.choices=1
-            DO: ASKALLENABOUTREPORTER.allentalkoffice.choices=-1
+            DO: ASKALLENABOUTREPORTER.allentalkoffice.choices=0
                 ALLENPOLICEOFFICEDAY2.npc.day=2.trigger=1
             """
 

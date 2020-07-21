@@ -295,8 +295,7 @@ animate elapsed model =
     model
         |> moveHeroLR elapsed
         |> moveHeroUD elapsed
-        |> npcsFinishedUpdate
-        |> mapsFinishedUpdate
+        |> normalUpdates
         |> specialUpdates
         |> hintTrigger
         |> goToSwitching
@@ -806,51 +805,6 @@ interactWith__core trigger model =
                                   |> NarrativeEngine.Debug.setLastInteractionId trigger
                     }, Cmd.none)
 
-singleNpcFinishedUpdate : Model -> NPC -> NPC
-singleNpcFinishedUpdate model npc =
-    let
-        trigger =
-                query npc.description model.worldModel
-                |> List.map Tuple.first -- get List ID
-                |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
-                |> withDefault "$my$own$error$msg$: no such npc, in updating NPCs."
-
-        state = Rules.findMatchingRule trigger parsedData model.worldModel
-        isFinished =
-            case state of
-                Nothing -> True
-                _ -> False
-    in
-    { npc | isFinished = isFinished }
-
-
-npcsFinishedUpdate : Model -> Model -- do it every iteration!
-npcsFinishedUpdate model =
-    let
-        npcs_all = model.npcs_all
-        npcs_all_ = List.map (singleNpcFinishedUpdate model) npcs_all
-    in
-    { model | npcs_all = npcs_all_ }
-
-singleMapFinishedUpdate : Model -> MapAttr -> MapAttr -- update the mapattr, if all the npcs in one mapattr is finished, then, it will has a True 'isFInished' field
-singleMapFinishedUpdate model mapAttr =
-    let
-        scene = mapAttr.scene
-        npcsInScene = List.filter (\a -> a.place == scene) model.npcs_all
-        isFinished = List.foldr (&&) True (npcsInScene |> List.map (\a -> a.isFinished))
-
-    in
-    { mapAttr | isFinished = isFinished }
-
-mapsFinishedUpdate : Model -> Model -- do it every iteration
-mapsFinishedUpdate model =
-    let
-        mapAttrs = model.mapAttr_all
-        mapAttrs_ = List.map (singleMapFinishedUpdate model) mapAttrs
-    in
-    { model | mapAttr_all = mapAttrs_ }
-
-
 
 
 interactByKey : Model -> Model
@@ -908,7 +862,91 @@ hintTrigger model =
 
 
 
---- specially made functions for specific scenes.
+normalUpdates : Model -> Model
+normalUpdates model =
+    model
+    |> npcsFinishedUpdate
+    |> mapsFinishedUpdate
+    |> chosenChoicesUpdate
+
+singleNpcFinishedUpdate : Model -> NPC -> NPC
+singleNpcFinishedUpdate model npc =
+    let
+        trigger =
+                query npc.description model.worldModel
+                |> List.map Tuple.first -- get List ID
+                |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
+                |> withDefault "$my$own$error$msg$: no such npc, in updating NPCs."
+
+        state = Rules.findMatchingRule trigger parsedData model.worldModel
+        isFinished =
+            case state of
+                Nothing -> True
+                _ -> False
+    in
+    { npc | isFinished = isFinished }
+
+
+
+npcsFinishedUpdate : Model -> Model -- do it every iteration!
+npcsFinishedUpdate model =
+    let
+        npcs_all = model.npcs_all
+        npcs_all_ = List.map (singleNpcFinishedUpdate model) npcs_all
+    in
+    { model | npcs_all = npcs_all_ }
+
+singleMapFinishedUpdate : Model -> MapAttr -> MapAttr -- update the mapattr, if all the npcs in one mapattr is finished, then, it will has a True 'isFInished' field
+singleMapFinishedUpdate model mapAttr =
+    let
+        scene = mapAttr.scene
+        npcsInScene = List.filter (\a -> a.place == scene) model.npcs_all
+        isFinished = List.foldr (&&) True (npcsInScene |> List.map (\a -> a.isFinished))
+
+    in
+    { mapAttr | isFinished = isFinished }
+
+mapsFinishedUpdate : Model -> Model -- do it every iteration
+mapsFinishedUpdate model =
+    let
+        mapAttrs = model.mapAttr_all
+        mapAttrs_ = List.map (singleMapFinishedUpdate model) mapAttrs
+    in
+    { model | mapAttr_all = mapAttrs_ }
+
+
+chosenChoicesUpdate : Model -> Model --upd every iteration. the choices which has been chosen by player.
+chosenChoicesUpdate model =
+    let
+        newList = List.map Tuple.first (query "*.choices=-1" model.worldModel)
+    in
+    { model | chosenChoices = newList }
+
+findCertainQuestion : Model -> WorldModel.ID -> Bool
+    -- use this to find certain questions. use ids in Rules.elm, like CHOOSEWHICHTAKENOTE, FORGOT2, FORGOT1, ...
+    -- warning: only the choices for case 2 is implemented with value -1, that is only the choices after case 2 can be found
+findCertainQuestion model id =
+    let
+        isFound = List.member id model.chosenChoices
+    in
+    isFound --found then true.
+
+test_1_for_find_chosen_choices : Model -> Model
+    -- a test func also an example, for you to find if the choices are chosen.
+test_1_for_find_chosen_choices model =
+    let
+        is_found_bob_day1_yes = findCertainQuestion model "YES"
+        story =
+            case is_found_bob_day1_yes of
+                True ->
+                    "hahaha, test is passed."
+                False -> "no id found as \"YES\"!"
+    in
+        { model | story = story }
+
+
+-- specially made functions for specific scenes.please code out of this area
+-- because its function names are formatted and not in the same style with the other functions
 specialUpdates : Model -> Model -- put it every iterate
 specialUpdates model
     = model
@@ -948,11 +986,7 @@ day2_office_finished_finished_update model =
         False -> model
         True -> { model | mapAttr_all = mapAttr_all_ }
 
-
-
-
-
-
+-- end of special updates. please code out of this area
 
 
 

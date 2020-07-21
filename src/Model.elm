@@ -433,6 +433,7 @@ type alias Model =
     , playerDoing : PlayerDoing
     , isBagOpen : Bool --When should the bag be presented
     , whichGridIsOpen : Int
+    , chosenChoices : List WorldModel.ID
     }
 
 initial : Model
@@ -473,6 +474,7 @@ initial =
     , playerDoing = AbleToWalk
     , isBagOpen = False
     , whichGridIsOpen = 0
+    , chosenChoices = []
     }
 
 type Quest -- if not 'NoQuest', should not move.
@@ -553,7 +555,7 @@ encode indent model =
 
 -- characters
 
-query : String -> MyWorldModel -> List ( WorldModel.ID, MyEntity )
+query : String -> MyWorldModel -> List ( WorldModel.ID, MyEntity ) --id is the capital name
 query q worldModel =
     RuleParser.parseMatcher q
         |> Result.map (\parsedMatcher -> WorldModel.query parsedMatcher worldModel)
