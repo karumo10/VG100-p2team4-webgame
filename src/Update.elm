@@ -2,7 +2,7 @@ port module Update exposing (update)
 
 import Message exposing (Msg(..))
 import Model exposing (..)
-import Items exposing ( .. )
+import Items exposing (..)
 import List exposing ( filter , length , head , map )
 import Maybe exposing (withDefault )
 import Rules exposing (..)
@@ -682,7 +682,6 @@ pickUp model =
         energy_ = energy - model.energy_Cost_pickup
 
     in
-
     if not isPickUp then
     model
     else if isThereAny == 1 && t1 == Empty && abletoPick2 && isPickUp then
@@ -949,6 +948,8 @@ test_1_for_find_chosen_choices model =
 
 -- specially made functions for specific scenes.please code out of this area
 -- because its function names are formatted and not in the same style with the other functions
+
+
 specialUpdates : Model -> Model -- put it every iterate
 specialUpdates model
     = model
@@ -988,7 +989,62 @@ day2_office_finished_finished_update model =
         False -> model
         True -> { model | mapAttr_all = mapAttr_all_ }
 
--- end of special updates. please code out of this area
+
+takeDiskOrNote : Model -> Model
+takeDiskOrNote model =
+    let
+        isDiskTaken = findCertainQuestion model "CHOOSEWHICHTAKEDISK"
+        item = case isDiskTaken of
+            True -> diskIni
+            False -> noteIni
+        g1 = model.bag.grid1
+        g2 = model.bag.grid2
+        g3 = model.bag.grid3
+        g4 = model.bag.grid4
+        g5 = model.bag.grid5
+        g6 = model.bag.grid6
+        g7 = model.bag.grid7
+        g8 = model.bag.grid8
+        g9 = model.bag.grid9
+        g10 = model.bag.grid10
+        t1 = model.bag.grid1.itemType
+        t2 = model.bag.grid2.itemType
+        t3 = model.bag.grid3.itemType
+        t4 = model.bag.grid4.itemType
+        t5 = model.bag.grid5.itemType
+        t6 = model.bag.grid6.itemType
+        t7 = model.bag.grid7.itemType
+        t8 = model.bag.grid8.itemType
+        t9 = model.bag.grid9.itemType
+        t10 = model.bag.grid10.itemType
+    in
+    if t1 == Empty then
+    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    else if t1 /= Empty && t2 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    else if t1 /= Empty && t2 /= Empty && t3 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } }
+    else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } }
+    else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item } }
+    else
+    model
+
+
+
+
+
 
 
 
