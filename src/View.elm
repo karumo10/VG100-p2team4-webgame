@@ -551,7 +551,7 @@ renderBag model =
             , style "position" "absolute"
             , style "left" "100px"
             , style "top" "100px"
-            ] [ text "G1" ],
+            ] [ text model.bag.grid1.intro ],
 
             button
             [ onClick RenderGrid2Detail
@@ -561,7 +561,7 @@ renderBag model =
             , style "position" "absolute"
             , style "left" "100px"
             , style "top" "180px"
-            ] [ text "G2" ],
+            ] [ text model.bag.grid2.intro ],
 
             button
             [ onClick RenderGrid3Detail
@@ -571,7 +571,7 @@ renderBag model =
             , style "position" "absolute"
             , style "left" "100px"
             , style "top" "260px"
-            ] [ text "G3" ],
+            ] [ text model.bag.grid3.intro ],
 
             button
             [ onClick RenderGrid4Detail
@@ -581,7 +581,7 @@ renderBag model =
             , style "position" "absolute"
             , style "left" "100px"
             , style "top" "340px"
-            ] [ text "G4" ],
+            ] [ text model.bag.grid4.intro ],
 
             button
             [ onClick RenderGrid5Detail
@@ -591,7 +591,7 @@ renderBag model =
             , style "position" "absolute"
             , style "left" "100px"
             , style "top" "420px"
-            ] [ text "G5" ],
+            ] [ text model.bag.grid5.intro ],
 
             button
             [ onClick RenderGrid6Detail
@@ -601,7 +601,7 @@ renderBag model =
             , style "position" "absolute"
             , style "left" "180px"
             , style "top" "100px"
-            ] [ text "G6" ],
+            ] [ text model.bag.grid6.intro ],
 
             button
             [ onClick RenderGrid7Detail
@@ -611,7 +611,7 @@ renderBag model =
             , style "position" "absolute"
             , style "left" "180px"
             , style "top" "180px"
-            ] [ text "G7" ],
+            ] [ text model.bag.grid7.intro ],
 
              button
              [ onClick RenderGrid8Detail
@@ -621,7 +621,7 @@ renderBag model =
              , style "position" "absolute"
              , style "left" "180px"
              , style "top" "260px"
-             ] [ text "G8" ],
+             ] [ text model.bag.grid8.intro ],
 
               button
               [ onClick RenderGrid9Detail
@@ -631,7 +631,7 @@ renderBag model =
               , style "position" "absolute"
               , style "left" "180px"
               , style "top" "340px"
-              ] [ text "G9" ],
+              ] [ text model.bag.grid9.intro ],
 
               button
               [ onClick RenderGrid10Detail
@@ -641,7 +641,7 @@ renderBag model =
               , style "position" "absolute"
               , style "left" "180px"
               , style "top" "420px"
-              ] [ text "G10" ]
+              ] [ text model.bag.grid10.intro ]
 
               ]
 

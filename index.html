@@ -5708,10 +5708,10 @@ var $author$project$Model$pLee = {
 var $author$project$Model$allNPCs = _List_fromArray(
 	[$author$project$Model$cLee_day1, $author$project$Model$cLee_day2, $author$project$Model$cLee_day2_finished, $author$project$Model$cBob_day1, $author$project$Model$cBob_day2, $author$project$Model$cBob_day2_finished, $author$project$Model$cAllen_day1, $author$project$Model$cAllen_day2, $author$project$Model$cAllen_day2_finished, $author$project$Model$pLee, $author$project$Model$pAllen, $author$project$Model$pAdkins, $author$project$Model$pCatherine, $author$project$Model$jonaliLee, $author$project$Model$jonaliEvidence, $author$project$Model$jonaliBody]);
 var $author$project$Items$Empty = {$: 'Empty'};
-var $author$project$Items$emptyIni = {isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$Empty, number: 1, scene: $author$project$Items$Park, x: 0, y: 0};
+var $author$project$Items$emptyIni = {intro: '2', isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$Empty, number: 1, scene: $author$project$Items$Park, x: 0, y: 0};
 var $author$project$Items$bagIni = {grid1: $author$project$Items$emptyIni, grid10: $author$project$Items$emptyIni, grid2: $author$project$Items$emptyIni, grid3: $author$project$Items$emptyIni, grid4: $author$project$Items$emptyIni, grid5: $author$project$Items$emptyIni, grid6: $author$project$Items$emptyIni, grid7: $author$project$Items$emptyIni, grid8: $author$project$Items$emptyIni, grid9: $author$project$Items$emptyIni};
 var $author$project$Items$BulletProof = {$: 'BulletProof'};
-var $author$project$Items$bulletProofIni = {isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$BulletProof, number: 1, scene: $author$project$Items$Park, x: 700, y: 530};
+var $author$project$Items$bulletProofIni = {intro: 'bulletproof', isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$BulletProof, number: 1, scene: $author$project$Items$Park, x: 700, y: 530};
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
 var $elm$core$List$filter = F2(
@@ -5726,7 +5726,7 @@ var $elm$core$List$filter = F2(
 			list);
 	});
 var $author$project$Items$Gun = {$: 'Gun'};
-var $author$project$Items$gunIni = {isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$Gun, number: 1, scene: $author$project$Items$PoliceOffice, x: 400, y: 530};
+var $author$project$Items$gunIni = {intro: 'gun', isHeld: false, isPick: false, isWear: false, itemType: $author$project$Items$Gun, number: 1, scene: $author$project$Items$PoliceOffice, x: 400, y: 530};
 var $author$project$Model$heroIni = {height: 60, width: 20, x: 300, y: 520};
 var $elm$core$Basics$identity = function (x) {
 	return x;
@@ -12268,7 +12268,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G1')
+							$elm$html$Html$text(model.bag.grid1.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12284,7 +12284,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G2')
+							$elm$html$Html$text(model.bag.grid2.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12300,7 +12300,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G3')
+							$elm$html$Html$text(model.bag.grid3.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12316,7 +12316,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G4')
+							$elm$html$Html$text(model.bag.grid4.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12332,7 +12332,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G5')
+							$elm$html$Html$text(model.bag.grid5.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12348,7 +12348,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G6')
+							$elm$html$Html$text(model.bag.grid6.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12364,7 +12364,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G7')
+							$elm$html$Html$text(model.bag.grid7.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12380,7 +12380,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G8')
+							$elm$html$Html$text(model.bag.grid8.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12396,7 +12396,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G9')
+							$elm$html$Html$text(model.bag.grid9.intro)
 						])),
 					A2(
 					$elm$html$Html$button,
@@ -12412,7 +12412,7 @@ var $author$project$View$renderBag = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('G10')
+							$elm$html$Html$text(model.bag.grid10.intro)
 						]))
 				]));
 	}
