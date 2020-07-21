@@ -35,7 +35,7 @@ type State
 
 type PlayerDoing
     = MakingChoices
-    | AbleToWalk -- you cant walk when making choices! also here can add some other states when it's needed
+    | NotMakingChoices -- you can't walk/interacting when making choices! also here can add some other states when it's needed.
 
 type VehicleType
     = Elevator
@@ -471,7 +471,7 @@ initial =
     , conclusion = 1
     , portrait = ""
     , havegonehome = False
-    , playerDoing = AbleToWalk
+    , playerDoing = NotMakingChoices
     , isBagOpen = False
     , whichGridIsOpen = 0
     , chosenChoices = []

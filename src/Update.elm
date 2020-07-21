@@ -396,7 +396,7 @@ moveHeroLR_ dx model =
                 TotalTest -> x + dx * stride
                 _ ->
                     case model.playerDoing of
-                        AbleToWalk ->
+                        NotMakingChoices ->
                             if List.length overlapAreas == 0 then
                                 x + dx * stride
                             else if not (List.isEmpty (List.filter (\a -> isStuck model a == LeftSide) overlapAreas)) && not (List.isEmpty (List.filter(\a -> isStuck model a == RightSide) overlapAreas)) then
@@ -445,7 +445,7 @@ moveHeroUD_ dy model =
                 TotalTest -> y + dy * stride
                 _ ->
                     case model.playerDoing of
-                        AbleToWalk ->
+                        NotMakingChoices ->
                             if List.length overlapAreas == 0 then
                                 y + dy * stride
                             else if not (List.isEmpty (List.filter (\a -> isStuck model a == UpSide) overlapAreas)) && not (List.isEmpty (List.filter(\a -> isStuck model a == DownSide) overlapAreas)) then
@@ -821,7 +821,7 @@ interactByKey model =
         energy = model.energy
         energy_ = energy - model.energy_Cost_interact
     in
-    if List.isEmpty trueNPCs then
+    if List.isEmpty trueNPCs || model.playerDoing == MakingChoices then
         model
     else if energy_ < 0 then
         {model| story = "Ah.... Why am I feel so tired, I should go home for a sleep......"}
@@ -841,7 +841,7 @@ judgeIsMakingChoices model =
                 True ->
                     MakingChoices
                 False ->
-                    AbleToWalk
+                    NotMakingChoices
     in
     { model | playerDoing = playerState }
 
