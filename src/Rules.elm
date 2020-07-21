@@ -481,6 +481,7 @@ rulesSpec =
             IF: HEADACHE1DAY2.choices=1
             DO: HEADACHE1DAY2.choices=0
                 HEADACHE2DAY2.choices=1
+                JOURNALISTBODYDAY2.npc.day=2.trigger=1
             """
         |> rule_______________________ "headache2"
             """
