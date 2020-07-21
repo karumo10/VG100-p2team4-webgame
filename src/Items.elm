@@ -126,7 +126,7 @@ emptyIni =
     , scene = Park
     , x = 0
     , y = 0
-    , intro = "2"
+    , intro = "empty"
     }
 
 emptyPickUp: Item
