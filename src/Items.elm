@@ -36,6 +36,7 @@ type alias Item =
     , x : Int
     , y : Int
     , intro : String
+    , comment : String
     }
 
 type alias Bag =
@@ -62,6 +63,7 @@ gunIni =
     , x = 400
     , y = 530
     , intro = "gun"
+    , comment = "This is a gun"
     }
 
 bulletProofIni : Item
@@ -75,6 +77,7 @@ bulletProofIni =
     , x = 700
     , y = 530
     , intro = "bulletproof"
+    , comment = "Use this to prevent you from bullet"
     }
 
 noteIni : Item
@@ -88,6 +91,7 @@ noteIni =
     , x = 700
     , y = 530
     , intro = "note"
+    , comment = "Note"
     }
 
 diskIni : Item
@@ -101,6 +105,7 @@ diskIni =
     , x = 700
     , y = 530
     , intro = "disk"
+    , comment = "Disk"
     }
 
 evidence1Ini : Item
@@ -114,6 +119,7 @@ evidence1Ini =
     , x = 1000
     , y = 1300
     , intro = "1"
+    , comment = "Important evidence"
     }
 
 emptyIni : Item
@@ -127,6 +133,7 @@ emptyIni =
     , x = 0
     , y = 0
     , intro = "empty"
+    , comment = " Nothing here "
     }
 
 emptyPickUp: Item
@@ -140,6 +147,7 @@ emptyPickUp =
     , x = 0
     , y = 0
     , intro = "3"
+    , comment = ""
     }
 
 bagIni : Bag
