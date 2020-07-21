@@ -35,6 +35,7 @@ type alias Item =
     , scene : Map
     , x : Int
     , y : Int
+    , intro : String
     }
 
 type alias Bag =
@@ -60,6 +61,7 @@ gunIni =
     , scene = PoliceOffice
     , x = 400
     , y = 530
+    , intro = "gun"
     }
 
 bulletProofIni : Item
@@ -72,6 +74,7 @@ bulletProofIni =
     , scene = Park
     , x = 700
     , y = 530
+    , intro = "bulletproof"
     }
 
 noteIni : Item
@@ -84,6 +87,7 @@ noteIni =
     , scene = Park
     , x = 700
     , y = 530
+    , intro = "note"
     }
 
 diskIni : Item
@@ -96,6 +100,7 @@ diskIni =
     , scene = Park
     , x = 700
     , y = 530
+    , intro = "disk"
     }
 
 evidence1Ini : Item
@@ -108,6 +113,7 @@ evidence1Ini =
     , scene = PoliceOffice
     , x = 1000
     , y = 1300
+    , intro = "1"
     }
 
 emptyIni : Item
@@ -120,6 +126,7 @@ emptyIni =
     , scene = Park
     , x = 0
     , y = 0
+    , intro = "2"
     }
 
 emptyPickUp: Item
@@ -132,6 +139,7 @@ emptyPickUp =
     , scene = PoliceOffice
     , x = 0
     , y = 0
+    , intro = "3"
     }
 
 bagIni : Bag
