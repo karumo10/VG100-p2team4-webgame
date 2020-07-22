@@ -67,228 +67,96 @@ p.inset {
 
 /* -- Slideout Sidebar -- */
 
-.slideout-sidebar {
+*, *:before, *:after {
+    box-sizing: border-box;
+    outline: none;
+}
+
+.menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 250ms ease;
+    cursor: pointer;
+    z-index: 200;
+}
+
+.menu span {
+    position: relative;
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: #444;
+    float: left;
+    transform-origin: center center;
+    transition: transform 250ms ease;
+    z-index: 200;
+}
+
+.menu span:nth-of-type(1) {
+    transform: translateY(-5px);
+}
+
+.menu span:nth-of-type(3) {
+    transform: translateY(5px);
+}
+
+#menu {
+    display: none;
+}
+
+#menu:checked ~ .menu {
+    background-color: transparent;
+    transform: rotate(360deg);
+    transition: transform 250ms ease;
+}
+
+#menu:checked ~ .menu span {
+    background-color: white;
+    transition: transform 250ms ease;
+}
+
+#menu:checked ~ .menu span:nth-of-type(1) {
+    transform: translateY(1px) rotate(45deg);
+}
+
+#menu:checked ~ .menu span:nth-of-type(2) {
+    display: none;
+}
+
+#menu:checked ~ .menu span:nth-of-type(3) {
+    transform: translateY(-1px) rotate(-45deg);
+}
+
+#menu:checked ~ .nav {
+    left: 0px;
+    transition: left 500ms ease;
+}
+
+#menu:checked ~ main {
+    transform: translateX(250px);
+    transition: transform 500ms ease;
+}
+
+.nav {
     position: fixed;
     top: 0;
-    left: -190px;
-    z-index: 0;
-    width: 150px;
-    height: 100%;
-    padding: 20px;
-    background-color: #cccccc;
-    transition: all 300ms ease-in-out;
-}
-
-.slideout-sidebar ul {
-    list-style: none;
+    left: -200px;
+    width: 200px;
+    height: 100vh;
     margin: 0;
     padding: 0;
-}
-
-.slideout-sidebar ul li {
-    cursor: pointer;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(244,244,244,0.4);
-    color: rgba(244,244,244,0.7);
-}
-
-.slideout-sidebar ul li:last-child {
-    border-bottom: 0;
-}
-
-.slideout-sidebar ul li:hover {
-    color: rgba(244,244,244,1);
-}
-
-/* -- Menu Icon -- */
-
-#menu-toggle {
-    position: absolute;
-    z-index: 1;
-    transition: all 300ms ease-in-out;
-}
-
-.menu-icon {
-    position: absolute;
-    top: 18px;
-    left: 30px;
-    font-size: 24px;
-    z-index: 1;
-    transition: all 300ms ease-in-out;
-}
-
-
-
-/*-- The Magic --*/
-#menu-toggle:checked ~ .slideout-sidebar {
-    left: 0px;
-}
-
-#menu-toggle:checked + .menu-icon {
-    left: 210px;
-}
-
-#menu-toggle:checked ~ .content-container {
-    padding-left: 190px;
-}
-
-/* -- Media Queries -- */
-
-@media (max-width: 991px) {
-
-    .content-container {
-        max-width: 480px;
-    }
-
-}
-
-@media (max-width: 767px) {
-
-    .content-container {
-        max-width: 100%;
-        margin: 30px auto 0;
-    }
-
-    #menu-toggle:checked ~ .content-container {
-        padding-left: 0;
-    }
-
-    .slideout-sidebar ul {
-        text-align: center;
-        max-width: 200px;
-        margin: 30px auto 0;
-    }
-
-    .menu-icon {
-        left: 20px
-    }
-
-    #menu-toggle:checked ~ .slideout-sidebar {
-        width: 100%;
-    }
-
-    #menu-toggle:checked + .menu-icon {
-        left: 87%;
-        color: #fafafa;
-    }
-
-    @media screen
-    and (max-width: 736px)
-    and (orientation: landscape) {
-
-        .slideout-sidebar {
-            padding: 0;
-        }
-
-        .slideout-sidebar ul {
-            max-width: 100%;
-            margin: 60px auto 0;
-        }
-
-        .slideout-sidebar ul li {
-            display: inline-block;
-            border-bottom: 0;
-            width: 72px;
-            padding: 18px 24px;
-            margin: 0 6px 12px;
-            color: #ffffff;
-            background-color: #777;
-        }
-
-    }
-
-}
-
-div.animated-button:link, div.animated-button:visited {
-    position: relative;
-    display: block;
-    margin: 30px auto 0;
-    padding: 14px 15px;
-    color: #fff;
-    font-size:14px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    letter-spacing: .08em;
-    border-radius: 0;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    transition: all 1s ease;
-}
-div.animated-button:link:after, div.animated-button:visited:after {
-    content: "";
-    position: absolute;
-    height: 0%;
-    left: 50%;
-    top: 50%;
-    width: 150%;
-    z-index: -1;
-    -webkit-transition: all 0.75s ease 0s;
-    -moz-transition: all 0.75s ease 0s;
-    -o-transition: all 0.75s ease 0s;
-    transition: all 0.75s ease 0s;
-}
-div.animated-button:link:hover, div.animated-button:visited:hover {
-    color: #FFF;
-    text-shadow: none;
-}
-div.animated-button:link:hover:after, div.animated-button:visited:hover:after {
-    height: 450%;
-}
-div.animated-button:link, div.animated-button:visited {
-    position: relative;
-    display: block;
-    margin: 30px auto 0;
-    padding: 14px 15px;
-    color: #fff;
-    font-size:14px;
-    border-radius: 0;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    letter-spacing: .08em;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    transition: all 1s ease;
-}
-
-div.animated-button.thar-three {
-    color: #fff;
-    cursor: pointer;
-    display: block;
-    position: relative;
-    border: 2px solid #F7CA18;
-    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
-}
-div.animated-button.thar-three:hover {
-    color: #000 !important;
-    background-color: transparent;
-}
-div.animated-button.thar-three:hover:before {
-    left: 0%;
-    right: auto;
-    width: 100%;
-}
-div.animated-button.thar-three:before {
-    display: block;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    height: 100%;
-    width: 0px;
-    z-index: -1;
-    content: '';
-    color: #000 !important;
-    background: #F7CA18;
-    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+    background-color: #444;
+    transition: left 500ms ease;
+    z-index: 0;
 }
 
 .click-on {
@@ -360,9 +228,24 @@ svg rect.h {
     --hover: #ffa940;
 }
 
+.slide:hover,
+.slide:focus {
+    box-shadow: inset 13em 0 0 0 var(--hover);
+}
+
+.slide {
+    --color: #ff8c00;
+    --hover: #ffa940;
+}
+
 button {
     color: var(--color);
     transition: 0.25s;
+    position: absolute;
+    height: 50px;
+    width: 200px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
 }
 
 button:hover, button:focus {
