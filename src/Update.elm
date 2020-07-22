@@ -13,6 +13,8 @@ import NarrativeEngine.Debug
 import NarrativeEngine.Syntax.NarrativeParser as NarrativeParser
 import Tosvg exposing (..)
 import Areas exposing (..)
+import MapAttr exposing (..)
+import NPC exposing (..)
 
 
 port save : String -> Cmd msg

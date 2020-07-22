@@ -1,6 +1,7 @@
 module Tosvg exposing (..)
 
 import Model exposing (..)
+import NPC exposing (NPC)
 import Svg exposing (Svg, rect, text_, text, circle)
 import Svg.Attributes exposing (x, y, width, height, strokeWidth, fill, stroke, fontSize, fontFamily, textDecoration, cx, cy, r)
 import Items exposing (..)
@@ -12,6 +13,8 @@ import Html exposing (Html, button, div, li, h3, ul, em, p)
 import Html.Attributes exposing (style)
 import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Areas exposing (..)
+import MapAttr exposing (..)
+
 
 heroToSvg : Hero -> List (Svg msg)
 heroToSvg hero =
@@ -213,7 +216,7 @@ testToSvg model =
         elevatorSvgListList = List.map elevatorToSvg elevatorAreas
         elevatorSvgList = List.foldl (++) [] elevatorSvgListList
     in
-    case Model.gameMode______ of
+    case gameMode______ of
         CollisionTest ->
             elevatorSvgList ++ exitSvgList ++ barrierSvgList
         TotalTest ->

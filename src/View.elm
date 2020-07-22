@@ -9,7 +9,7 @@ import Svg exposing (image, rect, svg, Svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth,xlinkHref,transform)
 import Items exposing ( .. )
 import Html exposing (Html, button, div, text, br, ul, p)
-
+import MapAttr exposing (gameMode______, Mode(..))
 pixelWidth : Float
 pixelWidth =
     1050
