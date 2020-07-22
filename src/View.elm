@@ -50,8 +50,7 @@ view model =
         --, renderdialog model
         , renderMusic
         , axisHelper model
-        , renderBagButton model
-        , renderBag model
+        --, renderBag model
         , renderGrid1Detail model
         , renderGrid2Detail model
         , renderGrid3Detail model
@@ -68,7 +67,8 @@ view model =
         , renderBackButton model
         ]]
         ++ (rendersuspectlist model)
-        ++ ( elevatorQuestToSvg model ))
+        ++ ( elevatorQuestToSvg model )
+        ++ (renderBagButton model))
 
 
 
@@ -434,58 +434,115 @@ rendersuspectlist model =
                                           , style "font-size" "18px"] suspect]]
         ]
 
-renderBagButton : Model -> Html Msg
+renderBagButton : Model -> List(Html Msg)
 renderBagButton model =
-    if model.isBagOpen == True && model.map /= StarterPage && model.map /= AboutUs && model.map /= Story then
-    button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "1050px"
-                , style "top" "400px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick CloseBag
-                ]
-                [ Html.text "Close the bag" ]
-    else if model.isBagOpen == False && model.map /= StarterPage && model.map /= AboutUs && model.map /= Story then
-    button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "1050px"
-                , style "top" "400px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick OpenBag
-                ]
-                [ Html.text "Open the bag" ]
-    else
-    div [][]
+    let
+        contants =
+                        div []
+                        [
+                        button
+                        [ onClick RenderGrid1Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "100px"
+                        ] [ text model.bag.grid1.intro ],
+
+                        button
+                        [ onClick RenderGrid2Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "180px"
+                        ] [ text model.bag.grid2.intro ],
+
+                        button
+                        [ onClick RenderGrid3Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "260px"
+                        ] [ text model.bag.grid3.intro ],
+
+                        button
+                        [ onClick RenderGrid4Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "340px"
+                        ] [ text model.bag.grid4.intro ],
+
+                        button
+                        [ onClick RenderGrid5Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "420px"
+                        ] [ text model.bag.grid5.intro ],
+
+                        button
+                        [ onClick RenderGrid6Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "left" "80px"
+                        , style "top" "100px"
+                        ] [ text model.bag.grid6.intro ],
+
+                        button
+                        [ onClick RenderGrid7Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "left" "80px"
+                        , style "top" "180px"
+                        ] [ text model.bag.grid7.intro ],
+
+                         button
+                         [ onClick RenderGrid8Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "80px"
+                         , style "top" "260px"
+                         ] [ text model.bag.grid8.intro ],
+
+                          button
+                          [ onClick RenderGrid9Detail
+                          , Html.Attributes.style "width" "60px"
+                          , Html.Attributes.style "height" "60px"
+                          , Html.Attributes.style "font-size" "18px"
+                          , style "position" "absolute"
+                          , style "left" "80px"
+                          , style "top" "340px"
+                          ] [ text model.bag.grid9.intro ],
+
+                          button
+                          [ onClick RenderGrid10Detail
+                          , Html.Attributes.style "width" "60px"
+                          , Html.Attributes.style "height" "60px"
+                          , Html.Attributes.style "font-size" "18px"
+                          , style "position" "absolute"
+                          , style "left" "80px"
+                          , style "top" "420px"
+                          ] [ text model.bag.grid10.intro ]
+
+                          ]
+    in
+        [Html.input [Html.Attributes.type_ "checkbox", id "menu2"][]
+        ,Html.label [Html.Attributes.for "menu2", class "menu2"][Html.span [] [], Html.span [] [], Html.span [] [] ]
+        ,Html.nav [class "nav2"] [div [class "container"]
+                                      [div [ style "font-family" "Helvetica, Arial, sans-serif"
+                                           , style "font-size" "18px"] [contants]]]
+        ]
 
 
 
