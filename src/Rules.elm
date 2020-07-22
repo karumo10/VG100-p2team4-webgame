@@ -73,8 +73,16 @@ initialWorldModelSpec =
     , entity "LEE_POLICEOFFICE_DAY2.npc.day2.trigger=2"
         "lee day2"
         "Don't pay too much attention on this case! It's time to go to home, Kay."
-
-
+    ---- day3
+    , entity "BOB_CALLING.npc.day3.trigger=1"
+        "Bob day3 calling"
+        "Ann? I've heard of that name... Why so many people are killed these days?"
+    , entity "ALLEN_DAY3.npc.day3.trigger=0"
+        "allen day3"
+        "This type of tea comes from Far East. Tea can keep your brain clear; it is more refreshing, if compared with coffee. Which do you prefer, Kay?"
+    , entity "LEE_DAY3.npc.day3.trigger=0"
+        "lee day3"
+        "...Goodness, these cases are almost tearing my mind off... wait, is that the phone on floor 1?"
     -- items
     , entity "BODYPARKSHOES.choices=0"
         "The shoes of Brennan."
@@ -151,6 +159,10 @@ initialWorldModelSpec =
         ""
     , entity "ASK_LEE_WHY.day2.choices=0"
         "What? Why someone will carry out a suicide in such cruel way? And why the conclusion is made so hurriedly? Can I have a look at the report of the autopsy?"
+        ""
+    --- day3
+    , entity "PICK_UP.day3.choices=0"
+        "Hello?"
         ""
     ]
 
@@ -566,6 +578,22 @@ rulesSpec =
             IF: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=0
             DO: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=3
             """
+        -- day3
+        |> rule_______________________ "bob call"
+            """
+            ON: BOB_CALLING.npc.day3
+            IF: BOB_CALLING.npc.day3.trigger=1
+            DO: BOB_CALLING.npc.day3.trigger=0
+                PICK_UP.day3.choices=1
+            """
+        |> rule_______________________ "calling"
+            """
+            ON: PICK_UP.day3
+            IF: PICK_UP.day3.choices=1
+            DO: PICK_UP.day3.choices=0
+            """
+
+
 
 
 
@@ -668,7 +696,10 @@ narrative_content =
             "Nope. You also forgot Jonathon's rule after that accident, huh? Each time a case is considered as solved by him, all relative evidence will be locked. Don't, challenge, Jonathon's, authority. And the stabbed-death, well, maybe just the Identification guys found out heroine in his body? Never understand poor guys like him. "
         |> content__________________________________ "not suicide"
             "What? Why someone will carry out a suicide in such cruel way? And why the conclusion is made so hurriedly? Can I have a look at the report of the autopsy?"
-
+        |> content__________________________________ "bob call"
+            "Hey, Kay! You've come. Here is a call... here you are. "
+        |> content__________________________________ "calling"
+            "Sir! A woman died in our nightclub, you know, Paradise. She was a servant for our nightclub and her name is Ann. She lived in her brother Daniel’s new home. She was founded died in the room which she was in charge of. We are waiting for you on the second floor of our nightclub."
 
 
 

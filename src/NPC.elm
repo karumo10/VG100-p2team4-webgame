@@ -86,6 +86,22 @@ cLee_day2_finished =
     , isFinished = False
     }
 
+cLee_day3 : NPC --he is not here at the first of day2
+cLee_day3 =
+    { itemType = Lee
+    , area =
+        { x = 375
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "LEE_DAY3.npc.day3"
+    , place = ( PoliceOffice , Day3 )
+    , isFinished = False
+    }
+
+
 cBob_day1 : NPC
 cBob_day1 =
     { itemType = Bob
@@ -128,6 +144,21 @@ cBob_day2_finished =
     , interacttrue = False
     , description = "POLICEMEN_DAY2.npcs.day=2"
     , place = ( PoliceOffice , Day2_Finished )
+    , isFinished = False
+    }
+
+cBob_day3 : NPC
+cBob_day3 =
+    { itemType = Bob
+    , area =
+        { x = 450
+        , y = 520
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "BOB_CALLING.npc.day3"
+    , place = ( PoliceOffice , Day3 )
     , isFinished = False
     }
 
@@ -174,6 +205,21 @@ cAllen_day2_finished =
     , interacttrue = False
     , description = "POLICEMEN_DAY2.npcs.day=2"
     , place = ( PoliceOffice , Day2_Finished )
+    , isFinished = False
+    }
+
+cAllen_day3 : NPC
+cAllen_day3 =
+    { itemType = Allen
+        , area =
+        { x = 600
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "ALLEN_DAY3.npc.day3"
+    , place = ( PoliceOffice , Day3 )
     , isFinished = False
     }
 
@@ -298,8 +344,8 @@ jonaliEvidence =
 
 allNPCs: List NPC
 allNPCs =
-    [ cLee_day1, cLee_day2, cLee_day2_finished
-    , cBob_day1, cBob_day2, cBob_day2_finished
-    , cAllen_day1, cAllen_day2, cAllen_day2_finished
+    [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day3
+    , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day3
+    , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day3
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody ]
