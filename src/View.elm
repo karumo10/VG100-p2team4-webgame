@@ -846,28 +846,19 @@ renderStartButton : Model -> Html Msg
 renderStartButton model =
     if model.map == StarterPage then
     button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "500px"
-                , style "top" "350px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick StartGame
-                ]
-                [ Html.text "Start" ]
+        [ style "position" "absolute"
+        , style "left" "500px"
+        , style "top" "350px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "18px"
+        , style "font-weight" "300"
+        , style "height" "60px"
+        , style "line-height" "60px"
+        , style "width" "130px"
+        , class "fill"
+        , onClick StartGame
+        ]
+        [ Html.text "Start" ]
     else
     div [][]
 
@@ -875,28 +866,19 @@ renderStoryButton : Model -> Html Msg
 renderStoryButton model =
     if model.map == StarterPage then
     button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "700px"
-                , style "top" "350px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick ViewStory
-                ]
-                [ Html.text "Story" ]
+        [ style "position" "absolute"
+        , style "left" "350px"
+        , style "top" "350px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "18px"
+        , style "font-weight" "300"
+        , style "height" "60px"
+        , style "line-height" "60px"
+        , style "width" "130px"
+        , class "fill"
+        , onClick ViewStory
+        ]
+        [ Html.text "Story" ]
     else
     div [][]
 
@@ -904,28 +886,19 @@ renderAboutUsButton : Model -> Html Msg
 renderAboutUsButton model =
     if model.map == StarterPage then
     button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "300px"
-                , style "top" "350px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick ViewAboutUs
-                ]
-                [ Html.text "About Us" ]
+        [ style "position" "absolute"
+        , style "left" "650px"
+        , style "top" "350px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "18px"
+        , style "font-weight" "300"
+        , style "height" "60px"
+        , style "line-height" "60px"
+        , style "width" "130px"
+        , class "fill"
+        , onClick ViewAboutUs
+        ]
+        [ Html.text "About us" ]
     else
     div [][]
 
@@ -933,27 +906,18 @@ renderBackButton : Model -> Html Msg
 renderBackButton model =
     if model.map == Story || model.map == AboutUs then
     button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "300px"
-                , style "top" "350px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick BackToStarter
-                ]
-                [ Html.text "Back to Start menu" ]
+        [ style "position" "absolute"
+        , style "left" "500px"
+        , style "top" "350px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "18px"
+        , style "font-weight" "300"
+        , style "height" "60px"
+        , style "line-height" "60px"
+        , style "width" "130px"
+        , class "fill"
+        , onClick BackToStarter
+        ]
+        [ Html.text "Back to Starter" ]
     else
     div [][]
