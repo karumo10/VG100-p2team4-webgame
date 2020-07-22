@@ -567,15 +567,31 @@ isVehicleNearBy model vehicle =
 
 goToSwitching : Model -> Model -- when at exit, go to switching interface
 goToSwitching model =
+    let
+        currMapAttr = model.mapAttr
+        currMap = model.map
+        currDayState = model.dayState
+        currScene = ( currMap, currDayState )
+        day2_night_story = "The phone is ringing. You know, this night must be tiring... you choose to go back."
+        policeOfficeAttr_day2_night_ =
+            List.filter (\a -> a.scene == ( currMap, currDayState )) model.mapAttr_all
+            |> List.head |> withDefault policeOfficeAttr_day2_night
+    in
     if judgeExit model then
+    if currScene == ( PoliceOffice, Day2_Night ) && (policeOfficeAttr_day2_night_.isFinished == False) then --at day2 night, restrict the player from going outside the office.
+        { model
+        | story = day2_night_story }
+        |> teleportHero (currMapAttr.heroIni.x, currMapAttr.heroIni.y)
+    else
         if model.map /= DreamMaze then
             if model.energy > 0 then
-            mapSwitch Switching model
+                mapSwitch Switching model
             else
-            mapSwitch EnergyDrain model
-        else
-            wakeUp model
+                mapSwitch EnergyDrain model
+            else
+                wakeUp model
     else model
+
 
 wakeUp : Model -> Model
 wakeUp model =
@@ -592,6 +608,7 @@ wakeUp model =
         energy = model_.energy_Full
     in
     { model_ | story = story, day = day, energy = energy, dayState = dayState }
+
 
 mapSwitch : Map -> Model -> Model
 mapSwitch newMap model =
@@ -798,6 +815,8 @@ interactWith__core trigger model =
                             -- (by Yuxiang Zhou: this just means this NPC will not say anything new!
                             -- So we can use this to mark certain NPC as "finished".
                             -- This will be helpful for us to pass the information out of the engine.
+                            -- **important** : Nothing means trigger = 0. Take comparision,
+                            -- for choices, choice = 1 means it will jump out, and I implemented -1 for "it's chosen" so 0 means "it's finished but not chosen"
                     ({ model
                     | story = getDescription (makeConfig trigger trigger model) trigger model.worldModel
                     , ruleCounts = Dict.update trigger (Maybe.map ((+) 1) >> Maybe.withDefault 1 >> Just) model.ruleCounts
@@ -869,6 +888,11 @@ normalUpdates model =
     |> npcsFinishedUpdate
     |> mapsFinishedUpdate
     |> chosenChoicesUpdate
+
+
+
+
+
 
 singleNpcFinishedUpdate : Model -> NPC -> NPC
 singleNpcFinishedUpdate model npc =
@@ -953,13 +977,14 @@ test_1_for_find_chosen_choices model =
 specialUpdates : Model -> Model -- put it every iterate
 specialUpdates model
     = model
-    |> day2_journalist_finished_update
-    |> day2_office_finished_finished_update
+    |> day2_journalist_finished_update_day
+    |> day2_finished_office_finished_finished_update_home
+    |> day2_finished_office_finished_update_day
 
 
 
-day2_journalist_finished_update : Model -> Model -- format: (IMPORTANT) `time`_`mapname`_finished_update
-day2_journalist_finished_update model =
+day2_journalist_finished_update_day : Model -> Model -- format: (IMPORTANT) `time`_`mapname`_finished_update. means that this map at this time is finished, and then update somthing.
+day2_journalist_finished_update_day model =
     let
         journalist_day2_map = List.filter (\a -> a.scene == (Journalist, Day2) ) model.mapAttr_all
             |> List.head
@@ -970,8 +995,8 @@ day2_journalist_finished_update model =
         False -> model
         True -> { model | dayState = Day2_Finished }
 
-day2_office_finished_finished_update : Model -> Model --"office_finished" is a map name, haha
-day2_office_finished_finished_update model =
+day2_finished_office_finished_finished_update_home : Model -> Model --"office_finished" is a map name, haha
+day2_finished_office_finished_finished_update_home model =
     let
         office_finished_day2_map = List.filter (\a -> a.scene == ( PoliceOffice, Day2_Finished ) ) model.mapAttr_all
             |> List.head
@@ -988,6 +1013,20 @@ day2_office_finished_finished_update model =
     case isFinished of
         False -> model
         True -> { model | mapAttr_all = mapAttr_all_ }
+
+day2_finished_office_finished_update_day : Model -> Model -- format: (IMPORTANT) `time`_`mapname`_finished_update. means that this map at this time is finished, and then update somthing.
+day2_finished_office_finished_update_day model =
+    let
+        office_day2_finished_map = List.filter (\a -> a.scene == (PoliceOffice, Day2_Finished) ) model.mapAttr_all
+            |> List.head
+            |> withDefault policeOfficeAttr_day2_finished
+        isFinished = office_day2_finished_map.isFinished
+        currNPCs = List.filter (\a -> a.place == (PoliceOffice, Day2_Night)) model.npcs_all
+    in
+    case isFinished of
+        False -> model
+        True -> { model | dayState = Day2_Night, npcs_curr = currNPCs }
+
 
 
 takeDiskOrNote : Model -> Model

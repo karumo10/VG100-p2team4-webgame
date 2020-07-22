@@ -86,8 +86,8 @@ cLee_day2_finished =
     , isFinished = False
     }
 
-cLee_day3 : NPC --he is not here at the first of day2
-cLee_day3 =
+cLee_day2_night : NPC --he is not here at the first of day2
+cLee_day2_night =
     { itemType = Lee
     , area =
         { x = 375
@@ -96,8 +96,8 @@ cLee_day3 =
         , hei = 60
         }
     , interacttrue = False
-    , description = "LEE_DAY3.npc.day3"
-    , place = ( PoliceOffice , Day3 )
+    , description = "LEE_DAY2NIGHT.npc.day2night"
+    , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
     }
 
@@ -147,8 +147,8 @@ cBob_day2_finished =
     , isFinished = False
     }
 
-cBob_day3 : NPC
-cBob_day3 =
+cBob_day2_night : NPC
+cBob_day2_night =
     { itemType = Bob
     , area =
         { x = 450
@@ -157,8 +157,8 @@ cBob_day3 =
         , hei = 60
         }
     , interacttrue = False
-    , description = "BOB_CALLING.npc.day3"
-    , place = ( PoliceOffice , Day3 )
+    , description = "BOB_CALLING.npc.day2night"
+    , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
     }
 
@@ -208,8 +208,8 @@ cAllen_day2_finished =
     , isFinished = False
     }
 
-cAllen_day3 : NPC
-cAllen_day3 =
+cAllen_day2_night : NPC
+cAllen_day2_night =
     { itemType = Allen
         , area =
         { x = 600
@@ -218,8 +218,8 @@ cAllen_day3 =
         , hei = 60
         }
     , interacttrue = False
-    , description = "ALLEN_DAY3.npc.day3"
-    , place = ( PoliceOffice , Day3 )
+    , description = "ALLEN_DAY2NIGHT.npc.day2night"
+    , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
     }
 
@@ -344,8 +344,8 @@ jonaliEvidence =
 
 allNPCs: List NPC
 allNPCs =
-    [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day3
-    , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day3
-    , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day3
+    [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night
+    , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day2_night
+    , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody ]

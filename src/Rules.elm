@@ -73,15 +73,15 @@ initialWorldModelSpec =
     , entity "LEE_POLICEOFFICE_DAY2.npc.day2.trigger=2"
         "lee day2"
         "Don't pay too much attention on this case! It's time to go to home, Kay."
-    ---- day3
-    , entity "BOB_CALLING.npc.day3.trigger=1"
-        "Bob day3 calling"
+    ---- day2night
+    , entity "BOB_CALLING.npc.day2night.trigger=1"
+        "Bob day2night calling"
         "Ann? I've heard of that name... Why so many people are killed these days?"
-    , entity "ALLEN_DAY3.npc.day3.trigger=0"
-        "allen day3"
+    , entity "ALLEN_DAY2NIGHT.npc.day2night.trigger=0"
+        "allen day2night"
         "This type of tea comes from Far East. Tea can keep your brain clear; it is more refreshing, if compared with coffee. Which do you prefer, Kay?"
-    , entity "LEE_DAY3.npc.day3.trigger=0"
-        "lee day3"
+    , entity "LEE_DAY2NIGHT.npc.day2night.trigger=0"
+        "lee day2night"
         "...Goodness, these cases are almost tearing my mind off... wait, is that the phone on floor 1?"
     -- items
     , entity "BODYPARKSHOES.choices=0"
@@ -160,8 +160,8 @@ initialWorldModelSpec =
     , entity "ASK_LEE_WHY.day2.choices=0"
         "What? Why someone will carry out a suicide in such cruel way? And why the conclusion is made so hurriedly? Can I have a look at the report of the autopsy?"
         ""
-    --- day3
-    , entity "PICK_UP.day3.choices=0"
+    --- day2night
+    , entity "PICK_UP.day2night.choices=0"
         "Hello?"
         ""
     ]
@@ -570,27 +570,27 @@ rulesSpec =
             ON: ASK_LEE_WHY.day2
             IF: ASK_LEE_WHY.day2.choices=1
             DO: ASK_LEE_WHY.day2.choices=0
-                LEE_POLICEOFFICE_DAY2.npc.day2.trigger=0
+                LEE_POLICEOFFICE_DAY2.npc.day2.trigger=1
             """
         |> rule_______________________ "lee explain jonathan"
             """
             ON: LEE_POLICEOFFICE_DAY2.npc.day2
-            IF: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=0
+            IF: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=1
             DO: LEE_POLICEOFFICE_DAY2.npc.day2.trigger=3
             """
-        -- day3
+        -- day2night
         |> rule_______________________ "bob call"
             """
-            ON: BOB_CALLING.npc.day3
-            IF: BOB_CALLING.npc.day3.trigger=1
-            DO: BOB_CALLING.npc.day3.trigger=0
-                PICK_UP.day3.choices=1
+            ON: BOB_CALLING.npc.day2night
+            IF: BOB_CALLING.npc.day2night.trigger=1
+            DO: BOB_CALLING.npc.day2night.trigger=0
+                PICK_UP.day2night.choices=1
             """
         |> rule_______________________ "calling"
             """
-            ON: PICK_UP.day3
-            IF: PICK_UP.day3.choices=1
-            DO: PICK_UP.day3.choices=0
+            ON: PICK_UP.day2night
+            IF: PICK_UP.day2night.choices=1
+            DO: PICK_UP.day2night.choices=0
             """
 
 

@@ -18,6 +18,7 @@ type Day
     = Day1
     | Day2
     | Day2_Finished
+    | Day2_Night
     | Day3
     | Nowhere
     | TooBigOrSmall
@@ -154,15 +155,15 @@ policeOfficeAttr_day2_finished =
     , isFinished = False -- this map is not finished
     }
 
-policeOfficeAttr_day3 : MapAttr
-policeOfficeAttr_day3 =
+policeOfficeAttr_day2_night : MapAttr
+policeOfficeAttr_day2_night =
     { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
     , heroIni = { x = 300, y = 520, width = 20, height = 60 }
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
     , story = "Another day at work, another boring day. But I need to avoid being killed."
-    , scene = ( PoliceOffice, Day3 )
+    , scene = ( PoliceOffice, Day2_Night )
     , isFinished = False
     }
 
@@ -202,15 +203,15 @@ parkAttr_day2_finished =
     , isFinished = False
     }
 
-parkAttr_day3 : MapAttr
-parkAttr_day3 =
+parkAttr_day2_night : MapAttr
+parkAttr_day2_night =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
     , heroIni = { x = 500, y = 250, width = 50, height = 180 }
     , barrier = []
     , hint = []
     , vehicle = []
-    , story = "The park, where a promising man was killed. May him rest in peace..."
-    , scene = ( Park, Day3 )
+    , story = "It's pitch black here now. Everything is hiding behind the mist."
+    , scene = ( Park, Day2_Night )
     , isFinished = False
     }
 
@@ -252,15 +253,15 @@ homeAttr_day2_finished =
     }
 
 
-homeAttr_day3 : MapAttr
-homeAttr_day3 =
+homeAttr_day2_night : MapAttr
+homeAttr_day2_night =
     { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
     , heroIni = { x = 665, y = 520, width = 20, height = 60 }
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
     , story = "Home, sweet home."
-    , scene = ( Home, Day2_Finished )
+    , scene = ( Home, Day2_Night )
     , isFinished = False
     }
 
@@ -301,15 +302,15 @@ journalistAttr_day2_finished =
     , isFinished = False
     }
 
-journalistAttr_day3 : MapAttr
-journalistAttr_day3 =
+journalistAttr_day2_night : MapAttr
+journalistAttr_day2_night =
     { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
     , heroIni = { x = 205, y = 335, width = 60, height = 180 }
     , barrier = journalistBarrier
     , hint = []
     , vehicle = []
     , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
-    , scene = ( Journalist, Day3 )
+    , scene = ( Journalist, Day2_Night )
     , isFinished = False
     }
 
@@ -349,15 +350,15 @@ nightClubAttr_day2_finished =
     , isFinished = False
     }
 
-nightClubAttr_day3 : MapAttr
-nightClubAttr_day3 =
+nightClubAttr_day2_night : MapAttr
+nightClubAttr_day2_night =
     { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
     , heroIni = { x = 150, y = 475, width = 40, height = 120 }
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
-    , story = "It's the place where lust and alcoholism intertwined; but now only sin reigns."
-    , scene = ( NightClub, Day3 )
+    , story = "Paradise, the biggest nightclub in this city, features in \"unlimited joy, best joy\". Once it was the place where lust and alcoholism intertwined. But now only sin reigns."
+    , scene = ( NightClub, Day2_Night )
     , isFinished = False
     }
 
@@ -416,15 +417,15 @@ dreamMazeAttr_day2_finished =
     , isFinished = False
     }
 
-dreamMazeAttr_day3 : MapAttr
-dreamMazeAttr_day3 =
+dreamMazeAttr_day2_night : MapAttr
+dreamMazeAttr_day2_night =
     { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze2
     , vehicle = []
     , story = "..."
-    , scene = ( DreamMaze, Day3 )
+    , scene = ( DreamMaze, Day2_Night )
     , isFinished = False
     }
 
@@ -445,12 +446,12 @@ switchingAttr =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day3
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day3
-    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day3
-    , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day3
-    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day3
-    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day3
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night
+    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night
+    , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night
+    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night
+    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_night
     , switchingAttr ]
 
 
