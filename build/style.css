@@ -349,3 +349,23 @@ svg rect.h {
     -ms-transition: all 0.8s ease-in-out;
     -o-transition: all 0.8s ease-in-out;
 }
+
+.fill:hover,
+.fill:focus {
+    box-shadow: inset 0 0 0 2em var(--hover);
+}
+
+.fill {
+    --color: #ff8c00;
+    --hover: #ffa940;
+}
+
+button {
+    color: var(--color);
+    transition: 0.25s;
+}
+
+button:hover, button:focus {
+    border-color: var(--hover);
+    color: #fff;
+}

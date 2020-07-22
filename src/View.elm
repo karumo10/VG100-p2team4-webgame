@@ -111,121 +111,66 @@ renderMapButton model =
             div []
             [
             button
-            [ style "background" "blue"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "400px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToPoliceOffice
             ]
             [ Html.text "Police Office" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "300px"
-            , style "top" "400px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "800px"
+            , style "top" "200px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToPark
             ]
             [ Html.text "Park" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "500px"
-            , style "top" "400px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "350px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToHome
             ]
             [ Html.text "Home1" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "200px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "200px"
+            , style "top" "100px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToJournalist
             ]
             [ Html.text "Journalist's Home" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "300px"
-            , style "top" "200px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "320px"
+            , style "top" "450px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToNightClub
             ]
             [ Html.text "NightClub" ]
@@ -323,12 +268,14 @@ renderPic model =
 
             Switching ->
 
-                [Svg.rect
-                    [ x "0"
+                [ Svg.image
+                    [ xlinkHref "./mapswitch.png"
+                    , x "0"
                     , y "0"
                     , width "1200"
                     , height "600"
-                    , fill "black"][]]
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ]
                 ++ [ renderdialog model ]
 
             EnergyDrain ->
