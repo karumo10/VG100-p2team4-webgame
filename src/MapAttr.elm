@@ -154,6 +154,18 @@ policeOfficeAttr_day2_finished =
     , isFinished = False -- this map is not finished
     }
 
+policeOfficeAttr_day3 : MapAttr
+policeOfficeAttr_day3 =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , story = "Another day at work, another boring day. But I need to avoid being killed."
+    , scene = ( PoliceOffice, Day3 )
+    , isFinished = False
+    }
+
 parkAttr_day1 : MapAttr
 parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
@@ -173,11 +185,34 @@ parkAttr_day2 =
     , barrier = []
     , hint = []
     , vehicle = []
-    , story = "I arrive at the park. This is a desolate place."
+    , story = "The park, where a promising man was killed. May him rest in peace..."
     , scene = ( Park, Day2 )
     , isFinished = False
     }
 
+parkAttr_day2_finished : MapAttr
+parkAttr_day2_finished =
+    { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
+    , heroIni = { x = 500, y = 250, width = 50, height = 180 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , story = "The park, where a promising man was killed. May him rest in peace..."
+    , scene = ( Park, Day2_Finished )
+    , isFinished = False
+    }
+
+parkAttr_day3 : MapAttr
+parkAttr_day3 =
+    { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
+    , heroIni = { x = 500, y = 250, width = 50, height = 180 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , story = "The park, where a promising man was killed. May him rest in peace..."
+    , scene = ( Park, Day3 )
+    , isFinished = False
+    }
 
 homeAttr_day1 : MapAttr
 homeAttr_day1 =
@@ -216,6 +251,19 @@ homeAttr_day2_finished =
     , isFinished = False
     }
 
+
+homeAttr_day3 : MapAttr
+homeAttr_day3 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Home, sweet home."
+    , scene = ( Home, Day2_Finished )
+    , isFinished = False
+    }
+
 journalistAttr_day1 : MapAttr
 journalistAttr_day1 =
     { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
@@ -223,10 +271,9 @@ journalistAttr_day1 =
     , barrier = journalistBarrier
     , hint = []
     , vehicle = []
-    , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
+    , story = "It's not the proper time to enter here."
     , scene = ( Journalist, Day1 )
     , isFinished = False
-
     }
 
 
@@ -242,6 +289,29 @@ journalistAttr_day2 =
     , isFinished = False
 
     }
+journalistAttr_day2_finished : MapAttr
+journalistAttr_day2_finished =
+    { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
+    , heroIni = { x = 205, y = 335, width = 60, height = 180 }
+    , barrier = journalistBarrier
+    , hint = []
+    , vehicle = []
+    , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
+    , scene = ( Journalist, Day2_Finished )
+    , isFinished = False
+    }
+
+journalistAttr_day3 : MapAttr
+journalistAttr_day3 =
+    { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
+    , heroIni = { x = 205, y = 335, width = 60, height = 180 }
+    , barrier = journalistBarrier
+    , hint = []
+    , vehicle = []
+    , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
+    , scene = ( Journalist, Day3 )
+    , isFinished = False
+    }
 
 nightClubAttr_day1 : MapAttr
 nightClubAttr_day1 =
@@ -250,7 +320,7 @@ nightClubAttr_day1 =
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
-    , story = "It's the place where lust and alcoholism intertwined."
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy!"
     , scene = ( NightClub, Day1 )
     , isFinished = False
     }
@@ -262,8 +332,20 @@ nightClubAttr_day2 =
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
-    , story = "It's the place where lust and alcoholism intertwined."
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy!"
     , scene = ( NightClub, Day2 )
+    , isFinished = False
+    }
+
+nightClubAttr_day2_finished : MapAttr
+nightClubAttr_day2_finished =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = nightClubBarrier
+    , hint = []
+    , vehicle = nightClubVehicle
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy!"
+    , scene = ( NightClub, Day2_Finished )
     , isFinished = False
     }
 
@@ -315,7 +397,7 @@ dreamMazeAttr_day2 =
     { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
-    , hint = hintsMaze1
+    , hint = hintsMaze2
     , vehicle = []
     , story = "Maze again? Really odd... "
     , scene = ( DreamMaze, Day2 )
@@ -334,6 +416,18 @@ dreamMazeAttr_day2_finished =
     , isFinished = False
     }
 
+dreamMazeAttr_day3 : MapAttr
+dreamMazeAttr_day3 =
+    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    , barrier = maze1Barrier
+    , hint = hintsMaze2
+    , vehicle = []
+    , story = "..."
+    , scene = ( DreamMaze, Day3 )
+    , isFinished = False
+    }
+
 
 switchingAttr : MapAttr
 switchingAttr =
@@ -347,6 +441,17 @@ switchingAttr =
     , isFinished = False
 
     }
+
+
+allMapAttrs : List MapAttr
+allMapAttrs =
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day3
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day3
+    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day3
+    , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day3
+    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day3
+    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day3
+    , switchingAttr ]
 
 
 

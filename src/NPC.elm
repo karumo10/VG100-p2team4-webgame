@@ -295,16 +295,6 @@ jonaliEvidence =
 --    }
 
 
-allMapAttrs : List MapAttr
-allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished
-    , parkAttr_day1, parkAttr_day2
-    , journalistAttr_day1, journalistAttr_day2
-    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished
-    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day3
-    , switchingAttr ]
-
 
 allNPCs: List NPC
 allNPCs =
