@@ -367,6 +367,24 @@ homePhone =
      , isFinished = False
      }
 
+danielDaniel : NPC
+danielDaniel =
+     { itemType = Phone
+     , area =
+         { x = 300
+         , y = 400
+         , wid = 40
+         , hei = 120
+         }
+     , interacttrue = False
+     , description = "DANIEL.day3"
+     , place = ( Daniel, Day3 )
+     , isFinished = False
+     }
+
+
+
+
 allNPCs: List NPC
 allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night
@@ -375,4 +393,5 @@ allNPCs =
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody
     , nightBody
-    , homePhone ]
+    , homePhone
+    , danielDaniel ]

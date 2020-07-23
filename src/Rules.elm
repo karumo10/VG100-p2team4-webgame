@@ -90,6 +90,9 @@ initialWorldModelSpec =
     , entity "PHONE_ANSWER.day3.trigger=1"
         "phone calling"
         "Now it's time to go to Daniel's home."
+    , entity "DANIEL.day3.trigger=5"
+        "daniel"
+        "How unlucky my dear sister is... She wouldn't die if I had persuaded her a little bit more... "
 
 
     ---- items
@@ -138,7 +141,7 @@ initialWorldModelSpec =
     , entity "CATHERINEASK.choices=0"
         "When did you see Brennan last time? Do you know why he came here last night?"
         ""
-    -- x
+    -- day2
     , entity "FORGOT1.allentalkoffice.choices=0"
         "Umm which case?"
         ""
@@ -188,6 +191,18 @@ initialWorldModelSpec =
         ""
     , entity "HUNG_UP_CELLPHONE.day3.choices=0"
         "'ve got it. Thanks. (Hang up)"
+        ""
+    , entity "GOOD_MORNING.day3.choices=0"
+        "I'm coming to ask you something about your sister."
+        ""
+    , entity "ASK_WHY_ANN_WORK.day3.choices=0"
+        "Ask about why Ann works at the night club."
+        ""
+    , entity "ASK_OPINION_ABOUT_DEATH.day3.choices=0"
+        "Ask about what do you think about your sister's death."
+        ""
+    , entity "ASK_LIFE.day3.choices=0"
+        "Ask about their current life"
         ""
     ]
 
@@ -673,6 +688,53 @@ rulesSpec =
             IF: HUNG_UP_CELLPHONE.day3.choices=1
             DO: HUNG_UP_CELLPHONE.day3.choices=0
             """
+        |> rule_______________________ "meet daniel"
+            """
+            ON: DANIEL.day3
+            IF: DANIEL.day3.trigger=5
+            DO: DANIEL.day3.trigger=4
+            """
+        |> rule_______________________ "pre ask" -- Daniel: Hi, Sir. Good morning. What's up?
+            """
+            ON: DANIEL.day3
+            IF: DANIEL.day3.trigger=4
+            DO: DANIEL.day3.trigger=3
+                GOOD_MORNING.day3.choices=1
+            """
+        |> rule_______________________ "i'm asking you"
+            """
+            ON: GOOD_MORNING.day3
+            IF: GOOD_MORNING.day3.choices=1
+            DO: GOOD_MORNING.day3.choices=-1
+            """
+        |> rule_______________________ "sure, sir"
+            """
+            ON: DANIEL.day3
+            IF: GOOD_MORNING.day3.choices=-1
+                DANIEL.day3.trigger=3
+            DO: DANIEL.day3.trigger=2
+                ASK_LIFE.day3.choices=1
+                ASK_WHY_ANN_WORK.day3.choices=1
+                ASK_OPINION_ABOUT_DEATH.day3.choices=1
+            """
+        |> rule_______________________ "asking life"
+            """
+            ON: ASK_LIFE.day3
+            DO: ASK_LIFE.day3.choices=-1
+                DANIEL.day3.trigger=0
+            """
+        |> rule_______________________ "asking why ann work like that"
+            """
+            ON: ASK_WHY_ANN_WORK.day3
+            DO: ASK_WHY_ANN_WORK.day3.choices=-1
+                DANIEL.day3.trigger=0
+            """
+        |> rule_______________________ "asking opinion about ann's death"
+            """
+            ON: ASK_OPINION_ABOUT_DEATH.day3
+            DO: ASK_OPINION_ABOUT_DEATH.day3.choices=-1
+                DANIEL.day3.trigger=0
+            """
 
 
 
@@ -798,7 +860,23 @@ narrative_content =
         |> content__________________________________ "talking office about forensic"
             "Hi, Kay. This is the department of forensic. According to our autopsy, the woman was dead of the side effect of the drug. However, this drug does not exist in our data library, and its detailed components still remain unknown. We have reported it to Mr. Jonathon. If there are any new progress we will announce you as soon as possible. "
         |> content__________________________________ "hung up"
-            "Quite weird report again... Maybe today I should go to Ann’s brother —— Daniel's home to see whether I can get some useful information from him."
+            "Quite weird report again... Maybe today I should go to Ann's brother —— Daniel's home to see whether I can get some useful information from him."
+        |> content__________________________________ "meet daniel"
+            "Are you Daniel? This is police."
+        |> content__________________________________ "pre ask"
+            "Hi, Sir. Good morning. What's up?"
+        |> content__________________________________ "i'm asking you"
+            "Good morning. I'm sorry about your sister's death. Can I ask you something about your sister?"
+        |> content__________________________________ "sure, sir"
+            "Sure, sir. What do you want to ask about?"
+        |> content__________________________________ "asking life"
+            "Sir, my sister earns a lot in last months that we can afford for a new department. You know that Paradise suddenly become the best night club several months before. (Sigh) We have just moved here and she met with an accident. How unlucky my dear sister is..."
+        |> content__________________________________ "asking why ann work like that"
+            "The reason for this is that my sister has a quite bad experience of love in the past. She spent all her money and emotion on him but received nothing. After that, for money, she had no choice but to work for Paradise. You know that Paradise offers great salary for their staffs."
+        |> content__________________________________ "asking opinion about ann's death"
+            "As you know, Sir, she worked there not purely for money. She has told me that she doesn't get adapted to the atmosphere of night club several times. To work, she has to take some medicine to get adapt to the atmosphere. It maybe that yesterday, she drunk too much alcohol and then happened to take too much medicine."
+
+
 
 
 

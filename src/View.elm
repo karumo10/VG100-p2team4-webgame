@@ -443,6 +443,7 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ [renderdialog model]
+                ++ npcListView model
                 ++ [renderchoice model]
                 ++ ( heroToSvg model.hero )
                 ++ [renderportrait model]
