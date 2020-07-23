@@ -50,8 +50,7 @@ view model =
         --, renderdialog model
         , renderMusic
         , axisHelper model
-        , renderBagButton model
-        , renderBag model
+        --, renderBag model
         , renderGrid1Detail model
         , renderGrid2Detail model
         , renderGrid3Detail model
@@ -68,7 +67,8 @@ view model =
         , renderBackButton model
         ]]
         ++ (rendersuspectlist model)
-        ++ ( elevatorQuestToSvg model ))
+        ++ ( elevatorQuestToSvg model )
+        ++ (renderBagButton model))
 
 
 
@@ -111,121 +111,66 @@ renderMapButton model =
             div []
             [
             button
-            [ style "background" "blue"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "400px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToPoliceOffice
             ]
             [ Html.text "Police Office" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "300px"
-            , style "top" "400px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "800px"
+            , style "top" "200px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToPark
             ]
             [ Html.text "Park" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "500px"
-            , style "top" "400px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "350px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToHome
             ]
             [ Html.text "Home1" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "200px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "200px"
+            , style "top" "100px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToJournalist
             ]
             [ Html.text "Journalist's Home" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "300px"
-            , style "top" "200px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "320px"
+            , style "top" "450px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToNightClub
             ]
             [ Html.text "NightClub" ]
@@ -347,12 +292,14 @@ renderPic model =
 
             Switching ->
 
-                [Svg.rect
-                    [ x "0"
+                [ Svg.image
+                    [ xlinkHref "./mapswitch.png"
+                    , x "0"
                     , y "0"
                     , width "1200"
                     , height "600"
-                    , fill "black"][]]
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ]
                 ++ [ renderdialog model ]
 
             EnergyDrain ->
@@ -512,70 +459,135 @@ rendersuspectlist model =
         suspect =
             case model.map of
                 Park ->
-                    [ div [onClick Catherinecatch, style "opacity" (model.conclusion|>Debug.toString), class "btn btn-sm animated-button thar-three"] [text "Catherine"]
-                    , div [onClick Adkinscatch, style "opacity" (model.conclusion|>Debug.toString), class "btn btn-sm animated-button thar-three"] [text "Adkins"]
-                    , div [onClick Robbery, style "opacity" (model.conclusion|>Debug.toString), class "btn btn-sm animated-button thar-three"] [text "This is a robbery."]
+                    [ button [ onClick Catherinecatch
+                             , style "top" "100px", class "slide"
+                             , style "opacity" (model.conclusion|>Debug.toString)] [text "Catherine"]
+                    , button [ onClick Adkinscatch
+                             , style "top" "200px", class "slide"
+                             , style "opacity" (model.conclusion|>Debug.toString)] [text "Adkins"]
+                    , button [ onClick Robbery
+                             , style "top" "300px", class "slide"
+                             , style "opacity" (model.conclusion|>Debug.toString)] [text "This is a robbery."]
                     ]
                 _ ->
                     []
     in
-        [Html.input [Html.Attributes.type_ "checkbox", id "menu-toggle"][]
-        ,Html.label [Html.Attributes.for "menu-toggle", class "menu-icon"][Html.i [class "fa fa-bars"][]]
-        ,div [class "slideout-sidebar"] [div [class "container"] suspect]
+        [Html.input [Html.Attributes.type_ "checkbox", id "menu"][]
+        ,Html.label [Html.Attributes.for "menu", class "menu"][Html.span [] [], Html.span [] [], Html.span [] [] ]
+        ,Html.nav [class "nav"] [div [class "container"]
+                                     [div [ style "font-family" "Helvetica, Arial, sans-serif"
+                                          , style "font-size" "18px"] suspect]]
         ]
 
-renderBagButton : Model -> Html Msg
+renderBagButton : Model -> List(Html Msg)
 renderBagButton model =
-    if model.isBagOpen == True && model.map /= StarterPage && model.map /= AboutUs && model.map /= Story then
-    button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "1050px"
-                , style "top" "400px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick CloseBag
-                ]
-                [ Html.text "Close the bag" ]
-    else if model.isBagOpen == False && model.map /= StarterPage && model.map /= AboutUs && model.map /= Story then
-    button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "1050px"
-                , style "top" "400px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick OpenBag
-                ]
-                [ Html.text "Open the bag" ]
-    else
-    div [][]
+    let
+        contants =
+                        div []
+                        [
+                        button
+                        [ onClick RenderGrid1Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "100px"
+                        ] [ text model.bag.grid1.intro ],
+
+                        button
+                        [ onClick RenderGrid2Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "180px"
+                        ] [ text model.bag.grid2.intro ],
+
+                        button
+                        [ onClick RenderGrid3Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "260px"
+                        ] [ text model.bag.grid3.intro ],
+
+                        button
+                        [ onClick RenderGrid4Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "340px"
+                        ] [ text model.bag.grid4.intro ],
+
+                        button
+                        [ onClick RenderGrid5Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "top" "420px"
+                        ] [ text model.bag.grid5.intro ],
+
+                        button
+                        [ onClick RenderGrid6Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "left" "80px"
+                        , style "top" "100px"
+                        ] [ text model.bag.grid6.intro ],
+
+                        button
+                        [ onClick RenderGrid7Detail
+                        , Html.Attributes.style "width" "60px"
+                        , Html.Attributes.style "height" "60px"
+                        , Html.Attributes.style "font-size" "18px"
+                        , style "position" "absolute"
+                        , style "left" "80px"
+                        , style "top" "180px"
+                        ] [ text model.bag.grid7.intro ],
+
+                         button
+                         [ onClick RenderGrid8Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "80px"
+                         , style "top" "260px"
+                         ] [ text model.bag.grid8.intro ],
+
+                          button
+                          [ onClick RenderGrid9Detail
+                          , Html.Attributes.style "width" "60px"
+                          , Html.Attributes.style "height" "60px"
+                          , Html.Attributes.style "font-size" "18px"
+                          , style "position" "absolute"
+                          , style "left" "80px"
+                          , style "top" "340px"
+                          ] [ text model.bag.grid9.intro ],
+
+                          button
+                          [ onClick RenderGrid10Detail
+                          , Html.Attributes.style "width" "60px"
+                          , Html.Attributes.style "height" "60px"
+                          , Html.Attributes.style "font-size" "18px"
+                          , style "position" "absolute"
+                          , style "left" "80px"
+                          , style "top" "420px"
+                          ] [ text model.bag.grid10.intro ]
+
+                          ]
+    in
+        [Html.input [Html.Attributes.type_ "checkbox", id "menu2"][]
+        ,Html.label [Html.Attributes.for "menu2", class "menu2"][Html.span [] [], Html.span [] [], Html.span [] [] ]
+        ,Html.nav [class "nav2"] [div [class "container"]
+                                      [div [ style "font-family" "Helvetica, Arial, sans-serif"
+                                           , style "font-size" "18px"] [contants]]]
+        ]
 
 
 
@@ -944,28 +956,19 @@ renderStartButton : Model -> Html Msg
 renderStartButton model =
     if model.map == StarterPage then
     button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "500px"
-                , style "top" "350px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick StartGame
-                ]
-                [ Html.text "Start" ]
+        [ style "position" "absolute"
+        , style "left" "500px"
+        , style "top" "350px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "18px"
+        , style "font-weight" "300"
+        , style "height" "60px"
+        , style "line-height" "60px"
+        , style "width" "130px"
+        , class "fill"
+        , onClick StartGame
+        ]
+        [ Html.text "Start" ]
     else
     div [][]
 
@@ -973,28 +976,19 @@ renderStoryButton : Model -> Html Msg
 renderStoryButton model =
     if model.map == StarterPage then
     button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "700px"
-                , style "top" "350px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick ViewStory
-                ]
-                [ Html.text "Story" ]
+        [ style "position" "absolute"
+        , style "left" "350px"
+        , style "top" "350px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "18px"
+        , style "font-weight" "300"
+        , style "height" "60px"
+        , style "line-height" "60px"
+        , style "width" "130px"
+        , class "fill"
+        , onClick ViewStory
+        ]
+        [ Html.text "Story" ]
     else
     div [][]
 
@@ -1002,28 +996,19 @@ renderAboutUsButton : Model -> Html Msg
 renderAboutUsButton model =
     if model.map == StarterPage then
     button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "300px"
-                , style "top" "350px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick ViewAboutUs
-                ]
-                [ Html.text "About Us" ]
+        [ style "position" "absolute"
+        , style "left" "650px"
+        , style "top" "350px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "18px"
+        , style "font-weight" "300"
+        , style "height" "60px"
+        , style "line-height" "60px"
+        , style "width" "130px"
+        , class "fill"
+        , onClick ViewAboutUs
+        ]
+        [ Html.text "About us" ]
     else
     div [][]
 
@@ -1031,27 +1016,18 @@ renderBackButton : Model -> Html Msg
 renderBackButton model =
     if model.map == Story || model.map == AboutUs then
     button
-                [ style "background" "red"
-                , style "position" "absolute"
-                , style "left" "300px"
-                , style "top" "350px"
-                , style "color" "#f3f2e9"
-                , style "cursor" "pointer"
-                , style "display" "block"
-                , style "font-family" "Helvetica, Arial, sans-serif"
-                , style "font-size" "18px"
-                , style "font-weight" "300"
-                , style "height" "80px"
-                , style "line-height" "60px"
-                , style "outline" "none"
-                , style "padding" "0"
-                , style "width" "130px"
-                , style "border-style" "inset"
-                , style "border-color" "white"
-                , style "border-width" "6px"
-                , style "border-radius" "20%"
-                , onClick BackToStarter
-                ]
-                [ Html.text "Back to Start menu" ]
+        [ style "position" "absolute"
+        , style "left" "500px"
+        , style "top" "350px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "18px"
+        , style "font-weight" "300"
+        , style "height" "60px"
+        , style "line-height" "60px"
+        , style "width" "130px"
+        , class "fill"
+        , onClick BackToStarter
+        ]
+        [ Html.text "Back to Starter" ]
     else
     div [][]

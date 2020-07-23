@@ -21,7 +21,7 @@ heroToSvg hero =
     let
         ( x_, y_ ) =
             if gameMode______ == Game then
-            ( toFloat (hero.x), toFloat hero.y - hero.height * 0.6 )
+            ( toFloat (hero.x), toFloat hero.y - hero.height * 0.65 )
             else
             ( toFloat (hero.x), toFloat (hero.y) )
 
