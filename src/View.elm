@@ -176,25 +176,14 @@ renderMapButton model =
             [ Html.text "NightClub" ]
             ,
             button
-            [ style "background" "red"
-            , style "position" "absolute"
-            , style "left" "500px"
-            , style "top" "200px"
-            , style "color" "#f3f2e9"
-            , style "cursor" "pointer"
-            , style "display" "block"
+            [ style "position" "absolute"
+            , style "left" "320px"
+            , style "top" "450px"
             , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "18px"
-            , style "font-weight" "300"
-            , style "height" "80px"
-            , style "line-height" "60px"
-            , style "outline" "none"
-            , style "padding" "0"
-            , style "width" "130px"
-            , style "border-style" "inset"
-            , style "border-color" "white"
-            , style "border-width" "6px"
-            , style "border-radius" "20%"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
             , onClick ToDaniel
             ]
             [ Html.text "Daniel's home" ]
@@ -408,8 +397,6 @@ renderPic model =
 
             AboutUs ->
                 [div [][]]
-
-
 
 
         ) ++
