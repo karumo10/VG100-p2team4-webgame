@@ -333,7 +333,7 @@ nightClubAttr_day2 =
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
-    , story = "Welcome to PARADISE! The highest unconscious, the highest joy!"
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy! \nDo you want something *exciting*, Sir?"
     , scene = ( NightClub, Day2 )
     , isFinished = False
     }
@@ -345,7 +345,7 @@ nightClubAttr_day2_finished =
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
-    , story = "Welcome to PARADISE! The highest unconscious, the highest joy!"
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy! \nDo you want something *exciting*, Sir?"
     , scene = ( NightClub, Day2_Finished )
     , isFinished = False
     }
@@ -357,7 +357,7 @@ nightClubAttr_day2_night =
     , barrier = nightClubBarrier
     , hint = []
     , vehicle = nightClubVehicle
-    , story = "Paradise, the biggest nightclub in this city, features in \"unlimited joy, best joy\". Once it was the place where lust and alcoholism intertwined. But now only sin reigns."
+    , story = "Paradise, the biggest nightclub in this city, features in \"unlimited joy, best joy\". Once it was the place where lust and alcoholism intertwined. But now only sin reigns.\n The policemen at the scene told you the body was found on the 2nd floor."
     , scene = ( NightClub, Day2_Night )
     , isFinished = False
     }

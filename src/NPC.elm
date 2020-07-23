@@ -13,6 +13,7 @@ type NPCType
     | Jonathon
     | JournalistBody
     | JonaliEvi
+    | NightBody
     | None
 
 
@@ -335,11 +336,20 @@ jonaliEvidence =
     , isFinished = False
     }
 
---type alias Scene_Finished =
---    { scene : Scene
---    , isFinished :
---    }
-
+nightBody : NPC
+nightBody =
+    { itemType = NightBody
+    , area =
+        { x = 555
+        , y = 200
+        , wid = 260
+        , hei = 20
+        }
+    , interacttrue = False
+    , description = "ANN_BODY_CLUB.npc.day2night"
+    , place = ( NightClub, Day2_Night )
+    , isFinished = False
+    }
 
 
 allNPCs: List NPC
@@ -348,4 +358,5 @@ allNPCs =
     , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day2_night
     , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night
     , pLee, pAllen, pAdkins, pCatherine
-    , jonaliLee, jonaliEvidence, jonaliBody ]
+    , jonaliLee, jonaliEvidence, jonaliBody
+    , nightBody ]

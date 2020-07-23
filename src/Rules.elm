@@ -30,7 +30,7 @@ entity entityString name description =
 
 initialWorldModelSpec : List ( String, ExtraFields )
 initialWorldModelSpec =
-    [ -- characters
+    [ ---- characters
       entity "PLAYER.current_location=POLICEOFFICE.day1"
         "The player"
         ""
@@ -73,17 +73,23 @@ initialWorldModelSpec =
     , entity "LEE_POLICEOFFICE_DAY2.npc.day2.trigger=2"
         "lee day2"
         "Don't pay too much attention on this case! It's time to go to home, Kay."
-    ---- day2night
+    -- day2night
     , entity "BOB_CALLING.npc.day2night.trigger=1"
         "Bob day2night calling"
         "Ann? I've heard of that name... Why so many people are killed these days?"
     , entity "ALLEN_DAY2NIGHT.npc.day2night.trigger=0"
         "allen day2night"
-        "This type of tea comes from Far East. Tea can keep your brain clear; it is more refreshing, if compared with coffee. Which do you prefer, Kay?"
+        "This type of tea comes from Far East. Tea can keep your brain clearer, when you're facing with such a complex case; it is more refreshing, if compared with coffee. Which do you prefer, Kay?"
     , entity "LEE_DAY2NIGHT.npc.day2night.trigger=0"
         "lee day2night"
-        "...Goodness, these cases are almost tearing my mind off... wait, is that the phone on floor 1?"
-    -- items
+        "...Goodness, these cases are almost tearing my mind off... wait, is that the phone on floor 1? If that's another murder, could you please go to the scene alone first? "
+    , entity "ANN_BODY_CLUB.npc.day2night.trigger=1"
+        "ann body"
+        "\"Maybe... 've taken too many drugs? Or... No matter what. Go home rather than thinking of it; Jonathan and his forensic group are the truth, anyway!\" You sneered. "
+
+
+
+    ---- items
     , entity "BODYPARKSHOES.choices=0"
         "The shoes of Brennan."
         "A very clean pair of designer shoes. Carefully maintained, even the shoe sole."
@@ -95,7 +101,7 @@ initialWorldModelSpec =
         "Nothing is left."
 
 
-    -- choices
+    ---- choices
     , entity "YES.bobtalk.choices=0"
         "Yes"
         ""
@@ -163,6 +169,15 @@ initialWorldModelSpec =
     --- day2night
     , entity "PICK_UP.day2night.choices=0"
         "Hello?"
+        ""
+    , entity "CHECK_WOMAN.day2night.choices=0"
+        "Check the body"
+        ""
+    , entity "SEARCH_SOFA.day2night.choices=0"
+        "Search the sofa"
+        ""
+    , entity "SEARCH_TABLE.day2night.choices=0"
+        "Search the table"
         ""
     ]
 
@@ -592,6 +607,41 @@ rulesSpec =
             IF: PICK_UP.day2night.choices=1
             DO: PICK_UP.day2night.choices=0
             """
+        |> rule_______________________ "find woman body"
+            """
+            ON: ANN_BODY_CLUB.npc.day2night
+            IF: ANN_BODY_CLUB.npc.day2night.trigger=1
+            DO: CHECK_WOMAN.day2night.choices=1
+                SEARCH_SOFA.day2night.choices=1
+                SEARCH_TABLE.day2night.choices=1
+            """
+        |> rule_______________________ "check woman"
+            """
+            ON: CHECK_WOMAN.day2night
+            IF: CHECK_WOMAN.day2night.choices=1
+            DO: CHECK_WOMAN.day2night.choices=-1
+            """
+        |> rule_______________________ "search sofa"
+            """
+            ON: SEARCH_SOFA.day2night
+            IF: SEARCH_SOFA.day2night.choices=1
+            DO: SEARCH_SOFA.day2night.choices=-1
+            """
+        |> rule_______________________ "search table"
+            """
+            ON: SEARCH_TABLE.day2night
+            IF: SEARCH_TABLE.day2night.choices=1
+            DO: SEARCH_TABLE.day2night.choices=-1
+            """
+        |> rule_______________________ "call the office"
+            """
+            ON: ANN_BODY_CLUB.npc.day2night
+            IF: ANN_BODY_CLUB.npc.day2night.trigger=1
+                SEARCH_TABLE.day2night.choices=-1
+                SEARCH_SOFA.day2night.choices=-1
+                CHECK_WOMAN.day2night.choices=-1
+            DO: ANN_BODY_CLUB.npc.day2night.trigger=0
+            """
 
 
 
@@ -699,10 +749,17 @@ narrative_content =
         |> content__________________________________ "bob call"
             "Hey, Kay! You've come. Here is a call... here you are. "
         |> content__________________________________ "calling"
-            "Sir! A woman died in our nightclub, you know, Paradise. She was a servant for our nightclub and her name is Ann. She lived in her brother Daniel’s new home. She was founded died in the room which she was in charge of. We are waiting for you on the second floor of our nightclub."
-
-
-
+            "Sir! A woman died in our nightclub, you know, Paradise. She was a servant for our nightclub and her name is Ann. She lived in her brother Daniel's new home. She was founded died in the room which she was in charge of. We are waiting for you on the second floor of our nightclub."
+        |> content__________________________________ "find woman body"
+            "A Paradise staff led you here to check the crime scene. You crowded down, and were going to check..."
+        |> content__________________________________ "check woman"
+            "There is no obvious external wound. Besides, her clothes were inside out."
+        |> content__________________________________ "search sofa"
+            "You find a dagger with some weird numbers on it."
+        |> content__________________________________ "search table"
+            "You find some weird pills."
+        |> content__________________________________ "call the office"
+            "You call the office and inform them of the details at the scene, and the Office said they will take over for further investigation. \n Now it's time to go home. "
 parsedData =
     let
             -- This is how we "merge" our extra fields into the entity record.
