@@ -14,6 +14,7 @@ type NPCType
     | JournalistBody
     | JonaliEvi
     | NightBody
+    | Phone
     | None
 
 
@@ -351,6 +352,20 @@ nightBody =
     , isFinished = False
     }
 
+homePhone : NPC
+homePhone =
+     { itemType = Phone
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 1200
+         , hei = 600
+         }
+     , interacttrue = False
+     , description = "PHONE_ANSWER.day3"
+     , place = ( Home, Day3 )
+     , isFinished = False
+     }
 
 allNPCs: List NPC
 allNPCs =
@@ -359,4 +374,5 @@ allNPCs =
     , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody
-    , nightBody ]
+    , nightBody
+    , homePhone ]

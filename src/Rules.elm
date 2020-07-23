@@ -86,7 +86,10 @@ initialWorldModelSpec =
     , entity "ANN_BODY_CLUB.npc.day2night.trigger=1"
         "ann body"
         "\"Maybe... 've taken too many drugs? Or... No matter what. Go home rather than thinking of it; Jonathan and his forensic group are the truth, anyway!\" You sneered. "
-
+    -- day3
+    , entity "PHONE_ANSWER.day3.trigger=1"
+        "phone calling"
+        "Now it's time to go to Daniel's home."
 
 
     ---- items
@@ -171,13 +174,20 @@ initialWorldModelSpec =
         "Hello?"
         ""
     , entity "CHECK_WOMAN.day2night.choices=0"
-        "Check the body"
+        "Check the body."
         ""
     , entity "SEARCH_SOFA.day2night.choices=0"
-        "Search the sofa"
+        "Search the sofa."
         ""
     , entity "SEARCH_TABLE.day2night.choices=0"
-        "Search the table"
+        "Search the table."
+        ""
+    -- day3
+    , entity "PICK_UP_CELLPHONE.day3.choices=0"
+        "Hello?"
+        ""
+    , entity "HUNG_UP_CELLPHONE.day3.choices=0"
+        "'ve got it. Thanks. (Hang up)"
         ""
     ]
 
@@ -642,6 +652,29 @@ rulesSpec =
                 CHECK_WOMAN.day2night.choices=-1
             DO: ANN_BODY_CLUB.npc.day2night.trigger=0
             """
+        -- day3
+        |> rule_______________________ "pick up cellphone"
+            """
+            ON: PHONE_ANSWER.day3
+            IF: PHONE_ANSWER.day3.trigger=1
+            DO: PHONE_ANSWER.day3.trigger=0
+                PICK_UP_CELLPHONE.day3.choices=1
+            """
+        |> rule_______________________ "talking office about forensic"
+            """
+            ON: PICK_UP_CELLPHONE.day3
+            IF: PICK_UP_CELLPHONE.day3.choices=1
+            DO: PICK_UP_CELLPHONE.day3.choices=0
+                HUNG_UP_CELLPHONE.day3.choices=1
+            """
+        |> rule_______________________ "hung up"
+            """
+            ON: HUNG_UP_CELLPHONE.day3
+            IF: HUNG_UP_CELLPHONE.day3.choices=1
+            DO: HUNG_UP_CELLPHONE.day3.choices=0
+            """
+
+
 
 
 
@@ -760,6 +793,20 @@ narrative_content =
             "You find some weird pills."
         |> content__________________________________ "call the office"
             "You call the office and inform them of the details at the scene, and the Office said they will take over for further investigation. \n Now it's time to go home. "
+        |> content__________________________________ "pick up cellphone"
+            "You pick up your phone."
+        |> content__________________________________ "talking office about forensic"
+            "Hi, Kay. This is the department of forensic. According to our autopsy, the woman was dead of the side effect of the drug. However, this drug does not exist in our data library, and its detailed components still remain unknown. We have reported it to Mr. Jonathon. If there are any new progress we will announce you as soon as possible. "
+        |> content__________________________________ "hung up"
+            "Quite weird report again... Maybe today I should go to Ann’s brother —— Daniel's home to see whether I can get some useful information from him."
+
+
+
+
+
+
+
+
 parsedData =
     let
             -- This is how we "merge" our extra fields into the entity record.

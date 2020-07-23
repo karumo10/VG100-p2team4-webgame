@@ -603,8 +603,12 @@ wakeUp model =
                 2 -> Day2
                 3 -> Day3
                 _ -> TooBigOrSmall
-        model_ = mapSwitch Home model |> teleportHero ( 840, 100 ) -- bed side
-        story = "It's time to get up... Uhh, indeed a weird dream."
+        model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
+        story =
+            if day == 3 then
+                model_.story
+            else
+            "It's time to get up... Uhh, indeed a weird dream."
         energy = model_.energy_Full
     in
     { model_ | story = story, day = day, energy = energy, dayState = dayState }
@@ -629,6 +633,24 @@ mapSwitch newMap model =
     in
     { model | hero = hero, mapAttr = mapAttr, map = newMap, npcs_curr = npcs, story = story }
 
+sceneSwitch : Map -> Day -> Model -> Model -- also change the day state
+sceneSwitch newMap newDayState model =
+    let
+        dayState = newDayState
+        scene = ( newMap, dayState )
+        mapAttr
+            =
+            case newMap of
+                Switching -> switchingAttr -- including drainenergy, switching & start page
+                _ ->
+                    List.filter (\a -> a.scene == scene) model.mapAttr_all
+                    |> List.head
+                    |> withDefault switchingAttr
+        hero = mapAttr.heroIni
+        npcs = List.filter (\a -> a.place == mapAttr.scene) allNPCs
+        story = mapAttr.story
+    in
+    { model | hero = hero, mapAttr = mapAttr, map = newMap, npcs_curr = npcs, story = story }
 
 
 canPickUp : Model -> Item -> Bool
