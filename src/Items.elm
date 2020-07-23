@@ -22,6 +22,7 @@ type Map
     | DreamMaze
     | Journalist
     | NightClub
+    | Daniel
     | StarterPage
     | Story
     | AboutUs

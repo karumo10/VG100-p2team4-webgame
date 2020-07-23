@@ -106,6 +106,11 @@ update msg model =
             ( mapSwitch NightClub model
             , Cmd.none
             )
+        ToDaniel ->
+            ( mapSwitch Daniel model
+            , Cmd.none
+            )
+
 
 
 
@@ -128,6 +133,10 @@ update msg model =
                      ( teleportHero ( 1015, 470 ) model
                      , Cmd.none
                      )
+                Daniel ->
+                    ( teleportHero ( 910, 465 ) model
+                    , Cmd.none
+                    )
 
                 _ -> (model,Cmd.none)
 
@@ -147,6 +156,10 @@ update msg model =
                      ( teleportHero ( 1015, 150 ) model
                      , Cmd.none
                      )
+                Daniel ->
+                    ( teleportHero ( 910, 145 ) model
+                    , Cmd.none
+                    )
 
                 _ -> (model,Cmd.none)
 

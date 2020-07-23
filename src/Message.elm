@@ -20,6 +20,7 @@ type Msg
     | ToHome
     | ToJournalist
     | ToNightClub
+    | ToDaniel
     | Sleep Bool
     | PickUp Bool
     | ElevateTo1

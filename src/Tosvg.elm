@@ -19,9 +19,20 @@ import MapAttr exposing (..)
 heroToSvg : Hero -> List (Svg msg)
 heroToSvg hero =
     let
-        ( x_, y_ ) = ( toFloat (hero.x), toFloat (hero.y - 50) )
-        ( wid, hei ) = ( hero.width*2, hero.height*2 )
+        ( x_, y_ ) =
+            if gameMode______ == Game then
+            ( toFloat (hero.x), toFloat (hero.y - 50) )
+            else
+            ( toFloat (hero.x), toFloat (hero.y) )
+
+        ( wid, hei ) =
+            if gameMode______ == Game then
+            ( hero.width*2, hero.height*2 )
+            else
+            ( hero.width, hero.height )
+
     in
+    if gameMode______ == Game then
     [
         Svg.image
         [ x (x_ |> Debug.toString)
@@ -31,6 +42,18 @@ heroToSvg hero =
         ]
         []
     ]
+    else
+    [
+        Svg.rect
+        [ x (x_ |> Debug.toString)
+        , y (y_ |> Debug.toString)
+        , width (wid |> Debug.toString)
+        , height (hei |> Debug.toString)
+        , fill "pink"
+        ]
+        []
+    ]
+
 
 heroToSvgInMaze : Hero -> List (Svg msg)
 heroToSvgInMaze hero =

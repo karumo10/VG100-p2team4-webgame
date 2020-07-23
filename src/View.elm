@@ -229,6 +229,30 @@ renderMapButton model =
             , onClick ToNightClub
             ]
             [ Html.text "NightClub" ]
+            ,
+            button
+            [ style "background" "red"
+            , style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "200px"
+            , style "color" "#f3f2e9"
+            , style "cursor" "pointer"
+            , style "display" "block"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "18px"
+            , style "font-weight" "300"
+            , style "height" "80px"
+            , style "line-height" "60px"
+            , style "outline" "none"
+            , style "padding" "0"
+            , style "width" "130px"
+            , style "border-style" "inset"
+            , style "border-color" "white"
+            , style "border-width" "6px"
+            , style "border-radius" "20%"
+            , onClick ToDaniel
+            ]
+            [ Html.text "Daniel's home" ]
 
 
             ]
@@ -409,6 +433,24 @@ renderPic model =
                 ++ energytosvg model.energy model.energy_Full
 
 
+            Daniel ->
+                [ Svg.image
+                    [ xlinkHref "./Ann_and_Daniel's_home.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ [renderdialog model]
+                ++ [renderchoice model]
+                ++ ( heroToSvg model.hero )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [ renderdialog model ]
+                ++ energytosvg model.energy model.energy_Full
+
+
 
             StarterPage ->
                 [div [][]]
@@ -418,6 +460,8 @@ renderPic model =
 
             AboutUs ->
                 [div [][]]
+
+
 
 
         ) ++

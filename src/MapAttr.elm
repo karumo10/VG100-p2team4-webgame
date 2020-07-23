@@ -8,7 +8,7 @@ type Mode
     | Game
     | TotalTest
 gameMode______ : Mode
-gameMode______ = Game
+gameMode______ = CollisionTest
 
 type VehicleType
     = Elevator
@@ -85,6 +85,13 @@ nightClubBarrier =
             [ ]
         _ -> nightClubBarrierList
 
+danielBarrier : List Area
+danielBarrier =
+    case gameMode______ of
+        GettingCoordinates ->
+            [ ]
+        _ -> danielList
+
 policeOfficeVehicle : List Vehicle
 policeOfficeVehicle =
     [ { area = { x = 820, y = 430, wid = 115, hei = 110 }, which = Elevator }
@@ -102,6 +109,13 @@ nightClubVehicle : List Vehicle
 nightClubVehicle =
     [ { area = { x = 1050, y = 430, wid = 115, hei = 110 }, which = Elevator }
     , { area = { x = 1050, y = 195, wid = 100, hei = 110 }, which = Elevator } ]
+
+danielVehicle : List Vehicle
+danielVehicle =
+     [ { area = { x = 920, y = 430, wid = 115, hei = 110 }, which = Elevator }
+     , { area = { x = 920, y = 195, wid = 100, hei = 110 }, which = Elevator } ]
+
+
 
 hintsMaze1 : List Hint
 hintsMaze1 =
@@ -422,6 +436,17 @@ nightClubAttr_day3 =
     , isFinished = False
     }
 
+danialAttr_day3 : MapAttr
+danialAttr_day3 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = danielBarrier
+    , hint = []
+    , vehicle = danielVehicle
+    , story = "Daniel's home. It seems that this family is under a financial crisis."
+    , scene = ( Daniel, Day3 )
+    , isFinished = False
+    }
 
 
 
@@ -522,6 +547,7 @@ allMapAttrs =
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_night, nightClubAttr_day3
+    , danialAttr_day3
     , switchingAttr ]
 
 
