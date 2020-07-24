@@ -1063,6 +1063,21 @@ day2_finished_office_finished_update_day model =
         True -> { model | dayState = Day2_Night, npcs_curr = currNPCs }
 
 
+whichActionTakenDisk : WorldModel.ID -> Bool
+whichActionTakenDisk id =
+    if id == "CHOOSEWHICHTAKEDISK" then
+    False
+    else
+    True
+
+deleteTakeDISK : Model -> Model
+deleteTakeDISK model =
+    let
+        choicesLeft = filter whichActionTakenDisk model.chosenChoices
+    in
+    { model | chosenChoices = choicesLeft}
+
+
 
 takeDiskOrNote : Model -> Model
 takeDiskOrNote model =
