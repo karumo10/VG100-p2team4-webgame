@@ -119,10 +119,10 @@ danielVehicle =
 
 hintsMaze1 : List Hint
 hintsMaze1 =
-    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "hint1" }
-    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "hint2" }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "hint3" }
-    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "hint4" } ]
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "...haven't finished...report...no evidence..." }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "There's still an interview..." }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Be careful! Be careful! Be careful...Jonathon..." }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "hint...Jonathon...kill...not Kay...it's you..." } ]
 
 hintsMaze2 : List Hint
 hintsMaze2 =
