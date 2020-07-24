@@ -94,7 +94,6 @@ initialWorldModelSpec =
         "daniel"
         "How unlucky my dear sister is... She wouldn't die if I had persuaded her a little bit more... "
 
-
     ---- items
     , entity "BODYPARKSHOES.choices=0"
         "The shoes of Brennan."
