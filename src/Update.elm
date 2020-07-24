@@ -318,6 +318,7 @@ animate elapsed model =
         |> interactable
         |> myItem
         |> judgeIsMakingChoices
+        |> takeDiskOrNote
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -1070,12 +1071,13 @@ whichActionTakenDisk id =
     else
     True
 
-deleteTakeDISK : Model -> Model
-deleteTakeDISK model =
-    let
-        choicesLeft = filter whichActionTakenDisk model.chosenChoices
-    in
-    { model | chosenChoices = choicesLeft}
+whichActionTakenNote : WorldModel.ID -> Bool
+whichActionTakenNote id =
+    if id == "CHOOSEWHICHTAKENOTE" then
+    False
+    else
+    True
+
 
 
 
@@ -1083,9 +1085,14 @@ takeDiskOrNote : Model -> Model
 takeDiskOrNote model =
     let
         isDiskTaken = findCertainQuestion model "CHOOSEWHICHTAKEDISK"
-        item = case isDiskTaken of
-            True -> diskIni
-            False -> noteIni
+        isNoteTaken = findCertainQuestion model "CHOOSEWHICHNOTEDISK"
+        choicesLeft1 = filter whichActionTakenDisk model.chosenChoices
+        choicesLeft2 = filter whichActionTakenNote choicesLeft1
+        item =
+             if isDiskTaken == True && isNoteTaken == False then diskIni
+             else if isDiskTaken == False && isNoteTaken == True then noteIni
+             else if isDiskTaken == False && isNoteTaken == False then emptyIni
+             else emptyIni
         g1 = model.bag.grid1
         g2 = model.bag.grid2
         g3 = model.bag.grid3
@@ -1108,25 +1115,25 @@ takeDiskOrNote model =
         t10 = model.bag.grid10.itemType
     in
     if t1 == Empty then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 /= Empty && t3 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 }, chosenChoices =  choicesLeft2 }
     else if t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item }, chosenChoices =  choicesLeft2 }
     else
     model
 
