@@ -78,7 +78,7 @@ cLee_day2_finished =
     { itemType = Lee
     , area =
         { x = 300
-        , y = 500
+        , y = 270
         , wid = 20
         , hei = 60
         }
@@ -185,7 +185,7 @@ cAllen_day2 =
     { itemType = Allen
         , area =
         { x = 600
-        , y = 500
+        , y = 270
         , wid = 20
         , hei = 60
         }
