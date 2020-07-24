@@ -1015,6 +1015,7 @@ specialUpdates model
     |> day2_journalist_finished_update_day
     |> day2_finished_office_finished_finished_update_home
     |> day2_finished_office_finished_update_day
+    |> day3_daniel_update_story
 
 
 
@@ -1061,6 +1062,33 @@ day2_finished_office_finished_update_day model =
     case isFinished of
         False -> model
         True -> { model | dayState = Day2_Night, npcs_curr = currNPCs }
+
+day3_daniel_update_story : Model -> Model
+day3_daniel_update_story model =
+    let
+        daniel_day3_finished_map = List.filter (\a -> a.scene == (Daniel, Day3) ) model.mapAttr_all
+            |> List.head
+            |> withDefault danialAttr_day3
+        park_day3_finished_map = List.filter (\a -> a.scene == (Park, Day3) ) model.mapAttr_all
+            |> List.head
+            |> withDefault parkAttr_day3
+        police_day3_finished_map =  List.filter (\a -> a.scene == (PoliceOffice, Day3) ) model.mapAttr_all
+            |> List.head
+            |> withDefault policeOfficeAttr_day3
+        isFinished = daniel_day3_finished_map.isFinished
+        story = "It's late now. You decided to go home."
+        story_park = "It's night. The sky is in inky black, adorned with stars like dim, pulsing fire. It's time for home, you said to yourself."
+        story_police = "There's no one in the office. You should go home."
+        rest_map = List.filter (\a -> a.scene /= (Daniel, Day3) && a.scene /= (Park, Day3) && a.scene /= (PoliceOffice, Day3) ) model.mapAttr_all
+        daniel_day3_finished_map_ = { daniel_day3_finished_map | story = story }
+        park_day3_finished_map_ = { park_day3_finished_map | story = story_park }
+        police_day3_finished_map_ = { police_day3_finished_map | story = story_police }
+        mapAttr_all = rest_map ++ [daniel_day3_finished_map_] ++ [park_day3_finished_map_] ++ [police_day3_finished_map_]
+    in
+    if isFinished then
+        { model | mapAttr_all = mapAttr_all }
+    else
+    model
 
 
 

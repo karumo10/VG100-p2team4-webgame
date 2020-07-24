@@ -177,8 +177,8 @@ renderMapButton model =
             ,
             button
             [ style "position" "absolute"
-            , style "left" "320px"
-            , style "top" "450px"
+            , style "left" "550px"
+            , style "top" "100px"
             , style "font-family" "Helvetica, Arial, sans-serif"
             , style "font-size" "12px"
             , style "height" "30px"
