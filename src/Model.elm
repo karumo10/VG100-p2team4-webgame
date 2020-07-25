@@ -62,6 +62,7 @@ type alias Model =
     , debug : NarrativeEngine.Debug.State
     , npcs_curr : List NPC
     , npcs_all : List NPC
+    , evidence_all : List Evidence
     , mapAttr_all : List MapAttr
     , interacttrue : Bool
     , energy : Int
@@ -103,6 +104,7 @@ initial =
     , debug = NarrativeEngine.Debug.init
     , npcs_curr = List.filter (\a -> a.place == (Home, Day3)) allNPCs
     , npcs_all = allNPCs
+    , evidence_all = allEvidence
     , mapAttr_all = allMapAttrs
     , interacttrue = False
     , energy = 150

@@ -331,6 +331,29 @@ update msg model =
             ({ model | map = StarterPage }
             , Cmd.none)
 
+        ExamineItemsInBag whichGrid ->
+            let
+                currItem =
+                    case whichGrid of
+                        1 -> model.bag.grid1
+                        2 -> model.bag.grid2
+                        3 -> model.bag.grid3
+                        4 -> model.bag.grid4
+                        5 -> model.bag.grid5
+                        6 -> model.bag.grid6
+                        7 -> model.bag.grid7
+                        8 -> model.bag.grid8
+                        9 -> model.bag.grid9
+                        10 -> model.bag.grid10
+                        _ -> emptyIni
+                currEvi =
+                    if currItem == noteIni then note_evi
+                    else if currItem == diskIni then disk_evi
+                    else if currItem == pillIni then pill_evi
+                    else empty_evi
+            in
+            ( examineEvidence currEvi model, Cmd.none )
+
 
 
 
@@ -897,6 +920,40 @@ interactWith__core trigger model =
 
 
 
+examineEvidence : Evidence -> Model -> Model
+examineEvidence evi model =
+    let
+        currEvi = evi
+        currTrigger
+            = query currEvi.description model.worldModel
+            |> List.map Tuple.first -- get List ID
+            |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
+            |> withDefault "$my$own$error$msg$: no such evidence. please contact with group4"
+        model_ = interactWith__core currTrigger model |> Tuple.first
+        energy = model.energy
+        energy_ = energy - model.energy_Cost_interact
+
+        currEviInModel_list = List.filter (\a -> a.eviType == currEvi.eviType) model.evidence_all
+        currEviInModel = currEviInModel_list
+            |> List.head
+            |> withDefault empty_evi
+        restEviInModel = List.filter (\a -> a.eviType /= currEvi.eviType) model.evidence_all
+        currEviInModel_ = { currEviInModel | isExamined = True }
+        eviInModel = [currEviInModel_] ++ restEviInModel
+
+        model__ = { model_ | evidence_all = eviInModel }
+
+    in
+    if model.playerDoing == MakingChoices then
+        model
+    else if energy_ < 0 then
+        {model| story = "Ah.... Why am I feel so tired, I should go home for a sleep......"}
+    else
+        model__
+
+
+
+
 interactByKey : Model -> Model
 interactByKey model =
     let
@@ -906,7 +963,7 @@ interactByKey model =
             = query currNPC.description model.worldModel
             |> List.map Tuple.first -- get List ID
             |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
-            |> withDefault "$my$own$error$msg$: no such npc, in interact by X"
+            |> withDefault "$my$own$error$msg$: no such npc, in interact by X please contact with group4"
         model_ = interactWith__core currTrigger model |> Tuple.first
         energy = model.energy
         energy_ = energy - model.energy_Cost_interact
