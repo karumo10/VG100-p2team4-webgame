@@ -422,7 +422,7 @@ disk_evi =
 note_evi : Evidence
 note_evi =
     { eviType = Note
-    , description = ""
+    , description = "NOTE"
     , usedPlace = Home
     , isExamined = False
     }
