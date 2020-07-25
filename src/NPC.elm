@@ -409,6 +409,7 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
     = Disk
     | Note
     | Pill
+    | Dagger
     | NoEvi
 
 disk_evi : Evidence
@@ -435,6 +436,14 @@ pill_evi =
     , isExamined = False
     }
 
+dagger_evi : Evidence
+dagger_evi =
+    { eviType = Dagger
+    , description = "DAGGER"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
 empty_evi : Evidence
 empty_evi =
     { eviType = NoEvi
@@ -442,6 +451,7 @@ empty_evi =
     , usedPlace = Home
     , isExamined = False
     }
+
 
 
 allEvidence : List Evidence

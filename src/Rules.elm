@@ -115,6 +115,9 @@ initialWorldModelSpec =
     , entity "PILLS.trigger=2"
         "pills"
         "The pills are in a small bottle, on which a tag saying \"Διόνυσος\", the next line is \"PARADISE Co.Ltd\"."
+    , entity "DAGGER.trigger=0"
+        "dagger"
+        "A dagger with weird letters on it. It seems that it is part of some couple souvenir as it seems that letters on it are only part of some complete patterns."
 
     ---- evidence choices
     , entity "INPUT.choices=0"
