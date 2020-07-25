@@ -38,6 +38,7 @@ type alias Item =
     , y : Int
     , intro : String
     , comment : String
+    , canBeExamined : Bool
     }
 
 type alias Bag =
@@ -65,6 +66,7 @@ gunIni =
     , y = 530
     , intro = "gun"
     , comment = "This is a gun"
+    , canBeExamined = False
     }
 
 bulletProofIni : Item
@@ -79,6 +81,7 @@ bulletProofIni =
     , y = 530
     , intro = "bulletproof"
     , comment = "Use this to prevent you from bullet"
+    , canBeExamined = False
     }
 
 noteIni : Item
@@ -93,6 +96,8 @@ noteIni =
     , y = 530
     , intro = "note"
     , comment = "Note"
+    , canBeExamined = False
+
     }
 
 diskIni : Item
@@ -107,6 +112,8 @@ diskIni =
     , y = 530
     , intro = "disk"
     , comment = "Disk"
+    , canBeExamined = True
+
     }
 
 pillIni : Item
@@ -121,6 +128,8 @@ pillIni =
     , y = 530
     , intro = "pill"
     , comment = "Weird pills taken from Paradise."
+    , canBeExamined = True
+
     }
 
 daggerIni : Item
@@ -135,21 +144,11 @@ daggerIni =
     , y = 530
     , intro = "dagger"
     , comment = "A dagger with weird letters on it."
+    , canBeExamined = True
+
     }
 
-evidence1Ini : Item
-evidence1Ini =
-    { itemType = Evidence1
-    , isPick = False
-    , isHeld = False
-    , isWear = False
-    , number = 1
-    , scene = PoliceOffice
-    , x = 1000
-    , y = 1300
-    , intro = "1"
-    , comment = "Important evidence"
-    }
+
 
 emptyIni : Item
 emptyIni =
@@ -163,6 +162,7 @@ emptyIni =
     , y = 0
     , intro = "empty"
     , comment = " Nothing here "
+    , canBeExamined = False
     }
 
 emptyPickUp: Item
@@ -177,6 +177,8 @@ emptyPickUp =
     , y = 0
     , intro = "3"
     , comment = ""
+    , canBeExamined = False
+
     }
 
 bagIni : Bag
