@@ -430,7 +430,7 @@ note_evi =
 pill_evi : Evidence
 pill_evi =
     { eviType = Pill
-    , description = ""
+    , description = "PILLS"
     , usedPlace = Home
     , isExamined = False
     }
