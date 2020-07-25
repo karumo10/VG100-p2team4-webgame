@@ -33,8 +33,6 @@ type Msg
     | Catherinecatch
     | Adkinscatch
     | Robbery
-    | OpenBag
-    | CloseBag
     | RenderGrid1Detail
     | RenderGrid2Detail
     | RenderGrid3Detail

@@ -233,13 +233,7 @@ update msg model =
             ({ model | conclusion = 0, story = "I think this is just a robbery, though the message sent to Catherine was very strange. We comforted the two people who had lost important people, and issued an arrest warrant, but nothing came of it..." }
             , Cmd.none)
 
-        OpenBag ->
-            ({ model | isBagOpen = True , whichGridIsOpen = 0 }
-            , Cmd.none)
 
-        CloseBag ->
-            ({ model | isBagOpen = False , whichGridIsOpen = 0 }
-            , Cmd.none)
 
         RenderGrid1Detail ->
             if model.whichGridIsOpen /= 1 then

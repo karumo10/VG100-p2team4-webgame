@@ -469,7 +469,7 @@ rendersuspectlist model =
 renderBagButton : Model -> List(Html Msg)
 renderBagButton model =
     let
-        contants =
+        contents =
                         div []
                         [
                         button
@@ -573,121 +573,11 @@ renderBagButton model =
         ,Html.label [Html.Attributes.for "menu2", class "menu2"][Html.span [] [], Html.span [] [], Html.span [] [] ]
         ,Html.nav [class "nav2"] [div [class "container"]
                                       [div [ style "font-family" "Helvetica, Arial, sans-serif"
-                                           , style "font-size" "18px"] [contants]]]
+                                           , style "font-size" "18px"] [contents]]]
         ]
 
 
 
-
-renderBag : Model -> Html Msg
-renderBag model =
-    case model.isBagOpen of
-        False ->
-            div[][]
-        True ->
-            div []
-            [
-            button
-            [ onClick RenderGrid1Detail
-            , Html.Attributes.style "width" "60px"
-            , Html.Attributes.style "height" "60px"
-            , Html.Attributes.style "font-size" "18px"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "100px"
-            ] [ text model.bag.grid1.intro ],
-
-            button
-            [ onClick RenderGrid2Detail
-            , Html.Attributes.style "width" "60px"
-            , Html.Attributes.style "height" "60px"
-            , Html.Attributes.style "font-size" "18px"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "180px"
-            ] [ text model.bag.grid2.intro ],
-
-            button
-            [ onClick RenderGrid3Detail
-            , Html.Attributes.style "width" "60px"
-            , Html.Attributes.style "height" "60px"
-            , Html.Attributes.style "font-size" "18px"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "260px"
-            ] [ text model.bag.grid3.intro ],
-
-            button
-            [ onClick RenderGrid4Detail
-            , Html.Attributes.style "width" "60px"
-            , Html.Attributes.style "height" "60px"
-            , Html.Attributes.style "font-size" "18px"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "340px"
-            ] [ text model.bag.grid4.intro ],
-
-            button
-            [ onClick RenderGrid5Detail
-            , Html.Attributes.style "width" "60px"
-            , Html.Attributes.style "height" "60px"
-            , Html.Attributes.style "font-size" "18px"
-            , style "position" "absolute"
-            , style "left" "100px"
-            , style "top" "420px"
-            ] [ text model.bag.grid5.intro ],
-
-            button
-            [ onClick RenderGrid6Detail
-            , Html.Attributes.style "width" "60px"
-            , Html.Attributes.style "height" "60px"
-            , Html.Attributes.style "font-size" "18px"
-            , style "position" "absolute"
-            , style "left" "180px"
-            , style "top" "100px"
-            ] [ text model.bag.grid6.intro ],
-
-            button
-            [ onClick RenderGrid7Detail
-            , Html.Attributes.style "width" "60px"
-            , Html.Attributes.style "height" "60px"
-            , Html.Attributes.style "font-size" "18px"
-            , style "position" "absolute"
-            , style "left" "180px"
-            , style "top" "180px"
-            ] [ text model.bag.grid7.intro ],
-
-             button
-             [ onClick RenderGrid8Detail
-             , Html.Attributes.style "width" "60px"
-             , Html.Attributes.style "height" "60px"
-             , Html.Attributes.style "font-size" "18px"
-             , style "position" "absolute"
-             , style "left" "180px"
-             , style "top" "260px"
-             ] [ text model.bag.grid8.intro ],
-
-              button
-              [ onClick RenderGrid9Detail
-              , Html.Attributes.style "width" "60px"
-              , Html.Attributes.style "height" "60px"
-              , Html.Attributes.style "font-size" "18px"
-              , style "position" "absolute"
-              , style "left" "180px"
-              , style "top" "340px"
-              ] [ text model.bag.grid9.intro ],
-
-              button
-              [ onClick RenderGrid10Detail
-              , Html.Attributes.style "width" "60px"
-              , Html.Attributes.style "height" "60px"
-              , Html.Attributes.style "font-size" "18px"
-              , style "position" "absolute"
-              , style "left" "180px"
-              , style "top" "420px"
-              ] [ text model.bag.grid10.intro ]
-
-              ]
 
 renderGrid1Detail : Model -> Html Msg
 renderGrid1Detail model =
