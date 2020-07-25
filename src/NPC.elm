@@ -288,6 +288,21 @@ cCoffeeMachine =
     , isFinished = False
     }
 
+cJonathon_day4 : NPC --he is not here at the first of day2
+cJonathon_day4 =
+    { itemType = Jonathon
+    , area =
+        { x = 375
+        , y = 40
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "JONATHON_DAY4"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
+
 
 pLee : NPC
 pLee =
@@ -450,6 +465,7 @@ allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night, cLee_day4
     , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day2_night, cBob_day4
     , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night, cAllen_day4
+    , cJonathon_day4
     , cCoffeeMachine
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody

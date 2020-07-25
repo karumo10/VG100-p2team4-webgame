@@ -256,6 +256,9 @@ initialWorldModelSpec =
     , entity "COFFEE.trigger=1"
         "coffee machine"
         "Now the coffee machine is fixed!"
+    , entity "JONATHON_DAY4.trigger=1"
+        "jonathon"
+        "..."
 
     -- choices
     , entity "ASK_BOB.choices=0"
@@ -269,6 +272,12 @@ initialWorldModelSpec =
         ""
     , entity "OPEN_COFFEE_MACHINE.choices=0"
         "Open it to check what is stuck inside..."
+        ""
+    , entity "BAD_LIE.choices=0"
+        "I have only investigated the nightclub yet, Sir"
+        ""
+    , entity "HAVE_INVEST.choices=0"
+        "I have talked about Daniel yet, Sir."
         ""
     ]
 
@@ -963,6 +972,43 @@ rulesSpec =
             DO: OPEN_COFFEE_MACHINE.choices=-1
                 COFFEE.trigger=0
             """
+        |> rule_______________________ "jonathon good morning"
+            """
+            ON: JONATHON_DAY4
+            IF: JONATHON_DAY4.trigger=1
+                HAVE_INVEST.choices=0
+                BAD_LIE.choices=0
+            DO: HAVE_INVEST.choices=1
+                BAD_LIE.choices=1
+            """
+        |> rule_______________________ "bad lie"
+            """
+            ON: BAD_LIE
+            DO: HAVE_INVEST.choices=0
+                BAD_LIE.choices=-1
+                JONATHON_DAY4.trigger=2
+            """
+        |> rule_______________________ "jonathon's reply to bad lie"
+            """
+            ON: JONATHON_DAY4
+            IF: JONATHON_DAY4.trigger=2
+                BAD_LIE.choices=-1
+            DO: JONATHON_DAY4.trigger=0
+            """
+        |> rule_______________________ "tell truth"
+            """
+            ON: HAVE_INVEST
+            DO: HAVE_INVEST.choices=-1
+                BAD_LIE.choices=0
+                JONATHON_DAY4.trigger=2
+            """
+        |> rule_______________________ "jonathon's reply to truth"
+            """
+            ON: JONATHON_DAY4
+            IF: JONATHON_DAY4.trigger=2
+                HAVE_INVEST.choices=-1
+            DO: JONATHON_DAY4.trigger=0
+            """
 
 
 
@@ -1149,8 +1195,16 @@ narrative_content =
             "You turn on the coffee machine. The coffee is dropping down very slowly."
         |> content__________________________________ "find memory card"
             "You open the lid of the coffee machine, remove the filter element. A memory card is stuck in the water outlet."
-
-
+        |> content__________________________________ "jonathon good morning"
+            "Good morning, Kay. We haven't been meeting with each other since your research of nightclub Paradise weeks ago. I hear that you are in charge of an urgent case yesterday, how is the case going on?"
+        |> content__________________________________ "bad lie"
+            "Sir, I only have time to investigate the nightclub yet. And I found nothing useful there. Currently, I have no idea what can be the potential reason for death."
+        |> content__________________________________ "jonathon's reply to bad lie"
+            "[Bad End: Meaningless Lie]\nJonathon just nodded. After that, nothing important happened. The whole world had been in peace until the day you were knock over on the street..."
+        |> content__________________________________ "tell truth"
+            "Sir, as you may have known that the woman has a brother Daniel, and I have just talked to him about this case yet. And he told me that he guessed his sister’s carelessly intake of too much drug may contribute to her death and this can be supported by the report of the autopsy."
+        |> content__________________________________ "jonathon's reply to truth"
+            "But you know that it's just one version of explanations. An advice for you is to go to inspect his home today. According to my report, Daniel won't be home today. Go, now."
 
 parsedData =
     let
