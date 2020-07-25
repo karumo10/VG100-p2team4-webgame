@@ -109,6 +109,21 @@ diskIni =
     , comment = "Disk"
     }
 
+pillIni : Item
+pillIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "pill"
+    , comment = "Weird pills taken from Paradise."
+    }
+
+
 evidence1Ini : Item
 evidence1Ini =
     { itemType = Evidence1
