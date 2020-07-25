@@ -233,52 +233,86 @@ update msg model =
             ({ model | conclusion = 0, story = "I think this is just a robbery, though the message sent to Catherine was very strange. We comforted the two people who had lost important people, and issued an arrest warrant, but nothing came of it..." }
             , Cmd.none)
 
-        OpenBag ->
-            ({ model | isBagOpen = True , whichGridIsOpen = 0 }
-            , Cmd.none)
 
-        CloseBag ->
-            ({ model | isBagOpen = False , whichGridIsOpen = 0 }
-            , Cmd.none)
 
         RenderGrid1Detail ->
+            if model.whichGridIsOpen /= 1 then
             ({ model | whichGridIsOpen = 1 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid2Detail ->
+            if model.whichGridIsOpen /= 2 then
             ({ model | whichGridIsOpen = 2 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid3Detail ->
+            if model.whichGridIsOpen /= 3 then
             ({ model | whichGridIsOpen = 3 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid4Detail ->
+            if model.whichGridIsOpen /= 4 then
             ({ model | whichGridIsOpen = 4 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid5Detail ->
+            if model.whichGridIsOpen /= 5 then
             ({ model | whichGridIsOpen = 5 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid6Detail ->
+            if model.whichGridIsOpen /= 6 then
             ({ model | whichGridIsOpen = 6 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid7Detail ->
+            if model.whichGridIsOpen /= 7 then
             ({ model | whichGridIsOpen = 7 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid8Detail ->
+            if model.whichGridIsOpen /= 8 then
             ({ model | whichGridIsOpen = 8 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid9Detail ->
+            if model.whichGridIsOpen /= 9 then
             ({ model | whichGridIsOpen = 9 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         RenderGrid10Detail ->
+            if model.whichGridIsOpen /= 10 then
             ({ model | whichGridIsOpen = 10 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
         StartGame ->
