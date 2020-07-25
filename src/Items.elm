@@ -123,6 +123,19 @@ pillIni =
     , comment = "Weird pills taken from Paradise."
     }
 
+daggerIni : Item
+daggerIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "dagger"
+    , comment = "A dagger with weird letters on it."
+    }
 
 evidence1Ini : Item
 evidence1Ini =
