@@ -108,7 +108,10 @@ initialWorldModelSpec =
     ---- evidences
     , entity "DISK.trigger=2"
         "the disk"
-        "You had examined it yet. Now your memory recovered; you were that reporter, who was murdered by Jonathan, and now you're in Kay's body through some supernatural mechanism... that car crash happened on Kay must be Jonathan's plan, too... You should indeed watch out Jonathon..."
+        "You had examined it yet. Now your memory recovered; you were that reporter, who was murdered by Jonathan, and now you're in Kay's body through some supernatural mechanism. That car crash happened on Kay must be Jonathan's plan, too. You had to beat Jonathon. Your intuition told you the very day of dual will come soon."
+    , entity "NOTE.trigger=5"
+        "the note"
+        "You had examined it yet. Now your memory recovered; you were that reporter, who was murdered by Jonathan, and now you're in Kay's body through some supernatural mechanism. That car crash happened on Kay must be Jonathan's plan, too. You had to beat Jonathon. Your intuition told you the very day of dual will come soon."
 
     ---- evidence choices
     , entity "INPUT.choices=0"
@@ -123,7 +126,9 @@ initialWorldModelSpec =
     , entity "FILE2_REPORT.choices=0"
         "Report about Jonathon"
         ""
-
+    , entity "CLEAR_LOOK.choices=0"
+        "Have a clear look at the note"
+        ""
 
     ---- choices
     , entity "YES.bobtalk.choices=0"
@@ -790,8 +795,48 @@ rulesSpec =
             ON: FILE2_REPORT
             DO: FILE2_REPORT.choices=-1
             """
-
-
+        |> rule_______________________ "The author of"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=5
+            DO: NOTE.trigger=4
+            """
+        |> rule_______________________ "what this handwriting"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=4
+            DO: CLEAR_LOOK.choices=1
+            """
+        |> rule_______________________ "have a clear-you read"
+            """
+            ON: CLEAR_LOOK
+            DO: NOTE.trigger=3
+                CLEAR_LOOK.choices=0
+            """
+        |> rule_______________________ "reveal of the"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=3
+            DO: NOTE.trigger=2
+            """
+        |> rule_______________________ "our city"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=2
+            DO: NOTE.trigger=1
+            """
+        |> rule_______________________ "jonathon keeps"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=1
+            DO: NOTE.trigger=0
+            """
+        |> rule_______________________ "what it is highly"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=0
+            DO: NOTE.trigger=-1
+            """
 
 
 
@@ -942,8 +987,20 @@ narrative_content =
             "This is an extraordinary action game about a brave man using wand to purify crazy ghosts. You spent almost an hour to finish it."
         |> content__________________________________ "file2"
             "A .md file jumped out. It read: \"According to evidence provided by Police Kay, Jonathon receives bibles from the owner of the biggest nightclub \"Paradise\" and keeps an abnormal relationship with the staff of that nightclub. Besides, he seems to have noticed us. We should be careful.\""
-
-
+        |> content__________________________________ "The author of"
+            "The author of this note seems to have near unrecognizable handwriting."
+        |> content__________________________________ "what this handwriting"
+            "\"?!! What? This handwriting is just the handwriting I have in the real world. How can that be......?\""
+        |> content__________________________________ "have a clear-you read"
+            "You read the note out:"
+        |> content__________________________________ "reveal of the"
+            "Reveal of the darkness of our city\nReporter: [Player's name]"
+        |> content__________________________________ "our city"
+            "Our city, or in other words, the city of criminal, is known for the increasing rate of criminals in recent years. The reason behind this is because of our master of the police office Jonathon. Thanks to the evidence provided by anonymous police, a light can be shed through the darkness of our city."
+        |> content__________________________________ "jonathon keeps"
+            "Jonathon keeps an abnormal relationship with many people including both women and men.\nJonathon receives bibles from the owner of the biggest nightclub \"Paradise\" in our city and provides protection for it to help it become large overnight.\nJonathon has a secret personal police team which helps him"
+        |> content__________________________________ "what it is highly"
+            "What, it is highly similar to the plot in my novel ...... And that dream...... That is to say, I'm not a novelist, I should be the reporter?"
 
 
 
