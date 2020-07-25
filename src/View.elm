@@ -603,7 +603,7 @@ renderGrid1Detail model =
           ,
           div []
           [ button
-          [ onClick RenderGrid1Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -642,7 +642,7 @@ renderGrid2Detail model =
           ,
           div []
           [ button
-          [ onClick RenderGrid2Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -681,7 +681,7 @@ renderGrid3Detail model=
           ,
           div []
           [ button
-          [ onClick RenderGrid3Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -720,7 +720,7 @@ renderGrid4Detail model =
           ,
           div []
           [ button
-          [ onClick RenderGrid4Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -759,7 +759,7 @@ renderGrid5Detail model =
           ,
           div []
           [ button
-          [ onClick RenderGrid5Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -798,7 +798,7 @@ renderGrid6Detail model=
           ,
           div []
           [ button
-          [ onClick RenderGrid6Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -837,7 +837,7 @@ renderGrid7Detail model=
           ,
           div []
           [ button
-          [ onClick RenderGrid7Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -876,7 +876,7 @@ renderGrid8Detail model =
           ,
           div []
           [ button
-          [ onClick RenderGrid8Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -915,7 +915,7 @@ renderGrid9Detail model=
           ,
           div []
           [ button
-          [ onClick RenderGrid9Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -954,7 +954,7 @@ renderGrid10Detail model =
           ,
           div []
           [ button
-          [ onClick RenderGrid10Detail
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"

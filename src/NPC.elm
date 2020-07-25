@@ -384,8 +384,6 @@ danielDaniel =
      }
 
 
-
-
 allNPCs: List NPC
 allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night
@@ -396,3 +394,64 @@ allNPCs =
     , nightBody
     , homePhone
     , danielDaniel ]
+
+
+
+type alias Evidence =
+    { eviType : EvidenceType
+    , description : String
+    , usedPlace : Map -- at home.
+    , isExamined : Bool -- used for the final day, to check which information are well-collected-and-examined
+    }
+
+
+type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of isExamined.
+    = Disk
+    | Note
+    | Pill
+    | NoEvi
+
+disk_evi : Evidence
+disk_evi =
+    { eviType = Disk
+    , description = ""
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+note_evi : Evidence
+note_evi =
+    { eviType = Note
+    , description = ""
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+pill_evi : Evidence
+pill_evi =
+    { eviType = Pill
+    , description = ""
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+empty_evi : Evidence
+empty_evi =
+    { eviType = NoEvi
+    , description = "nothing"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+
+allEvidence : List Evidence
+allEvidence =
+    [ disk_evi, note_evi, pill_evi
+    ]
+
+
+
+
+
+
+

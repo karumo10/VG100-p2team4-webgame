@@ -43,6 +43,7 @@ type Msg
     | RenderGrid8Detail
     | RenderGrid9Detail
     | RenderGrid10Detail
+    | ExamineItemsInBag Int
     | StartGame
     | ViewAboutUs
     | ViewStory
