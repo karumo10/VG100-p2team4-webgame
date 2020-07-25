@@ -112,6 +112,9 @@ initialWorldModelSpec =
     , entity "NOTE.trigger=5"
         "the note"
         "You had examined it yet. Now your memory recovered; you were that reporter, who was murdered by Jonathan, and now you're in Kay's body through some supernatural mechanism. That car crash happened on Kay must be Jonathan's plan, too. You had to beat Jonathon. Your intuition told you the very day of dual will come soon."
+    , entity "PILLS.trigger=2"
+        "pills"
+        "The pills are in a small bottle, on which a tag saying \"Διόνυσος\", the next line is \"PARADISE Co.Ltd\"."
 
     ---- evidence choices
     , entity "INPUT.choices=0"
@@ -128,6 +131,12 @@ initialWorldModelSpec =
         ""
     , entity "CLEAR_LOOK.choices=0"
         "Have a clear look at the note"
+        ""
+    , entity "TAKE_PILL.choices=0"
+        "Take one pill."
+        ""
+    , entity "NOT_TAKE_PILL.choices=0"
+        "...forget it."
         ""
 
     ---- choices
@@ -164,6 +173,7 @@ initialWorldModelSpec =
     , entity "CATHERINEASK.choices=0"
         "When did you see Brennan last time? Do you know why he came here last night?"
         ""
+
     -- day2
     , entity "FORGOT1.allentalkoffice.choices=0"
         "Umm which case?"
@@ -837,12 +847,33 @@ rulesSpec =
             IF: NOTE.trigger=0
             DO: NOTE.trigger=-1
             """
-
-
-
-
-
-
+        |> rule_______________________ "description"
+            """
+            ON: PILLS
+            IF: PILLS.trigger=2
+            DO: PILLS.trigger=1
+            """
+        |> rule_______________________ "greek letters"
+            """
+            ON: PILLS
+            IF: PILLS.trigger=1
+            DO: TAKE_PILL.choices=1
+                NOT_TAKE_PILL.choices=1
+            """
+        |> rule_______________________ "take the pills"
+            """
+            ON: TAKE_PILL
+            DO: TAKE_PILL.choices=0
+                NOT_TAKE_PILL.choices=0
+                PILLS.trigger=0
+            """
+        |> rule_______________________ "forget it"
+            """
+            ON: NOT_TAKE_PILL
+            DO: TAKE_PILL.choices=0
+                NOT_TAKE_PILL.choices=0
+                PILLS.trigger=0
+            """
 
 
 
@@ -1001,10 +1032,14 @@ narrative_content =
             "Jonathon keeps an abnormal relationship with many people including both women and men.\nJonathon receives bibles from the owner of the biggest nightclub \"Paradise\" in our city and provides protection for it to help it become large overnight.\nJonathon has a secret personal police team which helps him"
         |> content__________________________________ "what it is highly"
             "What, it is highly similar to the plot in my novel ...... And that dream...... That is to say, I'm not a novelist, I should be the reporter?"
-
-
-
-
+        |> content__________________________________ "description"
+            "The pills are in a small bottle, on which a tag saying \"Διόνυσος\", the next line is \"PARADISE Co.Ltd\".You have learned some Greek letters: that is \"Dionysus\", the god of wine."
+        |> content__________________________________ "greek letters"
+            "Maybe pills used for indulge people into joy, sold by Paradise...? An idea of investing Paradise again as a customer come up in your mind. By taking those pills, maybe you can get adapted in that environment then investigate smoothly...?"
+        |> content__________________________________ "take the pills"
+            "You thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late."
+        |> content__________________________________ "forget it"
+            "This is too dangerous and risky after all, you comforted yourself."
 
 parsedData =
     let
