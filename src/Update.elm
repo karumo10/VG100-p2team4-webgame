@@ -1111,7 +1111,7 @@ specialUpdates model
     |> day2_finished_office_finished_finished_update_home
     |> day2_finished_office_finished_update_day
     |> day3_daniel_update_story_npc
-
+    |> day4_allen_update_coffee_machine
 
 
 
@@ -1198,6 +1198,22 @@ day3_daniel_update_story_npc model =
         model
     else
     model
+
+day4_allen_update_coffee_machine : Model -> Model
+day4_allen_update_coffee_machine model =
+    let
+        isChat = findCertainQuestion model "ASK_ALLEN"
+        coffee = List.filter (\a -> a.itemType == CoffeeMachine) model.npcs_all
+            |> List.head |> withDefault cCoffeeMachine
+        rest = List.filter (\a -> a.itemType /= CoffeeMachine) model.npcs_all
+        coffee_ = { coffee | place = (PoliceOffice, Day4) }
+        npcs_all_ = [coffee_] ++ rest
+    in
+    if Tuple.second coffee.place == Nowhere then
+        if isChat then
+            { model | npcs_all = npcs_all_, npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day4)) npcs_all_ }
+        else model
+    else model
 
 
 
