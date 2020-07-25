@@ -414,7 +414,7 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
 disk_evi : Evidence
 disk_evi =
     { eviType = Disk
-    , description = ""
+    , description = "DISK"
     , usedPlace = Home
     , isExamined = False
     }
