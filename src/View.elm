@@ -600,6 +600,16 @@ renderGrid1Detail model =
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid1Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -625,6 +635,16 @@ renderGrid2Detail model =
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid2Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -650,6 +670,16 @@ renderGrid3Detail model=
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid3Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -675,6 +705,16 @@ renderGrid4Detail model =
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid4Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -700,6 +740,16 @@ renderGrid5Detail model =
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid5Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -725,6 +775,16 @@ renderGrid6Detail model=
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid6Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -750,6 +810,16 @@ renderGrid7Detail model=
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid7Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -775,6 +845,16 @@ renderGrid8Detail model =
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid8Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -800,6 +880,16 @@ renderGrid9Detail model=
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+            button
+                                      [ onClick RenderGrid9Detail
+                                      , Html.Attributes.style "width" "20px"
+                                      , Html.Attributes.style "height" "20px"
+                                      , Html.Attributes.style "font-size" "18px"
+                                      , style "position" "absolute"
+                                      , style "left" "200 px"
+                                      , style "top" " 0 px"
+                                      ] [ text "X " ]
     ]
     else
     div [][]
@@ -825,6 +915,16 @@ renderGrid10Detail model =
       , style "font-weight" "300"
       ]
       [ Html.text ( "The information of this grid " )
+      ,
+      button
+                                [ onClick RenderGrid10Detail
+                                , Html.Attributes.style "width" "20px"
+                                , Html.Attributes.style "height" "20px"
+                                , Html.Attributes.style "font-size" "18px"
+                                , style "position" "absolute"
+                                , style "left" "200 px"
+                                , style "top" " 0 px"
+                                ] [ text "X " ]
     ]
     else
     div [][]
