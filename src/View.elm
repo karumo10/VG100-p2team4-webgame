@@ -581,6 +581,12 @@ renderBagButton model =
 
 renderGrid1Detail : Model -> Html Msg
 renderGrid1Detail model =
+    let
+        opacity =
+            case model.bag.grid1.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
     if model.whichGridIsOpen == 1 then
         div
           [ style "border-style" "inset"
@@ -612,6 +618,7 @@ renderGrid1Detail model =
           , style "top" "37px"
           , style "text-align" "center"
           , style "margin" "auto"
+          , style "opacity" opacity
           ] [ text "Examine" ]
           ]
     ]
@@ -620,6 +627,12 @@ renderGrid1Detail model =
 
 renderGrid2Detail : Model -> Html Msg
 renderGrid2Detail model =
+    let
+        opacity =
+            case model.bag.grid2.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
     if model.whichGridIsOpen == 2 then
         div
           [ style "border-style" "inset"
@@ -651,6 +664,7 @@ renderGrid2Detail model =
           , style "top" "37px"
           , style "text-align" "center"
           , style "margin" "auto"
+          , style "opacity" opacity
           ] [ text "Examine" ]
           ]
     ]
@@ -658,7 +672,15 @@ renderGrid2Detail model =
     div [][]
 
 renderGrid3Detail : Model -> Html Msg
-renderGrid3Detail model=
+renderGrid3Detail model =
+    let
+        opacity =
+            case model.bag.grid3.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+
     if model.whichGridIsOpen == 3 then
         div
           [ style "border-style" "inset"
@@ -689,6 +711,7 @@ renderGrid3Detail model=
           , style "left" "207.5px"
           , style "top" "37px"
           , style "text-align" "center"
+          , style "opacity" opacity
           , style "margin" "auto"
           ] [ text "Examine" ]
           ]
@@ -698,6 +721,13 @@ renderGrid3Detail model=
 
 renderGrid4Detail : Model -> Html Msg
 renderGrid4Detail model =
+    let
+        opacity =
+            case model.bag.grid4.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 4 then
         div
           [ style "border-style" "inset"
@@ -728,6 +758,7 @@ renderGrid4Detail model =
           , style "left" "207.5px"
           , style "top" "37px"
           , style "text-align" "center"
+          , style "opacity" opacity
           , style "margin" "auto"
           ] [ text "Examine" ]
           ]
@@ -737,6 +768,13 @@ renderGrid4Detail model =
 
 renderGrid5Detail : Model -> Html Msg
 renderGrid5Detail model =
+    let
+        opacity =
+            case model.bag.grid5.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 5 then
         div
           [ style "border-style" "inset"
@@ -767,6 +805,7 @@ renderGrid5Detail model =
           , style "left" "207.5px"
           , style "top" "37px"
           , style "text-align" "center"
+          , style "opacity" opacity
           , style "margin" "auto"
           ] [ text "Examine" ]
           ]
@@ -776,6 +815,13 @@ renderGrid5Detail model =
 
 renderGrid6Detail : Model -> Html Msg
 renderGrid6Detail model=
+    let
+        opacity =
+            case model.bag.grid6.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 6 then
         div
           [ style "border-style" "inset"
@@ -807,6 +853,7 @@ renderGrid6Detail model=
           , style "top" "37px"
           , style "text-align" "center"
           , style "margin" "auto"
+          , style "opacity" opacity
           ] [ text "Examine" ]
           ]
     ]
@@ -815,6 +862,13 @@ renderGrid6Detail model=
 
 renderGrid7Detail : Model -> Html Msg
 renderGrid7Detail model=
+    let
+        opacity =
+            case model.bag.grid7.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 7 then
         div
           [ style "border-style" "inset"
@@ -846,6 +900,7 @@ renderGrid7Detail model=
           , style "top" "37px"
           , style "text-align" "center"
           , style "margin" "auto"
+          , style "opacity" opacity
           ] [ text "Examine" ]
           ]
     ]
@@ -854,6 +909,13 @@ renderGrid7Detail model=
 
 renderGrid8Detail : Model -> Html Msg
 renderGrid8Detail model =
+    let
+        opacity =
+            case model.bag.grid8.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 8 then
         div
           [ style "border-style" "inset"
@@ -885,6 +947,7 @@ renderGrid8Detail model =
           , style "top" "37px"
           , style "text-align" "center"
           , style "margin" "auto"
+          , style "opacity" opacity
           ] [ text "Examine" ]
           ]
     ]
@@ -893,6 +956,13 @@ renderGrid8Detail model =
 
 renderGrid9Detail : Model -> Html Msg
 renderGrid9Detail model=
+    let
+        opacity =
+            case model.bag.grid9.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 9 then
         div
           [ style "border-style" "inset"
@@ -924,6 +994,7 @@ renderGrid9Detail model=
           , style "top" "37px"
           , style "text-align" "center"
           , style "margin" "auto"
+          , style "opacity" opacity
           ] [ text "Examine" ]
           ]
     ]
@@ -932,6 +1003,13 @@ renderGrid9Detail model=
 
 renderGrid10Detail : Model -> Html Msg
 renderGrid10Detail model =
+    let
+        opacity =
+            case model.bag.grid10.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 10 then
         div
           [ style "border-style" "inset"
@@ -963,6 +1041,7 @@ renderGrid10Detail model =
           , style "top" "37px"
           , style "text-align" "center"
           , style "margin" "auto"
+          , style "opacity" opacity
           ] [ text "Examine" ]
           ]
     ]

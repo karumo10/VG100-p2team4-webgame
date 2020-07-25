@@ -949,6 +949,8 @@ examineEvidence evi model =
         model
     else if energy_ < 0 then
         {model| story = "Ah.... Why am I feel so tired, I should go home for a sleep......"}
+    else if model.map /= evi.usedPlace then
+        { model | story = "It's not the proper place to examine it." }
     else
         model__
 
