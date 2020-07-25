@@ -15,6 +15,7 @@ type NPCType
     | JonaliEvi
     | NightBody
     | Phone
+    | Daniel_People
     | None
 
 
@@ -369,7 +370,7 @@ homePhone =
 
 danielDaniel : NPC
 danielDaniel =
-     { itemType = Phone
+     { itemType = Daniel_People
      , area =
          { x = 300
          , y = 400
