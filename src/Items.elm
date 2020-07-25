@@ -148,6 +148,21 @@ daggerIni =
 
     }
 
+trueMemCardIni : Item
+trueMemCardIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "memory card"
+    , comment = "A memory card, used to save photographs."
+    , canBeExamined = True
+
+    }
 
 
 emptyIni : Item

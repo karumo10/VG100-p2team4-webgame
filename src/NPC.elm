@@ -16,6 +16,7 @@ type NPCType
     | NightBody
     | Phone
     | Daniel_People
+    | CoffeeMachine
     | None
 
 
@@ -104,6 +105,21 @@ cLee_day2_night =
     , isFinished = False
     }
 
+cLee_day4 : NPC --he is not here at the first of day2
+cLee_day4 =
+    { itemType = Lee
+    , area =
+        { x = 375
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "LEE_DAY4"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
+
 
 cBob_day1 : NPC
 cBob_day1 =
@@ -164,6 +180,22 @@ cBob_day2_night =
     , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
     }
+
+cBob_day4 : NPC
+cBob_day4 =
+    { itemType = Bob
+    , area =
+        { x = 450
+        , y = 520
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "BOB_DAY4"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
+
 
 
 cAllen_day1 : NPC
@@ -226,6 +258,35 @@ cAllen_day2_night =
     , isFinished = False
     }
 
+cAllen_day4 : NPC
+cAllen_day4 =
+    { itemType = Allen
+        , area =
+        { x = 600
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "ALLEN_DAY4"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
+
+cCoffeeMachine : NPC
+cCoffeeMachine =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE"
+    , place = ( PoliceOffice , Nowhere )
+    , isFinished = False
+    }
 
 
 pLee : NPC
@@ -386,14 +447,16 @@ danielDaniel =
 
 allNPCs: List NPC
 allNPCs =
-    [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night
-    , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day2_night
-    , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night
+    [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night, cLee_day4
+    , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day2_night, cBob_day4
+    , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night, cAllen_day4
+    , cCoffeeMachine
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody
     , nightBody
     , homePhone
-    , danielDaniel ]
+    , danielDaniel
+    ]
 
 
 

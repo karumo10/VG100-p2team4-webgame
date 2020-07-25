@@ -1114,6 +1114,7 @@ specialUpdates model
 
 
 
+
 day2_journalist_finished_update_day : Model -> Model -- format: (IMPORTANT) `time`_`mapname`_finished_update. means that this map at this time is finished, and then update somthing.
 day2_journalist_finished_update_day model =
     let
@@ -1199,29 +1200,17 @@ day3_daniel_update_story_npc model =
     model
 
 
+
+
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
     model
     |> pickPill
     |> pickDiskOrNote
     |> pickDagger
+    |> pickMemCard
 
 
-
-whichActionTakenDisk : WorldModel.ID -> Bool
-whichActionTakenDisk id =
-    if id == "CHOOSEWHICHTAKEDISK" then
-    True
-    else
-    False
-
-whichActionTakenNote : WorldModel.ID -> Bool
-whichActionTakenNote id =
-    if id == "CHOOSEWHICHTAKENOTE" then
-    True
-
-    else
-    False
 
 
 isRepeat : Item -> Model -> Bool
@@ -1242,6 +1231,61 @@ isRepeat item model =
     True
     else
     False
+
+pickMemCard : Model -> Model
+pickMemCard model =
+    let
+        isTaken = findCertainQuestion model "OPEN_COFFEE_MACHINE"
+        item =
+            if isTaken then trueMemCardIni
+            else emptyIni
+        repeatOrNot = isRepeat item model
+        g1 = model.bag.grid1
+        g2 = model.bag.grid2
+        g3 = model.bag.grid3
+        g4 = model.bag.grid4
+        g5 = model.bag.grid5
+        g6 = model.bag.grid6
+        g7 = model.bag.grid7
+        g8 = model.bag.grid8
+        g9 = model.bag.grid9
+        g10 = model.bag.grid10
+        t1 = model.bag.grid1.itemType
+        t2 = model.bag.grid2.itemType
+        t3 = model.bag.grid3.itemType
+        t4 = model.bag.grid4.itemType
+        t5 = model.bag.grid5.itemType
+        t6 = model.bag.grid6.itemType
+        t7 = model.bag.grid7.itemType
+        t8 = model.bag.grid8.itemType
+        t9 = model.bag.grid9.itemType
+        t10 = model.bag.grid10.itemType
+    in
+    if repeatOrNot == False && t1 == Empty then
+    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    else if repeatOrNot == False && t1 /= Empty && t2 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item }}
+    else
+    model
+
+
+
 
 pickDagger : Model -> Model
 pickDagger model =
@@ -1416,6 +1460,21 @@ pickDiskOrNote model =
 
 
 
+
+whichActionTakenDisk : WorldModel.ID -> Bool
+whichActionTakenDisk id =
+    if id == "CHOOSEWHICHTAKEDISK" then
+    True
+    else
+    False
+
+whichActionTakenNote : WorldModel.ID -> Bool
+whichActionTakenNote id =
+    if id == "CHOOSEWHICHTAKENOTE" then
+    True
+
+    else
+    False
 
 
 

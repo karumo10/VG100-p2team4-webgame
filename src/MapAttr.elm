@@ -14,12 +14,14 @@ type VehicleType
     = Elevator
     | Bed
     | Car
+
 type Day
     = Day1
     | Day2
     | Day2_Finished
     | Day2_Night
     | Day3
+    | Day4
     | Nowhere
     | TooBigOrSmall
 
@@ -193,6 +195,18 @@ policeOfficeAttr_day3 =
     , isFinished = False
     }
 
+policeOfficeAttr_day4 : MapAttr
+policeOfficeAttr_day4 =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , story = "Another day at work, another boring day. But I need to avoid being killed."
+    , scene = ( PoliceOffice, Day4 )
+    , isFinished = False
+    }
+
 parkAttr_day1 : MapAttr
 parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
@@ -250,6 +264,18 @@ parkAttr_day3 =
     , vehicle = []
     , story = "The park, where a promising man was killed. May him rest in peace..."
     , scene = ( Park, Day3 )
+    , isFinished = False
+    }
+
+parkAttr_day4 : MapAttr
+parkAttr_day4 =
+    { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
+    , heroIni = { x = 500, y = 250, width = 50, height = 180 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , story = "The park, where a promising man was killed. May him rest in peace..."
+    , scene = ( Park, Day4 )
     , isFinished = False
     }
 
@@ -315,6 +341,18 @@ homeAttr_day3 =
     , isFinished = False
     }
 
+homeAttr_day4 : MapAttr
+homeAttr_day4 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Home, sweet home. "
+    , scene = ( Home, Day4 )
+    , isFinished = False
+    }
+
 journalistAttr_day1 : MapAttr
 journalistAttr_day1 =
     { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
@@ -376,6 +414,18 @@ journalistAttr_day3 =
     , isFinished = False
     }
 
+journalistAttr_day4 : MapAttr
+journalistAttr_day4 =
+    { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
+    , heroIni = { x = 205, y = 335, width = 60, height = 180 }
+    , barrier = journalistBarrier
+    , hint = []
+    , vehicle = []
+    , story = "Once the murder scene."
+    , scene = ( Journalist, Day4 )
+    , isFinished = False
+    }
+
 nightClubAttr_day1 : MapAttr
 nightClubAttr_day1 =
     { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
@@ -433,6 +483,18 @@ nightClubAttr_day3 =
     , vehicle = nightClubVehicle
     , story = "Welcome to PARADISE! The highest unconscious, the highest joy! \nDo you want something *exciting*, Sir?"
     , scene = ( NightClub, Day3 )
+    , isFinished = False
+    }
+
+nightClubAttr_day4 : MapAttr
+nightClubAttr_day4 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = nightClubBarrier
+    , hint = []
+    , vehicle = nightClubVehicle
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy! \nDo you want something *exciting*, Sir?"
+    , scene = ( NightClub, Day4 )
     , isFinished = False
     }
 
@@ -542,11 +604,11 @@ switchingAttr =
 allMapAttrs : List MapAttr
 allMapAttrs =
     [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3
-    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3
-    , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3
-    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3
-    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4
+    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4
+    , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
+    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4
+    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4
     , danialAttr_day3
     , switchingAttr ]
 

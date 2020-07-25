@@ -240,6 +240,36 @@ initialWorldModelSpec =
     , entity "ASK_LIFE.day3.choices=0"
         "Ask about their current life"
         ""
+
+    ------
+    --- day4
+    -- npcs
+    , entity "BOB_DAY4.trigger=1"
+        "bob day4"
+        "What? If you ask me, that is there's nothing critical on today's newspaper! Only damn showbiz gossips. Don't forget Jonathan!"
+    , entity "LEE_DAY4.trigger=1"
+        "lee day4"
+        "Nah. Well, that's the general reply but if we get more detailed, today Allen's temper is worse than any day before."
+    , entity "ALLEN_DAY4.trigger=1"
+        "allen day4"
+        "But why always asking? That f***ing coffee machine is broken, and my Far East tea is used up, that's all! Go to Jonathon with four jet engines on your butt, or he will fire you at once!"
+    , entity "COFFEE.trigger=1"
+        "coffee machine"
+        "Now the coffee machine is fixed!"
+
+    -- choices
+    , entity "ASK_BOB.choices=0"
+        "Ask Bob about weird things happened today."
+        ""
+    , entity "ASK_LEE.choices=0"
+        "Ask Lee about weird things happened today."
+        ""
+    , entity "ASK_ALLEN.choices=0"
+        "Ask Allen about weird things happened today."
+        ""
+    , entity "OPEN_COFFEE_MACHINE.choices=0"
+        "Open it to check what is stuck inside..."
+        ""
     ]
 
 type alias MyRule =
@@ -885,6 +915,55 @@ rulesSpec =
                 NOT_TAKE_PILL.choices=0
                 PILLS.trigger=0
             """
+        |> rule_______________________ "good morning, kay"
+            """
+            ON: BOB_DAY4
+            IF: BOB_DAY4.trigger=1
+            DO: ASK_BOB.choices=1
+            """
+        |> rule_______________________ "bob's answer"
+            """
+            ON: ASK_BOB
+            DO: ASK_BOB.choices=-1
+                BOB_DAY4.trigger=0
+            """
+        |> rule_______________________ "kay, jonathon calls"
+            """
+            ON: LEE_DAY4
+            IF: LEE_DAY4.trigger=1
+            DO: ASK_LEE.choices=1
+            """
+        |> rule_______________________ "lee's answer"
+            """
+            ON: ASK_LEE
+            DO: ASK_LEE.choices=-1
+                LEE_DAY4.trigger=0
+            """
+        |> rule_______________________ "big jonathon is"
+            """
+            ON: ALLEN_DAY4
+            IF: ALLEN_DAY4.trigger=1
+            DO: ASK_ALLEN.choices=1
+            """
+        |> rule_______________________ "allen's answer"
+            """
+            ON: ASK_ALLEN
+            DO: ASK_ALLEN.choices=-1
+                ALLEN_DAY4.trigger=0
+            """
+        |> rule_______________________ "coffee machine"
+            """
+            ON: COFFEE
+            IF: COFFEE.trigger=1
+            DO: OPEN_COFFEE_MACHINE.choices=1
+            """
+        |> rule_______________________ "find memory card"
+            """
+            ON: OPEN_COFFEE_MACHINE
+            DO: OPEN_COFFEE_MACHINE.choices=-1
+                COFFEE.trigger=0
+            """
+
 
 
 
@@ -1054,6 +1133,24 @@ narrative_content =
             "You thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late."
         |> content__________________________________ "forget it"
             "This is too dangerous and risky after all, you comforted yourself."
+        |> content__________________________________ "good morning, kay"
+            "Good morning, Kay. Jonathon says that he is waiting for you at his office."
+        |> content__________________________________ "bob's answer"
+            "Hi, Bob. Umm, is there anything abnormal happened today in police office?"
+        |> content__________________________________ "kay, jonathon calls"
+            "Kay, Jonathon is calling you to discuss the case of Paradise with him. Be careful. Jonathon is a regular customer of Paradise. (Whispering) I told you that because I'm your friend! "
+        |> content__________________________________ "lee's answer"
+            "Yeah, bro. By the way, is there any special, or strange thing happened today, in the Office?"
+        |> content__________________________________ "big jonathon is"
+            "Good morning. Big Jonathon is calling you. Wish you good luck, Kay."
+        |> content__________________________________ "allen's answer"
+            "OK, I'll go there later. May I ask you a question? Is there anything different from that in the other days in police office?"
+        |> content__________________________________ "coffee machine"
+            "You turn on the coffee machine. The coffee is dropping down very slowly."
+        |> content__________________________________ "find memory card"
+            "You open the lid of the coffee machine, remove the filter element. A memory card is stuck in the water outlet."
+
+
 
 parsedData =
     let
