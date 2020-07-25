@@ -768,6 +768,14 @@ rulesSpec =
         |> rule_______________________ "asking opinion about ann's death"
             """
             ON: ASK_OPINION_ABOUT_DEATH.day3
+            IF: ASK_WHY_ANN_WORK.day3.choices=-1
+            DO: ASK_OPINION_ABOUT_DEATH.day3.choices=-1
+                DANIEL.day3.trigger=0
+            """
+        |> rule_______________________ "asking opinion about ann's death: not asked"
+            """
+            ON: ASK_OPINION_ABOUT_DEATH.day3
+            IF: ASK_WHY_ANN_WORK.day3.!choices=-1
             DO: ASK_OPINION_ABOUT_DEATH.day3.choices=-1
                 DANIEL.day3.trigger=0
             """
@@ -1009,6 +1017,9 @@ narrative_content =
             "The reason for this is that my sister has a quite bad experience of love in the past. She spent all her money and emotion on him but received nothing. After that, for money, she had no choice but to work for Paradise. You know that Paradise offers great salary for their staffs."
         |> content__________________________________ "asking opinion about ann's death"
             "As you know, Sir, she worked there not purely for money. She has told me that she doesn't get adapted to the atmosphere of night club several times. To work, she has to take some medicine to get adapt to the atmosphere. It maybe that yesterday, she drunk too much alcohol and then happened to take too much medicine."
+        |> content__________________________________ "asking opinion about ann's death: not asked"
+            "It's hard to say, Sir. My sister doesn't get adapted to the atmosphere of nightclub and has to take medicine to adapt that. It maybe that yesterday, she drunk too much alcohol and then happened to take too much medicine."
+
         |> content__________________________________ "connect computer"
             "You connect your computer with the hard disk. A message prompt you to key the code."
         |> content__________________________________ "input-you don't"

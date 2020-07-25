@@ -78,7 +78,7 @@ cLee_day2_finished : NPC
 cLee_day2_finished =
     { itemType = Lee
     , area =
-        { x = 300
+        { x = 375
         , y = 270
         , wid = 20
         , hei = 60
