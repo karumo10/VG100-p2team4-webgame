@@ -1027,9 +1027,11 @@ day2_journalist_finished_update_day model =
             |> withDefault journalistAttr_day2
         isFinished = journalist_day2_map.isFinished
     in
-    case isFinished of
-        False -> model
-        True -> { model | dayState = Day2_Finished }
+    if (model.map, model.dayState) == (Journalist, Day2) then -- restricted!
+        case isFinished of
+            False -> model
+            True -> { model | dayState = Day2_Finished }
+    else model
 
 day2_finished_office_finished_finished_update_home : Model -> Model --"office_finished" is a map name, haha
 day2_finished_office_finished_finished_update_home model =
@@ -1059,9 +1061,11 @@ day2_finished_office_finished_update_day model =
         isFinished = office_day2_finished_map.isFinished
         currNPCs = List.filter (\a -> a.place == (PoliceOffice, Day2_Night)) model.npcs_all
     in
-    case isFinished of
-        False -> model
-        True -> { model | dayState = Day2_Night, npcs_curr = currNPCs }
+    if (model.map, model.dayState) == (PoliceOffice, Day2_Finished) then
+        case isFinished of
+            False -> model
+            True -> { model | dayState = Day2_Night, npcs_curr = currNPCs }
+    else model
 
 day3_daniel_update_story : Model -> Model
 day3_daniel_update_story model =
