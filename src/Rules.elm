@@ -480,7 +480,9 @@ rulesSpec =
             """
         |> rule_______________________ "talk with allen park 2"
             """
-            ON: CATHERINE.trigger=1
+            ON: ALLENPARK.trigger=2
+            IF: CATHERINE.trigger=1
+                ADKINS.trigger=1
             DO: ALLENPARK.trigger=3
                 BODYPARKSHOES.choices=0
                 SCARONNECK.choices=0
