@@ -130,9 +130,15 @@ hintsMaze2 : List Hint
 hintsMaze2 =
     [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "...It's quite interesting: now, you are me, I am you... You know that Jonathon is a bad guy as you write it in your novel? Even more interesting..." }
     , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Ah, it seems that you have lost some memory, my friends. I can tell you something. It's quite weird that the day we planned to meet in the office, I was called to help inspect a night club. Do you think so? Who will inspect a night club at morning?..." }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don’t know which evidence you take in \"your\" home. They are both useful but you should pay attention how to use them properly, my dear friend..." }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don't know which evidence you take in \"your\" home. They are both useful but you should pay attention how to use them properly, my dear friend..." }
     , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "...Listen! What is whirring and whizzing? Double, double! Toil and trouble; fire burn and cauldron bubble! ..." } ]
 
+hintsMaze3 : List Hint
+hintsMaze3 =
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "Oh, it seems that tonight we have a new friend. Ha, Nice to see a new friend join our chat at night. Oh, our new friend seems to be in great pain and guilt. Ha, it's normal to be painful because of the death of family member but the guilty is quite interesting. Do you think so, my lucky, \"Kay\"?"}
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "It's fake. It's fake. It's fake. I had no choice to do. Forgive me. Forgive me. Forgive me. That will be destroyed tomorrow at a very early time. Please do save it." }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "How stupid our boss is? Use a place twice to carry out his plan of eliminating? My dear Jonathon, though the economic situation is very bad, with your ability, it should not be a case to create a new battlefield. Or, there exists more secret in Pa-ra-di-se?" }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "Be careful, [player's name]. Jonathon seems to be impatient... Don't behave too aggressive." } ]
 
 
 
@@ -348,7 +354,7 @@ homeAttr_day4 =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , story = "Home, sweet home. "
+    , story = "That weird dream... what did that 'person' speak? WHAT will be destroyed tomorrow at a very early time?... Alas, maybe I shouldn't pay such attention on a dream... but dream has told me a lot, and Jonathon is dangerous..."
     , scene = ( Home, Day4 )
     , isFinished = False
     }
@@ -580,7 +586,7 @@ dreamMazeAttr_day3 =
     { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
-    , hint = hintsMaze2
+    , hint = hintsMaze3
     , vehicle = []
     , story = "..."
     , scene = ( DreamMaze, Day3 )
