@@ -581,350 +581,469 @@ renderBagButton model =
 
 renderGrid1Detail : Model -> Html Msg
 renderGrid1Detail model =
+    let
+        opacity =
+            case model.bag.grid1.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
     if model.whichGridIsOpen == 1 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid1Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid1.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid2Detail : Model -> Html Msg
 renderGrid2Detail model =
+    let
+        opacity =
+            case model.bag.grid2.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
     if model.whichGridIsOpen == 2 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid2Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid2.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid3Detail : Model -> Html Msg
-renderGrid3Detail model=
+renderGrid3Detail model =
+    let
+        opacity =
+            case model.bag.grid3.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+
     if model.whichGridIsOpen == 3 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid3Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid3.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "opacity" opacity
+          , style "margin" "auto"
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid4Detail : Model -> Html Msg
 renderGrid4Detail model =
+    let
+        opacity =
+            case model.bag.grid4.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 4 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid4Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid4.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "opacity" opacity
+          , style "margin" "auto"
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid5Detail : Model -> Html Msg
 renderGrid5Detail model =
+    let
+        opacity =
+            case model.bag.grid5.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 5 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid5Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid5.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "opacity" opacity
+          , style "margin" "auto"
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid6Detail : Model -> Html Msg
 renderGrid6Detail model=
+    let
+        opacity =
+            case model.bag.grid6.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 6 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid6Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid6.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid7Detail : Model -> Html Msg
 renderGrid7Detail model=
+    let
+        opacity =
+            case model.bag.grid7.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 7 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid7Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid7.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid8Detail : Model -> Html Msg
 renderGrid8Detail model =
+    let
+        opacity =
+            case model.bag.grid8.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 8 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid8Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid8.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid9Detail : Model -> Html Msg
 renderGrid9Detail model=
+    let
+        opacity =
+            case model.bag.grid9.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 9 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-            button
-                                      [ onClick RenderGrid9Detail
-                                      , Html.Attributes.style "width" "20px"
-                                      , Html.Attributes.style "height" "20px"
-                                      , Html.Attributes.style "font-size" "18px"
-                                      , style "position" "absolute"
-                                      , style "left" "200 px"
-                                      , style "top" " 0 px"
-                                      ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid9.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]
 
 renderGrid10Detail : Model -> Html Msg
 renderGrid10Detail model =
+    let
+        opacity =
+            case model.bag.grid10.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
     if model.whichGridIsOpen == 10 then
-    div
-      [ style "border-style" "inset"
-      , style "border-color" "white"
-      , style "border-width" "6px"
-      , style "border-radius" "20%"
-      , style "width" "500px"
-      , style "height" "20px"
-      , style "background-color" "white"
-      , style "position" "absolute"
-      , style "left" "300px"
-      , style "top" "300px"
-      , style "text-align" "center"
-      , style "margin" "auto"
-      , style "font-family" "Helvetica, Arial, sans-serif"
-      , style "font-size" "18px"
-      , style "font-weight" "300"
-      ]
-      [ Html.text ( "The information of this grid " )
-      ,
-      button
-                                [ onClick RenderGrid10Detail
-                                , Html.Attributes.style "width" "20px"
-                                , Html.Attributes.style "height" "20px"
-                                , Html.Attributes.style "font-size" "18px"
-                                , style "position" "absolute"
-                                , style "left" "200 px"
-                                , style "top" " 0 px"
-                                ] [ text "X " ]
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "white"
+          , style "border-width" "6px"
+          , style "border-radius" "20%"
+          , style "width" "500px"
+          , style "height" "30px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "300px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.text ( model.bag.grid10.comment )
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
     ]
     else
     div [][]

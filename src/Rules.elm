@@ -105,6 +105,42 @@ initialWorldModelSpec =
         "The belongings of Brennan."
         "Nothing is left."
 
+    ---- evidences
+    , entity "DISK.trigger=2"
+        "the disk"
+        "You had examined it yet. Now your memory recovered; you were that reporter, who was murdered by Jonathan, and now you're in Kay's body through some supernatural mechanism. That car crash happened on Kay must be Jonathan's plan, too. You had to beat Jonathon. Your intuition told you the very day of dual will come soon."
+    , entity "NOTE.trigger=5"
+        "the note"
+        "You had examined it yet. Now your memory recovered; you were that reporter, who was murdered by Jonathan, and now you're in Kay's body through some supernatural mechanism. That car crash happened on Kay must be Jonathan's plan, too. You had to beat Jonathon. Your intuition told you the very day of dual will come soon."
+    , entity "PILLS.trigger=2"
+        "pills"
+        "The pills are in a small bottle, on which a tag saying \"Διόνυσος\", the next line is \"PARADISE Co.Ltd\"."
+    , entity "DAGGER.trigger=0"
+        "dagger"
+        "A dagger with weird letters on it. It seems that it is part of some couple souvenir as it seems that letters on it are only part of some complete patterns."
+
+    ---- evidence choices
+    , entity "INPUT.choices=0"
+        "Input"
+        ""
+    , entity "CHECK_THE_DISK.choices=0"
+        "Check the disk"
+        ""
+    , entity "FILE1_EGG.choices=0"
+        "Exocist: Haunted Gifts"
+        ""
+    , entity "FILE2_REPORT.choices=0"
+        "Report about Jonathon"
+        ""
+    , entity "CLEAR_LOOK.choices=0"
+        "Have a clear look at the note"
+        ""
+    , entity "TAKE_PILL.choices=0"
+        "Take one pill."
+        ""
+    , entity "NOT_TAKE_PILL.choices=0"
+        "...forget it."
+        ""
 
     ---- choices
     , entity "YES.bobtalk.choices=0"
@@ -140,6 +176,7 @@ initialWorldModelSpec =
     , entity "CATHERINEASK.choices=0"
         "When did you see Brennan last time? Do you know why he came here last night?"
         ""
+
     -- day2
     , entity "FORGOT1.allentalkoffice.choices=0"
         "Umm which case?"
@@ -731,17 +768,123 @@ rulesSpec =
         |> rule_______________________ "asking opinion about ann's death"
             """
             ON: ASK_OPINION_ABOUT_DEATH.day3
+            IF: ASK_WHY_ANN_WORK.day3.choices=-1
             DO: ASK_OPINION_ABOUT_DEATH.day3.choices=-1
                 DANIEL.day3.trigger=0
             """
-
-
-
-
-
-
-
-
+        |> rule_______________________ "asking opinion about ann's death: not asked"
+            """
+            ON: ASK_OPINION_ABOUT_DEATH.day3
+            IF: ASK_WHY_ANN_WORK.day3.!choices=-1
+            DO: ASK_OPINION_ABOUT_DEATH.day3.choices=-1
+                DANIEL.day3.trigger=0
+            """
+        |> rule_______________________ "connect computer"
+            """
+            ON: DISK
+            IF: DISK.trigger=2
+            DO: INPUT.choices=1
+            """
+        |> rule_______________________ "input-you don't"
+            """
+            ON: INPUT
+            DO: INPUT.choices=0
+                DISK.trigger=1
+            """
+        |> rule_______________________ "it is my disk"
+            """
+            ON: DISK
+            IF: DISK.trigger=1
+                FILE1_EGG.choices=0
+                FILE2_REPORT.choices=0
+            DO: CHECK_THE_DISK.choices=1
+            """
+        |> rule_______________________ "check the disk-there are two"
+            """
+            ON: CHECK_THE_DISK
+            DO: FILE1_EGG.choices=1
+                FILE2_REPORT.choices=1
+                CHECK_THE_DISK.choices=0
+            """
+        |> rule_______________________ "file1"
+            """
+            ON: FILE1_EGG
+            DO: FILE1_EGG.choices=-1
+            """
+        |> rule_______________________ "file2"
+            """
+            ON: FILE2_REPORT
+            DO: FILE2_REPORT.choices=-1
+            """
+        |> rule_______________________ "The author of"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=5
+            DO: NOTE.trigger=4
+            """
+        |> rule_______________________ "what this handwriting"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=4
+            DO: CLEAR_LOOK.choices=1
+            """
+        |> rule_______________________ "have a clear-you read"
+            """
+            ON: CLEAR_LOOK
+            DO: NOTE.trigger=3
+                CLEAR_LOOK.choices=0
+            """
+        |> rule_______________________ "reveal of the"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=3
+            DO: NOTE.trigger=2
+            """
+        |> rule_______________________ "our city"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=2
+            DO: NOTE.trigger=1
+            """
+        |> rule_______________________ "jonathon keeps"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=1
+            DO: NOTE.trigger=0
+            """
+        |> rule_______________________ "what it is highly"
+            """
+            ON: NOTE
+            IF: NOTE.trigger=0
+            DO: NOTE.trigger=-1
+            """
+        |> rule_______________________ "description"
+            """
+            ON: PILLS
+            IF: PILLS.trigger=2
+            DO: PILLS.trigger=1
+            """
+        |> rule_______________________ "greek letters"
+            """
+            ON: PILLS
+            IF: PILLS.trigger=1
+            DO: TAKE_PILL.choices=1
+                NOT_TAKE_PILL.choices=1
+            """
+        |> rule_______________________ "take the pills"
+            """
+            ON: TAKE_PILL
+            DO: TAKE_PILL.choices=0
+                NOT_TAKE_PILL.choices=0
+                PILLS.trigger=0
+            """
+        |> rule_______________________ "forget it"
+            """
+            ON: NOT_TAKE_PILL
+            DO: TAKE_PILL.choices=0
+                NOT_TAKE_PILL.choices=0
+                PILLS.trigger=0
+            """
 
 
 
@@ -874,15 +1017,43 @@ narrative_content =
             "The reason for this is that my sister has a quite bad experience of love in the past. She spent all her money and emotion on him but received nothing. After that, for money, she had no choice but to work for Paradise. You know that Paradise offers great salary for their staffs."
         |> content__________________________________ "asking opinion about ann's death"
             "As you know, Sir, she worked there not purely for money. She has told me that she doesn't get adapted to the atmosphere of night club several times. To work, she has to take some medicine to get adapt to the atmosphere. It maybe that yesterday, she drunk too much alcohol and then happened to take too much medicine."
+        |> content__________________________________ "asking opinion about ann's death: not asked"
+            "It's hard to say, Sir. My sister doesn't get adapted to the atmosphere of nightclub and has to take medicine to adapt that. It maybe that yesterday, she drunk too much alcohol and then happened to take too much medicine."
 
-
-
-
-
-
-
-
-
+        |> content__________________________________ "connect computer"
+            "You connect your computer with the hard disk. A message prompt you to key the code."
+        |> content__________________________________ "input-you don't"
+            "You don't know why you input the correct password without much thinking. The computer read: \"Owner confirmed. Reporter [Player's name].\""
+        |> content__________________________________ "it is my disk"
+            "? It is my disk? In that reporter's home? And that dream......? That is to say, I'm not a novelist, I should be that reporter?"
+        |> content__________________________________ "check the disk-there are two"
+            "There are two directories."
+        |> content__________________________________ "file1"
+            "This is an extraordinary action game about a brave man using wand to purify crazy ghosts. You spent almost an hour to finish it."
+        |> content__________________________________ "file2"
+            "A .md file jumped out. It read: \"According to evidence provided by Police Kay, Jonathon receives bibles from the owner of the biggest nightclub \"Paradise\" and keeps an abnormal relationship with the staff of that nightclub. Besides, he seems to have noticed us. We should be careful.\""
+        |> content__________________________________ "The author of"
+            "The author of this note seems to have near unrecognizable handwriting."
+        |> content__________________________________ "what this handwriting"
+            "\"?!! What? This handwriting is just the handwriting I have in the real world. How can that be......?\""
+        |> content__________________________________ "have a clear-you read"
+            "You read the note out:"
+        |> content__________________________________ "reveal of the"
+            "Reveal of the darkness of our city\nReporter: [Player's name]"
+        |> content__________________________________ "our city"
+            "Our city, or in other words, the city of criminal, is known for the increasing rate of criminals in recent years. The reason behind this is because of our master of the police office Jonathon. Thanks to the evidence provided by anonymous police, a light can be shed through the darkness of our city."
+        |> content__________________________________ "jonathon keeps"
+            "Jonathon keeps an abnormal relationship with many people including both women and men.\nJonathon receives bibles from the owner of the biggest nightclub \"Paradise\" in our city and provides protection for it to help it become large overnight.\nJonathon has a secret personal police team which helps him"
+        |> content__________________________________ "what it is highly"
+            "What, it is highly similar to the plot in my novel ...... And that dream...... That is to say, I'm not a novelist, I should be the reporter?"
+        |> content__________________________________ "description"
+            "The pills are in a small bottle, on which a tag saying \"Διόνυσος\", the next line is \"PARADISE Co.Ltd\".You have learned some Greek letters: that is \"Dionysus\", the god of wine."
+        |> content__________________________________ "greek letters"
+            "Maybe pills used for indulge people into joy, sold by Paradise...? An idea of investing Paradise again as a customer come up in your mind. By taking those pills, maybe you can get adapted in that environment then investigate smoothly...?"
+        |> content__________________________________ "take the pills"
+            "You thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late."
+        |> content__________________________________ "forget it"
+            "This is too dangerous and risky after all, you comforted yourself."
 
 parsedData =
     let

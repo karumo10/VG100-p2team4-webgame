@@ -15,6 +15,7 @@ type NPCType
     | JonaliEvi
     | NightBody
     | Phone
+    | Daniel_People
     | None
 
 
@@ -77,7 +78,7 @@ cLee_day2_finished : NPC
 cLee_day2_finished =
     { itemType = Lee
     , area =
-        { x = 300
+        { x = 375
         , y = 270
         , wid = 20
         , hei = 60
@@ -369,7 +370,7 @@ homePhone =
 
 danielDaniel : NPC
 danielDaniel =
-     { itemType = Phone
+     { itemType = Daniel_People
      , area =
          { x = 300
          , y = 400
@@ -383,8 +384,6 @@ danielDaniel =
      }
 
 
-
-
 allNPCs: List NPC
 allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night
@@ -395,3 +394,74 @@ allNPCs =
     , nightBody
     , homePhone
     , danielDaniel ]
+
+
+
+type alias Evidence =
+    { eviType : EvidenceType
+    , description : String
+    , usedPlace : Map -- at home.
+    , isExamined : Bool -- used for the final day, to check which information are well-collected-and-examined
+    }
+
+
+type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of isExamined.
+    = Disk
+    | Note
+    | Pill
+    | Dagger
+    | NoEvi
+
+disk_evi : Evidence
+disk_evi =
+    { eviType = Disk
+    , description = "DISK"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+note_evi : Evidence
+note_evi =
+    { eviType = Note
+    , description = "NOTE"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+pill_evi : Evidence
+pill_evi =
+    { eviType = Pill
+    , description = "PILLS"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+dagger_evi : Evidence
+dagger_evi =
+    { eviType = Dagger
+    , description = "DAGGER"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+empty_evi : Evidence
+empty_evi =
+    { eviType = NoEvi
+    , description = "nothing"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+
+
+allEvidence : List Evidence
+allEvidence =
+    [ disk_evi, note_evi, pill_evi
+    ]
+
+
+
+
+
+
+

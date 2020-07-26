@@ -62,6 +62,7 @@ type alias Model =
     , debug : NarrativeEngine.Debug.State
     , npcs_curr : List NPC
     , npcs_all : List NPC
+    , evidence_all : List Evidence
     , mapAttr_all : List MapAttr
     , interacttrue : Bool
     , energy : Int
@@ -91,8 +92,8 @@ initial =
     , heroInteractWithNpc = False
     , state = Playing
     , size = ( 900, 600 )
-    , day = 1
-    , dayState = Day1
+    , day = 2
+    , dayState = Day2_Night
     , map = StarterPage -- door at police office
     , mapAttr = policeOfficeAttr_day1
     , bag = bagIni
@@ -101,8 +102,9 @@ initial =
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the police chief, Jonathon, because I know his scandal. I need to avoid being killed."
     , ruleCounts = Dict.empty
     , debug = NarrativeEngine.Debug.init
-    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day1)) allNPCs
+    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day2_Night)) allNPCs
     , npcs_all = allNPCs
+    , evidence_all = allEvidence
     , mapAttr_all = allMapAttrs
     , interacttrue = False
     , energy = 300

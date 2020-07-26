@@ -60,6 +60,14 @@ policeBarrierList =
             , { x = 205, y = 150 , wid = 755, hei = 20 } -- f3.floor
             ]
 
+parkBarrierList : List Area
+parkBarrierList =
+    [ {x = 0, y = 645, wid = 1200, hei = 20}
+    , {x = -10, y = 0, wid = 20, hei = 800}
+    , {x = 1080, y = 0, wid = 20, hei = 800}
+    , {x = 0, y = 180, wid = 1200, hei = 20}
+    ]
+
 nightClubBarrierList : List Area
 nightClubBarrierList =
             [ { x = 150, y = 435 , wid = 910, hei = 20 } -- f1.ceiling (every floor 230)
