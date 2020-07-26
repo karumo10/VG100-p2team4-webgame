@@ -273,8 +273,8 @@ cAllen_day4 =
     , isFinished = False
     }
 
-cCoffeeMachine : NPC
-cCoffeeMachine =
+cCoffeeMachine_day1 : NPC
+cCoffeeMachine_day1 =
     { itemType = CoffeeMachine
         , area =
         { x = 650
@@ -283,8 +283,83 @@ cCoffeeMachine =
         , hei = 5
         }
     , interacttrue = False
-    , description = "COFFEE"
-    , place = ( PoliceOffice , Nowhere )
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day1 )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day2 : NPC
+cCoffeeMachine_day2 =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day2 )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day2_finished : NPC
+cCoffeeMachine_day2_finished =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day2_Finished )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day2_night : NPC
+cCoffeeMachine_day2_night =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day2_Night )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day3 : NPC
+cCoffeeMachine_day3 =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day3 )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day4 : NPC
+cCoffeeMachine_day4 =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day4 )
     , isFinished = False
     }
 
@@ -466,7 +541,7 @@ allNPCs =
     , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day2_night, cBob_day4
     , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night, cAllen_day4
     , cJonathon_day4
-    , cCoffeeMachine
+    , cCoffeeMachine_day1, cCoffeeMachine_day2, cCoffeeMachine_day2_finished, cCoffeeMachine_day2_night, cCoffeeMachine_day3, cCoffeeMachine_day4
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody
     , nightBody
