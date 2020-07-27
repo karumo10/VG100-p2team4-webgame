@@ -1113,6 +1113,7 @@ specialUpdates model
     |> day3_daniel_update_story_npc
     |> day4_allen_update_coffee_machine
     |> day4_jonathon_update_coffee_machine
+    |> day4_daniel_evidence_update_phone
 
 
 
@@ -1169,7 +1170,7 @@ day3_daniel_update_story_npc model =
     let
         daniel_day3_finished_map = List.filter (\a -> a.scene == (Daniel, Day3) ) model.mapAttr_all
             |> List.head
-            |> withDefault danialAttr_day3
+            |> withDefault danielAttr_day3
         isFinished = daniel_day3_finished_map.isFinished
         park_day3_finished_map = List.filter (\a -> a.scene == (Park, Day3) ) model.mapAttr_all
             |> List.head
@@ -1234,6 +1235,29 @@ day4_jonathon_update_coffee_machine model =
     else model
 
 
+day4_daniel_evidence_update_phone : Model -> Model
+day4_daniel_evidence_update_phone model =
+    let
+        certainMap = List.filter (\a -> a.scene == (Daniel, Day4)) model.mapAttr_all
+            |> List.head
+            |> withDefault danielAttr_day4
+        isFinished = certainMap.isFinished
+        daniel_phone = List.filter (\a -> a.itemType == Phone_Daniel) model.npcs_all
+            |> List.head
+            |> withDefault danielPhone
+        daniel_phone_ = { daniel_phone | place = (Daniel, Day4) }
+        rest_npcs = List.filter (\a -> a.itemType /= Phone_Daniel) model.npcs_all
+        npcs_all_ = rest_npcs ++ [daniel_phone_]
+        npcs_curr_ = List.filter (\a -> a.place == (Daniel, Day4) ) npcs_all_
+        story_daniel = "Your phone is ringing. Press X to answer the phone."
+    in
+    if ( daniel_phone.place == (Daniel, Nowhere) ) then
+        if isFinished then
+            { model | npcs_all = npcs_all_, npcs_curr = npcs_curr_, story = story_daniel }
+        else
+        model
+    else
+    model
 
 
 

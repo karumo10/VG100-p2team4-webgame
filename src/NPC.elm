@@ -15,6 +15,7 @@ type NPCType
     | JonaliEvi
     | NightBody
     | Phone
+    | Phone_Daniel
     | Daniel_People
     | CoffeeMachine
     | Paper
@@ -602,7 +603,7 @@ danielPaper =
 
 danielPhone : NPC
 danielPhone =
-     { itemType = Phone
+     { itemType = Phone_Daniel
      , area =
          { x = 0
          , y = 0
@@ -610,8 +611,8 @@ danielPhone =
          , hei = 600
          }
      , interacttrue = False
-     , description = "PHONE_ANSWER.day3"
-     , place = ( Home, Nowhere ) -- will be changed to day4 after the search.
+     , description = "PHONE_DAY4"
+     , place = ( Daniel, Nowhere ) -- will be changed to day4 after the search.
      , isFinished = False
      }
 

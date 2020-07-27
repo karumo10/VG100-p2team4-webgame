@@ -277,6 +277,9 @@ initialWorldModelSpec =
     , entity "PAPER.trigger=1"
         "A paper with customer's favor"
         "This place has been examined yet."
+    , entity "PHONE_DAY4.trigger=0"
+        "phone jonathon"
+        "Kay, I'm Jonathon. Have you finished your inspection? I think you should have been prepared to give me a conclusion yet. Come back to my office."
 
     -- choices
     , entity "ASK_BOB.choices=0"
@@ -1253,7 +1256,7 @@ narrative_content =
         |> content__________________________________ "bank daniel"
             "Here is a bank account statement."
         |> content__________________________________ "paper daniel"
-            "You found a piece of paper in the drawer of the cabinet."
+            "You found a piece of paper in the drawer of the cabinet. With the first line written, Jonathon, the chief police of this city."
 
 
 
