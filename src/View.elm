@@ -45,7 +45,19 @@ view model =
         , style "bottom" "0"
         , style "transform-origin" "0 0"
         , style "transform" ("scale(" ++ String.fromFloat r ++ ")")]
-        [ renderPic model
+         (renderMain model)
+
+
+
+        ]
+        ++ (rendersuspectlist model)
+        ++ ( elevatorQuestToSvg model )
+        ++ (renderBagButton model))
+
+renderMain : Model -> List (Html Msg)
+renderMain model =
+        if not model.isEnd then
+         [renderPic model
         , renderMapButton model
         --, renderdialog model
         , renderMusic
@@ -64,12 +76,20 @@ view model =
         , renderStartButton model
         , renderAboutUsButton model
         , renderStoryButton model
-        , renderBackButton model
-        ]]
-        ++ (rendersuspectlist model)
-        ++ ( elevatorQuestToSvg model )
-        ++ (renderBagButton model))
+        , renderBackButton model]
 
+        else
+        [ renderPic model
+        , renderMapButton model
+        --, renderdialog model
+        , renderMusic
+        , axisHelper model
+        --, renderBag model
+        , renderStartButton model
+        , renderAboutUsButton model
+        , renderStoryButton model
+        , renderBackButton model
+        ]
 
 
 axisHelper : Model -> Html Msg
@@ -242,6 +262,7 @@ renderPic model =
             ] ]
         ] ++
         (
+        if not model.isEnd then
         case model.map of
             PoliceOffice ->
 
@@ -386,7 +407,7 @@ renderPic model =
                 ++ [ bedQuestToSvg model ]
                 ++ [ renderdialog model ]
                 ++ energytosvg model.energy model.energy_Full
-
+ -----
 
 
             StarterPage ->
@@ -397,6 +418,21 @@ renderPic model =
 
             AboutUs ->
                 [div [][]]
+
+
+        else
+        [Svg.rect
+        [ x "0"
+        , y "0"
+        , width "1200"
+        , height "600"
+        , transform "translate(-30,0)"
+        , fill "black"
+        ]
+        []]
+        ++ [renderdialog model]
+
+
 
 
         ) ++
