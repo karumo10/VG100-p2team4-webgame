@@ -31,14 +31,7 @@ heroToSvg model =
             else
             ( model.hero.width, model.hero.height )
 
-        link =
-            case ( model.heroMoveLeft, model.heroMoveRight ) of
-                ( True, False ) ->
-                    "./hero.png"
-                ( False, True ) ->
-                    "./heror.png"
-                _ ->
-                    "./hero.png"
+        link = model.heroimage
 
     in
     if gameMode______ == Game then

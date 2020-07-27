@@ -377,6 +377,7 @@ animate elapsed model =
         |> myItem
         |> judgeIsMakingChoices
         |> pickUpWithEngine
+        |> dirhero
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -413,18 +414,62 @@ directionUD { heroMoveUp, heroMoveDown } =
         _ ->
             0
 
+dirhero : Model -> Model
+dirhero model =
+    let
+        n = modBy 24 model.step
+        dir =
+            case ( model.heroMoveLeft, model.heroMoveRight ) of
+                ( True, False ) ->
+                    if 0 < n && n <= 1 then
+                    "./hero_1.png"
+                    else if 1 < n && n <= 7 then
+                    "./hero.png"
+                    else if 13 < n && n <= 19 then
+                    "./hero_3.png"
+                    else if 19 < n && n <= 24 then
+                    "./hero.png"
+                    else "./hero.png"
 
+                ( False, True ) ->
+                    if 0 < n && n <= 1 then
+                    "./heror_1.png"
+                    else if 1 < n && n <= 7 then
+                    "./heror.png"
+                    else if 13 < n && n <= 19 then
+                    "./heror_3.png"
+                    else if 19 < n && n <= 24 then
+                    "./heror.png"
+                    else "./heror.png"
+
+                _ ->
+                    if model.heroimage == "./hero.png"||model.heroimage == "./hero_1.png"||model.heroimage == "./hero_2.png" then
+                        "./hero.png"
+                    else
+                        "./heror.png"
+    in
+        {model|heroimage = dir}
 
 startMove : Model -> Model
 startMove model =
-    if directionLR model /= 0 && directionUD model /= 0 then
-        { model | heroDir = ( Just { active = True, elapsed = 0 }, Just { active = True, elapsed = 0 }) }
-    else if directionLR model /= 0 && directionUD model == 0 then
-        { model | heroDir = ( Just { active = True, elapsed = 0 }, Nothing ) }
-    else if directionLR model == 0 && directionUD model /= 0 then
-        { model | heroDir = ( Nothing, Just { active = True, elapsed = 0 } ) }
-    else
-        { model | heroDir = ( Nothing, Nothing ) }
+    let
+        dir =
+                if directionLR model /= 0 && directionUD model /= 0 then
+                    ( Just { active = True, elapsed = 0 }, Just { active = True, elapsed = 0 })
+                else if directionLR model /= 0 && directionUD model == 0 then
+                    ( Just { active = True, elapsed = 0 }, Nothing )
+                else if directionLR model == 0 && directionUD model /= 0 then
+                    ( Nothing, Just { active = True, elapsed = 0 } )
+                else
+                    ( Nothing, Nothing )
+        step_ =
+            if directionLR model /= 0 then
+                if (model.step + 1) >= 24 then
+                    0
+                else (model.step + 1)
+            else 0
+    in
+        { model | heroDir = dir, step = step_ }
 
 
 activateButton : Float -> Float -> { a | active : Bool, elapsed : Float } -> { a | active : Bool, elapsed : Float } -- to ban pressing one button to make the hero move too fast
