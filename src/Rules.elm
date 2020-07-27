@@ -240,6 +240,80 @@ initialWorldModelSpec =
     , entity "ASK_LIFE.day3.choices=0"
         "Ask about their current life"
         ""
+
+    ------
+    --- day4
+    -- npcs
+    , entity "BOB_DAY4.trigger=1"
+        "bob day4"
+        "What? If you ask me, that is there's nothing critical on today's newspaper! Only damn showbiz gossips. Don't forget Jonathan!"
+    , entity "LEE_DAY4.trigger=1"
+        "lee day4"
+        "Nah. Well, that's the general reply but if we get more detailed, today Allen's temper is worse than any day before."
+    , entity "ALLEN_DAY4.trigger=1"
+        "allen day4"
+        "But why always asking? That f***ing coffee machine is broken, and my Far East tea is used up, that's all! Go to Jonathon with four jet engines on your butt, or he will fire you at once!"
+    , entity "COFFEE.trigger=1"
+        "coffee machine"
+        "Now the coffee machine is fixed!"
+    , entity "COFFEE_NORMAL.trigger=0"
+        "coffee machine normal"
+        "You have a cup of coffee. Frankly speaking, you think the coffee offered here is too bitter. But you never tell anybody."
+    , entity "COFFEE_NORMAL_NO_CARD.trigger=0"
+        "coffe machine taken card"
+        "You have a cup of coffee. Frankly speaking, you think the coffee offered here is too bitter. But you never tell anybody."
+    , entity "JONATHON_DAY4.trigger=1"
+        "jonathon"
+        "..."
+    , entity "FAKE_MEM_CARD.trigger=1"
+        "fake card"
+        "This place has been examined yet."
+    , entity "KEY_JONATHON.trigger=1"
+        "key"
+        "This place has been examined yet."
+    , entity "BANK.trigger=1"
+        "bank statement"
+        "This place has been examined yet."
+    , entity "PAPER.trigger=1"
+        "A paper with customer's favor"
+        "This place has been examined yet."
+    , entity "PHONE_DAY4.trigger=0"
+        "phone jonathon"
+        "Kay, I'm Jonathon. Have you finished your inspection? I think you should have been prepared to give me a conclusion yet. Come back to my office."
+    , entity "JONATHON_DAY4_NEW.trigger=3"
+        "jonathon in day4 new"
+        "..."
+    -- choices
+    , entity "ASK_BOB.choices=0"
+        "Ask Bob about weird things happened today."
+        ""
+    , entity "ASK_LEE.choices=0"
+        "Ask Lee about weird things happened today."
+        ""
+    , entity "ASK_ALLEN.choices=0"
+        "Ask Allen about weird things happened today."
+        ""
+    , entity "OPEN_COFFEE_MACHINE.choices=0"
+        "Open it to check what is stuck inside..."
+        ""
+    , entity "BAD_LIE.choices=0"
+        "I have only investigated the nightclub yet, Sir"
+        ""
+    , entity "HAVE_INVEST.choices=0"
+        "I have talked about Daniel yet, Sir."
+        ""
+    , entity "ACCIDENT.choices=0"
+        "An accident"
+        ""
+    , entity "MURDER.choices=0"
+        "Someone murdered the woman"
+        ""
+    , entity "ITS_YOU.choices=0"
+        "It's you, Jonathon"
+        ""
+    , entity "PARADISE_OWNER.choices=0"
+        "The owner of the paradise"
+        ""
     ]
 
 type alias MyRule =
@@ -887,7 +961,178 @@ rulesSpec =
                 NOT_TAKE_PILL.choices=0
                 PILLS.trigger=0
             """
-
+        |> rule_______________________ "good morning, kay"
+            """
+            ON: BOB_DAY4
+            IF: BOB_DAY4.trigger=1
+            DO: ASK_BOB.choices=1
+            """
+        |> rule_______________________ "bob's answer"
+            """
+            ON: ASK_BOB
+            DO: ASK_BOB.choices=-1
+                BOB_DAY4.trigger=0
+            """
+        |> rule_______________________ "kay, jonathon calls"
+            """
+            ON: LEE_DAY4
+            IF: LEE_DAY4.trigger=1
+            DO: ASK_LEE.choices=1
+            """
+        |> rule_______________________ "lee's answer"
+            """
+            ON: ASK_LEE
+            DO: ASK_LEE.choices=-1
+                LEE_DAY4.trigger=0
+            """
+        |> rule_______________________ "big jonathon is"
+            """
+            ON: ALLEN_DAY4
+            IF: ALLEN_DAY4.trigger=1
+            DO: ASK_ALLEN.choices=1
+            """
+        |> rule_______________________ "allen's answer"
+            """
+            ON: ASK_ALLEN
+            DO: ASK_ALLEN.choices=-1
+                ALLEN_DAY4.trigger=0
+            """
+        |> rule_______________________ "coffee machine"
+            """
+            ON: COFFEE
+            IF: COFFEE.trigger=1
+            DO: OPEN_COFFEE_MACHINE.choices=1
+            """
+        |> rule_______________________ "find memory card"
+            """
+            ON: OPEN_COFFEE_MACHINE
+            DO: OPEN_COFFEE_MACHINE.choices=-1
+                COFFEE.trigger=0
+            """
+        |> rule_______________________ "jonathon good morning"
+            """
+            ON: JONATHON_DAY4
+            IF: JONATHON_DAY4.trigger=1
+                HAVE_INVEST.choices=0
+                BAD_LIE.choices=0
+            DO: HAVE_INVEST.choices=1
+                BAD_LIE.choices=1
+            """
+        |> rule_______________________ "bad lie"
+            """
+            ON: BAD_LIE
+            DO: HAVE_INVEST.choices=0
+                BAD_LIE.choices=-1
+                JONATHON_DAY4.trigger=2
+            """
+        |> rule_______________________ "jonathon's reply to bad lie"
+            """
+            ON: JONATHON_DAY4
+            IF: JONATHON_DAY4.trigger=2
+                BAD_LIE.choices=-1
+            DO: JONATHON_DAY4.trigger=0
+            """
+        |> rule_______________________ "tell truth"
+            """
+            ON: HAVE_INVEST
+            DO: HAVE_INVEST.choices=-1
+                BAD_LIE.choices=0
+                JONATHON_DAY4.trigger=2
+            """
+        |> rule_______________________ "jonathon's reply to truth"
+            """
+            ON: JONATHON_DAY4
+            IF: JONATHON_DAY4.trigger=2
+                HAVE_INVEST.choices=-1
+            DO: JONATHON_DAY4.trigger=0
+            """
+        |> rule_______________________ "fake memory card"
+            """
+            ON: FAKE_MEM_CARD
+            IF: FAKE_MEM_CARD.trigger=1
+            DO: FAKE_MEM_CARD.trigger=0.choices=-1
+            """
+        |> rule_______________________ "key jonathon"
+            """
+            ON: KEY_JONATHON
+            IF: KEY_JONATHON.trigger=1
+            DO: KEY_JONATHON.trigger=0.choices=-1
+            """
+        |> rule_______________________ "bank daniel"
+            """
+            ON: BANK
+            IF: BANK.trigger=1
+            DO: BANK.trigger=0.choices=-1
+            """
+        |> rule_______________________ "paper daniel"
+            """
+            ON: PAPER
+            IF: PAPER.trigger=1
+            DO: PAPER.trigger=0.choices=-1
+            """
+        |> rule_______________________ "jonathon ask your opinion"
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: JONATHON_DAY4_NEW.trigger=3
+            DO: ACCIDENT.choices=1
+                MURDER.choices=1
+            """
+        |> rule_______________________ "sir, i dont find"
+            """
+            ON: ACCIDENT
+            DO: ACCIDENT.choices=-1
+                MURDER.choices=0
+            """
+        |> rule_______________________ "alright, I agree with"
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: ACCIDENT.choices=-1
+                JONATHON_DAY4_NEW.trigger=3
+            DO: JONATHON_DAY4_NEW.trigger=0
+            """
+        |> rule_______________________ "sir, I think this case is quite weird"
+            """
+            ON: MURDER
+            DO: ACCIDENT.choices=0
+                MURDER.choices=-1
+            """
+        |> rule_______________________ "interesting, kay"
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: JONATHON_DAY4_NEW.trigger=3
+                MURDER.choices=-1
+            DO: JONATHON_DAY4_NEW.trigger=2
+                ITS_YOU.choices=1
+                PARADISE_OWNER.choices=1
+            """
+        |> rule_______________________ "ha my dear master"
+            """
+            ON: ITS_YOU
+            DO: ITS_YOU.choices=-1
+                PARADISE_OWNER.choices=0
+                JONATHON_DAY4_NEW.trigger=1
+            """
+        |> rule_______________________ "You are still so naive."
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: JONATHON_DAY4_NEW.trigger=1
+                ITS_YOU.choices=-1
+            DO: JONATHON_DAY4_NEW.trigger=-2
+            """ --BADEND: TOO EAGER
+        |> rule_______________________ "I think the owner of"
+            """
+            ON: PARADISE_OWNER
+            DO: PARADISE_OWNER.choices=-1
+                JONATHON_DAY4_NEW.trigger=1
+                ITS_YOU.choices=0
+            """
+        |> rule_______________________ "crazy assumption"
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: JONATHON_DAY4_NEW.trigger=1
+                PARADISE_OWNER.choices=-1
+            DO: JONATHON_DAY4_NEW.trigger=-3
+            """ --BADEND: lost in paradise
 
 
 
@@ -1056,6 +1301,62 @@ narrative_content =
             "You thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late."
         |> content__________________________________ "forget it"
             "This is too dangerous and risky after all, you comforted yourself."
+        |> content__________________________________ "good morning, kay"
+            "Good morning, Kay. Jonathon says that he is waiting for you at his office."
+        |> content__________________________________ "bob's answer"
+            "Hi, Bob. Umm, is there anything abnormal happened today in police office?"
+        |> content__________________________________ "kay, jonathon calls"
+            "Kay, Jonathon is calling you to discuss the case of Paradise with him. Be careful. Jonathon is a regular customer of Paradise. (Whispering) I told you that because I'm your friend! "
+        |> content__________________________________ "lee's answer"
+            "Yeah, bro. By the way, is there any special, or strange thing happened today, in the Office?"
+        |> content__________________________________ "big jonathon is"
+            "Good morning. Big Jonathon is calling you. Wish you good luck, Kay."
+        |> content__________________________________ "allen's answer"
+            "OK, I'll go there later. May I ask you a question? Is there anything different from that in the other days in police office?"
+        |> content__________________________________ "coffee machine"
+            "You turn on the coffee machine. The coffee is dropping down very slowly."
+        |> content__________________________________ "find memory card"
+            "You open the lid of the coffee machine, remove the filter element. A memory card is stuck in the water outlet."
+        |> content__________________________________ "jonathon good morning"
+            "Good morning, Kay. We haven't been meeting with each other since your research of nightclub Paradise weeks ago. I hear that you are in charge of an urgent case yesterday, how is the case going on?"
+        |> content__________________________________ "bad lie"
+            "Sir, I only have time to investigate the nightclub yet. And I found nothing useful there. Currently, I have no idea what can be the potential reason for death."
+        |> content__________________________________ "jonathon's reply to bad lie"
+            "[Bad End: Meaningless Lie]\nJonathon just nodded. After that, nothing important happened. The whole world had been in peace until the day you were knock over on the street..."
+        |> content__________________________________ "tell truth"
+            "Sir, as you may have known that the woman has a brother Daniel, and I have just talked to him about this case yet. And he told me that he guessed his sister's carelessly intake of too much drug may contribute to her death and this can be supported by the report of the autopsy."
+        |> content__________________________________ "jonathon's reply to truth"
+            "But you know that it's just one version of explanations. An advice for you is to go to inspect his home today. According to my report, Daniel won't be home today. Go, now."
+        |> content__________________________________ "fake memory card"
+            "You find a memory card, seems used on cameras."
+        |> content__________________________________ "key jonathon"
+            "You find a key stuck into the keyhole, seems to be forcibly inserted. You pull it out. It took a lot of effort..."
+        |> content__________________________________ "bank daniel"
+            "Here is a bank account statement."
+        |> content__________________________________ "paper daniel"
+            "You found a piece of paper in the drawer of the cabinet. With the first line written, Jonathon, the chief police of this city."
+        |> content__________________________________ "jonathon ask your opinion"
+            "So, Kay, what's your opinion towards this case?"
+        |> content__________________________________ "sir, i dont find"
+            "Sir, I don't find other extra useful information in Daniel's home and I think it is just an accident."
+        |> content__________________________________ "alright, I agree with"
+            "Alright, I agree with you. Investigating two cases in a row must be a great work for you as you just recover from the accident. You can have a two-day rest. Have a good rest at home. Bye."
+        |> content__________________________________ "sir, I think this case is quite weird"
+            "Sir, I think this case is quite weird that as you can see in the report of the autopsy, the \"medicine\" cannot be analyzed by us. How can a weak woman afford to purchase such mysterious medicine by herself after buying a new department? Or in other words, the one who supports her to purchase the medicine is the murderer."
+        |> content__________________________________ "interesting, kay"
+            "Interesting, Kay. And who do you think will be the murderer?"
+        |> content__________________________________ "ha my dear master"
+            "Ha, my dear master. All evidence points to you. Your car appeared the night Ann dead. You told me to inspect the Paradise the day I happened to be enrolled in a car accident. You are the regular customer of that nightclub, or in other words, Ann. Besides, I have other evidence to show your crime. The dark in our city, Jonathon."
+        |> content__________________________________ "You are still so naive."
+            "Ha, Kay. You are still so naive. Ok, you can leave now. I'm looking forward to your performance.\n[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery..."
+        |> content__________________________________ "I think the owner of"
+            "I think the owner of the nightclub is most possible as he knows a lot about Ann and he is most possible to provide weird medicine to Ann to achieve a better business effect. And this can explain why paradise becomes the best nightclub in our city overnight."
+        |> content__________________________________ "crazy assumption"
+            "Crazy assumption, Kay. To support your investigation, I will give you seven-day rest to search for clues in Paradise. You should go there every day in the next week. Oh, this is a VIP card of Paradise. En--joy--yourself, Kay.\n [Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\"."
+
+
+
+
 
 parsedData =
     let

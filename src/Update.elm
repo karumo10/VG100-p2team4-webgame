@@ -1111,6 +1111,10 @@ specialUpdates model
     |> day2_finished_office_finished_finished_update_home
     |> day2_finished_office_finished_update_day
     |> day3_daniel_update_story_npc
+    |> day4_allen_update_coffee_machine
+    |> day4_jonathon_update_coffee_machine
+    |> day4_daniel_evidence_update_phone
+    |> day4_daniel_finished_update_jonathon
 
 
 
@@ -1167,7 +1171,7 @@ day3_daniel_update_story_npc model =
     let
         daniel_day3_finished_map = List.filter (\a -> a.scene == (Daniel, Day3) ) model.mapAttr_all
             |> List.head
-            |> withDefault danialAttr_day3
+            |> withDefault danielAttr_day3
         isFinished = daniel_day3_finished_map.isFinished
         park_day3_finished_map = List.filter (\a -> a.scene == (Park, Day3) ) model.mapAttr_all
             |> List.head
@@ -1198,6 +1202,88 @@ day3_daniel_update_story_npc model =
     else
     model
 
+day4_allen_update_coffee_machine : Model -> Model
+day4_allen_update_coffee_machine model =
+    let
+        isChat = findCertainQuestion model "ASK_ALLEN"
+        coffee = List.filter (\a -> a.place == ( PoliceOffice , Day4 ) && a.itemType == CoffeeMachine ) model.npcs_all
+            |> List.head |> withDefault cCoffeeMachine_day4
+        rest = List.filter (\a -> a.place /= ( PoliceOffice , Day4 ) || a.itemType /= CoffeeMachine) model.npcs_all
+        coffee_ = { coffee | description = "COFFEE" }
+        npcs_all_ = [coffee_] ++ rest
+    in
+    if coffee.description == "COFFEE_NORMAL" then
+        if isChat then
+            { model | npcs_all = npcs_all_, npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day4)) npcs_all_ }
+        else model
+    else model
+
+day4_jonathon_update_coffee_machine : Model -> Model
+day4_jonathon_update_coffee_machine model =
+    let
+        isDestroyed = findCertainQuestion model "HAVE_INVEST" || findCertainQuestion model "BAD_LIE"
+        coffee = List.filter (\a -> a.place == ( PoliceOffice , Day4 ) && a.itemType == CoffeeMachine ) model.npcs_all
+            |> List.head |> withDefault cCoffeeMachine_day4
+        rest = List.filter (\a -> a.place /= ( PoliceOffice , Day4 ) || a.itemType /= CoffeeMachine) model.npcs_all
+        coffee_ = { coffee | description = "COFFEE_NORMAL_NO_CARD" }
+        npcs_all_ = [coffee_] ++ rest
+
+    in
+    if coffee.description == "COFFEE" then
+        if isDestroyed then
+            { model | npcs_all = npcs_all_, npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day4)) npcs_all_ }
+        else model
+    else model
+
+
+day4_daniel_evidence_update_phone : Model -> Model
+day4_daniel_evidence_update_phone model =
+    let
+        certainMap = List.filter (\a -> a.scene == (Daniel, Day4)) model.mapAttr_all
+            |> List.head
+            |> withDefault danielAttr_day4
+        isFinished = certainMap.isFinished
+        daniel_phone = List.filter (\a -> a.itemType == Phone_Daniel) model.npcs_all
+            |> List.head
+            |> withDefault danielPhone
+        daniel_phone_ = { daniel_phone | place = (Daniel, Day4) }
+        rest_npcs = List.filter (\a -> a.itemType /= Phone_Daniel) model.npcs_all
+        npcs_all_ = rest_npcs ++ [daniel_phone_]
+        npcs_curr_ = List.filter (\a -> a.place == (Daniel, Day4) ) npcs_all_
+        story_daniel = "Your phone is ringing. Press X to answer the phone."
+    in
+    if ( daniel_phone.place == (Daniel, Nowhere) ) then
+        if isFinished then
+            { model | npcs_all = npcs_all_, npcs_curr = npcs_curr_, story = story_daniel }
+        else
+        model
+    else
+    model
+
+day4_daniel_finished_update_jonathon : Model -> Model
+day4_daniel_finished_update_jonathon model =
+    let
+        certainMap = List.filter (\a -> a.scene == (Daniel, Day4)) model.mapAttr_all
+            |> List.head
+            |> withDefault danielAttr_day4
+        daniel_phone = List.filter (\a -> a.itemType == Phone_Daniel) model.npcs_all
+            |> List.head
+            |> withDefault danielPhone
+        is_jonathon_changed = certainMap.isFinished && daniel_phone.place == (Daniel, Day4)
+        jonathon = List.filter (\a -> a.itemType == Jonathon && a.place == ( PoliceOffice , Day4 )) model.npcs_all
+            |> List.head
+            |> withDefault cJonathon_day4
+        jonathon_ = { jonathon | description = "JONATHON_DAY4_NEW" }
+        rest_npcs = List.filter (\a -> a.itemType /= Jonathon || a.place /= ( PoliceOffice , Day4 ) ) model.npcs_all
+        all_npcs_ = rest_npcs ++ [jonathon_]
+    in
+    if jonathon.description /= "JONATHON_DAY4_NEW" then
+        if is_jonathon_changed then
+        { model | npcs_all = all_npcs_ }
+        else model
+    else model
+
+
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
@@ -1205,23 +1291,13 @@ pickUpWithEngine model =
     |> pickPill
     |> pickDiskOrNote
     |> pickDagger
+    |> pickMemCard
+    |> pickKey
+    |> pickPaper
+    |> pickBank
+    |> pickFakeMemCard
 
 
-
-whichActionTakenDisk : WorldModel.ID -> Bool
-whichActionTakenDisk id =
-    if id == "CHOOSEWHICHTAKEDISK" then
-    True
-    else
-    False
-
-whichActionTakenNote : WorldModel.ID -> Bool
-whichActionTakenNote id =
-    if id == "CHOOSEWHICHTAKENOTE" then
-    True
-
-    else
-    False
 
 
 isRepeat : Item -> Model -> Bool
@@ -1243,12 +1319,13 @@ isRepeat item model =
     else
     False
 
-pickDagger : Model -> Model
-pickDagger model =
+
+pickSingleItem : String -> Item -> Model -> Model
+pickSingleItem theChoice itemIni model =
     let
-        isTaken = findCertainQuestion model "SEARCH_SOFA"
+        isTaken = findCertainQuestion model theChoice
         item =
-            if isTaken then daggerIni
+            if isTaken then itemIni
             else emptyIni
         repeatOrNot = isRepeat item model
         g1 = model.bag.grid1
@@ -1296,66 +1373,35 @@ pickDagger model =
     model
 
 
+pickFakeMemCard : Model -> Model
+pickFakeMemCard model =
+    pickSingleItem "FAKE_MEM_CARD" fakeMemCardIni model
+
+pickBank: Model -> Model
+pickBank model =
+    pickSingleItem "BANK" bankIni model
+
+pickPaper: Model -> Model
+pickPaper model =
+    pickSingleItem "PAPER" paperIni model
+
+pickKey: Model -> Model
+pickKey model =
+    pickSingleItem "KEY_JONATHON" keyIni model
+
+pickMemCard : Model -> Model
+pickMemCard model =
+    pickSingleItem "OPEN_COFFEE_MACHINE" trueMemCardIni model
 
 
-
-
-
+pickDagger : Model -> Model
+pickDagger model =
+    pickSingleItem "SEARCH_SOFA" daggerIni model
 
 
 pickPill : Model -> Model
 pickPill model =
-    let
-        isPillTaken = findCertainQuestion model "SEARCH_TABLE"
-        item =
-            if isPillTaken then pillIni
-            else emptyIni
-        repeatOrNot = isRepeat item model
-        g1 = model.bag.grid1
-        g2 = model.bag.grid2
-        g3 = model.bag.grid3
-        g4 = model.bag.grid4
-        g5 = model.bag.grid5
-        g6 = model.bag.grid6
-        g7 = model.bag.grid7
-        g8 = model.bag.grid8
-        g9 = model.bag.grid9
-        g10 = model.bag.grid10
-        t1 = model.bag.grid1.itemType
-        t2 = model.bag.grid2.itemType
-        t3 = model.bag.grid3.itemType
-        t4 = model.bag.grid4.itemType
-        t5 = model.bag.grid5.itemType
-        t6 = model.bag.grid6.itemType
-        t7 = model.bag.grid7.itemType
-        t8 = model.bag.grid8.itemType
-        t9 = model.bag.grid9.itemType
-        t10 = model.bag.grid10.itemType
-    in
-    if repeatOrNot == False && t1 == Empty then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item }}
-    else
-    model
-
-
+    pickSingleItem "SEARCH_TABLE" daggerIni model
 
 
 pickDiskOrNote : Model -> Model
@@ -1416,6 +1462,21 @@ pickDiskOrNote model =
 
 
 
+
+whichActionTakenDisk : WorldModel.ID -> Bool
+whichActionTakenDisk id =
+    if id == "CHOOSEWHICHTAKEDISK" then
+    True
+    else
+    False
+
+whichActionTakenNote : WorldModel.ID -> Bool
+whichActionTakenNote id =
+    if id == "CHOOSEWHICHTAKENOTE" then
+    True
+
+    else
+    False
 
 
 

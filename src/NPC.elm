@@ -15,7 +15,13 @@ type NPCType
     | JonaliEvi
     | NightBody
     | Phone
+    | Phone_Daniel
     | Daniel_People
+    | CoffeeMachine
+    | Paper
+    | Bank
+    | Key_Jonathon
+    | FakeMemCard
     | None
 
 
@@ -104,6 +110,21 @@ cLee_day2_night =
     , isFinished = False
     }
 
+cLee_day4 : NPC --he is not here at the first of day2
+cLee_day4 =
+    { itemType = Lee
+    , area =
+        { x = 375
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "LEE_DAY4"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
+
 
 cBob_day1 : NPC
 cBob_day1 =
@@ -164,6 +185,22 @@ cBob_day2_night =
     , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
     }
+
+cBob_day4 : NPC
+cBob_day4 =
+    { itemType = Bob
+    , area =
+        { x = 450
+        , y = 520
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "BOB_DAY4"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
+
 
 
 cAllen_day1 : NPC
@@ -226,6 +263,125 @@ cAllen_day2_night =
     , isFinished = False
     }
 
+cAllen_day4 : NPC
+cAllen_day4 =
+    { itemType = Allen
+        , area =
+        { x = 600
+        , y = 270
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "ALLEN_DAY4"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day1 : NPC
+cCoffeeMachine_day1 =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day1 )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day2 : NPC
+cCoffeeMachine_day2 =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day2 )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day2_finished : NPC
+cCoffeeMachine_day2_finished =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day2_Finished )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day2_night : NPC
+cCoffeeMachine_day2_night =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day2_Night )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day3 : NPC
+cCoffeeMachine_day3 =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day3 )
+    , isFinished = False
+    }
+
+cCoffeeMachine_day4 : NPC
+cCoffeeMachine_day4 =
+    { itemType = CoffeeMachine
+        , area =
+        { x = 650
+        , y = 280
+        , wid = 25
+        , hei = 5
+        }
+    , interacttrue = False
+    , description = "COFFEE_NORMAL"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
+
+cJonathon_day4 : NPC --he is not here at the first of day2
+cJonathon_day4 =
+    { itemType = Jonathon
+    , area =
+        { x = 375
+        , y = 40
+        , wid = 20
+        , hei = 60
+        }
+    , interacttrue = False
+    , description = "JONATHON_DAY4"
+    , place = ( PoliceOffice , Day4 )
+    , isFinished = False
+    }
 
 
 pLee : NPC
@@ -368,6 +524,7 @@ homePhone =
      , isFinished = False
      }
 
+
 danielDaniel : NPC
 danielDaniel =
      { itemType = Daniel_People
@@ -383,17 +540,97 @@ danielDaniel =
      , isFinished = False
      }
 
+danielMemCard : NPC
+danielMemCard =
+     { itemType = FakeMemCard
+     , area =
+         { x = 320
+         , y = 460
+         , wid = 145
+         , hei = 5
+         }
+     , interacttrue = False
+     , description = "FAKE_MEM_CARD"
+     , place = ( Daniel, Day4 )
+     , isFinished = False
+     }
+
+danielKey : NPC
+danielKey =
+     { itemType = Key_Jonathon
+     , area =
+         { x = 795
+         , y = 440
+         , wid = 60
+         , hei = 5
+         }
+     , interacttrue = False
+     , description = "KEY_JONATHON"
+     , place = ( Daniel, Day4 )
+     , isFinished = False
+     }
+
+danielBank : NPC
+danielBank =
+     { itemType = Bank
+     , area =
+         { x = 740
+         , y = 135
+         , wid = 95
+         , hei = 5
+         }
+     , interacttrue = False
+     , description = "BANK"
+     , place = ( Daniel, Day4 )
+     , isFinished = False
+     }
+
+danielPaper : NPC
+danielPaper =
+     { itemType = Paper
+     , area =
+         { x = 330
+         , y = 145
+         , wid = 45
+         , hei = 5
+         }
+     , interacttrue = False
+     , description = "PAPER"
+     , place = ( Daniel, Day4 )
+     , isFinished = False
+     }
+
+
+danielPhone : NPC
+danielPhone =
+     { itemType = Phone_Daniel
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 1200
+         , hei = 600
+         }
+     , interacttrue = False
+     , description = "PHONE_DAY4"
+     , place = ( Daniel, Nowhere ) -- will be changed to day4 after the search.
+     , isFinished = False
+     }
+
 
 allNPCs: List NPC
 allNPCs =
-    [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night
-    , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day2_night
-    , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night
+    [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night, cLee_day4
+    , cBob_day1, cBob_day2, cBob_day2_finished, cBob_day2_night, cBob_day4
+    , cAllen_day1, cAllen_day2, cAllen_day2_finished, cAllen_day2_night, cAllen_day4
+    , cJonathon_day4
+    , cCoffeeMachine_day1, cCoffeeMachine_day2, cCoffeeMachine_day2_finished, cCoffeeMachine_day2_night, cCoffeeMachine_day3, cCoffeeMachine_day4
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody
     , nightBody
-    , homePhone
-    , danielDaniel ]
+    , homePhone, danielPhone
+    , danielDaniel
+    , danielPaper, danielKey, danielMemCard, danielBank
+    ]
 
 
 

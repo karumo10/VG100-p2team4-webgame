@@ -14,12 +14,14 @@ type VehicleType
     = Elevator
     | Bed
     | Car
+
 type Day
     = Day1
     | Day2
     | Day2_Finished
     | Day2_Night
     | Day3
+    | Day4
     | Nowhere
     | TooBigOrSmall
 
@@ -135,9 +137,22 @@ hintsMaze2 : List Hint
 hintsMaze2 =
     [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "...It's quite interesting: now, you are me, I am you... You know that Jonathon is a bad guy as you write it in your novel? Even more interesting..." }
     , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Ah, it seems that you have lost some memory, my friends. I can tell you something. It's quite weird that the day we planned to meet in the office, I was called to help inspect a night club. Do you think so? Who will inspect a night club at morning?..." }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don’t know which evidence you take in \"your\" home. They are both useful but you should pay attention how to use them properly, my dear friend..." }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don't know which evidence you take in \"your\" home. They are both useful but you should pay attention how to use them properly, my dear friend..." }
     , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "...Listen! What is whirring and whizzing? Double, double! Toil and trouble; fire burn and cauldron bubble! ..." } ]
 
+hintsMaze3 : List Hint
+hintsMaze3 =
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "Oh, it seems that tonight we have a new friend. Ha, Nice to see a new friend join our chat at night. Oh, our new friend seems to be in great pain and guilt. Ha, it's normal to be painful because of the death of family member but the guilty is quite interesting. Do you think so, my lucky, \"Kay\"?"}
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "It's fake. It's fake. It's fake. I had no choice to do. Forgive me. Forgive me. Forgive me. That will be destroyed tomorrow at a very early time. Please do save it." }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "How stupid our boss is? Use a place twice to carry out his plan of eliminating? My dear Jonathon, though the economic situation is very bad, with your ability, it should not be a case to create a new battlefield. Or, there exists more secret in Pa-ra-di-se?" }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "Be careful, [player's name]. Jonathon seems to be impatient... Don't behave too aggressive." } ]
+
+hintsMaze4 : List Hint
+hintsMaze4 =
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "Do you think that, this sudden vacation is quite weird?" }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Do you think that, the accidental inspection of Daniel’s home is quite weird?" }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Do you think that, our new friend is not here today is quite weird?" }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "To be, or not to be: that is the question,\nWhether it's nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles, and by opposing end them." } ]
 
 
 
@@ -200,6 +215,18 @@ policeOfficeAttr_day3 =
     , isFinished = False
     }
 
+policeOfficeAttr_day4 : MapAttr
+policeOfficeAttr_day4 =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , story = "Another day at work, another boring day. But I need to avoid being killed."
+    , scene = ( PoliceOffice, Day4 )
+    , isFinished = False
+    }
+
 parkAttr_day1 : MapAttr
 parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
@@ -257,6 +284,18 @@ parkAttr_day3 =
     , vehicle = []
     , story = "The park, where a promising man was killed. May him rest in peace..."
     , scene = ( Park, Day3 )
+    , isFinished = False
+    }
+
+parkAttr_day4 : MapAttr
+parkAttr_day4 =
+    { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
+    , heroIni = { x = 500, y = 250, width = 50, height = 180 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , story = "The park, where a promising man was killed. May him rest in peace..."
+    , scene = ( Park, Day4 )
     , isFinished = False
     }
 
@@ -322,6 +361,18 @@ homeAttr_day3 =
     , isFinished = False
     }
 
+homeAttr_day4 : MapAttr
+homeAttr_day4 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "That weird dream... what did that 'person' speak? WHAT will be destroyed tomorrow at a very early time?... Alas, maybe I shouldn't pay such attention on a dream... but dream has told me a lot, and Jonathon is dangerous..."
+    , scene = ( Home, Day4 )
+    , isFinished = False
+    }
+
 journalistAttr_day1 : MapAttr
 journalistAttr_day1 =
     { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
@@ -380,6 +431,18 @@ journalistAttr_day3 =
     , vehicle = []
     , story = "Once the murder scene."
     , scene = ( Journalist, Day3 )
+    , isFinished = False
+    }
+
+journalistAttr_day4 : MapAttr
+journalistAttr_day4 =
+    { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
+    , heroIni = { x = 205, y = 335, width = 60, height = 180 }
+    , barrier = journalistBarrier
+    , hint = []
+    , vehicle = []
+    , story = "Once the murder scene."
+    , scene = ( Journalist, Day4 )
     , isFinished = False
     }
 
@@ -443,8 +506,20 @@ nightClubAttr_day3 =
     , isFinished = False
     }
 
-danialAttr_day3 : MapAttr
-danialAttr_day3 =
+nightClubAttr_day4 : MapAttr
+nightClubAttr_day4 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = nightClubBarrier
+    , hint = []
+    , vehicle = nightClubVehicle
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy! \nDo you want something *exciting*, Sir?"
+    , scene = ( NightClub, Day4 )
+    , isFinished = False
+    }
+
+danielAttr_day3 : MapAttr
+danielAttr_day3 =
     { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
     , heroIni = { x = 150, y = 475, width = 40, height = 120 }
     , barrier = danielBarrier
@@ -455,6 +530,17 @@ danialAttr_day3 =
     , isFinished = False
     }
 
+danielAttr_day4 : MapAttr
+danielAttr_day4 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = danielBarrier
+    , hint = []
+    , vehicle = danielVehicle
+    , story = "You go to Daniel's home again. Interesting, Daniel isn't at home as Jonathon said."
+    , scene = ( Daniel, Day4 )
+    , isFinished = False
+    }
 
 
 --energyDrainAttr : MapAttr
@@ -525,10 +611,22 @@ dreamMazeAttr_day3 =
     { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
-    , hint = hintsMaze2
+    , hint = hintsMaze3
     , vehicle = []
     , story = "..."
     , scene = ( DreamMaze, Day3 )
+    , isFinished = False
+    }
+
+dreamMazeAttr_day4 : MapAttr
+dreamMazeAttr_day4 =
+    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    , barrier = maze1Barrier
+    , hint = hintsMaze4
+    , vehicle = []
+    , story = "..."
+    , scene = ( DreamMaze, Day4 )
     , isFinished = False
     }
 
@@ -548,13 +646,13 @@ switchingAttr =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3
-    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3
-    , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3
-    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3
-    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3
-    , danialAttr_day3
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4
+    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4
+    , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
+    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4
+    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4
+    , danielAttr_day3, danielAttr_day4
     , switchingAttr ]
 
 
