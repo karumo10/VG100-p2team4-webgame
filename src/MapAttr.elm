@@ -147,6 +147,13 @@ hintsMaze3 =
     , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "How stupid our boss is? Use a place twice to carry out his plan of eliminating? My dear Jonathon, though the economic situation is very bad, with your ability, it should not be a case to create a new battlefield. Or, there exists more secret in Pa-ra-di-se?" }
     , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "Be careful, [player's name]. Jonathon seems to be impatient... Don't behave too aggressive." } ]
 
+hintsMaze4 : List Hint
+hintsMaze4 =
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "Do you think that, this sudden vacation is quite weird?" }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Do you think that, the accidental inspection of Daniel’s home is quite weird?" }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Do you think that, our new friend is not here today is quite weird?" }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "To be, or not to be: that is the question,\nWhether it's nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles, and by opposing end them." } ]
+
 
 
 policeOfficeAttr_day1 : MapAttr
@@ -611,6 +618,18 @@ dreamMazeAttr_day3 =
     , isFinished = False
     }
 
+dreamMazeAttr_day4 : MapAttr
+dreamMazeAttr_day4 =
+    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    , barrier = maze1Barrier
+    , hint = hintsMaze4
+    , vehicle = []
+    , story = "..."
+    , scene = ( DreamMaze, Day4 )
+    , isFinished = False
+    }
+
 
 switchingAttr : MapAttr
 switchingAttr =
@@ -627,7 +646,7 @@ switchingAttr =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4
     , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4
     , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
