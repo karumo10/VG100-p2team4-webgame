@@ -16,20 +16,29 @@ import Areas exposing (..)
 import MapAttr exposing (..)
 
 
-heroToSvg : Hero -> List (Svg msg)
-heroToSvg hero =
+heroToSvg : Model -> List (Svg msg)
+heroToSvg model =
     let
         ( x_, y_ ) =
             if gameMode______ == Game then
-            ( toFloat (hero.x), toFloat hero.y - hero.height * 0.65 )
+            ( toFloat (model.hero.x), toFloat model.hero.y - model.hero.height * 0.65 )
             else
-            ( toFloat (hero.x), toFloat (hero.y) )
+            ( toFloat (model.hero.x), toFloat (model.hero.y) )
 
         ( wid, hei ) =
             if gameMode______ == Game then
-            ( hero.width*2, hero.height*2 )
+            ( model.hero.width*2, model.hero.height*2 )
             else
-            ( hero.width, hero.height )
+            ( model.hero.width, model.hero.height )
+
+        link =
+            case ( model.heroMoveLeft, model.heroMoveRight ) of
+                ( True, False ) ->
+                    "./hero.png"
+                ( False, True ) ->
+                    "./heror.png"
+                _ ->
+                    "./hero.png"
 
     in
     if gameMode______ == Game then
@@ -38,7 +47,7 @@ heroToSvg hero =
         [ x (x_ |> Debug.toString)
         , y (y_ |> Debug.toString)
         , width (wid |> Debug.toString)
-        , Svg.Attributes.xlinkHref "./hero.png"
+        , Svg.Attributes.xlinkHref link
         ]
         []
     ]

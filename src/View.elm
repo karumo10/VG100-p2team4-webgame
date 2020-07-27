@@ -254,7 +254,7 @@ renderPic model =
                     , transform "translate(-30,0)"
                     ] []]
                 ++ npcListView model
-                ++ ( heroToSvg model.hero )
+                ++ ( heroToSvg model )
                 ++ [ renderdialog model ]
                 ++ [ renderchoice model ]
                 ++ [ renderportrait model ]
@@ -271,7 +271,7 @@ renderPic model =
                     , height "600"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ]
-                ++ ( heroToSvg model.hero )
+                ++ ( heroToSvg model )
                 ++ npcListView model
                 ++ [ renderdialog model ]
                 ++ [ renderchoice model ]
@@ -311,7 +311,7 @@ renderPic model =
                     ] []]
                 ++ [renderdialog model]
                 ++ [renderchoice model]
-                ++ ( heroToSvg model.hero )
+                ++ ( heroToSvg model )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
                 ++ [ renderdialog model ]
@@ -342,7 +342,7 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ npcListView model
-                ++ ( heroToSvg model.hero )
+                ++ ( heroToSvg model )
                 ++ [ renderdialog model ]
                 ++ [ renderportrait model]
                 ++ [ bedQuestToSvg model ]
@@ -362,7 +362,7 @@ renderPic model =
                     ] []]
                 ++ [renderdialog model]
                 ++ [renderchoice model]
-                ++ ( heroToSvg model.hero )
+                ++ ( heroToSvg model )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
                 ++ [ renderdialog model ]
@@ -381,7 +381,7 @@ renderPic model =
                 ++ [renderdialog model]
                 ++ npcListView model
                 ++ [renderchoice model]
-                ++ ( heroToSvg model.hero )
+                ++ ( heroToSvg model )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
                 ++ [ renderdialog model ]
