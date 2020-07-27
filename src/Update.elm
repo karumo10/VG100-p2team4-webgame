@@ -378,6 +378,7 @@ animate elapsed model =
         |> judgeIsMakingChoices
         |> pickUpWithEngine
         |> dirhero
+        |> badEndsUpdates
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -1328,6 +1329,42 @@ day4_daniel_finished_update_jonathon model =
         else model
     else model
 
+badEndsUpdates : Model -> Model
+badEndsUpdates model =
+    model
+    |> badEnd1
+    |> badEnd2
+    |> badEnd3
+
+
+
+
+badEnd1 : Model -> Model
+badEnd1 model =
+    let
+        isEatPill = findCertainQuestion model "TAKE_PILL"
+    in
+    if isEatPill && not model.isEnd then
+    { model | isEnd = True, story = "[Bad End: Reckless Authority]\nYou thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late." }
+    else model
+
+badEnd2 : Model -> Model
+badEnd2 model =
+    let
+        isTooEager = findCertainQuestion model "ITS_YOU"
+    in
+    if isTooEager && not model.isEnd then
+    { model | isEnd = True, story = "[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery..."}
+    else model
+
+badEnd3 : Model -> Model
+badEnd3 model =
+    let
+        isParadised = findCertainQuestion model "PARADISE_OWNER"
+    in
+    if isParadised && not model.isEnd then
+    { model | isEnd = True, story = "[Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\"."}
+    else model
 
 
 pickUpWithEngine : Model -> Model
@@ -1446,7 +1483,7 @@ pickDagger model =
 
 pickPill : Model -> Model
 pickPill model =
-    pickSingleItem "SEARCH_TABLE" daggerIni model
+    pickSingleItem "SEARCH_TABLE" pillIni model
 
 
 pickDiskOrNote : Model -> Model

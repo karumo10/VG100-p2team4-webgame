@@ -950,7 +950,7 @@ rulesSpec =
         |> rule_______________________ "take the pills"
             """
             ON: TAKE_PILL
-            DO: TAKE_PILL.choices=0
+            DO: TAKE_PILL.choices=-1
                 NOT_TAKE_PILL.choices=0
                 PILLS.trigger=0
             """
@@ -958,7 +958,7 @@ rulesSpec =
             """
             ON: NOT_TAKE_PILL
             DO: TAKE_PILL.choices=0
-                NOT_TAKE_PILL.choices=0
+                NOT_TAKE_PILL.choices=-1
                 PILLS.trigger=0
             """
         |> rule_______________________ "good morning, kay"
@@ -1298,7 +1298,7 @@ narrative_content =
         |> content__________________________________ "greek letters"
             "Maybe pills used for indulge people into joy, sold by Paradise...? An idea of investing Paradise again as a customer come up in your mind. By taking those pills, maybe you can get adapted in that environment then investigate smoothly...?"
         |> content__________________________________ "take the pills"
-            "You thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late."
+            "You were thinking you've made a great decision until the scene before your eyes start to blur and distort. You struggle to induce vomiting, but it's too late."
         |> content__________________________________ "forget it"
             "This is too dangerous and risky after all, you comforted yourself."
         |> content__________________________________ "good morning, kay"
@@ -1348,11 +1348,11 @@ narrative_content =
         |> content__________________________________ "ha my dear master"
             "Ha, my dear master. All evidence points to you. Your car appeared the night Ann dead. You told me to inspect the Paradise the day I happened to be enrolled in a car accident. You are the regular customer of that nightclub, or in other words, Ann. Besides, I have other evidence to show your crime. The dark in our city, Jonathon."
         |> content__________________________________ "You are still so naive."
-            "Ha, Kay. You are still so naive. Ok, you can leave now. I'm looking forward to your performance.\n[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery..."
+            "Ha, Kay. You are still so naive. Ok, you can leave now. I'm looking forward to your performance.\n"
         |> content__________________________________ "I think the owner of"
             "I think the owner of the nightclub is most possible as he knows a lot about Ann and he is most possible to provide weird medicine to Ann to achieve a better business effect. And this can explain why paradise becomes the best nightclub in our city overnight."
         |> content__________________________________ "crazy assumption"
-            "Crazy assumption, Kay. To support your investigation, I will give you seven-day rest to search for clues in Paradise. You should go there every day in the next week. Oh, this is a VIP card of Paradise. En--joy--yourself, Kay.\n [Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\"."
+            "Crazy assumption, Kay. To support your investigation, I will give you seven-day rest to search for clues in Paradise. You should go there every day in the next week. Oh, this is a VIP card of Paradise. En--joy--yourself, Kay."
 
 
 
