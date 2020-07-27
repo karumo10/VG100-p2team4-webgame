@@ -1114,6 +1114,7 @@ specialUpdates model
     |> day4_allen_update_coffee_machine
     |> day4_jonathon_update_coffee_machine
     |> day4_daniel_evidence_update_phone
+    |> day4_daniel_finished_update_jonathon
 
 
 
@@ -1258,6 +1259,29 @@ day4_daniel_evidence_update_phone model =
         model
     else
     model
+
+day4_daniel_finished_update_jonathon : Model -> Model
+day4_daniel_finished_update_jonathon model =
+    let
+        certainMap = List.filter (\a -> a.scene == (Daniel, Day4)) model.mapAttr_all
+            |> List.head
+            |> withDefault danielAttr_day4
+        daniel_phone = List.filter (\a -> a.itemType == Phone_Daniel) model.npcs_all
+            |> List.head
+            |> withDefault danielPhone
+        is_jonathon_changed = certainMap.isFinished && daniel_phone.place == (Daniel, Day4)
+        jonathon = List.filter (\a -> a.itemType == Jonathon && a.place == ( PoliceOffice , Day4 )) model.npcs_all
+            |> List.head
+            |> withDefault cJonathon_day4
+        jonathon_ = { jonathon | description = "JONATHON_DAY4_NEW" }
+        rest_npcs = List.filter (\a -> a.itemType /= Jonathon || a.place /= ( PoliceOffice , Day4 ) ) model.npcs_all
+        all_npcs_ = rest_npcs ++ [jonathon_]
+    in
+    if jonathon.description /= "JONATHON_DAY4_NEW" then
+        if is_jonathon_changed then
+        { model | npcs_all = all_npcs_ }
+        else model
+    else model
 
 
 

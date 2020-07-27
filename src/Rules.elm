@@ -1074,7 +1074,6 @@ rulesSpec =
             IF: JONATHON_DAY4_NEW.trigger=3
             DO: ACCIDENT.choices=1
                 MURDER.choices=1
-                JONATHON_DAY4_NEW.trigger=2
             """
         |> rule_______________________ "sir, i dont find"
             """
@@ -1086,7 +1085,7 @@ rulesSpec =
             """
             ON: JONATHON_DAY4_NEW
             IF: ACCIDENT.choices=-1
-                JONATHON_DAY4_NEW.trigger=2
+                JONATHON_DAY4_NEW.trigger=3
             DO: JONATHON_DAY4_NEW.trigger=0
             """
         |> rule_______________________ "sir, I think this case is quite weird"
@@ -1123,7 +1122,7 @@ rulesSpec =
             ON: PARADISE_OWNER
             DO: PARADISE_OWNER.choices=-1
                 JONATHON_DAY4_NEW.trigger=1
-                ITS_YOU.choices=-1
+                ITS_YOU.choices=0
             """
         |> rule_______________________ "crazy assumption"
             """
@@ -1323,7 +1322,7 @@ narrative_content =
         |> content__________________________________ "jonathon's reply to bad lie"
             "[Bad End: Meaningless Lie]\nJonathon just nodded. After that, nothing important happened. The whole world had been in peace until the day you were knock over on the street..."
         |> content__________________________________ "tell truth"
-            "Sir, as you may have known that the woman has a brother Daniel, and I have just talked to him about this case yet. And he told me that he guessed his sister’s carelessly intake of too much drug may contribute to her death and this can be supported by the report of the autopsy."
+            "Sir, as you may have known that the woman has a brother Daniel, and I have just talked to him about this case yet. And he told me that he guessed his sister's carelessly intake of too much drug may contribute to her death and this can be supported by the report of the autopsy."
         |> content__________________________________ "jonathon's reply to truth"
             "But you know that it's just one version of explanations. An advice for you is to go to inspect his home today. According to my report, Daniel won't be home today. Go, now."
         |> content__________________________________ "fake memory card"
@@ -1335,9 +1334,9 @@ narrative_content =
         |> content__________________________________ "paper daniel"
             "You found a piece of paper in the drawer of the cabinet. With the first line written, Jonathon, the chief police of this city."
         |> content__________________________________ "jonathon ask your opinion"
-            "So, Kay, what’s your opinion towards this case?"
+            "So, Kay, what's your opinion towards this case?"
         |> content__________________________________ "sir, i dont find"
-            "Sir, I don’t find other extra useful information in Daniel’s home and I think it is just an accident."
+            "Sir, I don't find other extra useful information in Daniel's home and I think it is just an accident."
         |> content__________________________________ "alright, I agree with"
             "Alright, I agree with you. Investigating two cases in a row must be a great work for you as you just recover from the accident. You can have a two-day rest. Have a good rest at home. Bye."
         |> content__________________________________ "sir, I think this case is quite weird"
@@ -1347,7 +1346,7 @@ narrative_content =
         |> content__________________________________ "ha my dear master"
             "Ha, my dear master. All evidence points to you. Your car appeared the night Ann dead. You told me to inspect the Paradise the day I happened to be enrolled in a car accident. You are the regular customer of that nightclub, or in other words, Ann. Besides, I have other evidence to show your crime. The dark in our city, Jonathon."
         |> content__________________________________ "You are still so naive."
-            "Ha, Kay. You are still so naive. Ok, you can leave now. I’m looking forward to your performance.\n[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX’s Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery..."
+            "Ha, Kay. You are still so naive. Ok, you can leave now. I'm looking forward to your performance.\n[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery..."
         |> content__________________________________ "I think the owner of"
             "I think the owner of the nightclub is most possible as he knows a lot about Ann and he is most possible to provide weird medicine to Ann to achieve a better business effect. And this can explain why paradise becomes the best nightclub in our city overnight."
         |> content__________________________________ "crazy assumption"
