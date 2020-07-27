@@ -378,7 +378,8 @@ animate elapsed model =
         |> judgeIsMakingChoices
         |> pickUpWithEngine
         |> dirhero
-        |> badEndsUpdates
+        |> badEndsClear
+        |> badEndsStory elapsed
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -1152,15 +1153,18 @@ test_1_for_find_chosen_choices model =
 
 specialUpdates : Model -> Model -- put it every iterate
 specialUpdates model
-    = model
-    |> day2_journalist_finished_update_day
-    |> day2_finished_office_finished_finished_update_home
-    |> day2_finished_office_finished_update_day
-    |> day3_daniel_update_story_npc
-    |> day4_allen_update_coffee_machine
-    |> day4_jonathon_update_coffee_machine
-    |> day4_daniel_evidence_update_phone
-    |> day4_daniel_finished_update_jonathon
+    =
+    if not model.isEnd then
+        model
+        |> day2_journalist_finished_update_day
+        |> day2_finished_office_finished_finished_update_home
+        |> day2_finished_office_finished_update_day
+        |> day3_daniel_update_story_npc
+        |> day4_allen_update_coffee_machine
+        |> day4_jonathon_update_coffee_machine
+        |> day4_daniel_evidence_update_phone
+        |> day4_daniel_finished_update_jonathon
+    else model
 
 
 
@@ -1329,43 +1333,70 @@ day4_daniel_finished_update_jonathon model =
         else model
     else model
 
-badEndsUpdates : Model -> Model
-badEndsUpdates model =
+
+badEndsStory : Float -> Model -> Model
+badEndsStory elapsed model =
+    let
+        isEnding = model.isEnd
+        accum = model.endingTimeAccum
+        accum_ =
+            if isEnding then accum + elapsed
+            else accum
+        interval = 5000
+        story_ = List.filter (\a -> Tuple.first a == True) (badEndsList model)
+            |> List.head
+            |> withDefault (True, "error!!!!!!!!!!!!")
+            |> Tuple.second
+    in
+    if accum_ > interval then
+        { model | story = story_, endingTimeAccum = 0 }
+    else
+        { model | endingTimeAccum = accum_ }
+
+
+badEndsClear : Model -> Model
+badEndsClear model =
+    let
+        haveBeenEnding = model.isEnd
+        isEnding = List.foldr (||) False (List.map (Tuple.first) (badEndsList model))
+    in
+    if not haveBeenEnding && isEnding then
+        { model | npcs_all = [], isEnd = True } |> teleportHero (1000, 1000)
+    else
     model
-    |> badEnd1
-    |> badEnd2
-    |> badEnd3
 
 
 
 
-badEnd1 : Model -> Model
+badEnd1 : Model -> ( Bool, String )
 badEnd1 model =
     let
         isEatPill = findCertainQuestion model "TAKE_PILL"
     in
-    if isEatPill && not model.isEnd then
-    { model | isEnd = True, story = "[Bad End: Reckless Authority]\nYou thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late." }
-    else model
+    if isEatPill then
+    (True, "[Bad End: Reckless Authority]\nYou thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late." )
+    else (False, model.story)
 
-badEnd2 : Model -> Model
+badEnd2 : Model -> ( Bool, String )
 badEnd2 model =
     let
         isTooEager = findCertainQuestion model "ITS_YOU"
     in
-    if isTooEager && not model.isEnd then
-    { model | isEnd = True, story = "[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery..."}
-    else model
+    if isTooEager then
+    (True, "[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery...")
+    else (False, model.story)
 
-badEnd3 : Model -> Model
+badEnd3 : Model -> ( Bool, String )
 badEnd3 model =
     let
         isParadised = findCertainQuestion model "PARADISE_OWNER"
     in
-    if isParadised && not model.isEnd then
-    { model | isEnd = True, story = "[Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\"."}
-    else model
+    if isParadised then
+    (True, "[Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\".")
+    else (False, model.story)
 
+badEndsList : Model -> List (Bool, String)
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
