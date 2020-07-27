@@ -58,6 +58,13 @@ policeOfficeBarrier =
             [ ]
         _ -> policeBarrierList
 
+parkBarrier : List Area
+parkBarrier =
+    case gameMode______ of
+        GettingCoordinates ->
+            [ ]
+        _ -> parkBarrierList
+
 homeBarrier : List Area
 homeBarrier =
     case gameMode______ of
@@ -217,7 +224,7 @@ parkAttr_day1 : MapAttr
 parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
     , heroIni = { x = 500, y = 250, width = 50, height = 180 }
-    , barrier = []
+    , barrier = parkBarrier
     , hint = []
     , vehicle = []
     , story = "I arrive at the park. This is a desolate place."
@@ -229,7 +236,7 @@ parkAttr_day2 : MapAttr
 parkAttr_day2 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
     , heroIni = { x = 500, y = 250, width = 50, height = 180 }
-    , barrier = []
+    , barrier = parkBarrier
     , hint = []
     , vehicle = []
     , story = "The park, where a promising man was killed. May him rest in peace..."
@@ -241,7 +248,7 @@ parkAttr_day2_finished : MapAttr
 parkAttr_day2_finished =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
     , heroIni = { x = 500, y = 250, width = 50, height = 180 }
-    , barrier = []
+    , barrier = parkBarrier
     , hint = []
     , vehicle = []
     , story = "The park, where a promising man was killed. May him rest in peace..."
@@ -253,7 +260,7 @@ parkAttr_day2_night : MapAttr
 parkAttr_day2_night =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
     , heroIni = { x = 500, y = 250, width = 50, height = 180 }
-    , barrier = []
+    , barrier = parkBarrier
     , hint = []
     , vehicle = []
     , story = "It's pitch black here now. Everything is hiding behind the mist."
@@ -265,7 +272,7 @@ parkAttr_day3 : MapAttr
 parkAttr_day3 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
     , heroIni = { x = 500, y = 250, width = 50, height = 180 }
-    , barrier = []
+    , barrier = parkBarrier
     , hint = []
     , vehicle = []
     , story = "The park, where a promising man was killed. May him rest in peace..."
