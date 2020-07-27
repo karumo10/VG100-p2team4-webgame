@@ -92,8 +92,8 @@ initial =
     , heroInteractWithNpc = False
     , state = Playing
     , size = ( 900, 600 )
-    , day = 4
-    , dayState = Day4
+    , day = 1
+    , dayState = Day1
     , map = StarterPage -- door at police office
     , mapAttr = policeOfficeAttr_day1
     , bag = bagIni
@@ -102,7 +102,7 @@ initial =
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the police chief, Jonathon, because I know his scandal. I need to avoid being killed."
     , ruleCounts = Dict.empty
     , debug = NarrativeEngine.Debug.init
-    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day4)) allNPCs
+    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day1)) allNPCs
     , npcs_all = allNPCs
     , evidence_all = allEvidence
     , mapAttr_all = allMapAttrs
