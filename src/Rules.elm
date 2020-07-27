@@ -265,6 +265,18 @@ initialWorldModelSpec =
     , entity "JONATHON_DAY4.trigger=1"
         "jonathon"
         "..."
+    , entity "FAKE_MEM_CARD.trigger=1"
+        "fake card"
+        "This place has been examined yet."
+    , entity "KEY_JONATHON.trigger=1"
+        "key"
+        "This place has been examined yet."
+    , entity "BANK.trigger=1"
+        "bank statement"
+        "This place has been examined yet."
+    , entity "PAPER.trigger=1"
+        "A paper with customer's favor"
+        "This place has been examined yet."
 
     -- choices
     , entity "ASK_BOB.choices=0"
@@ -1015,7 +1027,30 @@ rulesSpec =
                 HAVE_INVEST.choices=-1
             DO: JONATHON_DAY4.trigger=0
             """
-
+        |> rule_______________________ "fake memory card"
+            """
+            ON: FAKE_MEM_CARD
+            IF: FAKE_MEM_CARD.trigger=1
+            DO: FAKE_MEM_CARD.trigger=0
+            """
+        |> rule_______________________ "key jonathon"
+            """
+            ON: KEY_JONATHON
+            IF: KEY_JONATHON.trigger=1
+            DO: KEY_JONATHON.trigger=0
+            """
+        |> rule_______________________ "bank daniel"
+            """
+            ON: BANK
+            IF: BANK.trigger=1
+            DO: BANK.trigger=0
+            """
+        |> rule_______________________ "paper daniel"
+            """
+            ON: PAPER
+            IF: PAPER.trigger=1
+            DO: PAPER.trigger=0
+            """
 
 
 
@@ -1211,6 +1246,17 @@ narrative_content =
             "Sir, as you may have known that the woman has a brother Daniel, and I have just talked to him about this case yet. And he told me that he guessed his sister’s carelessly intake of too much drug may contribute to her death and this can be supported by the report of the autopsy."
         |> content__________________________________ "jonathon's reply to truth"
             "But you know that it's just one version of explanations. An advice for you is to go to inspect his home today. According to my report, Daniel won't be home today. Go, now."
+        |> content__________________________________ "fake memory card"
+            "You find a memory card, seems used on cameras."
+        |> content__________________________________ "key jonathon"
+            "You find a key stuck into the keyhole, seems to be forcibly inserted. You pull it out. It took a lot of effort..."
+        |> content__________________________________ "bank daniel"
+            "Here is a bank account statement."
+        |> content__________________________________ "paper daniel"
+            "You found a piece of paper in the drawer of the cabinet."
+
+
+
 
 parsedData =
     let

@@ -8,7 +8,7 @@ type Mode
     | Game
     | TotalTest
 gameMode______ : Mode
-gameMode______ = Game
+gameMode______ = CollisionTest
 
 type VehicleType
     = Elevator
@@ -523,6 +523,17 @@ danialAttr_day3 =
     , isFinished = False
     }
 
+danialAttr_day4 : MapAttr
+danialAttr_day4 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = danielBarrier
+    , hint = []
+    , vehicle = danielVehicle
+    , story = "You go to Daniel's home again. Interesting, Daniel isn't at home as Jonathon said."
+    , scene = ( Daniel, Day4 )
+    , isFinished = False
+    }
 
 
 --energyDrainAttr : MapAttr
@@ -622,7 +633,7 @@ allMapAttrs =
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4
-    , danialAttr_day3
+    , danialAttr_day3, danialAttr_day4
     , switchingAttr ]
 
 

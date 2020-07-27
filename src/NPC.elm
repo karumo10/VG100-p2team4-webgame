@@ -17,6 +17,10 @@ type NPCType
     | Phone
     | Daniel_People
     | CoffeeMachine
+    | Paper
+    | Bank
+    | Key_Jonathon
+    | FakeMemCard
     | None
 
 
@@ -519,6 +523,7 @@ homePhone =
      , isFinished = False
      }
 
+
 danielDaniel : NPC
 danielDaniel =
      { itemType = Daniel_People
@@ -534,6 +539,82 @@ danielDaniel =
      , isFinished = False
      }
 
+danielMemCard : NPC
+danielMemCard =
+     { itemType = FakeMemCard
+     , area =
+         { x = 320
+         , y = 460
+         , wid = 145
+         , hei = 5
+         }
+     , interacttrue = False
+     , description = "FAKE_MEM_CARD"
+     , place = ( Daniel, Day4 )
+     , isFinished = False
+     }
+
+danielKey : NPC
+danielKey =
+     { itemType = Key_Jonathon
+     , area =
+         { x = 795
+         , y = 440
+         , wid = 60
+         , hei = 5
+         }
+     , interacttrue = False
+     , description = "KEY_JONATHON"
+     , place = ( Daniel, Day4 )
+     , isFinished = False
+     }
+
+danielBank : NPC
+danielBank =
+     { itemType = Bank
+     , area =
+         { x = 740
+         , y = 135
+         , wid = 95
+         , hei = 5
+         }
+     , interacttrue = False
+     , description = "BANK"
+     , place = ( Daniel, Day4 )
+     , isFinished = False
+     }
+
+danielPaper : NPC
+danielPaper =
+     { itemType = Paper
+     , area =
+         { x = 330
+         , y = 145
+         , wid = 45
+         , hei = 5
+         }
+     , interacttrue = False
+     , description = "PAPER"
+     , place = ( Daniel, Day4 )
+     , isFinished = False
+     }
+
+
+danielPhone : NPC
+danielPhone =
+     { itemType = Phone
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 1200
+         , hei = 600
+         }
+     , interacttrue = False
+     , description = "PHONE_ANSWER.day3"
+     , place = ( Home, Nowhere ) -- will be changed to day4 after the search.
+     , isFinished = False
+     }
+
 
 allNPCs: List NPC
 allNPCs =
@@ -545,8 +626,9 @@ allNPCs =
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody
     , nightBody
-    , homePhone
+    , homePhone, danielPhone
     , danielDaniel
+    , danielPaper, danielKey, danielMemCard, danielBank
     ]
 
 
