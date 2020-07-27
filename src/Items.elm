@@ -159,10 +159,70 @@ trueMemCardIni =
     , x = 700
     , y = 530
     , intro = "memory card"
-    , comment = "A memory card, used to save photographs."
+    , comment = "A memory card, used to save photographs, found in coffee machine."
     , canBeExamined = True
-
     }
+
+fakeMemCardIni : Item
+fakeMemCardIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "another memory card"
+    , comment = "A memory card, used for cameras, found in Daniel's house."
+    , canBeExamined = True
+    }
+
+keyIni : Item
+keyIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "key"
+    , comment = "The key found in Daniel's house."
+    , canBeExamined = True
+    }
+
+paperIni : Item
+paperIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Paper"
+    , comment = "A paper with customer's favor, found in Daniel's house."
+    , canBeExamined = True
+    }
+
+bankIni : Item
+bankIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Bank statement"
+    , comment = "A bank account statement, found in Daniel's house."
+    , canBeExamined = True
+    }
+
 
 
 emptyIni : Item

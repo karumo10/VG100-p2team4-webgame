@@ -1244,6 +1244,10 @@ pickUpWithEngine model =
     |> pickDiskOrNote
     |> pickDagger
     |> pickMemCard
+    |> pickKey
+    |> pickPaper
+    |> pickBank
+    |> pickFakeMemCard
 
 
 
@@ -1267,12 +1271,13 @@ isRepeat item model =
     else
     False
 
-pickMemCard : Model -> Model
-pickMemCard model =
+
+pickSingleItem : String -> Item -> Model -> Model
+pickSingleItem theChoice itemIni model =
     let
-        isTaken = findCertainQuestion model "OPEN_COFFEE_MACHINE"
+        isTaken = findCertainQuestion model theChoice
         item =
-            if isTaken then trueMemCardIni
+            if isTaken then itemIni
             else emptyIni
         repeatOrNot = isRepeat item model
         g1 = model.bag.grid1
@@ -1320,121 +1325,35 @@ pickMemCard model =
     model
 
 
+pickFakeMemCard : Model -> Model
+pickFakeMemCard model =
+    pickSingleItem "FAKE_MEM_CARD" fakeMemCardIni model
+
+pickBank: Model -> Model
+pickBank model =
+    pickSingleItem "BANK" bankIni model
+
+pickPaper: Model -> Model
+pickPaper model =
+    pickSingleItem "PAPER" paperIni model
+
+pickKey: Model -> Model
+pickKey model =
+    pickSingleItem "KEY_JONATHON" keyIni model
+
+pickMemCard : Model -> Model
+pickMemCard model =
+    pickSingleItem "OPEN_COFFEE_MACHINE" trueMemCardIni model
 
 
 pickDagger : Model -> Model
 pickDagger model =
-    let
-        isTaken = findCertainQuestion model "SEARCH_SOFA"
-        item =
-            if isTaken then daggerIni
-            else emptyIni
-        repeatOrNot = isRepeat item model
-        g1 = model.bag.grid1
-        g2 = model.bag.grid2
-        g3 = model.bag.grid3
-        g4 = model.bag.grid4
-        g5 = model.bag.grid5
-        g6 = model.bag.grid6
-        g7 = model.bag.grid7
-        g8 = model.bag.grid8
-        g9 = model.bag.grid9
-        g10 = model.bag.grid10
-        t1 = model.bag.grid1.itemType
-        t2 = model.bag.grid2.itemType
-        t3 = model.bag.grid3.itemType
-        t4 = model.bag.grid4.itemType
-        t5 = model.bag.grid5.itemType
-        t6 = model.bag.grid6.itemType
-        t7 = model.bag.grid7.itemType
-        t8 = model.bag.grid8.itemType
-        t9 = model.bag.grid9.itemType
-        t10 = model.bag.grid10.itemType
-    in
-    if repeatOrNot == False && t1 == Empty then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item }}
-    else
-    model
-
-
-
-
-
-
-
+    pickSingleItem "SEARCH_SOFA" daggerIni model
 
 
 pickPill : Model -> Model
 pickPill model =
-    let
-        isPillTaken = findCertainQuestion model "SEARCH_TABLE"
-        item =
-            if isPillTaken then pillIni
-            else emptyIni
-        repeatOrNot = isRepeat item model
-        g1 = model.bag.grid1
-        g2 = model.bag.grid2
-        g3 = model.bag.grid3
-        g4 = model.bag.grid4
-        g5 = model.bag.grid5
-        g6 = model.bag.grid6
-        g7 = model.bag.grid7
-        g8 = model.bag.grid8
-        g9 = model.bag.grid9
-        g10 = model.bag.grid10
-        t1 = model.bag.grid1.itemType
-        t2 = model.bag.grid2.itemType
-        t3 = model.bag.grid3.itemType
-        t4 = model.bag.grid4.itemType
-        t5 = model.bag.grid5.itemType
-        t6 = model.bag.grid6.itemType
-        t7 = model.bag.grid7.itemType
-        t8 = model.bag.grid8.itemType
-        t9 = model.bag.grid9.itemType
-        t10 = model.bag.grid10.itemType
-    in
-    if repeatOrNot == False && t1 == Empty then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item }}
-    else
-    model
-
-
+    pickSingleItem "SEARCH_TABLE" daggerIni model
 
 
 pickDiskOrNote : Model -> Model

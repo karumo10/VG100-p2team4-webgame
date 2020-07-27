@@ -1031,25 +1031,25 @@ rulesSpec =
             """
             ON: FAKE_MEM_CARD
             IF: FAKE_MEM_CARD.trigger=1
-            DO: FAKE_MEM_CARD.trigger=0
+            DO: FAKE_MEM_CARD.trigger=0.choices=-1
             """
         |> rule_______________________ "key jonathon"
             """
             ON: KEY_JONATHON
             IF: KEY_JONATHON.trigger=1
-            DO: KEY_JONATHON.trigger=0
+            DO: KEY_JONATHON.trigger=0.choices=-1
             """
         |> rule_______________________ "bank daniel"
             """
             ON: BANK
             IF: BANK.trigger=1
-            DO: BANK.trigger=0
+            DO: BANK.trigger=0.choices=-1
             """
         |> rule_______________________ "paper daniel"
             """
             ON: PAPER
             IF: PAPER.trigger=1
-            DO: PAPER.trigger=0
+            DO: PAPER.trigger=0.choices=-1
             """
 
 
