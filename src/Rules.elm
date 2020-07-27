@@ -280,7 +280,9 @@ initialWorldModelSpec =
     , entity "PHONE_DAY4.trigger=0"
         "phone jonathon"
         "Kay, I'm Jonathon. Have you finished your inspection? I think you should have been prepared to give me a conclusion yet. Come back to my office."
-
+    , entity "JONATHON_DAY4_NEW.trigger=3"
+        "jonathon in day4 new"
+        "..."
     -- choices
     , entity "ASK_BOB.choices=0"
         "Ask Bob about weird things happened today."
@@ -299,6 +301,18 @@ initialWorldModelSpec =
         ""
     , entity "HAVE_INVEST.choices=0"
         "I have talked about Daniel yet, Sir."
+        ""
+    , entity "ACCIDENT.choices=0"
+        "An accident"
+        ""
+    , entity "MURDER.choices=0"
+        "Someone murdered the woman"
+        ""
+    , entity "ITS_YOU.choices=0"
+        "It's you, Jonathon"
+        ""
+    , entity "PARADISE_OWNER.choices=0"
+        "The owner of the paradise"
         ""
     ]
 
@@ -1054,7 +1068,70 @@ rulesSpec =
             IF: PAPER.trigger=1
             DO: PAPER.trigger=0.choices=-1
             """
-
+        |> rule_______________________ "jonathon ask your opinion"
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: JONATHON_DAY4_NEW.trigger=3
+            DO: ACCIDENT.choices=1
+                MURDER.choices=1
+                JONATHON_DAY4_NEW.trigger=2
+            """
+        |> rule_______________________ "sir, i dont find"
+            """
+            ON: ACCIDENT
+            DO: ACCIDENT.choices=-1
+                MURDER.choices=0
+            """
+        |> rule_______________________ "alright, I agree with"
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: ACCIDENT.choices=-1
+                JONATHON_DAY4_NEW.trigger=2
+            DO: JONATHON_DAY4_NEW.trigger=0
+            """
+        |> rule_______________________ "sir, I think this case is quite weird"
+            """
+            ON: MURDER
+            DO: ACCIDENT.choices=0
+                MURDER.choices=-1
+            """
+        |> rule_______________________ "interesting, kay"
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: JONATHON_DAY4_NEW.trigger=3
+                MURDER.choices=-1
+            DO: JONATHON_DAY4_NEW.trigger=2
+                ITS_YOU.choices=1
+                PARADISE_OWNER.choices=1
+            """
+        |> rule_______________________ "ha my dear master"
+            """
+            ON: ITS_YOU
+            DO: ITS_YOU.choices=-1
+                PARADISE_OWNER.choices=0
+                JONATHON_DAY4_NEW.trigger=1
+            """
+        |> rule_______________________ "You are still so naive."
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: JONATHON_DAY4_NEW.trigger=1
+                ITS_YOU.choices=-1
+            DO: JONATHON_DAY4_NEW.trigger=-2
+            """ --BADEND: TOO EAGER
+        |> rule_______________________ "I think the owner of"
+            """
+            ON: PARADISE_OWNER
+            DO: PARADISE_OWNER.choices=-1
+                JONATHON_DAY4_NEW.trigger=1
+                ITS_YOU.choices=-1
+            """
+        |> rule_______________________ "crazy assumption"
+            """
+            ON: JONATHON_DAY4_NEW
+            IF: JONATHON_DAY4_NEW.trigger=1
+                PARADISE_OWNER.choices=-1
+            DO: JONATHON_DAY4_NEW.trigger=-3
+            """ --BADEND: lost in paradise
 
 
 
@@ -1257,6 +1334,25 @@ narrative_content =
             "Here is a bank account statement."
         |> content__________________________________ "paper daniel"
             "You found a piece of paper in the drawer of the cabinet. With the first line written, Jonathon, the chief police of this city."
+        |> content__________________________________ "jonathon ask your opinion"
+            "So, Kay, what’s your opinion towards this case?"
+        |> content__________________________________ "sir, i dont find"
+            "Sir, I don’t find other extra useful information in Daniel’s home and I think it is just an accident."
+        |> content__________________________________ "alright, I agree with"
+            "Alright, I agree with you. Investigating two cases in a row must be a great work for you as you just recover from the accident. You can have a two-day rest. Have a good rest at home. Bye."
+        |> content__________________________________ "sir, I think this case is quite weird"
+            "Sir, I think this case is quite weird that as you can see in the report of the autopsy, the \"medicine\" cannot be analyzed by us. How can a weak woman afford to purchase such mysterious medicine by herself after buying a new department? Or in other words, the one who supports her to purchase the medicine is the murderer."
+        |> content__________________________________ "interesting, kay"
+            "Interesting, Kay. And who do you think will be the murderer?"
+        |> content__________________________________ "ha my dear master"
+            "Ha, my dear master. All evidence points to you. Your car appeared the night Ann dead. You told me to inspect the Paradise the day I happened to be enrolled in a car accident. You are the regular customer of that nightclub, or in other words, Ann. Besides, I have other evidence to show your crime. The dark in our city, Jonathon."
+        |> content__________________________________ "You are still so naive."
+            "Ha, Kay. You are still so naive. Ok, you can leave now. I’m looking forward to your performance.\n[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX’s Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery..."
+        |> content__________________________________ "I think the owner of"
+            "I think the owner of the nightclub is most possible as he knows a lot about Ann and he is most possible to provide weird medicine to Ann to achieve a better business effect. And this can explain why paradise becomes the best nightclub in our city overnight."
+        |> content__________________________________ "crazy assumption"
+            "Crazy assumption, Kay. To support your investigation, I will give you seven-day rest to search for clues in Paradise. You should go there every day in the next week. Oh, this is a VIP card of Paradise. En--joy--yourself, Kay.\n [Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\"."
+
 
 
 
