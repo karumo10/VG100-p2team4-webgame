@@ -31,7 +31,6 @@ type Quest -- if not 'NoQuest', should not move.
 
 
 
-
 type alias AnimationState =
     Maybe
         { active : Bool
@@ -46,6 +45,8 @@ type alias Model =
     , heroMoveRight : Bool
     , heroMoveUp : Bool
     , heroMoveDown : Bool
+    , heroimage : String
+    , step : Int
     , heroPickUp : Bool
     , heroInteractWithNpc : Bool
     , state : State
@@ -88,6 +89,8 @@ initial =
     , heroMoveRight = False
     , heroMoveUp = False
     , heroMoveDown = False
+    , heroimage = "./heror.png"
+    , step = 0
     , heroPickUp = False
     , heroInteractWithNpc = False
     , state = Playing
