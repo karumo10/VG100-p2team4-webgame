@@ -150,8 +150,8 @@ hintsMaze3 =
 hintsMaze4 : List Hint
 hintsMaze4 =
     [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "Do you think that, this sudden vacation is quite weird?" }
-    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Do you think that, the accidental inspection of Daniel’s home is quite weird?" }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Do you think that, our new friend is not here today is quite weird?" }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Do you think that, some things collecting in this \"sudden\" inspection are like traps?" }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Do you think that, it's dangerous to possess a key with no knowledge of what it will unlock?" }
     , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "To be, or not to be: that is the question,\nWhether it's nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles, and by opposing end them." } ]
 
 
