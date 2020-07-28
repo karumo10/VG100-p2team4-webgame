@@ -158,7 +158,7 @@ trueMemCardIni =
     , x = 700
     , y = 530
     , intro = "memory card"
-    , comment = "A memory card, used to save photographs, found in coffee machine."
+    , comment = "VERIFICATION PASSED. ACCESS ALLOWED."
     , canBeExamined = True
     }
 

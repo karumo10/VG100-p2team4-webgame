@@ -82,6 +82,7 @@ type alias Model =
     , whichGridIsOpen : Int
     , chosenChoices : List WorldModel.ID
     , codeContent : String
+    , codeReached : Bool
     }
 
 initial : Model
@@ -129,6 +130,7 @@ initial =
     , whichGridIsOpen = 0
     , chosenChoices = []
     , codeContent = ""
+    , codeReached = False
     }
 
 

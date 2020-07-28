@@ -682,6 +682,7 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
     | Pill
     | Dagger
     | TrueMemCard
+    | TrueMemCardContent
     | NoEvi
 
 disk_evi : Evidence
@@ -724,6 +725,14 @@ trueMemCard_evi =
     , isExamined = False
     }
 
+trueMemCardContent_evi : Evidence
+trueMemCardContent_evi =
+    { eviType = TrueMemCardContent
+    , description = "TRUE_MEM_CARD_CONTENT"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
 empty_evi : Evidence
 empty_evi =
     { eviType = NoEvi
@@ -736,7 +745,7 @@ empty_evi =
 
 allEvidence : List Evidence
 allEvidence =
-    [ disk_evi, note_evi, pill_evi
+    [ disk_evi, note_evi, pill_evi, dagger_evi, trueMemCard_evi, trueMemCardContent_evi
     ]
 
 

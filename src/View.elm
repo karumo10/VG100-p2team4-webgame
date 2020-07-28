@@ -114,8 +114,13 @@ renderInput opacity model =
                 , style "font-weight" "300"
                 ]
 
-    [ input [ value model.codeContent, onInput ChangeCodeText
-            ] []
+    [  if model.map == Home then
+       (input [ value model.codeContent, onInput ChangeCodeText
+            ] [])
+       else
+       (text "Need a computer to read the file.")
+
+
           ,
           div []
           [ button
@@ -669,7 +674,7 @@ renderGrid1Detail model =
                 False -> "0"
     in
     if model.whichGridIsOpen == 1 then
-        if model.bag.grid1 /= trueMemCardIni then
+        if model.bag.grid1 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -717,7 +722,7 @@ renderGrid2Detail model =
                 False -> "0"
     in
     if model.whichGridIsOpen == 2 then
-        if model.bag.grid2 /= trueMemCardIni then
+        if model.bag.grid2 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -767,7 +772,7 @@ renderGrid3Detail model =
 
 
     if model.whichGridIsOpen == 3 then
-        if model.bag.grid3 /= trueMemCardIni then
+        if model.bag.grid3 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -816,7 +821,7 @@ renderGrid4Detail model =
     in
 
     if model.whichGridIsOpen == 4 then
-        if model.bag.grid4 /= trueMemCardIni then
+        if model.bag.grid4 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -865,7 +870,7 @@ renderGrid5Detail model =
     in
 
     if model.whichGridIsOpen == 5 then
-        if model.bag.grid5 /= trueMemCardIni then
+        if model.bag.grid5 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -914,7 +919,7 @@ renderGrid6Detail model=
     in
 
     if model.whichGridIsOpen == 6 then
-        if model.bag.grid6 /= trueMemCardIni then
+        if model.bag.grid6 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -963,7 +968,7 @@ renderGrid7Detail model=
     in
 
     if model.whichGridIsOpen == 7 then
-        if model.bag.grid7 /= trueMemCardIni then
+        if model.bag.grid7 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -1012,7 +1017,7 @@ renderGrid8Detail model =
     in
 
     if model.whichGridIsOpen == 8 then
-        if model.bag.grid8 /= trueMemCardIni then
+        if model.bag.grid8 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -1061,7 +1066,7 @@ renderGrid9Detail model=
     in
 
     if model.whichGridIsOpen == 9 then
-        if model.bag.grid9 /= trueMemCardIni then
+        if model.bag.grid9 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -1110,7 +1115,7 @@ renderGrid10Detail model =
     in
 
     if model.whichGridIsOpen == 10 then
-        if model.bag.grid10 /= trueMemCardIni then
+        if model.bag.grid10 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"

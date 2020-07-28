@@ -121,7 +121,9 @@ initialWorldModelSpec =
     , entity "TRUE_MEM_CARD.trigger=1"
         "true memory card"
         "You remember the evil sentences on the card: \"1. The password is 4 capital English letters. 2. When you input a 4-length string, the password test will start automatically. 3. If the code is not correct, the self-destruct sequence will be initialized.\""
-
+    , entity "TRUE_MEM_CARD_CONTENT.trigger=0"
+        "content of true card"
+        "Photos of Jonathon's receiving bribe from the owner of Paradise\n[shooting time - two weeks ago]"
     ---- evidence choices
     , entity "INPUT.choices=0"
         "Input"

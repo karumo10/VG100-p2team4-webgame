@@ -351,7 +351,8 @@ update msg model =
                     else if currItem == diskIni then disk_evi
                     else if currItem == pillIni then pill_evi
                     else if currItem == daggerIni then dagger_evi
-                    else if currItem == trueMemCardIni then trueMemCard_evi
+                    else if currItem == trueMemCardIni && not model.codeReached then trueMemCard_evi
+                    else if currItem == trueMemCardIni && model.codeReached then trueMemCardContent_evi
 
                     else empty_evi
             in
@@ -991,7 +992,7 @@ examineEvidence evi model =
             |> List.head
             |> withDefault empty_evi
         restEviInModel = List.filter (\a -> a.eviType /= currEvi.eviType) model.evidence_all
-        currEviInModel_ = { currEviInModel | isExamined = True }
+        currEviInModel_ = { currEviInModel | isExamined = True } -----------------------------------------------------------PAY ATTENTION! THIS IS NOT WHAT EXPECTED!!!!!!!!
         eviInModel = [currEviInModel_] ++ restEviInModel
 
         model__ = { model_ | evidence_all = eviInModel }
@@ -1070,9 +1071,22 @@ normalUpdates model =
     |> npcsFinishedUpdate
     |> mapsFinishedUpdate
     |> chosenChoicesUpdate
+    |> codeReachedUpdate
 
 
 
+
+codeReachedUpdate : Model -> Model
+codeReachedUpdate model =
+    let
+        len = model.codeContent |> String.length
+
+    in
+    if model.codeReached == False then
+        if len == 4 then
+        { model | codeReached = True }
+        else model
+    else model
 
 
 
@@ -1339,6 +1353,7 @@ day4_daniel_finished_update_jonathon model =
     else model
 
 
+
 badEndsStory : Float -> Model -> Model
 badEndsStory elapsed model =
     let
@@ -1400,8 +1415,21 @@ badEnd3 model =
     (True, "[Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\".")
     else (False, model.story)
 
+badEnd4 : Model -> ( Bool, String )
+badEnd4 model =
+    let
+        isExploded =
+            if not model.codeReached || model.codeContent == "ASWN" then False
+            else True
+    in
+    if isExploded then
+    (True, "[Bad End: Exploded]: News: An explosion happened at one department on XX's Road. A man named Kay was found dead in the explosion. The link between this explosion and the recent terrorist attacks is still unknown. ")
+    else (False, model.story)
+
+
+
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
