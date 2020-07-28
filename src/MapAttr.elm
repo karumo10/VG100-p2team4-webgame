@@ -8,7 +8,7 @@ type Mode
     | Game
     | TotalTest
 gameMode______ : Mode
-gameMode______ = Game
+gameMode______ = CollisionTest
 
 type VehicleType
     = Elevator

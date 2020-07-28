@@ -22,6 +22,7 @@ type NPCType
     | Bank
     | Key_Jonathon
     | FakeMemCard
+    | Staff
     | None
 
 
@@ -650,6 +651,21 @@ danielPhone =
      , name = ""
      }
 
+staffNightClub : NPC
+staffNightClub =
+    { itemType = Staff
+     , area =
+         { x = 355
+         , y = 475
+         , wid = 40
+         , hei = 120
+         }
+     , interacttrue = False
+     , description = "STAFF"
+     , place = ( NightClub, Day5 ) -- will be changed to day4 after the search.
+     , isFinished = False
+     , name = ""
+     }
 
 allNPCs: List NPC
 allNPCs =
@@ -664,6 +680,7 @@ allNPCs =
     , homePhone, danielPhone
     , danielDaniel
     , danielPaper, danielKey, danielMemCard, danielBank
+    , staffNightClub
     ]
 
 
@@ -684,6 +701,7 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
     | TrueMemCard
     | TrueMemCardContent
     | KeyEvi
+    | FalseMemCardContent
     | BankAccountEvi
     | PaperEvi
     | NoEvi
