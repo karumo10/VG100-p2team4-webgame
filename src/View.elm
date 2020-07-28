@@ -461,7 +461,7 @@ renderPic model =
 
 
             StarterPage ->
-                [div [][]]
+                [image [xlinkHref "./title.png", x "300",y "100", width "600"][]]
 
             Story ->
                 [div [][]]
@@ -494,7 +494,7 @@ renderPic model =
 renderdialog : Model -> Svg Msg
 renderdialog model =
     Svg.foreignObject [ x "200", y "630", width "1000", height "150"]
-                      [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset" ]
+                      [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset2" ]
                           [ text model.story ]
                       ]
 
@@ -518,11 +518,11 @@ renderportrait model =
             case model.portrait of
                 "" ->
                     Svg.image [ Svg.Attributes.xlinkHref ("./portrait/player.png")
-                              , x "10", y "640", width "140", height "140"
+                              , x "10", y "640", width "160"
                               ] []
                 _ ->
                     Svg.image [ Svg.Attributes.xlinkHref ("./portrait/"++model.portrait++".png")
-                              , x "10", y "640", width "140", height "140"
+                              , x "10", y "640", width "160"
                               ] []
     in
         portr
