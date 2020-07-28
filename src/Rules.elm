@@ -337,9 +337,18 @@ initialWorldModelSpec =
     , entity "PARADISE_OWNER.choices=0"
         "The owner of the paradise"
         ""
-
+----day5
+    , entity "STAFF.trigger=2"
+        "staff of paradise"
+        "Welcome to PARADISE! The highest unconscious, the highest joy!"
+---day5choices
+    , entity "YES_NIGHT.choices=0"
+        "Yes!"
+        ""
+    , entity "NO_NIGHT.choices=0"
+        "No..."
+        ""
     ]
-
 type alias MyRule =
     Rules.Rule {}
 
@@ -1200,6 +1209,46 @@ rulesSpec =
             IF: FALSE_MEM_CARD_CONTENT.trigger=2
             DO: FALSE_MEM_CARD_CONTENT.trigger=1
             """
+        |> rule_______________________ "sir do you want fun"
+            """
+            ON: STAFF
+            IF: STAFF.trigger=2
+                YES_NIGHT.choices=0
+                NO_NIGHT.choices=0
+            DO: YES_NIGHT.choices=1
+                NO_NIGHT.choices=1
+            """
+        |> rule_______________________ "yes-you spend"
+            """
+            ON: YES_NIGHT
+            DO: YES_NIGHT.choices=-1
+                NO_NIGHT.choices=0
+                STAFF.trigger=1
+            """
+        |> rule_______________________ "no-please leave"
+            """
+            ON: NO_NIGHT
+            DO: NO_NIGHT.choices=-1
+                YES_NIGHT.choices=0
+                STAFF.trigger=1
+            """
+        |> rule_______________________ "yes ending"
+            """
+            ON: STAFF
+            IF: STAFF.trigger=1
+                YES_NIGHT.choices=-1
+            DO: STAFF.trigger=1
+            """
+        |> rule_______________________ "no ending"
+            """
+            ON: STAFF
+            IF: STAFF.trigger=1
+                NO_NIGHT.choices=-1
+            DO: STAFF.trigger=1
+            """
+
+
+
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -1432,9 +1481,16 @@ narrative_content =
             "Kay's photo of eating the dinner near Daniel's department. [shot on July 10th]"
         |> content__________________________________ "last kay photo"
             "Kay's getting inside Daniel's department. [shot on July 11th]"
-
-
-
+        |> content__________________________________ "sir do you want fun"
+            "Welcome to Paradise, Sir~~!! Do you come for fun tonight?"
+        |> content__________________________________ "yes-you spend"
+            "You are totally exhausted now. You spend your night in the nightclub to experience why Paradise is favored by so many officials..."
+        |> content__________________________________ "no-please leave"
+            "Em, Sir. Tonight is the night for joy here. If you don't have much interest, please leave."
+        |> content__________________________________ "yes ending"
+            "Sir, isn't our service extraordinarily fantastic?"
+        |> content__________________________________ "no ending"
+            "Sir, please leave here, since you seem not interested in our services...?"
 
 parsedData =
     let
