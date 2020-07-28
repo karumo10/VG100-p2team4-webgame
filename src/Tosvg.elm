@@ -285,7 +285,7 @@ getnpc npc =
         npc_ =
             case npc.interacttrue of
                 True ->
-                    npc.description
+                    npc.name
                 _ ->
                     ""
     in

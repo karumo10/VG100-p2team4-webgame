@@ -431,11 +431,11 @@ renderportrait model =
         portr =
             case model.portrait of
                 "" ->
-                    Svg.image [ Svg.Attributes.xlinkHref ("./player.png")
+                    Svg.image [ Svg.Attributes.xlinkHref ("./portrait/player.png")
                               , x "10", y "640", width "140", height "140"
                               ] []
                 _ ->
-                    Svg.image [ Svg.Attributes.xlinkHref ("./"++model.portrait++".png")
+                    Svg.image [ Svg.Attributes.xlinkHref ("./portrait/"++model.portrait++".png")
                               , x "10", y "640", width "140", height "140"
                               ] []
     in
