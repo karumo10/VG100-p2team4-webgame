@@ -342,6 +342,14 @@ renderPic model =
                     , height "600"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ])
+                ++ ( heroToSvg model )
+                ++ npcListView model
+                ++ [ renderdialog model ]
+                ++ [ renderchoice model ]
+                ++ [ renderportrait model ]
+                ++ [ bedQuestToSvg model ]
+                ++ energytosvg model.energy model.energy_Full
+
                 else
                 ([ Svg.rect
                     [ x "0"
