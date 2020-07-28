@@ -341,12 +341,28 @@ initialWorldModelSpec =
     , entity "STAFF.trigger=2"
         "staff of paradise"
         "Welcome to PARADISE! The highest unconscious, the highest joy!"
+    , entity "DANGER.trigger=2"
+        "danger in dark"
+        "..."
+
 ---day5choices
     , entity "YES_NIGHT.choices=0"
         "Yes!"
         ""
     , entity "NO_NIGHT.choices=0"
         "No..."
+        ""
+    , entity "MOVEF.choices=0"
+        "Still move forward"
+        ""
+    , entity "EXIT.choices=0"
+        "Exit"
+        ""
+    , entity "ESCAPE.choices=0"
+        "...Run!"
+        ""
+    , entity "HEAR.choices=0"
+        "Jonathon..."
         ""
     ]
 type alias MyRule =
@@ -1246,7 +1262,38 @@ rulesSpec =
                 NO_NIGHT.choices=-1
             DO: STAFF.trigger=1
             """
-
+        |> rule_______________________ "give two choices"
+            """
+            ON: DANGER
+            IF: DANGER.trigger=2
+            DO: DANGER.trigger=1
+                MOVEF.choices=1
+                EXIT.choices=1
+            """
+        |> rule_______________________ "still move"
+            """
+            ON: MOVEF
+            DO: MOVEF.choices=-1
+                EXIT.choices=0
+                ESCAPE.choices=1
+            """
+        |> rule_______________________ "exit"
+            """
+            ON: EXIT
+            DO: EXIT.choices=-1
+                MOVEF.choices=0
+            """
+        |> rule_______________________ "escape-you try to"
+            """
+            ON: ESCAPE
+            DO: ESCAPE.choices=-1
+                HEAR.choices=1
+            """
+        |> rule_______________________ "hear-bad end"
+            """
+            ON: HEAR
+            DO: HEAR.choices=-1
+            """
 
 
 
@@ -1491,6 +1538,17 @@ narrative_content =
             "Sir, isn't our service extraordinarily fantastic?"
         |> content__________________________________ "no ending"
             "Sir, please leave here, since you seem not interested in our services...?"
+        |> content__________________________________ "give two choices"
+            "The park is in darkness this night. And you see a crowd wearing weird uniforms are wandering. Do you still want to enter? Hint: Police is not allowed to be equipped with a gun during vacation."
+        |> content__________________________________ "still move"
+            "The moment you enter the park, they turn back and stare at you immediately. You can feel a strange and aggressive atmosphere is spreading in the park. You want to take out your weapon but you suddenly remember that your gun was left in the office because of vacation."
+        |> content__________________________________ "escape-you try to"
+            "You try to escape but a familiar voice sound. It’s Jonathon."
+        |> content__________________________________ "hear-bad end"
+            "My dear Kay, it seems that I have done a lot of useless work before. It never occurs to me that you will be so easy to deal with as you have been acting wisely until last month. Goodbye."
+
+
+
 
 parsedData =
     let

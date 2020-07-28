@@ -1430,7 +1430,7 @@ badEnd2 model =
         isTooEager = findCertainQuestion model "ITS_YOU"
     in
     if isTooEager then
-    (True, "[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery...")
+    (True, "[Bad End: Too eager]\nNews: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery...")
     else (False, model.story)
 
 badEnd3 : Model -> ( Bool, String )
@@ -1439,7 +1439,7 @@ badEnd3 model =
         isParadised = findCertainQuestion model "PARADISE_OWNER"
     in
     if isParadised then
-    (True, "[Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\".")
+    (True, "[Bad End: Lost in Desire]\nYou find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\".")
     else (False, model.story)
 
 badEnd4 : Model -> ( Bool, String )
@@ -1450,13 +1450,22 @@ badEnd4 model =
             else True
     in
     if isExploded then
-    (True, "[Bad End: Exploded]: News: An explosion happened at one department on XX's Road. A man named Kay was found dead in the explosion. The link between this explosion and the recent terrorist attacks is still unknown. ")
+    (True, "[Bad End: Exploded]\nNews: An explosion happened at one department on XX's Road. A man named Kay was found dead in the explosion. The link between this explosion and the recent terrorist attacks is still unknown. ")
+    else (False, model.story)
+
+badEnd5 : Model -> ( Bool, String )
+badEnd5 model =
+    let
+        isCaught =
+            findCertainQuestion model "HEAR"
+    in
+    if isCaught then
+    (True, "[Bad End: Forbidden Park]\nStory: News report: A new policeman is employed to replace the place of the missing police Kay.")
     else (False, model.story)
 
 
-
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
