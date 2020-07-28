@@ -23,6 +23,8 @@ type NPCType
     | Key_Jonathon
     | FakeMemCard
     | Staff
+    | Table
+    | Closet
     | None
 
 
@@ -662,7 +664,7 @@ staffNightClub =
          }
      , interacttrue = False
      , description = "STAFF"
-     , place = ( NightClub, Day5 ) -- will be changed to day4 after the search.
+     , place = ( NightClub, Day5 )
      , isFinished = False
      , name = ""
      }
@@ -678,7 +680,39 @@ dangerPark =
          }
      , interacttrue = False
      , description = "DANGER"
-     , place = ( Park, Day5 ) -- will be changed to day4 after the search.
+     , place = ( Park, Day5 )
+     , isFinished = False
+     , name = ""
+     }
+
+jonathonCloset : NPC
+jonathonCloset =
+    { itemType = Closet
+     , area =
+         { x = 500
+         , y = 55
+         , wid = 75
+         , hei = 10
+         }
+     , interacttrue = False
+     , description = "CLOSET"
+     , place = ( PoliceOffice, Day5 )
+     , isFinished = False
+     , name = ""
+     }
+
+jonathonTable : NPC
+jonathonTable =
+    { itemType = Table
+     , area =
+         { x = 340
+         , y = 60
+         , wid = 40
+         , hei = 70
+         }
+     , interacttrue = False
+     , description = "TABLE"
+     , place = ( PoliceOffice, Day5 )
      , isFinished = False
      , name = ""
      }
@@ -698,6 +732,7 @@ allNPCs =
     , danielPaper, danielKey, danielMemCard, danielBank
     , staffNightClub
     , dangerPark
+    , jonathonTable, jonathonCloset
     ]
 
 
