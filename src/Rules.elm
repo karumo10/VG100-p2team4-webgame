@@ -1546,7 +1546,8 @@ narrative_content =
             "You try to escape but a familiar voice sound. It’s Jonathon."
         |> content__________________________________ "hear-bad end"
             "My dear Kay, it seems that I have done a lot of useless work before. It never occurs to me that you will be so easy to deal with as you have been acting wisely until last month. Goodbye."
-
+        |> content__________________________________ "exit"
+            "You're finding the road to exit the park anxiously..."
 
 
 

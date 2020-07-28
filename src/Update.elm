@@ -1201,6 +1201,7 @@ specialUpdates model
         |> day4_daniel_evidence_update_phone
         |> day4_daniel_finished_update_jonathon
         |> day5_nightclub_update_energy
+        |> day5_park_update_exit
     else model
 
 
@@ -1380,6 +1381,14 @@ day5_nightclub_update_energy model =
     { model | energy = 0 }
     else model
 
+day5_park_update_exit : Model -> Model
+day5_park_update_exit model =
+    let
+        isExiting = findCertainQuestion model "EXIT"
+    in
+    if isExiting && (model.map,model.dayState) == (Park, Day5) && model.hero.y <= 2500 then
+    model |> teleportHero ( 5000, 5000 )
+    else model
 
 badEndsStory : Float -> Model -> Model
 badEndsStory elapsed model =
