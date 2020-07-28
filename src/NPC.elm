@@ -736,6 +736,14 @@ trueMemCardContent_evi =
     , isExamined = False
     }
 
+fakeMemCardContent_evi : Evidence
+fakeMemCardContent_evi =
+    { eviType = FalseMemCardContent
+    , description = "FALSE_MEM_CARD_CONTENT"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
 key_evi : Evidence
 key_evi =
     { eviType = KeyEvi
@@ -777,6 +785,7 @@ allEvidence =
     [ disk_evi, note_evi, pill_evi, dagger_evi
     , trueMemCard_evi, trueMemCardContent_evi
     , key_evi, bank_account_evi, paper_evi
+    , fakeMemCardContent_evi
     ]
 
 

@@ -123,7 +123,7 @@ initialWorldModelSpec =
         "You remember the evil sentences on the card: \"1. The password is 4 capital English letters. 2. When you input a 4-length string, the password test will start automatically. 3. If the code is not correct, the self-destruct sequence will be initialized.\""
     , entity "TRUE_MEM_CARD_CONTENT.trigger=0"
         "content of true card"
-        "Photos of Jonathon's receiving bribe from the owner of Paradise\n[shooting time - two weeks ago]"
+        "Photos of Jonathon's receiving bribe from the owner of Paradise\n[shot on June 28th]"
     , entity "KEY_EVI.trigger=0"
         "key to jonathon evidence"
         "A key found in Daniel's department. Where can it be used?"
@@ -133,7 +133,16 @@ initialWorldModelSpec =
     , entity "BANK_EVI.trigger=1"
         "bank account statement evidence"
         "Three weeks ago. 150000 from Ann\nTwo weeks ago. 10000000 from Stallworth\nOne week ago. 9000000 to John's Company(the company who develops this department)"
+    , entity "FALSE_MEM_CARD_CONTENT.trigger=4"
+        "false mem card"
+        "Hey, it's all about me! Who shot all these...? Bad feeling..."
+
+
+
  ---- evidence choices
+
+
+
     , entity "INPUT.choices=0"
         "Input"
         ""
@@ -1173,6 +1182,24 @@ rulesSpec =
             IF: BANK_EVI.trigger=1
             DO: BANK_EVI.trigger=0
             """
+        |> rule_______________________ "first kay photo"
+            """
+            ON: FALSE_MEM_CARD_CONTENT
+            IF: FALSE_MEM_CARD_CONTENT.trigger=4
+            DO: FALSE_MEM_CARD_CONTENT.trigger=3
+            """
+        |> rule_______________________ "second kay photo"
+            """
+            ON: FALSE_MEM_CARD_CONTENT
+            IF: FALSE_MEM_CARD_CONTENT.trigger=3
+            DO: FALSE_MEM_CARD_CONTENT.trigger=2
+            """
+        |> rule_______________________ "last kay photo"
+            """
+            ON: FALSE_MEM_CARD_CONTENT
+            IF: FALSE_MEM_CARD_CONTENT.trigger=2
+            DO: FALSE_MEM_CARD_CONTENT.trigger=1
+            """
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -1399,9 +1426,12 @@ narrative_content =
             "Name: Jonathon, the chief police of this city"
         |> content__________________________________ "instead of a mere customer"
             "Instead of a mere customer, he is my chosen one, the one who is destined to break and reconstruct my life.\nHe loves the effect of pill named \"Paradise\" produced by the owner of Paradise."
-
-
-
+        |> content__________________________________ "first kay photo"
+            "Kay's standing outside the Daniel's department. [shot on July 10th]"
+        |> content__________________________________ "second kay photo"
+            "Kay's photo of eating the dinner near Daniel's department. [shot on July 10th]"
+        |> content__________________________________ "last kay photo"
+            "Kay's getting inside Daniel's department. [shot on July 11th]"
 
 
 
