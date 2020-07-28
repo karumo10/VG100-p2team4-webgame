@@ -78,7 +78,8 @@ renderMain model =
         , renderAboutUsButton model
         , renderStoryButton model
         , renderBackButton model
-        , renderInput model]
+        --, renderInput model
+        ]
 
         else
         [ renderPic model
@@ -93,8 +94,8 @@ renderMain model =
         , renderBackButton model
         ]
 
-renderInput : Model -> Html Msg
-renderInput model =
+renderInput : String -> Model -> Html Msg
+renderInput opacity model =
     div
                 [ style "border-style" "inset"
                 , style "border-color" "white"
@@ -115,6 +116,22 @@ renderInput model =
 
     [ input [ value model.codeContent, onInput ChangeCodeText
             ] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "207.5px"
+          , style "top" "37px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
+
     ]
 
 
@@ -652,6 +669,7 @@ renderGrid1Detail model =
                 False -> "0"
     in
     if model.whichGridIsOpen == 1 then
+        if model.bag.grid1 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -685,7 +703,8 @@ renderGrid1Detail model =
           , style "opacity" opacity
           ] [ text "Examine" ]
           ]
-    ]
+          ]
+          else renderInput opacity model
     else
     div [][]
 
@@ -698,6 +717,7 @@ renderGrid2Detail model =
                 False -> "0"
     in
     if model.whichGridIsOpen == 2 then
+        if model.bag.grid2 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -731,7 +751,8 @@ renderGrid2Detail model =
           , style "opacity" opacity
           ] [ text "Examine" ]
           ]
-    ]
+            ]
+            else renderInput opacity model
     else
     div [][]
 
@@ -746,6 +767,7 @@ renderGrid3Detail model =
 
 
     if model.whichGridIsOpen == 3 then
+        if model.bag.grid3 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -779,7 +801,8 @@ renderGrid3Detail model =
           , style "margin" "auto"
           ] [ text "Examine" ]
           ]
-    ]
+        ]
+        else renderInput opacity model
     else
     div [][]
 
@@ -793,6 +816,7 @@ renderGrid4Detail model =
     in
 
     if model.whichGridIsOpen == 4 then
+        if model.bag.grid4 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -826,7 +850,8 @@ renderGrid4Detail model =
           , style "margin" "auto"
           ] [ text "Examine" ]
           ]
-    ]
+        ]
+        else renderInput opacity model
     else
     div [][]
 
@@ -840,6 +865,7 @@ renderGrid5Detail model =
     in
 
     if model.whichGridIsOpen == 5 then
+        if model.bag.grid5 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -873,7 +899,8 @@ renderGrid5Detail model =
           , style "margin" "auto"
           ] [ text "Examine" ]
           ]
-    ]
+        ]
+        else renderInput opacity model
     else
     div [][]
 
@@ -887,6 +914,7 @@ renderGrid6Detail model=
     in
 
     if model.whichGridIsOpen == 6 then
+        if model.bag.grid6 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -920,7 +948,8 @@ renderGrid6Detail model=
           , style "opacity" opacity
           ] [ text "Examine" ]
           ]
-    ]
+        ]
+        else renderInput opacity model
     else
     div [][]
 
@@ -934,6 +963,7 @@ renderGrid7Detail model=
     in
 
     if model.whichGridIsOpen == 7 then
+        if model.bag.grid7 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -967,7 +997,8 @@ renderGrid7Detail model=
           , style "opacity" opacity
           ] [ text "Examine" ]
           ]
-    ]
+        ]
+        else renderInput opacity model
     else
     div [][]
 
@@ -981,6 +1012,7 @@ renderGrid8Detail model =
     in
 
     if model.whichGridIsOpen == 8 then
+        if model.bag.grid8 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -1014,7 +1046,8 @@ renderGrid8Detail model =
           , style "opacity" opacity
           ] [ text "Examine" ]
           ]
-    ]
+        ]
+        else renderInput opacity model
     else
     div [][]
 
@@ -1028,6 +1061,7 @@ renderGrid9Detail model=
     in
 
     if model.whichGridIsOpen == 9 then
+        if model.bag.grid9 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -1061,7 +1095,8 @@ renderGrid9Detail model=
           , style "opacity" opacity
           ] [ text "Examine" ]
           ]
-    ]
+        ]
+        else renderInput opacity model
     else
     div [][]
 
@@ -1075,6 +1110,7 @@ renderGrid10Detail model =
     in
 
     if model.whichGridIsOpen == 10 then
+        if model.bag.grid10 /= trueMemCardIni then
         div
           [ style "border-style" "inset"
           , style "border-color" "white"
@@ -1108,7 +1144,8 @@ renderGrid10Detail model =
           , style "opacity" opacity
           ] [ text "Examine" ]
           ]
-    ]
+        ]
+        else renderInput opacity model
     else
     div [][]
 
