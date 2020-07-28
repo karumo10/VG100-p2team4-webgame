@@ -222,6 +222,66 @@ bankIni =
     , canBeExamined = True
     }
 
+bankCardIni : Item
+bankCardIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Bank card"
+    , comment = "A bank card taken from Jonathon's office."
+    , canBeExamined = True
+    }
+
+dagger2Ini : Item
+dagger2Ini =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Dagger 2"
+    , comment = "A dagger taken from Jonathon's office."
+    , canBeExamined = True
+    }
+
+letterIni : Item
+letterIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Letter"
+    , comment = "Letter taken from Jonathon's office."
+    , canBeExamined = True
+    }
+
+documentsIni : Item
+documentsIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Documents"
+    , comment = "Documents taken from Jonathon's office."
+    , canBeExamined = True
+    }
+
 
 
 emptyIni : Item
