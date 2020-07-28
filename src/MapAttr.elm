@@ -8,7 +8,7 @@ type Mode
     | Game
     | TotalTest
 gameMode______ : Mode
-gameMode______ = CollisionTest
+gameMode______ = Game
 
 type VehicleType
     = Elevator
@@ -543,6 +543,18 @@ nightClubAttr_day4 =
     , isFinished = False
     }
 
+nightClubAttr_day5 : MapAttr
+nightClubAttr_day5 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = nightClubBarrier
+    , hint = []
+    , vehicle = nightClubVehicle
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy! "
+    , scene = ( NightClub, Day5 )
+    , isFinished = False
+    }
+
 danielAttr_day3 : MapAttr
 danielAttr_day3 =
     { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
@@ -676,7 +688,7 @@ allMapAttrs =
     , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5
-    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4
+    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5
     , danielAttr_day3, danielAttr_day4
     , switchingAttr ]
 
