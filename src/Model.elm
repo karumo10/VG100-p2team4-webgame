@@ -132,6 +132,7 @@ initial =
     , chosenChoices = []
     , codeContent = ""
     , codeReached = False
+    --, park_is_exited
     }
 
 
