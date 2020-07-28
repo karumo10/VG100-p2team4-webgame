@@ -120,7 +120,8 @@ initialWorldModelSpec =
         "A dagger with weird letters on it. It seems that it is part of some couple souvenir as it seems that letters on it are only part of some complete patterns."
     , entity "TRUE_MEM_CARD.trigger=1"
         "true memory card"
-        "You plug the card into your computer. A password is needed to see the content of the card."
+        "You remember the evil sentences on the card: \"1. The password is 4 capital English letters. 2. When you input a 4-length string, the password test will start automatically. 3. If the code is not correct, the self-destruct sequence will be initialized.\""
+
     ---- evidence choices
     , entity "INPUT.choices=0"
         "Input"
@@ -1136,7 +1137,12 @@ rulesSpec =
                 PARADISE_OWNER.choices=-1
             DO: JONATHON_DAY4_NEW.trigger=-3
             """ --BADEND: lost in paradise
-
+        |> rule_______________________ "input code for true"
+            """
+            ON: TRUE_MEM_CARD
+            IF: TRUE_MEM_CARD.trigger=1
+            DO: TRUE_MEM_CARD.trigger=0
+            """
 
 
 
@@ -1356,7 +1362,8 @@ narrative_content =
             "I think the owner of the nightclub is most possible as he knows a lot about Ann and he is most possible to provide weird medicine to Ann to achieve a better business effect. And this can explain why paradise becomes the best nightclub in our city overnight."
         |> content__________________________________ "crazy assumption"
             "Crazy assumption, Kay. To support your investigation, I will give you seven-day rest to search for clues in Paradise. You should go there every day in the next week. Oh, this is a VIP card of Paradise. En--joy--yourself, Kay."
-
+        |> content__________________________________ "input code for true"
+            "A memory card used for cameras. You linked it onto your computer, but somehow it requires password."
 
 
 
