@@ -470,7 +470,7 @@ renderPic model =
 
 
             StarterPage ->
-                [div [][]]
+                [image [xlinkHref "./title.png", x "300",y "100", width "600"][]]
 
             Story ->
                 [div [][]]
@@ -527,11 +527,11 @@ renderportrait model =
             case model.portrait of
                 "" ->
                     Svg.image [ Svg.Attributes.xlinkHref ("./portrait/player.png")
-                              , x "10", y "640", width "140", height "140"
+                              , x "10", y "640", width "160"
                               ] []
                 _ ->
                     Svg.image [ Svg.Attributes.xlinkHref ("./portrait/"++model.portrait++".png")
-                              , x "10", y "640", width "140", height "140"
+                              , x "10", y "640", width "160"
                               ] []
     in
         portr
