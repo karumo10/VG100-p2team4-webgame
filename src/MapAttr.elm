@@ -312,6 +312,18 @@ parkAttr_day4 =
     , isFinished = False
     }
 
+parkAttr_day5 : MapAttr
+parkAttr_day5 =
+    { exit = { x = 5000, y = 5000 , wid = 1, hei = 1 }
+    , heroIni = { x = 5000, y = 0, width = 50, height = 180 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , story = "The park is in darkness this night. And you see a crowd wearing weird uniforms are wandering. Do you still want to enter? Press X to do your choice! Hint: Police is not allowed to be equipped with a gun during vacation."
+    , scene = ( Park, Day5 )
+    , isFinished = False
+    }
+
 homeAttr_day1 : MapAttr
 homeAttr_day1 =
     { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
@@ -685,7 +697,7 @@ allMapAttrs : List MapAttr
 allMapAttrs =
     [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4
     , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5
-    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4
+    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4, parkAttr_day5
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5

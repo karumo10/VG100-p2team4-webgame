@@ -9,7 +9,7 @@ import Svg exposing (image, rect, svg, Svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth,xlinkHref,transform)
 import Items exposing ( .. )
 import Html exposing (Html, br, button, div, input, p, text, ul)
-import MapAttr exposing (gameMode______, Mode(..))
+import MapAttr exposing (Day(..), Mode(..), gameMode______)
 pixelWidth : Float
 pixelWidth =
     1050
@@ -333,15 +333,24 @@ renderPic model =
                 ++ energytosvg model.energy model.energy_Full
 
             Park ->
-
-                [ Svg.image
+                if model.dayState /= Day5 then
+                ([ Svg.image
                     [ xlinkHref "./park.png"
                     , x "0"
                     , y "0"
                     , width "1200"
                     , height "600"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
-                    ] [] ]
+                    ] [] ])
+                else
+                ([ Svg.rect
+                    [ x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ])
+
                 ++ ( heroToSvg model )
                 ++ npcListView model
                 ++ [ renderdialog model ]

@@ -667,6 +667,22 @@ staffNightClub =
      , name = ""
      }
 
+dangerPark : NPC
+dangerPark =
+    { itemType = Staff
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 5000
+         , hei = 5000
+         }
+     , interacttrue = False
+     , description = "DANGER"
+     , place = ( Park, Day5 ) -- will be changed to day4 after the search.
+     , isFinished = False
+     , name = ""
+     }
+
 allNPCs: List NPC
 allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night, cLee_day4
@@ -681,6 +697,7 @@ allNPCs =
     , danielDaniel
     , danielPaper, danielKey, danielMemCard, danielBank
     , staffNightClub
+    , dangerPark
     ]
 
 
