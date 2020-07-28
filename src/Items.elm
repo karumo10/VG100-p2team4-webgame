@@ -145,7 +145,6 @@ daggerIni =
     , intro = "dagger"
     , comment = "A dagger with weird letters on it."
     , canBeExamined = True
-
     }
 
 trueMemCardIni : Item

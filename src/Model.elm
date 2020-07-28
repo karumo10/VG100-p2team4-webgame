@@ -81,6 +81,7 @@ type alias Model =
     , isBagOpen : Bool --When should the bag be presented
     , whichGridIsOpen : Int
     , chosenChoices : List WorldModel.ID
+    , codeContent : String
     }
 
 initial : Model
@@ -127,6 +128,7 @@ initial =
     , isBagOpen = False
     , whichGridIsOpen = 0
     , chosenChoices = []
+    , codeContent = ""
     }
 
 

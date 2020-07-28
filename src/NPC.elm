@@ -681,6 +681,7 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
     | Note
     | Pill
     | Dagger
+    | TrueMemCard
     | NoEvi
 
 disk_evi : Evidence
@@ -711,6 +712,14 @@ dagger_evi : Evidence
 dagger_evi =
     { eviType = Dagger
     , description = "DAGGER"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+trueMemCard_evi : Evidence
+trueMemCard_evi =
+    { eviType = TrueMemCard
+    , description = "TRUE_MEM_CARD"
     , usedPlace = Home
     , isExamined = False
     }

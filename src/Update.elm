@@ -351,9 +351,14 @@ update msg model =
                     else if currItem == diskIni then disk_evi
                     else if currItem == pillIni then pill_evi
                     else if currItem == daggerIni then dagger_evi
+                    else if currItem == trueMemCardIni then trueMemCard_evi
+
                     else empty_evi
             in
             ( examineEvidence currEvi model, Cmd.none )
+
+        ChangeCodeText code ->
+            ( { model | codeContent = code }, Cmd.none )
 
 
 

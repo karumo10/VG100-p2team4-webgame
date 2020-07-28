@@ -1,6 +1,6 @@
 module View exposing (..)
-import Html.Attributes exposing (style,src,type_,autoplay,id,loop,class)
-import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
+import Html.Attributes exposing (autoplay, class, id, loop, src, style, type_, value)
+import Html.Events exposing (on, onClick, onInput, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
@@ -8,7 +8,7 @@ import Tosvg exposing (..)
 import Svg exposing (image, rect, svg, Svg)
 import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth,xlinkHref,transform)
 import Items exposing ( .. )
-import Html exposing (Html, button, div, text, br, ul, p)
+import Html exposing (Html, br, button, div, input, p, text, ul)
 import MapAttr exposing (gameMode______, Mode(..))
 pixelWidth : Float
 pixelWidth =
@@ -54,6 +54,7 @@ view model =
         ++ ( elevatorQuestToSvg model )
         ++ (renderBagButton model))
 
+
 renderMain : Model -> List (Html Msg)
 renderMain model =
         if not model.isEnd then
@@ -76,7 +77,8 @@ renderMain model =
         , renderStartButton model
         , renderAboutUsButton model
         , renderStoryButton model
-        , renderBackButton model]
+        , renderBackButton model
+        , renderInput model]
 
         else
         [ renderPic model
@@ -90,6 +92,32 @@ renderMain model =
         , renderStoryButton model
         , renderBackButton model
         ]
+
+renderInput : Model -> Html Msg
+renderInput model =
+    div
+                [ style "border-style" "inset"
+                , style "border-color" "white"
+                , style "border-width" "6px"
+                , style "border-radius" "20%"
+                , style "width" "500px"
+                , style "height" "30px"
+                , style "background-color" "white"
+                , style "position" "absolute"
+                , style "left" "300px"
+                , style "top" "300px"
+                , style "text-align" "center"
+                , style "margin" "auto"
+                , style "font-family" "Helvetica, Arial, sans-serif"
+                , style "font-size" "18px"
+                , style "font-weight" "300"
+                ]
+
+    [ input [ value model.codeContent, onInput ChangeCodeText
+            ] []
+    ]
+
+
 
 
 axisHelper : Model -> Html Msg

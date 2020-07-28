@@ -118,7 +118,9 @@ initialWorldModelSpec =
     , entity "DAGGER.trigger=0"
         "dagger"
         "A dagger with weird letters on it. It seems that it is part of some couple souvenir as it seems that letters on it are only part of some complete patterns."
-
+    , entity "TRUE_MEM_CARD.trigger=1"
+        "true memory card"
+        "You plug the card into your computer. A password is needed to see the content of the card."
     ---- evidence choices
     , entity "INPUT.choices=0"
         "Input"
@@ -314,6 +316,7 @@ initialWorldModelSpec =
     , entity "PARADISE_OWNER.choices=0"
         "The owner of the paradise"
         ""
+
     ]
 
 type alias MyRule =
