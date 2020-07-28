@@ -33,6 +33,7 @@ type alias NPC =
     , description : String
     , place : Scene
     , isFinished : Bool --which means he is finished
+    , name : String
     }
 
 emptyNPC : NPC
@@ -48,6 +49,7 @@ emptyNPC =
     , description = ""
     , place = ( Switching, Nowhere )
     , isFinished = True
+    , name = ""
     }
 
 cLee_day1 : NPC
@@ -63,6 +65,7 @@ cLee_day1 =
     , description = "LEEPOLICEOFFICE.npc.day=1"
     , place = ( PoliceOffice , Day1 )
     , isFinished = False
+    , name = "LEE"
     }
 
 cLee_day2 : NPC --he is not here at the first of day2
@@ -78,6 +81,7 @@ cLee_day2 =
     , description = "LEEPOLICEOFFICE.npc.day=1"
     , place = ( PoliceOffice , Day2 )
     , isFinished = False
+    , name = "LEE"
     }
 
 cLee_day2_finished : NPC
@@ -93,6 +97,7 @@ cLee_day2_finished =
     , description = "LEE_POLICEOFFICE_DAY2.npc.day2"
     , place = ( PoliceOffice , Day2_Finished )
     , isFinished = False
+    , name = "LEE"
     }
 
 cLee_day2_night : NPC --he is not here at the first of day2
@@ -108,6 +113,7 @@ cLee_day2_night =
     , description = "LEE_DAY2NIGHT.npc.day2night"
     , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
+    , name = "LEE"
     }
 
 cLee_day4 : NPC --he is not here at the first of day2
@@ -123,6 +129,7 @@ cLee_day4 =
     , description = "LEE_DAY4"
     , place = ( PoliceOffice , Day4 )
     , isFinished = False
+    , name = "LEE"
     }
 
 
@@ -139,6 +146,7 @@ cBob_day1 =
     , description = "BOBPOLICEOFFICE.npc.day=1"
     , place = ( PoliceOffice , Day1 )
     , isFinished = False
+    , name = "BOB"
     }
 
 cBob_day2 : NPC
@@ -154,6 +162,7 @@ cBob_day2 =
     , description = "BOBPOLICEOFFICE.npc.day=1"
     , place = ( PoliceOffice , Day2 )
     , isFinished = False
+    , name = "BOB"
     }
 
 cBob_day2_finished : NPC
@@ -169,6 +178,7 @@ cBob_day2_finished =
     , description = "POLICEMEN_DAY2.npcs.day=2"
     , place = ( PoliceOffice , Day2_Finished )
     , isFinished = False
+    , name = "BOB"
     }
 
 cBob_day2_night : NPC
@@ -184,6 +194,7 @@ cBob_day2_night =
     , description = "BOB_CALLING.npc.day2night"
     , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
+    , name = "BOB"
     }
 
 cBob_day4 : NPC
@@ -199,6 +210,7 @@ cBob_day4 =
     , description = "BOB_DAY4"
     , place = ( PoliceOffice , Day4 )
     , isFinished = False
+    , name = "BOB"
     }
 
 
@@ -216,6 +228,7 @@ cAllen_day1 =
     , description = "ALLENPOLICEOFFICE.npc.day=1"
     , place = ( PoliceOffice , Day1 )
     , isFinished = False
+    , name = "ALLEN"
     }
 
 cAllen_day2 : NPC
@@ -231,6 +244,7 @@ cAllen_day2 =
     , description = "ALLENPOLICEOFFICEDAY2.npc.day=2"
     , place = ( PoliceOffice , Day2 )
     , isFinished = False
+    , name = "ALLEN"
     }
 
 cAllen_day2_finished : NPC
@@ -246,6 +260,7 @@ cAllen_day2_finished =
     , description = "POLICEMEN_DAY2.npcs.day=2"
     , place = ( PoliceOffice , Day2_Finished )
     , isFinished = False
+    , name = "ALLEN"
     }
 
 cAllen_day2_night : NPC
@@ -261,6 +276,7 @@ cAllen_day2_night =
     , description = "ALLEN_DAY2NIGHT.npc.day2night"
     , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
+    , name = "ALLEN"
     }
 
 cAllen_day4 : NPC
@@ -276,6 +292,7 @@ cAllen_day4 =
     , description = "ALLEN_DAY4"
     , place = ( PoliceOffice , Day4 )
     , isFinished = False
+    , name = "ALLEN"
     }
 
 cCoffeeMachine_day1 : NPC
@@ -291,6 +308,7 @@ cCoffeeMachine_day1 =
     , description = "COFFEE_NORMAL"
     , place = ( PoliceOffice , Day1 )
     , isFinished = False
+    , name = ""
     }
 
 cCoffeeMachine_day2 : NPC
@@ -306,6 +324,7 @@ cCoffeeMachine_day2 =
     , description = "COFFEE_NORMAL"
     , place = ( PoliceOffice , Day2 )
     , isFinished = False
+    , name = ""
     }
 
 cCoffeeMachine_day2_finished : NPC
@@ -321,6 +340,7 @@ cCoffeeMachine_day2_finished =
     , description = "COFFEE_NORMAL"
     , place = ( PoliceOffice , Day2_Finished )
     , isFinished = False
+    , name = ""
     }
 
 cCoffeeMachine_day2_night : NPC
@@ -336,6 +356,7 @@ cCoffeeMachine_day2_night =
     , description = "COFFEE_NORMAL"
     , place = ( PoliceOffice , Day2_Night )
     , isFinished = False
+    , name = ""
     }
 
 cCoffeeMachine_day3 : NPC
@@ -351,6 +372,7 @@ cCoffeeMachine_day3 =
     , description = "COFFEE_NORMAL"
     , place = ( PoliceOffice , Day3 )
     , isFinished = False
+    , name = ""
     }
 
 cCoffeeMachine_day4 : NPC
@@ -366,6 +388,7 @@ cCoffeeMachine_day4 =
     , description = "COFFEE_NORMAL"
     , place = ( PoliceOffice , Day4 )
     , isFinished = False
+    , name = ""
     }
 
 cJonathon_day4 : NPC --he is not here at the first of day2
@@ -381,6 +404,7 @@ cJonathon_day4 =
     , description = "JONATHON_DAY4"
     , place = ( PoliceOffice , Day4 )
     , isFinished = False
+    , name = "Jonathon"
     }
 
 
@@ -397,7 +421,7 @@ pLee =
     , description = "LEEPARK.npc.day=1"
     , place = ( Park , Day1 )
     , isFinished = False
-
+    , name = "LEE"
     }
 
 pAllen : NPC
@@ -413,7 +437,7 @@ pAllen =
     , description = "ALLENPARK.npc.day=1"
     , place = ( Park , Day1 )
     , isFinished = False
-
+    , name = "ALLEN"
     }
 
 pAdkins : NPC
@@ -429,7 +453,7 @@ pAdkins =
     , description = "ADKINS.npc.day=1"
     , place = ( Park , Day1 )
     , isFinished = False
-
+    , name = "ADKINS"
     }
 
 pCatherine : NPC
@@ -445,7 +469,7 @@ pCatherine =
     , description = "CATHERINE.npc.day=1"
     , place = ( Park , Day1 )
     , isFinished = False
-
+    , name = "CATHERINE"
     }
 
 jonaliLee : NPC
@@ -461,7 +485,7 @@ jonaliLee =
     , description = "LEEJOURNALISTHOMEDAY2.npc.day=2"
     , place = ( Journalist, Day2 )
     , isFinished = False
-
+    , name = "LEE"
     }
 
 jonaliBody : NPC
@@ -477,6 +501,7 @@ jonaliBody =
     , description = "JOURNALISTBODYDAY2.npc.day=2"
     , place = ( Journalist, Day2 )
     , isFinished = False
+    , name = ""
     }
 
 jonaliEvidence : NPC
@@ -492,6 +517,7 @@ jonaliEvidence =
     , description = "EVIDENCEJONALI.evidence.day=2"
     , place = ( Journalist, Day2 )
     , isFinished = False
+    , name = ""
     }
 
 nightBody : NPC
@@ -507,6 +533,7 @@ nightBody =
     , description = "ANN_BODY_CLUB.npc.day2night"
     , place = ( NightClub, Day2_Night )
     , isFinished = False
+    , name = ""
     }
 
 homePhone : NPC
@@ -522,6 +549,7 @@ homePhone =
      , description = "PHONE_ANSWER.day3"
      , place = ( Home, Day3 )
      , isFinished = False
+     , name = ""
      }
 
 
@@ -538,6 +566,7 @@ danielDaniel =
      , description = "DANIEL.day3"
      , place = ( Daniel, Day3 )
      , isFinished = False
+     , name = "DANIEL"
      }
 
 danielMemCard : NPC
@@ -553,6 +582,7 @@ danielMemCard =
      , description = "FAKE_MEM_CARD"
      , place = ( Daniel, Day4 )
      , isFinished = False
+     , name = ""
      }
 
 danielKey : NPC
@@ -568,6 +598,7 @@ danielKey =
      , description = "KEY_JONATHON"
      , place = ( Daniel, Day4 )
      , isFinished = False
+     , name = ""
      }
 
 danielBank : NPC
@@ -583,6 +614,7 @@ danielBank =
      , description = "BANK"
      , place = ( Daniel, Day4 )
      , isFinished = False
+     , name = ""
      }
 
 danielPaper : NPC
@@ -598,6 +630,7 @@ danielPaper =
      , description = "PAPER"
      , place = ( Daniel, Day4 )
      , isFinished = False
+     , name = ""
      }
 
 
@@ -614,6 +647,7 @@ danielPhone =
      , description = "PHONE_DAY4"
      , place = ( Daniel, Nowhere ) -- will be changed to day4 after the search.
      , isFinished = False
+     , name = ""
      }
 
 
