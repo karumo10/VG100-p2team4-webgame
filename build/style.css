@@ -50,6 +50,44 @@ p.inset {
     background: #f4a460;
 }
 
+/* this is the box */
+.inset2 {
+    margin: 15px 30px;
+    width: 900px;
+    background: #f4a460;
+    border: 1px solid #8b4513;
+    position: relative;
+    min-height: 200px;
+    padding: 20px;
+}
+
+/* this CS forms the triangles */
+.inset2:after,
+.inset2:before {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+
+/* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+.inset2:after {
+    top: 10px;
+    border-color: transparent transparent transparent #f4a460;
+    border-width: 10px;
+}
+
+/* this border color controlls the outside, thin border */
+.inset2:before {
+    top: 9px;
+    border-color: transparent transparent transparent #8b4513;
+    border-width: 11px;
+}
+
 .content-container {
     position: relative;
     z-index: 0;
@@ -135,7 +173,7 @@ p.inset {
 }
 
 .menu2 span:nth-of-type(1) {
-    transform: translateY(5px);
+    transform: translateY(-5px);
 }
 
 .menu span:nth-of-type(3) {
@@ -143,7 +181,7 @@ p.inset {
 }
 
 .menu2 span:nth-of-type(3) {
-    transform: translateY(-5px);
+    transform: translateY(5px);
 }
 
 #menu {

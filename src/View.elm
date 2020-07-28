@@ -503,7 +503,7 @@ renderPic model =
 renderdialog : Model -> Svg Msg
 renderdialog model =
     Svg.foreignObject [ x "200", y "630", width "1000", height "150"]
-                      [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset" ]
+                      [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset2" ]
                           [ text model.story ]
                       ]
 
