@@ -683,6 +683,9 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
     | Dagger
     | TrueMemCard
     | TrueMemCardContent
+    | KeyEvi
+    | BankAccountEvi
+    | PaperEvi
     | NoEvi
 
 disk_evi : Evidence
@@ -733,6 +736,32 @@ trueMemCardContent_evi =
     , isExamined = False
     }
 
+key_evi : Evidence
+key_evi =
+    { eviType = KeyEvi
+    , description = "KEY_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+paper_evi : Evidence
+paper_evi =
+    { eviType = PaperEvi
+    , description = "PAPER_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+bank_account_evi : Evidence
+bank_account_evi =
+    { eviType = BankAccountEvi
+    , description = "BANK_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+
+
 empty_evi : Evidence
 empty_evi =
     { eviType = NoEvi
@@ -745,7 +774,9 @@ empty_evi =
 
 allEvidence : List Evidence
 allEvidence =
-    [ disk_evi, note_evi, pill_evi, dagger_evi, trueMemCard_evi, trueMemCardContent_evi
+    [ disk_evi, note_evi, pill_evi, dagger_evi
+    , trueMemCard_evi, trueMemCardContent_evi
+    , key_evi, bank_account_evi, paper_evi
     ]
 
 

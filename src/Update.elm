@@ -353,7 +353,9 @@ update msg model =
                     else if currItem == daggerIni then dagger_evi
                     else if currItem == trueMemCardIni && not model.codeReached then trueMemCard_evi
                     else if currItem == trueMemCardIni && model.codeReached then trueMemCardContent_evi
-
+                    else if currItem == keyIni then key_evi
+                    else if currItem == paperIni then paper_evi
+                    else if currItem == bankIni then bank_account_evi
                     else empty_evi
             in
             ( examineEvidence currEvi model, Cmd.none )

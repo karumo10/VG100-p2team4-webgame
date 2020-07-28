@@ -124,7 +124,16 @@ initialWorldModelSpec =
     , entity "TRUE_MEM_CARD_CONTENT.trigger=0"
         "content of true card"
         "Photos of Jonathon's receiving bribe from the owner of Paradise\n[shooting time - two weeks ago]"
-    ---- evidence choices
+    , entity "KEY_EVI.trigger=0"
+        "key to jonathon evidence"
+        "A key found in Daniel's department. Where can it be used?"
+    , entity "PAPER_EVI.trigger=2"
+        "paper evidence"
+        "Though he is the darkest part in our city, he loves the feeling of being the only light in the darkness. What he needs is true love, but this goes against his dream of being the \"darkness\" in our city. Why he doesn't tell me about the reason of his weird dream?"
+    , entity "BANK_EVI.trigger=1"
+        "bank account statement evidence"
+        "Three weeks ago. 150000 from Ann\nTwo weeks ago. 10000000 from Stallworth\nOne week ago. 9000000 to John's Company(the company who develops this department)"
+ ---- evidence choices
     , entity "INPUT.choices=0"
         "Input"
         ""
@@ -1146,6 +1155,24 @@ rulesSpec =
             DO: TRUE_MEM_CARD.trigger=0
             """
 
+        |> rule_______________________ "jonathon, the chief police"
+            """
+            ON: PAPER_EVI
+            IF: PAPER_EVI.trigger=2
+            DO: PAPER_EVI.trigger=1
+            """
+        |> rule_______________________ "instead of a mere customer"
+            """
+            ON: PAPER_EVI
+            IF: PAPER_EVI.trigger=1
+            DO: PAPER_EVI.trigger=0
+            """
+        |> rule_______________________ "first three lines"
+            """
+            ON: BANK_EVI
+            IF: BANK_EVI.trigger=1
+            DO: BANK_EVI.trigger=0
+            """
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -1366,6 +1393,15 @@ narrative_content =
             "Crazy assumption, Kay. To support your investigation, I will give you seven-day rest to search for clues in Paradise. You should go there every day in the next week. Oh, this is a VIP card of Paradise. En--joy--yourself, Kay."
         |> content__________________________________ "input code for true"
             "A memory card used for cameras. You linked it onto your computer, but somehow it requires password."
+        |> content__________________________________ "first three lines"
+            "Two months ago. 150000 from Ann\nOne month ago. 3000 from government relief\nOne month ago 100000 to John's Renting Company"
+        |> content__________________________________ "jonathon, the chief police"
+            "Name: Jonathon, the chief police of this city"
+        |> content__________________________________ "instead of a mere customer"
+            "Instead of a mere customer, he is my chosen one, the one who is destined to break and reconstruct my life.\nHe loves the effect of pill named \"Paradise\" produced by the owner of Paradise."
+
+
+
 
 
 
