@@ -8,7 +8,7 @@ type Mode
     | Game
     | TotalTest
 gameMode______ : Mode
-gameMode______ = GettingCoordinates
+gameMode______ = Game
 
 type VehicleType
     = Elevator

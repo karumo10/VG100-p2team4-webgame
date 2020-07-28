@@ -1487,6 +1487,10 @@ pickUpWithEngine model =
     |> pickPaper
     |> pickBank
     |> pickFakeMemCard
+    |> pickLetter
+    |> pickBankCard
+    |> pickDocument
+    |> pickDagger2
 
 
 
@@ -1562,6 +1566,22 @@ pickSingleItem theChoice itemIni model =
     { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item }}
     else
     model
+
+pickBankCard : Model -> Model
+pickBankCard model =
+    pickSingleItem "TABLE" bankCardIni model
+
+pickDagger2 : Model -> Model
+pickDagger2 model =
+    pickSingleItem "TABLE" dagger2Ini model
+
+pickDocument : Model -> Model
+pickDocument model =
+    pickSingleItem "CLOSET" documentsIni model
+
+pickLetter : Model -> Model
+pickLetter model =
+    pickSingleItem "CLOSET" letterIni model
 
 
 pickFakeMemCard : Model -> Model
