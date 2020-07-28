@@ -700,14 +700,22 @@ goToSwitching model =
         currDayState = model.dayState
         currScene = ( currMap, currDayState )
         day2_night_story = "The phone is ringing. You know, this night must be tiring... you choose to go back."
+        day5_home_story = "It's day time. I should take this weird but precious vacation to have a deeper reflection on the current evidence and think about what to do next, instead of go out."
         policeOfficeAttr_day2_night_ =
             List.filter (\a -> a.scene == ( currMap, currDayState )) model.mapAttr_all
             |> List.head |> withDefault policeOfficeAttr_day2_night
+        itemsCheckedList =
+            List.map (\a -> a.isExamined) model.evidence_all
+        howMany = List.length (List.filter (\a -> a == True) itemsCheckedList)
     in
     if judgeExit model then
     if currScene == ( PoliceOffice, Day2_Night ) && (policeOfficeAttr_day2_night_.isFinished == False) then --at day2 night, restrict the player from going outside the office.
         { model
         | story = day2_night_story }
+        |> teleportHero (currMapAttr.heroIni.x, currMapAttr.heroIni.y)
+    else if currScene == ( Home, Day5 ) && howMany < 3 then
+        { model
+        | story = day5_home_story }
         |> teleportHero (currMapAttr.heroIni.x, currMapAttr.heroIni.y)
     else
         if model.map /= DreamMaze then
@@ -729,6 +737,8 @@ wakeUp model =
                 1 -> Day1
                 2 -> Day2
                 3 -> Day3
+                4 -> Day4
+                5 -> Day5
                 _ -> TooBigOrSmall
         model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
         story =
@@ -994,7 +1004,7 @@ examineEvidence evi model =
             |> List.head
             |> withDefault empty_evi
         restEviInModel = List.filter (\a -> a.eviType /= currEvi.eviType) model.evidence_all
-        currEviInModel_ = { currEviInModel | isExamined = True } -----------------------------------------------------------PAY ATTENTION! THIS IS NOT WHAT EXPECTED!!!!!!!!
+        currEviInModel_ = { currEviInModel | isExamined = True } -----------------------------------------------------------now it is ok.
         eviInModel = [currEviInModel_] ++ restEviInModel
 
         model__ = { model_ | evidence_all = eviInModel }

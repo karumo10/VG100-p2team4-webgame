@@ -22,6 +22,7 @@ type Day
     | Day2_Night
     | Day3
     | Day4
+    | Day5
     | Nowhere
     | TooBigOrSmall
 
@@ -227,6 +228,18 @@ policeOfficeAttr_day4 =
     , isFinished = False
     }
 
+policeOfficeAttr_day5 : MapAttr
+policeOfficeAttr_day5 =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , story = "Another day at work, another boring day. But I need to avoid being killed."
+    , scene = ( PoliceOffice, Day5 )
+    , isFinished = False
+    }
+
 parkAttr_day1 : MapAttr
 parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
@@ -370,6 +383,18 @@ homeAttr_day4 =
     , vehicle = homeVehicle
     , story = "That weird dream... what did that 'person' speak? WHAT will be destroyed tomorrow at a very early time?... Alas, maybe I shouldn't pay such attention on a dream... but dream has told me a lot, and Jonathon is dangerous..."
     , scene = ( Home, Day4 )
+    , isFinished = False
+    }
+
+homeAttr_day5 : MapAttr
+homeAttr_day5 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Vacation! I don't need to go to the police office today. I decide to have a thorough inspection on the evidences I've collected!"
+    , scene = ( Home, Day5 )
     , isFinished = False
     }
 
@@ -647,10 +672,10 @@ switchingAttr =
 allMapAttrs : List MapAttr
 allMapAttrs =
     [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5
     , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
-    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4
+    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4
     , danielAttr_day3, danielAttr_day4
     , switchingAttr ]
