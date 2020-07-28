@@ -344,7 +344,12 @@ initialWorldModelSpec =
     , entity "DANGER.trigger=2"
         "danger in dark"
         "..."
-
+    , entity "CLOSET.trigger=1"
+        "jonathon closet"
+        "This place has been searched already."
+    , entity "TABLE.trigger=1"
+        "jonathon table"
+        "This place has been searched already."
 ---day5choices
     , entity "YES_NIGHT.choices=0"
         "Yes!"
@@ -1294,6 +1299,18 @@ rulesSpec =
             ON: HEAR
             DO: HEAR.choices=-1
             """
+        |> rule_______________________ "find in jonathon table"
+            """
+            ON: TABLE
+            IF: TABLE.trigger=1
+            DO: TABLE.trigger=0.choices=-1
+            """
+        |> rule_______________________ "find in jonathon closet"
+            """
+            ON: CLOSET
+            IF: CLOSET.trigger=1
+            DO: CLOSET.trigger=0.choices=-1
+            """
 
 
 
@@ -1548,7 +1565,10 @@ narrative_content =
             "My dear Kay, it seems that I have done a lot of useless work before. It never occurs to me that you will be so easy to deal with as you have been acting wisely until last month. Goodbye."
         |> content__________________________________ "exit"
             "You're finding the road to exit the park anxiously..."
-
+        |> content__________________________________ "find in jonathon closet"
+            "You open the cabinet door, and search thoroughly. You found a few documents and a letter."
+        |> content__________________________________ "find in jonathon table"
+            "You take the bank card and the dagger from Jonathon's table."
 
 
 parsedData =
