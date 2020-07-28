@@ -235,7 +235,7 @@ policeOfficeAttr_day5 =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , story = "Another day at work, another boring day. But I need to avoid being killed."
+    , story = "There is no one in the police office tonight. It’s quite weird. But at the same time, it is the best time to have a deeper investigation of Jonathon’s office."
     , scene = ( PoliceOffice, Day5 )
     , isFinished = False
     }

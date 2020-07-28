@@ -115,7 +115,7 @@ initialWorldModelSpec =
     , entity "PILLS.trigger=2"
         "pills"
         "The pills are in a small bottle, on which a tag saying \"Διόνυσος\", the next line is \"PARADISE Co.Ltd\"."
-    , entity "DAGGER.trigger=0"
+    , entity "DAGGER.trigger=1"
         "dagger"
         "A dagger with weird letters on it. It seems that it is part of some couple souvenir as it seems that letters on it are only part of some complete patterns."
     , entity "TRUE_MEM_CARD.trigger=1"
@@ -136,8 +136,18 @@ initialWorldModelSpec =
     , entity "FALSE_MEM_CARD_CONTENT.trigger=4"
         "false mem card"
         "Hey, it's all about me! Who shot all these...? Bad feeling..."
-
-
+    , entity "BANK_CARD_EVI.trigger=0"
+        "bankcard"
+        "A bank card with the name of the holder is Stallworth. It is a fairly new card with card number 1000001. It is a diamond card."
+    , entity "DAGGER2_EVI.trigger=1"
+        "dagger2"
+        "A dagger with weird letters on it. It seems that it is part of some couple souvenir."
+    , entity "LETTER_EVI.trigger=5"
+        "letter"
+        "I know you have seen the photos through some media before. I will give you the memory card of those photos to you. Just forgive my sister.\n-- Daniel"
+    , entity "DOCUMENTS_EVI.trigger=1"
+        "documents"
+        "1. Approval of setting up a nightclub in the CBD of City;\n2. Approval of the expansion of nightclub Paradise.\n3. Unqualified security condition check result of nightclub Dream in the CBD.\n4. Approval of \"Paradise\" as a legal food"
 
  ---- evidence choices
 
@@ -164,7 +174,12 @@ initialWorldModelSpec =
     , entity "NOT_TAKE_PILL.choices=0"
         "...forget it."
         ""
-
+    , entity "CODE_DAGGER.choices=0"
+        "Put them together!"
+        ""
+    , entity "CODE_DAGGER2.choices=0"
+        "Put them together!"
+        ""
     ---- choices
     , entity "YES.bobtalk.choices=0"
         "Yes"
@@ -1311,7 +1326,85 @@ rulesSpec =
             IF: CLOSET.trigger=1
             DO: CLOSET.trigger=0.choices=-1
             """
+        |> rule_______________________ "dagger 1 description"
+            """
+            ON: DAGGER
+            IF: DAGGER.trigger=1
+            DO: DAGGER.trigger=0
+            """
+        |> rule_______________________ "dagger 2 description"
+            """
+            ON: DAGGER2_EVI
+            IF: DAGGER2_EVI.trigger=1
+            DO: DAGGER2_EVI.trigger=0
+            """
+        |> rule_______________________ "dagger 1 code"
+            """
+            ON: DAGGER
+            IF: DAGGER.trigger=0
+                DAGGER2_EVI.trigger=0
+            DO: CODE_DAGGER.choices=1
+            """
+        |> rule_______________________ "dagger 2 code"
+            """
+            ON: DAGGER2_EVI
+            IF: DAGGER2_EVI.trigger=0
+                DAGGER.trigger=0
+            DO: CODE_DAGGER2.choices=1
+            """
+        |> rule_______________________ "dagger 1 put together"
+            """
+            ON: CODE_DAGGER
+            DO: CODE_DAGGER.choices=0
 
+            """
+        |> rule_______________________ "dagger 2 put together"
+            """
+            ON: CODE_DAGGER2
+            DO: CODE_DAGGER2.choices=0
+            """
+        |> rule_______________________ "several documents with"
+            """
+            ON: DOCUMENTS_EVI
+            IF: DOCUMENTS_EVI.trigger=1
+            DO: DOCUMENTS_EVI.trigger=0
+            """
+        |> rule_______________________ "letter1"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=5
+            DO: LETTER_EVI.trigger=4
+            """
+        |> rule_______________________ "letter2"
+             """
+             ON: LETTER_EVI
+             IF: LETTER_EVI.trigger=4
+             DO: LETTER_EVI.trigger=3
+             """
+        |> rule_______________________ "letter3"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=3
+            DO: LETTER_EVI.trigger=2
+            """
+        |> rule_______________________ "letter4"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=2
+            DO: LETTER_EVI.trigger=1
+            """
+        |> rule_______________________ "letter5"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=1
+            DO: LETTER_EVI.trigger=0
+            """
+        |> rule_______________________ "letter6"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=0
+            DO: LETTER_EVI.trigger=5
+            """
 
 
 
@@ -1569,7 +1662,32 @@ narrative_content =
             "You open the cabinet door, and search thoroughly. You found a few documents and a letter."
         |> content__________________________________ "find in jonathon table"
             "You take the bank card and the dagger from Jonathon's table."
-
+        |> content__________________________________ "dagger 1 description"
+            "A dagger with weird letters on it. It seems that it is part of some couple souvenir as it seems that letters on it are only part of some complete patterns."
+        |> content__________________________________ "dagger 2 description"
+            "A dagger with weird letters on it. It seems that it is part of some couple souvenir."
+        |> content__________________________________ "dagger 1 code"
+            "It seems that another dagger can be put together with this one...?"
+        |> content__________________________________ "dagger 2 code"
+            "It seems that another dagger can be put together with this one...?"
+        |> content__________________________________ "dagger 1 put together"
+            "You put them together! You can now recognize the characters above: that is \"ASWN\"."
+        |> content__________________________________ "dagger 2 put together"
+            "You put them together! You can now recognize the characters above: that is \"ASWN\"."
+        |> content__________________________________ "several documents with"
+            "Several documents with the following titles:"
+        |> content__________________________________ "letter1"
+            "A letter from Daniel\nDear Captain Jonathon:\nPlease stop your continuous inspection on us. I have been fired by five companies in the last months. I will tell you everything I know about my sister to you."
+        |> content__________________________________ "letter2"
+            "You may not know the endings of my sister's ex-boyfriend. He was obsessed with the joy in the night club and spent all his money and my sister's money on one girl in the night club. As a result, my sister hates the night club a lot. But due to the economic pressure, she has no choice but to work here. But she always dislikes people there."
+        |> content__________________________________ "letter3"
+            "It's you that change her opinion towards night club customers. The first time she meets you, she didn't know your identity and behaved in a rude manner. You didn't behave angrily but comfort her kindly. You behaved in a gentle manner to her. And that's why she is willing to have a trial on the \"Paradise\" for you as you love it a lot."
+        |> content__________________________________ "letter4"
+            "But she happened to see your trade with the owner of Paradise. That night, she rushed home and said to me \"Daniel, Stallworth received the bribe from the bad boss. It will cause a lot of trouble for him if he was caught by the city council\". How she cares about you!"
+        |> content__________________________________ "letter5"
+            "Even after she knows that you dream of being the darkness of our city, she still loves you and decides to turn you back to the light. So she filmed your trade with the owner of Paradise, your secret training of an armed team with the hope of threatening you back. How stupid she is?"
+        |> content__________________________________ "letter6"
+            "I know you have seen the photos through some media before. I will give you the memory card of those photos to you. Just forgive my sister.\n -- Daniel"
 
 parsedData =
     let
