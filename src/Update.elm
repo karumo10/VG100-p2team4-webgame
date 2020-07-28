@@ -748,6 +748,8 @@ wakeUp model =
         story =
             if day == 3 || day == 5 then
                 model_.story
+            else if day == 6 then
+            "What a comfortable night! No dream, no maze!"
             else
             "It's time to get up... Uhh, indeed a weird dream."
         isAPlayBoy = findCertainQuestion model "YES_NIGHT"
