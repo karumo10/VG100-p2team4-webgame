@@ -155,6 +155,12 @@ hintsMaze4 =
     , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Do you think that, it's dangerous to possess a key with no knowledge of what it will unlock?" }
     , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "To be, or not to be: that is the question,\nWhether it's nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles, and by opposing end them." } ]
 
+hintsMaze5 : List Hint
+hintsMaze5 =
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "" } ]
 
 
 policeOfficeAttr_day1 : MapAttr
@@ -409,6 +415,7 @@ homeAttr_day5 =
     , scene = ( Home, Day5 )
     , isFinished = False
     }
+
 
 journalistAttr_day1 : MapAttr
 journalistAttr_day1 =
@@ -678,6 +685,17 @@ dreamMazeAttr_day4 =
     , scene = ( DreamMaze, Day4 )
     , isFinished = False
     }
+dreamMazeAttr_day5 : MapAttr
+dreamMazeAttr_day5 =
+    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 470 , y = 575, width = 20, height = 20 } --no dream
+    , barrier = maze1Barrier
+    , hint = hintsMaze5
+    , vehicle = []
+    , story = "..."
+    , scene = ( DreamMaze, Day5 )
+    , isFinished = False
+    }
 
 
 switchingAttr : MapAttr
@@ -695,7 +713,7 @@ switchingAttr =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5
     , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5
     , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4, parkAttr_day5
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
