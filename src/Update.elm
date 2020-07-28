@@ -742,13 +742,18 @@ wakeUp model =
                 _ -> TooBigOrSmall
         model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
         story =
-            if day == 3 then
+            if day == 3 || day == 5 then
                 model_.story
             else
             "It's time to get up... Uhh, indeed a weird dream."
+        isAPlayBoy = findCertainQuestion model "YES_NIGHT"
+        energy_Full =
+            if day == 6 && isAPlayBoy then model_.energy_Full // 2
+            else if day == 7 && isAPlayBoy then model_.energy_Full * 2
+            else model_.energy_Full
         energy = model_.energy_Full
     in
-    { model_ | story = story, day = day, energy = energy, dayState = dayState }
+    { model_ | story = story, day = day, energy = energy, dayState = dayState, energy_Full = energy_Full }
 
 
 mapSwitch : Map -> Model -> Model
@@ -1195,6 +1200,7 @@ specialUpdates model
         |> day4_jonathon_update_coffee_machine
         |> day4_daniel_evidence_update_phone
         |> day4_daniel_finished_update_jonathon
+        |> day5_nightclub_update_energy
     else model
 
 
@@ -1364,6 +1370,15 @@ day4_daniel_finished_update_jonathon model =
         else model
     else model
 
+day5_nightclub_update_energy : Model -> Model
+day5_nightclub_update_energy model =
+    let
+        isAPlayBoy = findCertainQuestion model "YES_NIGHT"
+
+    in
+    if isAPlayBoy && (model.map,model.dayState) == (NightClub, Day5) then
+    { model | energy = 0 }
+    else model
 
 
 badEndsStory : Float -> Model -> Model
