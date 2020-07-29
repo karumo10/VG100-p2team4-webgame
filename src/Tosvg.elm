@@ -127,10 +127,12 @@ elevatorQuestToSvg model =
                                  , text_ [ x "35", y "60"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
+                                        , onClick ElevateTo1
                                          ] [ text "1" ]
                                  , text_ [ x "35", y "150"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
+                                        , onClick ElevateTo2
                                          ] [ text "2" ]
                                  ]] ]
                     else [ div [][] ]
@@ -169,14 +171,17 @@ elevatorQuestToSvg model =
                                  , text_ [ x "35", y "60"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
+                                        , onClick ElevateTo1
                                          ] [ text "1" ]
                                  , text_ [ x "35", y "150"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
+                                        , onClick ElevateTo2
                                          ] [ text "2" ]
                                  , text_ [ x "35", y "240"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
+                                        , onClick ElevateTo3
                                          ] [ text "3" ]]] ]
                     else [div [][]]
                 Home ->
@@ -213,14 +218,17 @@ elevatorQuestToSvg model =
                                   , text_ [ x "35", y "60"
                                   , fill "#F7CA18"
                                   , fontSize "40px"
+                                  , onClick ElevateTo1
                                   ] [ text "1" ]
                                   , text_ [ x "35", y "150"
                                   , fill "#F7CA18"
                                   , fontSize "40px"
+                                  , onClick ElevateTo2
                                   ] [ text "2" ]
                                   , text_ [ x "35", y "240"
                                   , fill "#F7CA18"
                                   , fontSize "40px"
+                                  , onClick ElevateTo3
                                   ] [ text "3" ]]] ]
                     else [div [][]]
                 _ ->
@@ -257,14 +265,17 @@ elevatorQuestToSvg model =
                                                   , text_ [ x "35", y "60"
                                                   , fill "#F7CA18"
                                                   , fontSize "40px"
+                                                  , onClick ElevateTo1
                                                   ] [ text "1" ]
                                                   , text_ [ x "35", y "150"
                                                   , fill "#F7CA18"
                                                   , fontSize "40px"
+                                                  , onClick ElevateTo2
                                                   ] [ text "2" ]
                                                   , text_ [ x "35", y "240"
                                                   , fill "#F7CA18"
                                                   , fontSize "40px"
+                                                  , onClick ElevateTo3
                                                   ] [ text "3" ]]] ]
                                     else [div [][]]
 

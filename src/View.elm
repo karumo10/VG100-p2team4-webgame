@@ -712,7 +712,8 @@ renderGrid1Detail model =
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( toString model.hero.x++toString model.hero.y)
+          --[ Html.text ( toString model.hero.x++toString model.hero.y)
+          [ Html.text ( model.bag.grid1.comment )
           ,
           div []
           [ button
