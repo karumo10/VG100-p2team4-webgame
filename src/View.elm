@@ -52,7 +52,8 @@ view model =
         ]
         ++ (rendersuspectlist model)
         ++ ( elevatorQuestToSvg model )
-        ++ (renderBagButton model))
+        ++ (renderBagButton model)
+        ++ renderhelp)
 
 renderMain : Model -> List (Html Msg)
 renderMain model =
@@ -1163,3 +1164,19 @@ renderBackButton model =
         [ Html.text "Back to Starter" ]
     else
     div [][]
+
+renderhelp =
+    [Html.input [Html.Attributes.type_ "checkbox", id "menuhelp"][]
+    ,Html.label [Html.Attributes.for "menuhelp", class "menuhelp"][text "?"]
+    ,Html.nav [class "navhelp"] [div [class "container"]
+                                 [div [ style "font-family" "Helvetica, Arial, sans-serif"
+                                      , style "color" "white"
+                                      , style "font-size" "18px"] [ Html.br [] []
+                                                                  , Html.br [] []
+                                                                  , Html.br [] []
+                                                                  , p [] [ text "Use 'W', 'A', 'S', 'D' to move." ]
+                                                                  , p [] [ text "You cannot move if you run into an obstacle." ]
+                                                                  , p [] [ text "Use 'X' to interact with NPCs. Click the choice which you want to choose." ]
+                                                                  , p [] [ text "Carefully read the text, or you'll miss some information." ]
+                                                                  , p [] [ text "Talk with NPCs if you are stuck." ]]]]
+        ]
