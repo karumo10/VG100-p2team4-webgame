@@ -21,6 +21,7 @@ type Msg
     | ToJournalist
     | ToNightClub
     | ToDaniel
+    | ToCityCouncil
     | Sleep Bool
     | PickUp Bool
     | ElevateTo1

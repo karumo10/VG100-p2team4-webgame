@@ -258,6 +258,20 @@ renderMapButton model =
             , onClick ToDaniel
             ]
             [ Html.text "Daniel's home" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "430px"
+            , style "top" "240px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToCityCouncil
+            ]
+            [ Html.text "City Council" ]
+
 
 
             ]
