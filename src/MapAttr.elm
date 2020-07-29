@@ -22,6 +22,7 @@ type Day
     | Day2_Night
     | Day3
     | Day4
+    | Day5
     | Nowhere
     | TooBigOrSmall
 
@@ -150,10 +151,16 @@ hintsMaze3 =
 hintsMaze4 : List Hint
 hintsMaze4 =
     [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "Do you think that, this sudden vacation is quite weird?" }
-    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Do you think that, the accidental inspection of Daniel’s home is quite weird?" }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Do you think that, our new friend is not here today is quite weird?" }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Do you think that, some things collecting in this \"sudden\" inspection are like traps?" }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Do you think that, it's dangerous to possess a key with no knowledge of what it will unlock?" }
     , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "To be, or not to be: that is the question,\nWhether it's nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles, and by opposing end them." } ]
 
+hintsMaze5 : List Hint
+hintsMaze5 =
+    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "" } ]
 
 
 policeOfficeAttr_day1 : MapAttr
@@ -227,6 +234,18 @@ policeOfficeAttr_day4 =
     , isFinished = False
     }
 
+policeOfficeAttr_day5 : MapAttr
+policeOfficeAttr_day5 =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , story = "There is no one in the police office tonight. It’s quite weird. But at the same time, it is the best time to have a deeper investigation of Jonathon’s office."
+    , scene = ( PoliceOffice, Day5 )
+    , isFinished = False
+    }
+
 parkAttr_day1 : MapAttr
 parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
@@ -296,6 +315,18 @@ parkAttr_day4 =
     , vehicle = []
     , story = "The park, where a promising man was killed. May him rest in peace..."
     , scene = ( Park, Day4 )
+    , isFinished = False
+    }
+
+parkAttr_day5 : MapAttr
+parkAttr_day5 =
+    { exit = { x = 5000, y = 5000 , wid = 1, hei = 1 }
+    , heroIni = { x = 5000, y = 0, width = 50, height = 180 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , story = "The park is in darkness this night. And you see a crowd wearing weird uniforms are wandering. Do you still want to enter? Press X to do your choice! Hint: Police is not allowed to be equipped with a gun during vacation."
+    , scene = ( Park, Day5 )
     , isFinished = False
     }
 
@@ -372,6 +403,19 @@ homeAttr_day4 =
     , scene = ( Home, Day4 )
     , isFinished = False
     }
+
+homeAttr_day5 : MapAttr
+homeAttr_day5 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Vacation! I don't need to go to the police office today. I decide to have a thorough inspection on the evidences I've collected!"
+    , scene = ( Home, Day5 )
+    , isFinished = False
+    }
+
 
 journalistAttr_day1 : MapAttr
 journalistAttr_day1 =
@@ -518,6 +562,18 @@ nightClubAttr_day4 =
     , isFinished = False
     }
 
+nightClubAttr_day5 : MapAttr
+nightClubAttr_day5 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+    , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+    , barrier = nightClubBarrier
+    , hint = []
+    , vehicle = nightClubVehicle
+    , story = "Welcome to PARADISE! The highest unconscious, the highest joy! "
+    , scene = ( NightClub, Day5 )
+    , isFinished = False
+    }
+
 danielAttr_day3 : MapAttr
 danielAttr_day3 =
     { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
@@ -629,6 +685,17 @@ dreamMazeAttr_day4 =
     , scene = ( DreamMaze, Day4 )
     , isFinished = False
     }
+dreamMazeAttr_day5 : MapAttr
+dreamMazeAttr_day5 =
+    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 470 , y = 575, width = 20, height = 20 } --no dream
+    , barrier = maze1Barrier
+    , hint = hintsMaze5
+    , vehicle = []
+    , story = "..."
+    , scene = ( DreamMaze, Day5 )
+    , isFinished = False
+    }
 
 
 switchingAttr : MapAttr
@@ -646,12 +713,12 @@ switchingAttr =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4
-    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5
+    , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4, parkAttr_day5
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
-    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4
-    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4
+    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5
+    , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5
     , danielAttr_day3, danielAttr_day4
     , switchingAttr ]
 

@@ -48,4 +48,5 @@ type Msg
     | ViewAboutUs
     | ViewStory
     | BackToStarter
+    | ChangeCodeText String
 

@@ -81,6 +81,8 @@ type alias Model =
     , isBagOpen : Bool --When should the bag be presented
     , whichGridIsOpen : Int
     , chosenChoices : List WorldModel.ID
+    , codeContent : String
+    , codeReached : Bool
     }
 
 initial : Model
@@ -99,17 +101,18 @@ initial =
     , heroInteractWithNpc = False
     , state = Playing
     , size = ( 900, 600 )
-    , day = 2
-    , dayState = Day2_Night
+    , day = 1
+    , dayState = Day1
     , map = StarterPage -- door at police office
     , mapAttr = policeOfficeAttr_day1
+    --, mapAttr = nightClubAttr_day5
     , bag = bagIni
-    , items = [ gunIni , bulletProofIni ]
+    , items = [  ]
     , worldModel = initialWorldModel
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the police chief, Jonathon, because I know his scandal. I need to avoid being killed."
     , ruleCounts = Dict.empty
     , debug = NarrativeEngine.Debug.init
-    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day2_Night)) allNPCs
+    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day1)) allNPCs
     , npcs_all = allNPCs
     , evidence_all = allEvidence
     , mapAttr_all = allMapAttrs
@@ -127,6 +130,9 @@ initial =
     , isBagOpen = False
     , whichGridIsOpen = 0
     , chosenChoices = []
+    , codeContent = ""
+    , codeReached = False
+    --, park_is_exited
     }
 
 
@@ -237,6 +243,8 @@ isItemAtMap model item =
     True
     else
     False
+
+
 
 
 

@@ -351,9 +351,21 @@ update msg model =
                     else if currItem == diskIni then disk_evi
                     else if currItem == pillIni then pill_evi
                     else if currItem == daggerIni then dagger_evi
+                    else if currItem == trueMemCardIni && not model.codeReached then trueMemCard_evi
+                    else if currItem == trueMemCardIni && model.codeReached then trueMemCardContent_evi
+                    else if currItem == keyIni then key_evi
+                    else if currItem == paperIni then paper_evi
+                    else if currItem == bankIni then bank_account_evi
+                    else if currItem == letterIni then letter_evi
+                    else if currItem == bankCardIni then bank_card_evi
+                    else if currItem == dagger2Ini then dagger2_evi
+                    else if currItem == documentsIni then documents_evi
                     else empty_evi
             in
             ( examineEvidence currEvi model, Cmd.none )
+
+        ChangeCodeText code ->
+            ( { model | codeContent = code }, Cmd.none )
 
 
 
@@ -692,14 +704,22 @@ goToSwitching model =
         currDayState = model.dayState
         currScene = ( currMap, currDayState )
         day2_night_story = "The phone is ringing. You know, this night must be tiring... you choose to go back."
+        day5_home_story = "It's day time. I should take this weird but precious vacation to have a deeper reflection on the current evidence and think about what to do next, instead of go out."
         policeOfficeAttr_day2_night_ =
             List.filter (\a -> a.scene == ( currMap, currDayState )) model.mapAttr_all
             |> List.head |> withDefault policeOfficeAttr_day2_night
+        itemsCheckedList =
+            List.map (\a -> a.isExamined) model.evidence_all
+        howMany = List.length (List.filter (\a -> a == True) itemsCheckedList)
     in
     if judgeExit model then
     if currScene == ( PoliceOffice, Day2_Night ) && (policeOfficeAttr_day2_night_.isFinished == False) then --at day2 night, restrict the player from going outside the office.
         { model
         | story = day2_night_story }
+        |> teleportHero (currMapAttr.heroIni.x, currMapAttr.heroIni.y)
+    else if currScene == ( Home, Day5 ) && howMany < 3 then
+        { model
+        | story = day5_home_story }
         |> teleportHero (currMapAttr.heroIni.x, currMapAttr.heroIni.y)
     else
         if model.map /= DreamMaze then
@@ -721,16 +741,25 @@ wakeUp model =
                 1 -> Day1
                 2 -> Day2
                 3 -> Day3
+                4 -> Day4
+                5 -> Day5
                 _ -> TooBigOrSmall
         model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
         story =
-            if day == 3 then
+            if day == 3 || day == 5 then
                 model_.story
+            else if day == 6 then
+            "What a comfortable night! No dream, no maze!"
             else
             "It's time to get up... Uhh, indeed a weird dream."
+        isAPlayBoy = findCertainQuestion model "YES_NIGHT"
+        energy_Full =
+            if day == 6 && isAPlayBoy then model_.energy_Full // 2
+            else if day == 7 && isAPlayBoy then model_.energy_Full * 2
+            else model_.energy_Full
         energy = model_.energy_Full
     in
-    { model_ | story = story, day = day, energy = energy, dayState = dayState }
+    { model_ | story = story, day = day, energy = energy, dayState = dayState, energy_Full = energy_Full }
 
 
 mapSwitch : Map -> Model -> Model
@@ -986,7 +1015,7 @@ examineEvidence evi model =
             |> List.head
             |> withDefault empty_evi
         restEviInModel = List.filter (\a -> a.eviType /= currEvi.eviType) model.evidence_all
-        currEviInModel_ = { currEviInModel | isExamined = True }
+        currEviInModel_ = { currEviInModel | isExamined = True } -----------------------------------------------------------now it is ok.
         eviInModel = [currEviInModel_] ++ restEviInModel
 
         model__ = { model_ | evidence_all = eviInModel }
@@ -1065,9 +1094,22 @@ normalUpdates model =
     |> npcsFinishedUpdate
     |> mapsFinishedUpdate
     |> chosenChoicesUpdate
+    |> codeReachedUpdate
 
 
 
+
+codeReachedUpdate : Model -> Model
+codeReachedUpdate model =
+    let
+        len = model.codeContent |> String.length
+
+    in
+    if model.codeReached == False then
+        if len == 4 then
+        { model | codeReached = True }
+        else model
+    else model
 
 
 
@@ -1164,7 +1206,10 @@ specialUpdates model
         |> day4_jonathon_update_coffee_machine
         |> day4_daniel_evidence_update_phone
         |> day4_daniel_finished_update_jonathon
+        |> day5_nightclub_update_energy
+        |> day5_park_update_exit
     else model
+
 
 
 
@@ -1333,6 +1378,24 @@ day4_daniel_finished_update_jonathon model =
         else model
     else model
 
+day5_nightclub_update_energy : Model -> Model
+day5_nightclub_update_energy model =
+    let
+        isAPlayBoy = findCertainQuestion model "YES_NIGHT"
+
+    in
+    if isAPlayBoy && (model.map,model.dayState) == (NightClub, Day5) then
+    { model | energy = 0 }
+    else model
+
+day5_park_update_exit : Model -> Model
+day5_park_update_exit model =
+    let
+        isExiting = findCertainQuestion model "EXIT"
+    in
+    if isExiting && (model.map,model.dayState) == (Park, Day5) && model.hero.y <= 2500 then
+    model |> teleportHero ( 5000, 5000 )
+    else model
 
 badEndsStory : Float -> Model -> Model
 badEndsStory elapsed model =
@@ -1383,7 +1446,7 @@ badEnd2 model =
         isTooEager = findCertainQuestion model "ITS_YOU"
     in
     if isTooEager then
-    (True, "[Bad End: Too eager] News: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery...")
+    (True, "[Bad End: Too eager]\nNews: A fire hazard broke out yesterday at one department in XX's Road. A man named Kay was dead in the accident. The reason for the fire hazard is still under discovery...")
     else (False, model.story)
 
 badEnd3 : Model -> ( Bool, String )
@@ -1392,11 +1455,33 @@ badEnd3 model =
         isParadised = findCertainQuestion model "PARADISE_OWNER"
     in
     if isParadised then
-    (True, "[Bad End: Lost in Desire]: You find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\".")
+    (True, "[Bad End: Lost in Desire]\nYou find that the VIP card is beyond your imagination... The owner seems to extremely care about you. You drink a lot every night the following week. You get lost in the \"Paradise\".")
     else (False, model.story)
 
+badEnd4 : Model -> ( Bool, String )
+badEnd4 model =
+    let
+        isExploded =
+            if not model.codeReached || model.codeContent == "ASWN" then False
+            else True
+    in
+    if isExploded then
+    (True, "[Bad End: Exploded]\nNews: An explosion happened at one department on XX's Road. A man named Kay was found dead in the explosion. The link between this explosion and the recent terrorist attacks is still unknown. ")
+    else (False, model.story)
+
+badEnd5 : Model -> ( Bool, String )
+badEnd5 model =
+    let
+        isCaught =
+            findCertainQuestion model "HEAR"
+    in
+    if isCaught then
+    (True, "[Bad End: Forbidden Park]\nStory: News report: A new policeman is employed to replace the place of the missing police Kay.")
+    else (False, model.story)
+
+
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
@@ -1409,6 +1494,10 @@ pickUpWithEngine model =
     |> pickPaper
     |> pickBank
     |> pickFakeMemCard
+    |> pickLetter
+    |> pickBankCard
+    |> pickDocument
+    |> pickDagger2
 
 
 
@@ -1484,6 +1573,22 @@ pickSingleItem theChoice itemIni model =
     { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item }}
     else
     model
+
+pickBankCard : Model -> Model
+pickBankCard model =
+    pickSingleItem "TABLE" bankCardIni model
+
+pickDagger2 : Model -> Model
+pickDagger2 model =
+    pickSingleItem "TABLE" dagger2Ini model
+
+pickDocument : Model -> Model
+pickDocument model =
+    pickSingleItem "CLOSET" documentsIni model
+
+pickLetter : Model -> Model
+pickLetter model =
+    pickSingleItem "CLOSET" letterIni model
 
 
 pickFakeMemCard : Model -> Model
@@ -1573,23 +1678,6 @@ pickDiskOrNote model =
     model
 
 
-
-
-
-whichActionTakenDisk : WorldModel.ID -> Bool
-whichActionTakenDisk id =
-    if id == "CHOOSEWHICHTAKEDISK" then
-    True
-    else
-    False
-
-whichActionTakenNote : WorldModel.ID -> Bool
-whichActionTakenNote id =
-    if id == "CHOOSEWHICHTAKENOTE" then
-    True
-
-    else
-    False
 
 
 

@@ -145,7 +145,6 @@ daggerIni =
     , intro = "dagger"
     , comment = "A dagger with weird letters on it."
     , canBeExamined = True
-
     }
 
 trueMemCardIni : Item
@@ -159,7 +158,7 @@ trueMemCardIni =
     , x = 700
     , y = 530
     , intro = "memory card"
-    , comment = "A memory card, used to save photographs, found in coffee machine."
+    , comment = "VERIFICATION PASSED. ACCESS ALLOWED."
     , canBeExamined = True
     }
 
@@ -220,6 +219,66 @@ bankIni =
     , y = 530
     , intro = "Bank statement"
     , comment = "A bank account statement, found in Daniel's house."
+    , canBeExamined = True
+    }
+
+bankCardIni : Item
+bankCardIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Bank card"
+    , comment = "A bank card taken from Jonathon's office."
+    , canBeExamined = True
+    }
+
+dagger2Ini : Item
+dagger2Ini =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Dagger 2"
+    , comment = "A dagger taken from Jonathon's office."
+    , canBeExamined = True
+    }
+
+letterIni : Item
+letterIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Letter"
+    , comment = "Letter taken from Jonathon's office."
+    , canBeExamined = True
+    }
+
+documentsIni : Item
+documentsIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = Park
+    , x = 700
+    , y = 530
+    , intro = "Documents"
+    , comment = "Documents taken from Jonathon's office."
     , canBeExamined = True
     }
 

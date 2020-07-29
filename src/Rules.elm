@@ -115,11 +115,44 @@ initialWorldModelSpec =
     , entity "PILLS.trigger=2"
         "pills"
         "The pills are in a small bottle, on which a tag saying \"Διόνυσος\", the next line is \"PARADISE Co.Ltd\"."
-    , entity "DAGGER.trigger=0"
+    , entity "DAGGER.trigger=1"
         "dagger"
         "A dagger with weird letters on it. It seems that it is part of some couple souvenir as it seems that letters on it are only part of some complete patterns."
+    , entity "TRUE_MEM_CARD.trigger=1"
+        "true memory card"
+        "You remember the evil sentences on the card: \"1. The password is 4 capital English letters. 2. When you input a 4-length string, the password test will start automatically. 3. If the code is not correct, the self-destruct sequence will be initialized.\""
+    , entity "TRUE_MEM_CARD_CONTENT.trigger=0"
+        "content of true card"
+        "Photos of Jonathon's receiving bribe from the owner of Paradise\n[shot on June 28th]"
+    , entity "KEY_EVI.trigger=0"
+        "key to jonathon evidence"
+        "A key found in Daniel's department. Where can it be used?"
+    , entity "PAPER_EVI.trigger=2"
+        "paper evidence"
+        "Though he is the darkest part in our city, he loves the feeling of being the only light in the darkness. What he needs is true love, but this goes against his dream of being the \"darkness\" in our city. Why he doesn't tell me about the reason of his weird dream?"
+    , entity "BANK_EVI.trigger=1"
+        "bank account statement evidence"
+        "Three weeks ago. 150000 from Ann\nTwo weeks ago. 10000000 from Stallworth\nOne week ago. 9000000 to John's Company(the company who develops this department)"
+    , entity "FALSE_MEM_CARD_CONTENT.trigger=4"
+        "false mem card"
+        "Hey, it's all about me! Who shot all these...? Bad feeling..."
+    , entity "BANK_CARD_EVI.trigger=0"
+        "bankcard"
+        "A bank card with the name of the holder is Stallworth. It is a fairly new card with card number 1000001. It is a diamond card."
+    , entity "DAGGER2_EVI.trigger=1"
+        "dagger2"
+        "A dagger with weird letters on it. It seems that it is part of some couple souvenir."
+    , entity "LETTER_EVI.trigger=5"
+        "letter"
+        "I know you have seen the photos through some media before. I will give you the memory card of those photos to you. Just forgive my sister.\n-- Daniel"
+    , entity "DOCUMENTS_EVI.trigger=1"
+        "documents"
+        "1. Approval of setting up a nightclub in the CBD of City;\n2. Approval of the expansion of nightclub Paradise.\n3. Unqualified security condition check result of nightclub Dream in the CBD.\n4. Approval of \"Paradise\" as a legal food"
 
-    ---- evidence choices
+ ---- evidence choices
+
+
+
     , entity "INPUT.choices=0"
         "Input"
         ""
@@ -141,12 +174,17 @@ initialWorldModelSpec =
     , entity "NOT_TAKE_PILL.choices=0"
         "...forget it."
         ""
-
+    , entity "CODE_DAGGER.choices=0"
+        "Put them together!"
+        ""
+    , entity "CODE_DAGGER2.choices=0"
+        "Put them together!"
+        ""
     ---- choices
-    , entity "YES.bobtalk.choices=0"
+    , entity "YES"
         "Yes"
         ""
-    , entity "NO.bobtalk.choices=0"
+    , entity "NO"
         "No"
         ""
     , entity "DOESNTMATTER.leetalk.choices=0"
@@ -314,8 +352,39 @@ initialWorldModelSpec =
     , entity "PARADISE_OWNER.choices=0"
         "The owner of the paradise"
         ""
+----day5
+    , entity "STAFF.trigger=2"
+        "staff of paradise"
+        "Welcome to PARADISE! The highest unconscious, the highest joy!"
+    , entity "DANGER.trigger=2"
+        "danger in dark"
+        "..."
+    , entity "CLOSET.trigger=1"
+        "jonathon closet"
+        "This place has been searched already."
+    , entity "TABLE.trigger=1"
+        "jonathon table"
+        "This place has been searched already."
+---day5choices
+    , entity "YES_NIGHT.choices=0"
+        "Yes!"
+        ""
+    , entity "NO_NIGHT.choices=0"
+        "No..."
+        ""
+    , entity "MOVEF.choices=0"
+        "Still move forward"
+        ""
+    , entity "EXIT.choices=0"
+        "Exit"
+        ""
+    , entity "ESCAPE.choices=0"
+        "...Run!"
+        ""
+    , entity "HEAR.choices=0"
+        "Jonathon..."
+        ""
     ]
-
 type alias MyRule =
     Rules.Rule {}
 
@@ -412,7 +481,7 @@ rulesSpec =
             """
         |> rule_______________________ "shoes"
             """
-            ON: SHOE.allentalkpark
+            ON: SHOE
             DO: ALLENPARK.trigger=1
                 NOTHING.allentalkpark.choices=0
                 SHOE.allentalkpark.choices=0
@@ -1133,7 +1202,209 @@ rulesSpec =
                 PARADISE_OWNER.choices=-1
             DO: JONATHON_DAY4_NEW.trigger=-3
             """ --BADEND: lost in paradise
+        |> rule_______________________ "input code for true"
+            """
+            ON: TRUE_MEM_CARD
+            IF: TRUE_MEM_CARD.trigger=1
+            DO: TRUE_MEM_CARD.trigger=0
+            """
 
+        |> rule_______________________ "jonathon, the chief police"
+            """
+            ON: PAPER_EVI
+            IF: PAPER_EVI.trigger=2
+            DO: PAPER_EVI.trigger=1
+            """
+        |> rule_______________________ "instead of a mere customer"
+            """
+            ON: PAPER_EVI
+            IF: PAPER_EVI.trigger=1
+            DO: PAPER_EVI.trigger=0
+            """
+        |> rule_______________________ "first three lines"
+            """
+            ON: BANK_EVI
+            IF: BANK_EVI.trigger=1
+            DO: BANK_EVI.trigger=0
+            """
+        |> rule_______________________ "first kay photo"
+            """
+            ON: FALSE_MEM_CARD_CONTENT
+            IF: FALSE_MEM_CARD_CONTENT.trigger=4
+            DO: FALSE_MEM_CARD_CONTENT.trigger=3
+            """
+        |> rule_______________________ "second kay photo"
+            """
+            ON: FALSE_MEM_CARD_CONTENT
+            IF: FALSE_MEM_CARD_CONTENT.trigger=3
+            DO: FALSE_MEM_CARD_CONTENT.trigger=2
+            """
+        |> rule_______________________ "last kay photo"
+            """
+            ON: FALSE_MEM_CARD_CONTENT
+            IF: FALSE_MEM_CARD_CONTENT.trigger=2
+            DO: FALSE_MEM_CARD_CONTENT.trigger=1
+            """
+        |> rule_______________________ "sir do you want fun"
+            """
+            ON: STAFF
+            IF: STAFF.trigger=2
+                YES_NIGHT.choices=0
+                NO_NIGHT.choices=0
+            DO: YES_NIGHT.choices=1
+                NO_NIGHT.choices=1
+            """
+        |> rule_______________________ "yes-you spend"
+            """
+            ON: YES_NIGHT
+            DO: YES_NIGHT.choices=-1
+                NO_NIGHT.choices=0
+                STAFF.trigger=1
+            """
+        |> rule_______________________ "no-please leave"
+            """
+            ON: NO_NIGHT
+            DO: NO_NIGHT.choices=-1
+                YES_NIGHT.choices=0
+                STAFF.trigger=1
+            """
+        |> rule_______________________ "yes ending"
+            """
+            ON: STAFF
+            IF: STAFF.trigger=1
+                YES_NIGHT.choices=-1
+            DO: STAFF.trigger=1
+            """
+        |> rule_______________________ "no ending"
+            """
+            ON: STAFF
+            IF: STAFF.trigger=1
+                NO_NIGHT.choices=-1
+            DO: STAFF.trigger=1
+            """
+        |> rule_______________________ "give two choices"
+            """
+            ON: DANGER
+            IF: DANGER.trigger=2
+            DO: DANGER.trigger=1
+                MOVEF.choices=1
+                EXIT.choices=1
+            """
+        |> rule_______________________ "still move"
+            """
+            ON: MOVEF
+            DO: MOVEF.choices=-1
+                EXIT.choices=0
+                ESCAPE.choices=1
+            """
+        |> rule_______________________ "exit"
+            """
+            ON: EXIT
+            DO: EXIT.choices=-1
+                MOVEF.choices=0
+            """
+        |> rule_______________________ "escape-you try to"
+            """
+            ON: ESCAPE
+            DO: ESCAPE.choices=-1
+                HEAR.choices=1
+            """
+        |> rule_______________________ "hear-bad end"
+            """
+            ON: HEAR
+            DO: HEAR.choices=-1
+            """
+        |> rule_______________________ "find in jonathon table"
+            """
+            ON: TABLE
+            IF: TABLE.trigger=1
+            DO: TABLE.trigger=0.choices=-1
+            """
+        |> rule_______________________ "find in jonathon closet"
+            """
+            ON: CLOSET
+            IF: CLOSET.trigger=1
+            DO: CLOSET.trigger=0.choices=-1
+            """
+        |> rule_______________________ "dagger 1 description"
+            """
+            ON: DAGGER
+            IF: DAGGER.trigger=1
+            DO: DAGGER.trigger=0
+            """
+        |> rule_______________________ "dagger 2 description"
+            """
+            ON: DAGGER2_EVI
+            IF: DAGGER2_EVI.trigger=1
+            DO: DAGGER2_EVI.trigger=0
+            """
+        |> rule_______________________ "dagger 1 code"
+            """
+            ON: DAGGER
+            IF: DAGGER.trigger=0
+                DAGGER2_EVI.trigger=0
+            DO: CODE_DAGGER.choices=1
+            """
+        |> rule_______________________ "dagger 2 code"
+            """
+            ON: DAGGER2_EVI
+            IF: DAGGER2_EVI.trigger=0
+                DAGGER.trigger=0
+            DO: CODE_DAGGER2.choices=1
+            """
+        |> rule_______________________ "dagger 1 put together"
+            """
+            ON: CODE_DAGGER
+            DO: CODE_DAGGER.choices=0
+
+            """
+        |> rule_______________________ "dagger 2 put together"
+            """
+            ON: CODE_DAGGER2
+            DO: CODE_DAGGER2.choices=0
+            """
+        |> rule_______________________ "several documents with"
+            """
+            ON: DOCUMENTS_EVI
+            IF: DOCUMENTS_EVI.trigger=1
+            DO: DOCUMENTS_EVI.trigger=0
+            """
+        |> rule_______________________ "letter1"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=5
+            DO: LETTER_EVI.trigger=4
+            """
+        |> rule_______________________ "letter2"
+             """
+             ON: LETTER_EVI
+             IF: LETTER_EVI.trigger=4
+             DO: LETTER_EVI.trigger=3
+             """
+        |> rule_______________________ "letter3"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=3
+            DO: LETTER_EVI.trigger=2
+            """
+        |> rule_______________________ "letter4"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=2
+            DO: LETTER_EVI.trigger=1
+            """
+        |> rule_______________________ "letter5"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=1
+            DO: LETTER_EVI.trigger=0
+            """
+        |> rule_______________________ "letter6"
+            """
+            ON: LETTER_EVI
+            IF: LETTER_EVI.trigger=0
+            DO: LETTER_EVI.trigger=5
+            """
 
 
 
@@ -1353,10 +1624,70 @@ narrative_content =
             "I think the owner of the nightclub is most possible as he knows a lot about Ann and he is most possible to provide weird medicine to Ann to achieve a better business effect. And this can explain why paradise becomes the best nightclub in our city overnight."
         |> content__________________________________ "crazy assumption"
             "Crazy assumption, Kay. To support your investigation, I will give you seven-day rest to search for clues in Paradise. You should go there every day in the next week. Oh, this is a VIP card of Paradise. En--joy--yourself, Kay."
-
-
-
-
+        |> content__________________________________ "input code for true"
+            "A memory card used for cameras. You linked it onto your computer, but somehow it requires password."
+        |> content__________________________________ "first three lines"
+            "Two months ago. 150000 from Ann\nOne month ago. 3000 from government relief\nOne month ago 100000 to John's Renting Company"
+        |> content__________________________________ "jonathon, the chief police"
+            "Name: Jonathon, the chief police of this city"
+        |> content__________________________________ "instead of a mere customer"
+            "Instead of a mere customer, he is my chosen one, the one who is destined to break and reconstruct my life.\nHe loves the effect of pill named \"Paradise\" produced by the owner of Paradise."
+        |> content__________________________________ "first kay photo"
+            "Kay's standing outside the Daniel's department. [shot on July 10th]"
+        |> content__________________________________ "second kay photo"
+            "Kay's photo of eating the dinner near Daniel's department. [shot on July 10th]"
+        |> content__________________________________ "last kay photo"
+            "Kay's getting inside Daniel's department. [shot on July 11th]"
+        |> content__________________________________ "sir do you want fun"
+            "Welcome to Paradise, Sir~~!! Do you come for fun tonight?"
+        |> content__________________________________ "yes-you spend"
+            "You are totally exhausted now. You spend your night in the nightclub to experience why Paradise is favored by so many officials..."
+        |> content__________________________________ "no-please leave"
+            "Em, Sir. Tonight is the night for joy here. If you don't have much interest, please leave."
+        |> content__________________________________ "yes ending"
+            "Sir, isn't our service extraordinarily fantastic?"
+        |> content__________________________________ "no ending"
+            "Sir, please leave here, since you seem not interested in our services...?"
+        |> content__________________________________ "give two choices"
+            "The park is in darkness this night. And you see a crowd wearing weird uniforms are wandering. Do you still want to enter? Hint: Police is not allowed to be equipped with a gun during vacation."
+        |> content__________________________________ "still move"
+            "The moment you enter the park, they turn back and stare at you immediately. You can feel a strange and aggressive atmosphere is spreading in the park. You want to take out your weapon but you suddenly remember that your gun was left in the office because of vacation."
+        |> content__________________________________ "escape-you try to"
+            "You try to escape but a familiar voice sound. It’s Jonathon."
+        |> content__________________________________ "hear-bad end"
+            "My dear Kay, it seems that I have done a lot of useless work before. It never occurs to me that you will be so easy to deal with as you have been acting wisely until last month. Goodbye."
+        |> content__________________________________ "exit"
+            "You're finding the road to exit the park anxiously..."
+        |> content__________________________________ "find in jonathon closet"
+            "You open the cabinet door, and search thoroughly. You found a few documents and a letter."
+        |> content__________________________________ "find in jonathon table"
+            "You take the bank card and the dagger from Jonathon's table."
+        |> content__________________________________ "dagger 1 description"
+            "A dagger with weird letters on it. It seems that it is part of some couple souvenir as it seems that letters on it are only part of some complete patterns."
+        |> content__________________________________ "dagger 2 description"
+            "A dagger with weird letters on it. It seems that it is part of some couple souvenir."
+        |> content__________________________________ "dagger 1 code"
+            "It seems that another dagger can be put together with this one...?"
+        |> content__________________________________ "dagger 2 code"
+            "It seems that another dagger can be put together with this one...?"
+        |> content__________________________________ "dagger 1 put together"
+            "You put them together! You can now recognize the characters above: that is \"ASWN\"."
+        |> content__________________________________ "dagger 2 put together"
+            "You put them together! You can now recognize the characters above: that is \"ASWN\"."
+        |> content__________________________________ "several documents with"
+            "Several documents with the following titles:"
+        |> content__________________________________ "letter1"
+            "A letter from Daniel\nDear Captain Jonathon:\nPlease stop your continuous inspection on us. I have been fired by five companies in the last months. I will tell you everything I know about my sister to you."
+        |> content__________________________________ "letter2"
+            "You may not know the endings of my sister's ex-boyfriend. He was obsessed with the joy in the night club and spent all his money and my sister's money on one girl in the night club. As a result, my sister hates the night club a lot. But due to the economic pressure, she has no choice but to work here. But she always dislikes people there."
+        |> content__________________________________ "letter3"
+            "It's you that change her opinion towards night club customers. The first time she meets you, she didn't know your identity and behaved in a rude manner. You didn't behave angrily but comfort her kindly. You behaved in a gentle manner to her. And that's why she is willing to have a trial on the \"Paradise\" for you as you love it a lot."
+        |> content__________________________________ "letter4"
+            "But she happened to see your trade with the owner of Paradise. That night, she rushed home and said to me \"Daniel, Stallworth received the bribe from the bad boss. It will cause a lot of trouble for him if he was caught by the city council\". How she cares about you!"
+        |> content__________________________________ "letter5"
+            "Even after she knows that you dream of being the darkness of our city, she still loves you and decides to turn you back to the light. So she filmed your trade with the owner of Paradise, your secret training of an armed team with the hope of threatening you back. How stupid she is?"
+        |> content__________________________________ "letter6"
+            "I know you have seen the photos through some media before. I will give you the memory card of those photos to you. Just forgive my sister.\n -- Daniel"
 
 parsedData =
     let

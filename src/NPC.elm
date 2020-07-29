@@ -22,6 +22,9 @@ type NPCType
     | Bank
     | Key_Jonathon
     | FakeMemCard
+    | Staff
+    | Table
+    | Closet
     | None
 
 
@@ -650,6 +653,69 @@ danielPhone =
      , name = ""
      }
 
+staffNightClub : NPC
+staffNightClub =
+    { itemType = Staff
+     , area =
+         { x = 355
+         , y = 475
+         , wid = 40
+         , hei = 120
+         }
+     , interacttrue = False
+     , description = "STAFF"
+     , place = ( NightClub, Day5 )
+     , isFinished = False
+     , name = ""
+     }
+
+dangerPark : NPC
+dangerPark =
+    { itemType = Staff
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 5000
+         , hei = 5000
+         }
+     , interacttrue = False
+     , description = "DANGER"
+     , place = ( Park, Day5 )
+     , isFinished = False
+     , name = ""
+     }
+
+jonathonCloset : NPC
+jonathonCloset =
+    { itemType = Closet
+     , area =
+         { x = 500
+         , y = 55
+         , wid = 75
+         , hei = 10
+         }
+     , interacttrue = False
+     , description = "CLOSET"
+     , place = ( PoliceOffice, Day5 )
+     , isFinished = False
+     , name = ""
+     }
+
+jonathonTable : NPC
+jonathonTable =
+    { itemType = Table
+     , area =
+         { x = 340
+         , y = 60
+         , wid = 40
+         , hei = 70
+         }
+     , interacttrue = False
+     , description = "TABLE"
+     , place = ( PoliceOffice, Day5 )
+     , isFinished = False
+     , name = ""
+     }
 
 allNPCs: List NPC
 allNPCs =
@@ -664,6 +730,9 @@ allNPCs =
     , homePhone, danielPhone
     , danielDaniel
     , danielPaper, danielKey, danielMemCard, danielBank
+    , staffNightClub
+    , dangerPark
+    , jonathonTable, jonathonCloset
     ]
 
 
@@ -681,6 +750,16 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
     | Note
     | Pill
     | Dagger
+    | TrueMemCard
+    | TrueMemCardContent
+    | KeyEvi
+    | FalseMemCardContent
+    | BankAccountEvi
+    | PaperEvi
+    | LetterEvi
+    | DocumentsEvi
+    | Dagger2Evi
+    | BankCardEvi
     | NoEvi
 
 disk_evi : Evidence
@@ -715,6 +794,85 @@ dagger_evi =
     , isExamined = False
     }
 
+trueMemCard_evi : Evidence
+trueMemCard_evi =
+    { eviType = TrueMemCard
+    , description = "TRUE_MEM_CARD"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+trueMemCardContent_evi : Evidence
+trueMemCardContent_evi =
+    { eviType = TrueMemCardContent
+    , description = "TRUE_MEM_CARD_CONTENT"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+fakeMemCardContent_evi : Evidence
+fakeMemCardContent_evi =
+    { eviType = FalseMemCardContent
+    , description = "FALSE_MEM_CARD_CONTENT"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+key_evi : Evidence
+key_evi =
+    { eviType = KeyEvi
+    , description = "KEY_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+paper_evi : Evidence
+paper_evi =
+    { eviType = PaperEvi
+    , description = "PAPER_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+bank_account_evi : Evidence
+bank_account_evi =
+    { eviType = BankAccountEvi
+    , description = "BANK_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+bank_card_evi : Evidence
+bank_card_evi =
+    { eviType = BankCardEvi
+    , description = "BANK_CARD_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+dagger2_evi : Evidence
+dagger2_evi =
+    { eviType = Dagger2Evi
+    , description = "DAGGER2_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+documents_evi : Evidence
+documents_evi =
+    { eviType = DocumentsEvi
+    , description = "DOCUMENTS_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+letter_evi : Evidence
+letter_evi =
+    { eviType = LetterEvi
+    , description = "LETTER_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+
 empty_evi : Evidence
 empty_evi =
     { eviType = NoEvi
@@ -727,7 +885,11 @@ empty_evi =
 
 allEvidence : List Evidence
 allEvidence =
-    [ disk_evi, note_evi, pill_evi
+    [ disk_evi, note_evi, pill_evi, dagger_evi
+    , trueMemCard_evi, trueMemCardContent_evi
+    , key_evi, bank_account_evi, paper_evi
+    , fakeMemCardContent_evi, documents_evi
+    , bank_card_evi, letter_evi, dagger2_evi
     ]
 
 
