@@ -622,7 +622,17 @@ danielAttr_day4 =
     , isFinished = False
     }
 
-
+courtAttr_day6 : MapAttr
+courtAttr_day6 =
+    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
+        , heroIni = { x = 150, y = 475, width = 40, height = 120 }
+        , barrier = danielBarrier
+        , hint = []
+        , vehicle = danielVehicle
+        , story = "On the court."
+        , scene = ( CityCouncil, Day6 )
+        , isFinished = False
+        }
 --energyDrainAttr : MapAttr
 --energyDrainAttr =
 --    { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
@@ -745,7 +755,7 @@ allMapAttrs =
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5
     , danielAttr_day3, danielAttr_day4
     , switchingAttr
-    , policeOfficeAttr_day6, homeAttr_day6]
+    , policeOfficeAttr_day6, homeAttr_day6, courtAttr_day6]
 
 
 

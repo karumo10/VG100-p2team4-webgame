@@ -27,6 +27,7 @@ type NPCType
     | Closet
     | None
     | PoliceX
+    | Judge
 
 
 
@@ -572,6 +573,21 @@ policeXPhone_day6 =
     , name = ""
     }
 
+courtSpeaker : NPC
+courtSpeaker =
+    { itemType = Phone
+    , area =
+        { x = 0
+        , y = 0
+        , wid = 1200
+        , hei = 600
+        }
+    , interacttrue = False
+    , description = "COURT.day6"
+    , place = ( CityCouncil , Day6)
+    , isFinished = False
+    , name = ""
+    }
 
 danielDaniel : NPC
 danielDaniel =
@@ -734,6 +750,7 @@ jonathonTable =
      , name = ""
      }
 
+
 allNPCs: List NPC
 allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night, cLee_day4
@@ -751,6 +768,7 @@ allNPCs =
     , dangerPark
     , jonathonTable, jonathonCloset
     , policeXPhone_day6
+    , courtSpeaker
     ]
 
 

@@ -390,9 +390,39 @@ initialWorldModelSpec =
     , entity "POLICEXPHONE.day6.trigger=1"
         "Phone rings"
         " Kay, you are accused of killing Mr. Daniel. The city council is calling you to receive an inquiry to roughly decide whether you should be responsible for that. And we will hold an inspection of your home."
+    , entity "COURT.day6.trigger=1"
+        "..."
+        ""
 -- day6choices
-    , entity "POLICEXPHONEANSWER.day6.choices=0"
+    , entity "POLICEXPHONEANSWER1.day6.choices=0"
         "Take the phone"
+        ""
+    , entity "POLICEXPHONEANSWER2.day6.choices=0"
+        "What trouble?"
+         ""
+    , entity "POLICEXPHONEANSWER3.day6.choices=0"
+        "No, the evidence can lie. My friend."
+        ""
+    , entity "COURTANSWER1.day6.choices=0"
+        "......"
+        ""
+    , entity "COURTANSWER2.day6.choices=0"
+        "......"
+        ""
+    , entity "COURTANSWER3.day6.choices=0"
+        "But it only proves contiguity, right? Contiguity cannot derive to causation, right?]"
+        ""
+    , entity "COURTANSWER4.day6.choices=0"
+        "But it was an arranged vacation plan by Jonathon"
+        ""
+    , entity "COURTANSWER5.day6.choices=0"
+        "Yes."
+        ""
+    , entity "COURTANSWER6.day6.choices=0"
+        "I go out for some personal affairs. But I don’t go there."
+        ""
+    , entity "COURTANSWER7.day6.choices=0"
+        "......"
         ""
 
     ]
@@ -1422,56 +1452,174 @@ rulesSpec =
            """
            ON: POLICEXPHONE
            IF: POLICEXPHONE.day6.trigger=1
-           DO: POLICEXPHONEANSWER.day6.choices=1
+           DO: POLICEXPHONEANSWER1.day6.choices=1
            """
         |> rule_______________________ "policex2"
            """
-           ON: POLICEXPHONEANSWER
+           ON: POLICEXPHONEANSWER1
            IF: POLICEXPHONE.day6.trigger=1
-               POLICEXPHONEANSWER.day6.choices=1
+               POLICEXPHONEANSWER1.day6.choices=1
            DO: POLICEXPHONE.day6.trigger=2
-               POLICEXPHONEANSWER.day6.choices=2
+               POLICEXPHONEANSWER1.day6.choices=2
            """
         |> rule_______________________ "policex3"
            """
            ON: POLICEXPHONE
            IF: POLICEXPHONE.day6.trigger=2
-               POLICEXPHONEANSWER.day6.choices=2
-           DO: POLICEXPHONEANSWER.day6.choices=3
+               POLICEXPHONEANSWER1.day6.choices=2
+           DO: POLICEXPHONEANSWER2.day6.choices=1
                POLICEXPHONE.day6.trigger=3
            """
         |> rule_______________________ "policex4"
            """
-           ON: POLICEXPHONE
+           ON: POLICEXPHONEANSWER2
            IF: POLICEXPHONE.day6.trigger=3
-               POLICEXPHONEANSWER.day6.choices=3
+               POLICEXPHONEANSWER2.day6.choices=1
            DO: POLICEXPHONE.day6.trigger=4
-               POLICEXPHONEANSWER.day6.choices=4
+               POLICEXPHONEANSWER2.day6.choices=2
            """
         |> rule_______________________ "policex5"
            """
            ON: POLICEXPHONE
            IF: POLICEXPHONE.day6.trigger=4
-               POLICEXPHONEANSWER.day6.choices=4
+               POLICEXPHONEANSWER2.day6.choices=2
            DO: POLICEXPHONE.day6.trigger=5
-               POLICEXPHONEANSWER.day6.choices=5
+               POLICEXPHONEANSWER3.day6.choices=1
            """
         |> rule_______________________ "policex6"
            """
-           ON: POLICEXPHONE
+           ON: POLICEXPHONEANSWER3
            IF: POLICEXPHONE.day6.trigger=5
-               POLICEXPHONEANSWER.day6.choices=5
+               POLICEXPHONEANSWER3.day6.choices=1
            DO: POLICEXPHONE.day6.trigger=6
-               POLICEXPHONEANSWER.day6.choices=6
+               POLICEXPHONEANSWER3.day6.choices=2
            """
         |> rule_______________________ "policex7"
-                   """
+           """
            ON: POLICEXPHONE
            IF: POLICEXPHONE.day6.trigger=6
-               POLICEXPHONEANSWER.day6.choices=6
+               POLICEXPHONEANSWER3.day6.choices=2
            DO: POLICEXPHONE.day6.trigger=7
-               POLICEXPHONEANSWER.day6.choices=7
+               POLICEXPHONEANSWER3.day6.choices=3
            """
+        |> rule_______________________ "court1"
+           """
+           ON: COURT
+           IF: COURT.day6.trigger=1
+           DO: COURTANSWER1.day6.choices=1
+           """
+        |> rule_______________________ "court2"
+           """
+           ON: COURTANSWER1
+           IF: COURTANSWER1.day6.choices=1
+               COURT.trigger=1
+           DO: COURTANSWER1.day6.choices=2
+               COURT.trigger=2
+           """
+        |> rule_______________________ "court3"
+           """
+           ON: COURT
+           IF: COURTANSWER1.day6.choices=2
+               COURT.trigger=2
+           DO: COURTANSWER2.day6.choices=1
+               COURT.trigger=3
+           """
+        |> rule_______________________ "court4"
+           """
+           ON: COURTANSWER2
+           IF: COURTANSWER2.day6.choices=1
+               COURT.trigger=3
+           DO: COURTANSWER2.day6.choices=2
+               COURT.trigger=4
+           """
+        |> rule_______________________ "court5"
+                   """
+                   ON: COURT
+                   IF: COURTANSWER2.day6.choices=2
+                       COURT.trigger=4
+                   DO: COURTANSWER3.day6.choices=1
+                       COURT.trigger=5
+                   """
+        |> rule_______________________ "court6"
+                   """
+                   ON: COURTANSWER3
+                   IF: COURTANSWER3.day6.choices=1
+                       COURT.trigger=5
+                   DO: COURTANSWER3.day6.choices=2
+                       COURT.trigger=6
+                   """
+        |> rule_______________________ "court7"
+                   """
+                   ON: COURT
+                   IF: COURTANSWER3.day6.choices=2
+                       COURT.trigger=6
+                   DO: COURTANSWER4.day6.choices=1
+                       COURT.trigger=7
+                   """
+        |> rule_______________________ "court8"
+                   """
+                   ON: COURTANSWER4
+                   IF: COURTANSWER4.day6.choices=1
+                       COURT.trigger=7
+                   DO: COURTANSWER4.day6.choices=2
+                       COURT.trigger=8
+                   """
+        |> rule_______________________ "court9"
+                   """
+                   ON: COURT
+                   IF: COURTANSWER4.day6.choices=2
+                       COURT.trigger=8
+                   DO: COURTANSWER5.day6.choices=1
+                       COURT.trigger=9
+                   """
+        |> rule_______________________ "court10"
+                   """
+                   ON: COURTANSWER5
+                   IF: COURTANSWER5.day6.choices=1
+                       COURT.trigger=9
+                   DO: COURTANSWER5.day6.choices=2
+                       COURT.trigger=10
+                   """
+        |> rule_______________________ "court11"
+                   """
+                   ON: COURT
+                   IF: COURTANSWER5.day6.choices=2
+                       COURT.trigger=10
+                   DO: COURTANSWER6.day6.choices=1
+                       COURT.trigger=11
+                   """
+        |> rule_______________________ "court12"
+                   """
+                   ON: COURTANSWER6
+                   IF: COURTANSWER6.day6.choices=1
+                       COURT.trigger=11
+                   DO: COURTANSWER6.day6.choices=2
+                       COURT.trigger=12
+                   """
+        |> rule_______________________ "court13"
+                   """
+                   ON: COURT
+                   IF: COURTANSWER6.day6.choices=2
+                       COURT.trigger=12
+                   DO: COURTANSWER7.day6.choices=1
+                       COURT.trigger=13
+                   """
+        |> rule_______________________ "court14"
+                   """
+                   ON: COURTANSWER7
+                   IF: COURTANSWER7.day6.choices=1
+                       COURT.trigger=13
+                   DO: COURTANSWER7.day6.choices=2
+                       COURT.trigger=14
+                   """
+        |> rule_______________________ "court15"
+                   """
+                   ON: COURT
+                   IF: COURTANSWER7.day6.choices=2
+                       COURT.trigger=14
+                   DO: COURTANSWER7.day6.choices=3
+                       COURT.trigger=15
+                   """
 
 
 
@@ -1758,17 +1906,48 @@ narrative_content =
         |> content__________________________________ "policex1"
             "Phone rings"
         |> content__________________________________ "policex2"
-            "..."
+            "Phone rings"
         |> content__________________________________ "policex3"
             "Kay, you are in great trouble!"
         |> content__________________________________ "policex4"
-            "What trouble?"
+            "Kay, you are in great trouble!"
         |> content__________________________________ "policex5"
             "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won’t do such thing, the evidence doesn’t lie, Kay."
         |> content__________________________________ "policex6"
-            "No, the evidence can lie. My friend."
+            "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won’t do such thing, the evidence doesn’t lie, Kay."
         |> content__________________________________ "policex7"
             "Ha, who knows? But thanks to the attention of the city council, this case will be discussed in the city council. I think they are coming to pick you up."
+        |> content__________________________________ "court1"
+            "Welcome the arrival of the protagonist of today. Kay, you are accused of killing Daniel. Do you want to say anything first?"
+        |> content__________________________________ "court2"
+            "Welcome the arrival of the protagonist of today. Kay, you are accused of killing Daniel. Do you want to say anything first?"
+        |> content__________________________________ "court3"
+            "Okay, you are allowed to keep silent. And now, it goes into the inquiry part. Welcome the police to show their evidence."
+        |> content__________________________________ "court4"
+            "Okay, you are allowed to keep silent. And now, it goes into the inquiry part. Welcome the police to show their evidence."
+        |> content__________________________________ "court5"
+             "First, Jonathon assigned you to solve the case of the death of Ann, Daniel’s sister. This case is reporting as solved without any evidence and now Daniel is died, too. You are the most suspicious one."
+        |> content__________________________________ "court6"
+             "First, Jonathon assigned you to solve the case of the death of Ann, Daniel’s sister. This case is reporting as solved without any evidence and now Daniel is died, too. You are the most suspicious one."
+        |> content__________________________________ "court7"
+             "Well. Among the police who have investigated this case, only you were on vacation during the day that Daniel was killed. It provided him with conditions to carry out the case."
+        |> content__________________________________ "court8"
+             "Well. Among the police who have investigated this case, only you were on vacation during the day that Daniel was killed. It provided him with conditions to carry out the case."
+        |> content__________________________________ "court9"
+             "You were not at home that night. Is it right?"
+        |> content__________________________________ "court10"
+             "You were not at home that night. Is it right?"
+        |> content__________________________________ "court11"
+             "And according to the report of the autopsy, Daniel died about the night of your first vacation day. Do you have any explanation for your action that night?"
+        |> content__________________________________ "court12"
+             "And according to the report of the autopsy, Daniel died about the night of your first vacation day. Do you have any explanation for your action that night?"
+        |> content__________________________________ "court13"
+             "But the monitoring cameras at that region happen to be disconnected. It’s quite interesting, right?"
+        |> content__________________________________ "court14"
+             "But the monitoring cameras at that region happen to be disconnected. It’s quite interesting, right?"
+        |> content__________________________________ "court15"
+             "Sorry for interrupting. Time for the inquiry has been out. Here goes to the time for material evidence."
+
 
 parsedData =
     let
