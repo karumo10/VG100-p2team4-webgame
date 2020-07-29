@@ -144,6 +144,23 @@ p.inset {
     z-index: 200;
 }
 
+.menuhelp {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 250ms ease;
+    cursor: pointer;
+    z-index: 200;
+}
+
 .menu span {
     position: relative;
     display: block;
@@ -192,6 +209,10 @@ p.inset {
     display: none;
 }
 
+#menuhelp {
+    display: none;
+}
+
 #menu:checked ~ .menu {
     background-color: transparent;
     transform: rotate(360deg);
@@ -199,6 +220,12 @@ p.inset {
 }
 
 #menu2:checked ~ .menu2 {
+    background-color: transparent;
+    transform: rotate(360deg);
+    transition: transform 250ms ease;
+}
+
+#menuhelp:checked ~ .menuhelp {
     background-color: transparent;
     transform: rotate(360deg);
     transition: transform 250ms ease;
@@ -248,6 +275,11 @@ p.inset {
     transition: right 500ms ease;
 }
 
+#menuhelp:checked ~ .navhelp {
+    left: 0px;
+    transition: left 500ms ease;
+}
+
 .nav {
     position: fixed;
     top: 0;
@@ -266,6 +298,19 @@ p.inset {
     top: 0;
     right: -200px;
     width: 200px;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #444;
+    transition: right 500ms ease;
+    z-index: 0;
+}
+
+.navhelp {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 400px;
     height: 100vh;
     margin: 0;
     padding: 0;

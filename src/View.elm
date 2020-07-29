@@ -2,8 +2,6 @@ module View exposing (..)
 import Html.Attributes exposing (autoplay, class, id, loop, src, style, type_, value)
 import Html.Events exposing (on, onClick, onInput, onMouseDown, onMouseUp)
 import Debug exposing (toString)
-import Html.Attributes exposing (style,src,type_,autoplay,id,loop,class)
-import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
@@ -54,9 +52,9 @@ view model =
 
         ]
         ++ (rendersuspectlist model)
-        ++ (elevatorQuestToSvg model )
-        ++ (renderBagButton model))
-
+        ++ (elevatorQuestToSvg model)
+        ++ (renderBagButton model)
+        ++ (renderhelp))
 
 renderMain : Model -> List (Html Msg)
 renderMain model =
@@ -260,6 +258,20 @@ renderMapButton model =
             , onClick ToDaniel
             ]
             [ Html.text "Daniel's home" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "430px"
+            , style "top" "240px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToCityCouncil
+            ]
+            [ Html.text "City Council" ]
+
 
 
             ]
@@ -477,6 +489,26 @@ renderPic model =
                 ++ [ bedQuestToSvg model ]
                 ++ [ renderdialog model ]
                 ++ energytosvg model.energy model.energy_Full
+
+            CityCouncil->
+                [ Svg.image
+                    [ xlinkHref "./court.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ [renderchoice model]
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [ renderdialog model ]
+                ++ energytosvg model.energy model.energy_Full
+
+
  -----
 
 
@@ -1180,7 +1212,7 @@ renderStartButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "500px"
+        , style "left" "450px"
         , style "top" "350px"
         , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "18px"
@@ -1200,7 +1232,7 @@ renderStoryButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "350px"
+        , style "left" "200px"
         , style "top" "350px"
         , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "18px"
@@ -1220,7 +1252,7 @@ renderAboutUsButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "650px"
+        , style "left" "700px"
         , style "top" "350px"
         , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "18px"
@@ -1254,3 +1286,19 @@ renderBackButton model =
         [ Html.text "Back to Starter" ]
     else
     div [][]
+
+renderhelp =
+    [Html.input [Html.Attributes.type_ "checkbox", id "menuhelp"][]
+    ,Html.label [Html.Attributes.for "menuhelp", class "menuhelp"][text "?"]
+    ,Html.nav [class "navhelp"] [div [class "container"]
+                                 [div [ style "font-family" "Helvetica, Arial, sans-serif"
+                                      , style "color" "white"
+                                      , style "font-size" "18px"] [ Html.br [] []
+                                                                  , Html.br [] []
+                                                                  , Html.br [] []
+                                                                  , p [] [ text "Use 'W', 'A', 'S', 'D' to move." ]
+                                                                  , p [] [ text "You cannot move if you run into an obstacle." ]
+                                                                  , p [] [ text "Use 'X' to interact with NPCs. Click the choice which you want to choose." ]
+                                                                  , p [] [ text "Carefully read the text, or you'll miss some information." ]
+                                                                  , p [] [ text "Talk with NPCs if you are stuck." ]]]]
+        ]
