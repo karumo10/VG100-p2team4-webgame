@@ -111,7 +111,7 @@ update msg model =
             , Cmd.none
             )
         ToCityCouncil ->
-            ( mapSwitch Daniel model
+            ( mapSwitch CityCouncil model
             , Cmd.none
             )
 

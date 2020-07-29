@@ -23,6 +23,7 @@ type Map
     | Journalist
     | NightClub
     | Daniel
+    | CityCouncil
     | StarterPage
     | Story
     | AboutUs
