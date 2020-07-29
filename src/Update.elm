@@ -1164,7 +1164,8 @@ specialUpdates model
         |> day4_jonathon_update_coffee_machine
         |> day4_daniel_evidence_update_phone
         |> day4_daniel_finished_update_jonathon
-    else model
+    else
+    model
 
 
 
@@ -1573,23 +1574,6 @@ pickDiskOrNote model =
     model
 
 
-
-
-
-whichActionTakenDisk : WorldModel.ID -> Bool
-whichActionTakenDisk id =
-    if id == "CHOOSEWHICHTAKEDISK" then
-    True
-    else
-    False
-
-whichActionTakenNote : WorldModel.ID -> Bool
-whichActionTakenNote id =
-    if id == "CHOOSEWHICHTAKENOTE" then
-    True
-
-    else
-    False
 
 
 

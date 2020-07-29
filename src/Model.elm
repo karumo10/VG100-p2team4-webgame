@@ -104,7 +104,7 @@ initial =
     , map = StarterPage -- door at police office
     , mapAttr = policeOfficeAttr_day1
     , bag = bagIni
-    , items = [ gunIni , bulletProofIni ]
+    , items = [  ]
     , worldModel = initialWorldModel
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the police chief, Jonathon, because I know his scandal. I need to avoid being killed."
     , ruleCounts = Dict.empty
@@ -237,6 +237,8 @@ isItemAtMap model item =
     True
     else
     False
+
+
 
 
 

@@ -143,10 +143,10 @@ initialWorldModelSpec =
         ""
 
     ---- choices
-    , entity "YES.bobtalk.choices=0"
+    , entity "YES"
         "Yes"
         ""
-    , entity "NO.bobtalk.choices=0"
+    , entity "NO"
         "No"
         ""
     , entity "DOESNTMATTER.leetalk.choices=0"
@@ -412,7 +412,7 @@ rulesSpec =
             """
         |> rule_______________________ "shoes"
             """
-            ON: SHOE.allentalkpark
+            ON: SHOE
             DO: ALLENPARK.trigger=1
                 NOTHING.allentalkpark.choices=0
                 SHOE.allentalkpark.choices=0
