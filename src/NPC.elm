@@ -666,7 +666,7 @@ staffNightClub =
      , description = "STAFF"
      , place = ( NightClub, Day5 )
      , isFinished = False
-     , name = ""
+     , name = "JOHN"
      }
 
 dangerPark : NPC
