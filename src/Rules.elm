@@ -389,7 +389,7 @@ initialWorldModelSpec =
 -- day6
     , entity "POLICEXPHONE.day6.trigger=1"
         "Phone rings"
-        ""
+        " Kay, you are accused of killing Mr. Daniel. The city council is calling you to receive an inquiry to roughly decide whether you should be responsible for that. And we will hold an inspection of your home."
 -- day6choices
     , entity "POLICEXPHONEANSWER.day6.choices=0"
         "Take the phone"
