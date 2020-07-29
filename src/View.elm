@@ -1090,7 +1090,7 @@ renderStartButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "500px"
+        , style "left" "450px"
         , style "top" "350px"
         , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "18px"
@@ -1110,7 +1110,7 @@ renderStoryButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "350px"
+        , style "left" "200px"
         , style "top" "350px"
         , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "18px"
@@ -1130,7 +1130,7 @@ renderAboutUsButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "650px"
+        , style "left" "700px"
         , style "top" "350px"
         , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "18px"
