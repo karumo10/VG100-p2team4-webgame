@@ -1,6 +1,9 @@
 module View exposing (..)
 import Html.Attributes exposing (autoplay, class, id, loop, src, style, type_, value)
 import Html.Events exposing (on, onClick, onInput, onMouseDown, onMouseUp)
+import Debug exposing (toString)
+import Html.Attributes exposing (style,src,type_,autoplay,id,loop,class)
+import Html.Events exposing (on, onClick, onMouseDown, onMouseUp)
 import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
@@ -51,7 +54,7 @@ view model =
 
         ]
         ++ (rendersuspectlist model)
-        ++ ( elevatorQuestToSvg model )
+        ++ (elevatorQuestToSvg model )
         ++ (renderBagButton model))
 
 
@@ -709,7 +712,7 @@ renderGrid1Detail model =
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid1.comment )
+          [ Html.text ( toString model.hero.x++toString model.hero.y)
           ,
           div []
           [ button
