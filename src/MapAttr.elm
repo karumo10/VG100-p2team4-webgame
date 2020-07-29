@@ -23,6 +23,7 @@ type Day
     | Day3
     | Day4
     | Day5
+    | Day6
     | Nowhere
     | TooBigOrSmall
 
@@ -246,6 +247,18 @@ policeOfficeAttr_day5 =
     , isFinished = False
     }
 
+policeOfficeAttr_day6 : MapAttr
+policeOfficeAttr_day6 =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , story = "DAY6"
+    , scene = ( PoliceOffice, Day6 )
+    , isFinished = False
+    }
+
 parkAttr_day1 : MapAttr
 parkAttr_day1 =
     { exit = { x = 915, y = 190 , wid = 225, hei = 75 }
@@ -416,6 +429,17 @@ homeAttr_day5 =
     , isFinished = False
     }
 
+homeAttr_day6 : MapAttr
+homeAttr_day6 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Morning, another beginning of a week"
+    , scene = ( Home, Day6 )
+    , isFinished = False
+    }
 
 journalistAttr_day1 : MapAttr
 journalistAttr_day1 =
@@ -720,7 +744,8 @@ allMapAttrs =
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5
     , danielAttr_day3, danielAttr_day4
-    , switchingAttr ]
+    , switchingAttr
+    , policeOfficeAttr_day6, homeAttr_day6]
 
 
 

@@ -26,6 +26,7 @@ type NPCType
     | Table
     | Closet
     | None
+    | PoliceX
 
 
 
@@ -555,6 +556,22 @@ homePhone =
      , name = ""
      }
 
+policeXPhone_day6 : NPC
+policeXPhone_day6 =
+    { itemType = Phone
+    , area =
+        { x = 0
+        , y = 0
+        , wid = 1200
+        , hei = 600
+        }
+    , interacttrue = False
+    , description = "POLICEXPHONE.day6"
+    , place = ( Home, Day6)
+    , isFinished = False
+    , name = ""
+    }
+
 
 danielDaniel : NPC
 danielDaniel =
@@ -733,6 +750,7 @@ allNPCs =
     , staffNightClub
     , dangerPark
     , jonathonTable, jonathonCloset
+    , policeXPhone_day6
     ]
 
 

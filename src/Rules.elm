@@ -94,6 +94,8 @@ initialWorldModelSpec =
         "daniel"
         "How unlucky my dear sister is... She wouldn't die if I had persuaded her a little bit more... "
 
+
+
     ---- items
     , entity "BODYPARKSHOES.choices=0"
         "The shoes of Brennan."
@@ -384,7 +386,18 @@ initialWorldModelSpec =
     , entity "HEAR.choices=0"
         "Jonathon..."
         ""
+-- day6
+    , entity "POLICEXPHONE.day6.trigger=1"
+        "Phone rings"
+        ""
+-- day6choices
+    , entity "POLICEXPHONEANSWER.day6.choices=0"
+        "Take the phone"
+        ""
+
     ]
+
+
 type alias MyRule =
     Rules.Rule {}
 
@@ -1405,6 +1418,60 @@ rulesSpec =
             IF: LETTER_EVI.trigger=0
             DO: LETTER_EVI.trigger=5
             """
+        |> rule_______________________ "policex1"
+           """
+           ON: POLICEXPHONE
+           IF: POLICEXPHONE.day6.trigger=1
+           DO: POLICEXPHONEANSWER.day6.choices=1
+           """
+        |> rule_______________________ "policex2"
+           """
+           ON: POLICEXPHONEANSWER
+           IF: POLICEXPHONE.day6.trigger=1
+               POLICEXPHONEANSWER.day6.choices=1
+           DO: POLICEXPHONE.day6.trigger=2
+               POLICEXPHONEANSWER.day6.choices=2
+           """
+        |> rule_______________________ "policex3"
+           """
+           ON: POLICEXPHONE
+           IF: POLICEXPHONE.day6.trigger=2
+               POLICEXPHONEANSWER.day6.choices=2
+           DO: POLICEXPHONEANSWER.day6.choices=3
+               POLICEXPHONE.day6.trigger=3
+           """
+        |> rule_______________________ "policex4"
+           """
+           ON: POLICEXPHONE
+           IF: POLICEXPHONE.day6.trigger=3
+               POLICEXPHONEANSWER.day6.choices=3
+           DO: POLICEXPHONE.day6.trigger=4
+               POLICEXPHONEANSWER.day6.choices=4
+           """
+        |> rule_______________________ "policex5"
+           """
+           ON: POLICEXPHONE
+           IF: POLICEXPHONE.day6.trigger=4
+               POLICEXPHONEANSWER.day6.choices=4
+           DO: POLICEXPHONE.day6.trigger=5
+               POLICEXPHONEANSWER.day6.choices=5
+           """
+        |> rule_______________________ "policex6"
+           """
+           ON: POLICEXPHONE
+           IF: POLICEXPHONE.day6.trigger=5
+               POLICEXPHONEANSWER.day6.choices=5
+           DO: POLICEXPHONE.day6.trigger=6
+               POLICEXPHONEANSWER.day6.choices=6
+           """
+        |> rule_______________________ "policex7"
+                   """
+           ON: POLICEXPHONE
+           IF: POLICEXPHONE.day6.trigger=6
+               POLICEXPHONEANSWER.day6.choices=6
+           DO: POLICEXPHONE.day6.trigger=7
+               POLICEXPHONEANSWER.day6.choices=7
+           """
 
 
 
@@ -1688,6 +1755,20 @@ narrative_content =
             "Even after she knows that you dream of being the darkness of our city, she still loves you and decides to turn you back to the light. So she filmed your trade with the owner of Paradise, your secret training of an armed team with the hope of threatening you back. How stupid she is?"
         |> content__________________________________ "letter6"
             "I know you have seen the photos through some media before. I will give you the memory card of those photos to you. Just forgive my sister.\n -- Daniel"
+        |> content__________________________________ "policex1"
+            "Phone rings"
+        |> content__________________________________ "policex2"
+            "..."
+        |> content__________________________________ "policex3"
+            "Kay, you are in great trouble!"
+        |> content__________________________________ "policex4"
+            "What trouble?"
+        |> content__________________________________ "policex5"
+            "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won’t do such thing, the evidence doesn’t lie, Kay."
+        |> content__________________________________ "policex6"
+            "No, the evidence can lie. My friend."
+        |> content__________________________________ "policex7"
+            "Ha, who knows? But thanks to the attention of the city council, this case will be discussed in the city council. I think they are coming to pick you up."
 
 parsedData =
     let
