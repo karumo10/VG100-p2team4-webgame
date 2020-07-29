@@ -100,10 +100,9 @@ itemsToSvg model =
 
 elevatorQuestToSvg : Model -> List (Html Msg)
 elevatorQuestToSvg model =
-    case model.quests of
-        ElevatorQuest ->
             case model.map of
                 NightClub ->
+                    if model.hero.x >= 1000 then
                     [ div [Html.Attributes.class "main", Html.Attributes.class "basicBox"]
                          [Svg.svg [ width "100"
                                  , height "280"
@@ -134,7 +133,10 @@ elevatorQuestToSvg model =
                                          , fontSize "40px"
                                          ] [ text "2" ]
                                  ]] ]
-                _ ->
+                    else [ div [][] ]
+
+                PoliceOffice ->
+                    if model.hero.x >= 800 && model.hero.x <= 920 then
                     [div [Html.Attributes.class "main", Html.Attributes.class "basicBox"]
                         [Svg.svg [ width "100"
                                  , height "280"
@@ -176,8 +178,98 @@ elevatorQuestToSvg model =
                                          , fill "#F7CA18"
                                          , fontSize "40px"
                                          ] [ text "3" ]]] ]
-        _ ->
-            [ div[][] ]
+                    else [div [][]]
+                Home ->
+                    if model.hero.x >= 1050 && model.hero.x <= 1080 then
+                    [div [Html.Attributes.class "main", Html.Attributes.class "basicBox"]
+                         [Svg.svg [ width "100"
+                                  , height "280"
+                                  , Svg.Attributes.viewBox "0 0 100 280"
+                                  ]
+                                  [ rect [ x "10" , y "10"
+                                  , width "80" , height "80"
+                                  , strokeWidth "5px"
+                                  , stroke "black"
+                                  , fill "none"
+                                  , onClick ElevateTo1
+                                  , Svg.Attributes.class "h"
+                                  ] [] -- f1
+                                  , rect [ x "10", y "100"
+                                  , width "80", height "80"
+                                  , strokeWidth "5px"
+                                  , stroke "black"
+                                  , fill "white"
+                                  , onClick ElevateTo2
+                                  , Svg.Attributes.class "h"
+                                  ] [] -- f2
+                                  , rect [ x "10", y "190"
+                                  , width "80", height "80"
+                                  , strokeWidth "5px"
+                                  , stroke "black"
+                                  , fill "white"
+                                  , onClick ElevateTo3
+                                  , Svg.Attributes.class "h"
+                                  ] [] -- f3
+                                  , text_ [ x "35", y "60"
+                                  , fill "#F7CA18"
+                                  , fontSize "40px"
+                                  ] [ text "1" ]
+                                  , text_ [ x "35", y "150"
+                                  , fill "#F7CA18"
+                                  , fontSize "40px"
+                                  ] [ text "2" ]
+                                  , text_ [ x "35", y "240"
+                                  , fill "#F7CA18"
+                                  , fontSize "40px"
+                                  ] [ text "3" ]]] ]
+                    else [div [][]]
+                _ ->
+                                    if model.hero.x >= 1050 && model.hero.x <= 1080 then
+                                    [div [Html.Attributes.class "main", Html.Attributes.class "basicBox"]
+                                         [Svg.svg [ width "100"
+                                                  , height "280"
+                                                  , Svg.Attributes.viewBox "0 0 100 280"
+                                                  ]
+                                                  [ rect [ x "10" , y "10"
+                                                  , width "80" , height "80"
+                                                  , strokeWidth "5px"
+                                                  , stroke "black"
+                                                  , fill "none"
+                                                  , onClick ElevateTo1
+                                                  , Svg.Attributes.class "h"
+                                                  ] [] -- f1
+                                                  , rect [ x "10", y "100"
+                                                  , width "80", height "80"
+                                                  , strokeWidth "5px"
+                                                  , stroke "black"
+                                                  , fill "white"
+                                                  , onClick ElevateTo2
+                                                  , Svg.Attributes.class "h"
+                                                  ] [] -- f2
+                                                  , rect [ x "10", y "190"
+                                                  , width "80", height "80"
+                                                  , strokeWidth "5px"
+                                                  , stroke "black"
+                                                  , fill "white"
+                                                  , onClick ElevateTo3
+                                                  , Svg.Attributes.class "h"
+                                                  ] [] -- f3
+                                                  , text_ [ x "35", y "60"
+                                                  , fill "#F7CA18"
+                                                  , fontSize "40px"
+                                                  ] [ text "1" ]
+                                                  , text_ [ x "35", y "150"
+                                                  , fill "#F7CA18"
+                                                  , fontSize "40px"
+                                                  ] [ text "2" ]
+                                                  , text_ [ x "35", y "240"
+                                                  , fill "#F7CA18"
+                                                  , fontSize "40px"
+                                                  ] [ text "3" ]]] ]
+                                    else [div [][]]
+
+
+
 
 
 bedQuestToSvg : Model -> Svg Msg

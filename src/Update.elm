@@ -1212,6 +1212,7 @@ specialUpdates model
 
 
 
+
 day2_journalist_finished_update_day : Model -> Model -- format: (IMPORTANT) `time`_`mapname`_finished_update. means that this map at this time is finished, and then update somthing.
 day2_journalist_finished_update_day model =
     let
@@ -1677,23 +1678,6 @@ pickDiskOrNote model =
     model
 
 
-
-
-
-whichActionTakenDisk : WorldModel.ID -> Bool
-whichActionTakenDisk id =
-    if id == "CHOOSEWHICHTAKEDISK" then
-    True
-    else
-    False
-
-whichActionTakenNote : WorldModel.ID -> Bool
-whichActionTakenNote id =
-    if id == "CHOOSEWHICHTAKENOTE" then
-    True
-
-    else
-    False
 
 
 
