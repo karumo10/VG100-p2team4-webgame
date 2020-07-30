@@ -1458,7 +1458,7 @@ badEndsStory elapsed model =
         accum_ =
             if isEnding then accum + elapsed
             else accum
-        interval = 2000
+        interval = 4000
         story_ = List.filter (\a -> Tuple.first a == True) (badEndsList model)
             |> List.head
             |> withDefault (True, "error!!!!!!!!!!!!")

@@ -197,7 +197,7 @@ renderMusic model=
                     ] []
                     ]
                     ]
-        NightClub ->
+        DreamMaze ->
                 div []
                  [ div []
                     [ Html.iframe
