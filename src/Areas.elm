@@ -159,6 +159,7 @@ columnToArea : PreArea -> Area
 columnToArea pre =
     let
         x = 170 + 57 * pre.x
+            + 135
         y = 10 + 57 * pre.y
         wid = 5
         hei = 57 * pre.l
@@ -169,6 +170,7 @@ rowToArea : PreArea -> Area
 rowToArea pre =
     let
         x = 170 + 57 * pre.x
+            + 135
         y = 10 + 57 * pre.y
         wid = 57 * pre.l
         hei = 5
