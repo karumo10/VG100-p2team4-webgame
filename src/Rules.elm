@@ -393,6 +393,10 @@ initialWorldModelSpec =
     , entity "COURT.day6.trigger=1"
         "..."
         ""
+    , entity "HAVING_KEY.trigger=1"
+        "[Speaker] I think it's enough to judge him as “strongly suspicious”. According to the law, you should stay in prison before further investigation."
+        ""
+
 -- day6choices
     , entity "POLICEXPHONEANSWER1.day6.choices=0"
         "What trouble?"
@@ -422,12 +426,18 @@ initialWorldModelSpec =
         "Yes."
         ""
     , entity "COURTANSWER6.day6.choices=0"
-        "I go out for some personal affairs. But I don’t go there."
+        "I go out for some personal affairs. But I don't go there."
         ""
     , entity "COURTANSWER7.day6.choices=0"
         "......"
         ""
     , entity "COURTANSWER8.choices=0"
+        "..."
+        ""
+    , entity "KEY_RESP.choices=0"
+        "But, wait..."
+        ""
+    , entity "KEY_END.choices=0"
         "..."
         ""
 
@@ -1578,7 +1588,29 @@ rulesSpec =
             """
             ON: COURTANSWER8
             DO: COURTANSWER8.choices=-1
-
+            """
+        |> rule_______________________ "key1"
+            """
+            ON: HAVING_KEY
+            IF: HAVING_KEY.trigger=1
+            DO: KEY_RESP.choices=1
+            """
+        |> rule_______________________ "key2"
+            """
+            ON: KEY_RESP
+            DO: KEY_RESP.choices=0
+                HAVING_KEY.trigger=0
+            """
+        |> rule_______________________ "key3"
+            """
+            ON: HAVING_KEY
+            IF: HAVING_KEY.trigger=0
+            DO: KEY_END.choices=1
+            """
+        |> rule_______________________ "key4"
+            """
+            ON: KEY_END
+            DO: KEY_END.choices=-1
             """
 
 
@@ -1828,7 +1860,7 @@ narrative_content =
         |> content__________________________________ "still move"
             "The moment you enter the park, they turn back and stare at you immediately. You can feel a strange and aggressive atmosphere is spreading in the park. You want to take out your weapon but you suddenly remember that your gun was left in the office because of vacation."
         |> content__________________________________ "escape-you try to"
-            "You try to escape but a familiar voice sound. It’s Jonathon."
+            "You try to escape but a familiar voice sound. It's Jonathon."
         |> content__________________________________ "hear-bad end"
             "My dear Kay, it seems that I have done a lot of useless work before. It never occurs to me that you will be so easy to deal with as you have been acting wisely until last month. Goodbye."
         |> content__________________________________ "exit"
@@ -1866,7 +1898,7 @@ narrative_content =
         |> content__________________________________ "kay, you are"
             "kay, you are in great trouble!"
         |> content__________________________________ "what trouble--daniel"
-            "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won’t do such thing, the evidence doesn’t lie, Kay."
+            "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won't do such thing, the evidence doesn't lie, Kay."
         |> content__________________________________ "no the evidence--ha who"
             "Ha, who knows? But thanks to the attention of the city council, this case will be discussed in the city council. I think they are coming to pick you up."
         |> content__________________________________ "sound--kay, you are"
@@ -1882,7 +1914,7 @@ narrative_content =
         |> content__________________________________ "court4"
             "..."
         |> content__________________________________ "court5"
-             "[Police] First, Jonathon assigned you to solve the case of the death of Ann, Daniel’s sister. This case is reporting as solved without any evidence and now Daniel is died, too. You are the most suspicious one."
+             "[Police] First, Jonathon assigned you to solve the case of the death of Ann, Daniel's sister. This case is reporting as solved without any evidence and now Daniel is died, too. You are the most suspicious one."
         |> content__________________________________ "court6"
              "But it only proves contiguity, right? Contiguity cannot derive to causation, right?"
         |> content__________________________________ "court7"
@@ -1898,13 +1930,24 @@ narrative_content =
         |> content__________________________________ "court12"
              "I went out for some personal affairs. But I did not go there."
         |> content__________________________________ "court13"
-             "[Police] But the monitoring cameras at that region happen to be disconnected. It’s quite interesting, right?"
+             "[Police] But the monitoring cameras at that region happen to be disconnected. It's quite interesting, right?"
         |> content__________________________________ "court14"
              "But you have no evidence to show that I have gone there, too! Right?"
         |> content__________________________________ "court15"
              "[Speaker] Sorry for interrupting. Time for the inquiry has been out. Here goes to the time for material evidence."
         |> content__________________________________ "court16"
             "..."
+        |> content__________________________________ "key1"
+            "One key for Daniel's home is found in Kay's Home. Why inspecting a home requires key? Or you want to do something else?"
+        |> content__________________________________ "key2"
+            "But, wait, that's not the case..."
+        |> content__________________________________ "key3"
+            "[Speaker] It's enough to judge you as \"strongly suspicious\". According to the law, you should stay in prison before further investigation."
+        |> content__________________________________ "key4"
+            "..."
+
+
+
 
 parsedData =
     let

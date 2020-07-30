@@ -1433,7 +1433,7 @@ day6_items_update_speaker model =
         curr_npcs_ = List.filter (\a -> a.place == (CityCouncil,Day6)) npcs_all_
 
     in
-    if speaker.description == "COURT.day6" then
+    if speaker.description == "COURT.day6" && (findCertainQuestion model "COURTANSWER8") then
         { model | npcs_all = npcs_all_, npcs_curr = curr_npcs_ }
     else model
 
@@ -1448,7 +1448,7 @@ badEndsStory elapsed model =
         accum_ =
             if isEnding then accum + elapsed
             else accum
-        interval = 5000
+        interval = 2000
         story_ = List.filter (\a -> Tuple.first a == True) (badEndsList model)
             |> List.head
             |> withDefault (True, "error!!!!!!!!!!!!")
@@ -1519,12 +1519,21 @@ badEnd5 model =
             findCertainQuestion model "HEAR"
     in
     if isCaught then
-    (True, "[Bad End: Forbidden Park]\nStory: News report: A new policeman is employed to replace the place of the missing police Kay.")
+    (True, "[Bad End: Forbidden Park]\nNews report: A new policeman is employed to replace the place of the missing police Kay.")
     else (False, model.story)
 
+badEnd6 : Model -> ( Bool, String )
+badEnd6 model =
+    let
+        isKey =
+            findCertainQuestion model "KEY_END"
+    in
+    if isKey then
+    (True, "[Bad End: Imprisoned]\nNews report: Recently, the case of a series of killings has been solved by Jonathon's team. The murderer Kay, a former policeman in our city was sentenced to life imprisonment. Thanks for Jonathon's effort on maintaining the order of our city, he was elected as the new speaker of our city council.")
+    else (False, model.story)
 
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
