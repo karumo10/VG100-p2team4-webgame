@@ -83,6 +83,7 @@ type alias Model =
     , chosenChoices : List WorldModel.ID
     , codeContent : String
     , codeReached : Bool
+    , isTeleportedToCouncil : Bool
     }
 
 initial : Model
@@ -132,6 +133,7 @@ initial =
     , chosenChoices = []
     , codeContent = ""
     , codeReached = False
+    , isTeleportedToCouncil = False
     --, park_is_exited
     }
 

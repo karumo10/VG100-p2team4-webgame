@@ -577,14 +577,14 @@ courtSpeaker : NPC
 courtSpeaker =
     { itemType = Phone
     , area =
-        { x = 0
-        , y = 0
-        , wid = 1200
-        , hei = 600
+        { x = 3000
+        , y = 3000
+        , wid = 100
+        , hei = 100
         }
     , interacttrue = False
     , description = "COURT.day6"
-    , place = ( CityCouncil , Day6)
+    , place = ( CityCouncil , Day6 )
     , isFinished = False
     , name = ""
     }

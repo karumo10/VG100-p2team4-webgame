@@ -1216,6 +1216,9 @@ specialUpdates model
         |> day4_daniel_finished_update_jonathon
         |> day5_nightclub_update_energy
         |> day5_park_update_exit
+        |> day6_home_teleport_council
+        |> day6_items_update_speaker
+        |> day6_court_update_exit
     else model
 
 
@@ -1405,6 +1408,48 @@ day5_park_update_exit model =
     model |> teleportHero ( 5000, 5000 )
     else model
 
+day6_home_teleport_council : Model -> Model
+day6_home_teleport_council model =
+    let
+        isCaught = findCertainQuestion model "POLICEXPHONEANSWER4"
+        new_ = mapSwitch CityCouncil model
+    in
+    if model.isTeleportedToCouncil == False && isCaught then
+        { new_ | isTeleportedToCouncil = True }
+    else model
+
+day6_items_update_speaker : Model -> Model
+day6_items_update_speaker model =
+    let
+        isHavingKey = isRepeat keyIni model
+        isHavingFakeCard = isRepeat fakeMemCardIni model
+        speaker = List.filter (\a -> a.place == (CityCouncil,Day6)) model.npcs_all
+            |> List.head |> withDefault courtSpeaker
+        speaker_ =
+            if isHavingKey then { speaker | description = "HAVING_KEY" }
+            else if isHavingFakeCard then { speaker | description = "HAVING_FAKE" }
+            else { speaker | description = "GOOD_COURT" }
+        rest = List.filter (\a -> a.place /= (CityCouncil,Day6)) model.npcs_all
+        npcs_all_ = [speaker_] ++ rest
+        curr_npcs_ = List.filter (\a -> a.place == (CityCouncil,Day6)) npcs_all_
+
+    in
+    if speaker.description == "COURT.day6" && (findCertainQuestion model "COURTANSWER8") then
+        { model | npcs_all = npcs_all_, npcs_curr = curr_npcs_ }
+    else model
+
+day6_court_update_exit : Model -> Model
+day6_court_update_exit model =
+    let
+        isExiting = findCertainQuestion model "NOCAUGHT_GO"
+    in
+    if isExiting && (model.map,model.dayState) == (CityCouncil, Day6) && model.hero.y >= 2500 then
+    model |> teleportHero ( 2000, 2000 )
+    else model
+
+
+
+
 badEndsStory : Float -> Model -> Model
 badEndsStory elapsed model =
     let
@@ -1413,7 +1458,7 @@ badEndsStory elapsed model =
         accum_ =
             if isEnding then accum + elapsed
             else accum
-        interval = 5000
+        interval = 2000
         story_ = List.filter (\a -> Tuple.first a == True) (badEndsList model)
             |> List.head
             |> withDefault (True, "error!!!!!!!!!!!!")
@@ -1484,12 +1529,21 @@ badEnd5 model =
             findCertainQuestion model "HEAR"
     in
     if isCaught then
-    (True, "[Bad End: Forbidden Park]\nStory: News report: A new policeman is employed to replace the place of the missing police Kay.")
+    (True, "[Bad End: Forbidden Park]\nNews report: A new policeman is employed to replace the place of the missing police Kay.")
     else (False, model.story)
 
+badEnd6 : Model -> ( Bool, String )
+badEnd6 model =
+    let
+        isKey =
+            findCertainQuestion model "KEY_END" || findCertainQuestion model "FAKE_END"
+    in
+    if isKey then
+    (True, "[Bad End: Imprisoned]\nNews report: Recently, the case of a series of killings has been solved by Jonathon's team. The murderer Kay, a former policeman in our city, was sentenced to life imprisonment. Thanks for Jonathon's effort on maintaining justice, he was elected as the new speaker of our city council.")
+    else (False, model.story)
 
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =

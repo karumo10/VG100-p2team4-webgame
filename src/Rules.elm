@@ -389,19 +389,31 @@ initialWorldModelSpec =
 -- day6
     , entity "POLICEXPHONE.day6.trigger=1"
         "Phone rings"
-        " Kay, you are accused of killing Mr. Daniel. The city council is calling you to receive an inquiry to roughly decide whether you should be responsible for that. And we will hold an inspection of your home."
+        "No phone calls now."
     , entity "COURT.day6.trigger=1"
+        "..."
+        ""
+    , entity "HAVING_KEY.trigger=1"
+        "[Speaker] I think it's enough to judge him as “strongly suspicious”. According to the law, you should stay in prison before further investigation."
+        ""
+    , entity "HAVING_FAKE.trigger=1"
+        "[Speaker] I think it's enough to judge him as “strongly suspicious”. According to the law, you should stay in prison before further investigation."
+        ""
+    , entity "GOOD_COURT.trigger=1"
         "..."
         ""
 -- day6choices
     , entity "POLICEXPHONEANSWER1.day6.choices=0"
-        "Take the phone"
+        "What trouble?"
         ""
     , entity "POLICEXPHONEANSWER2.day6.choices=0"
-        "What trouble?"
+         "No, the evidence can lie. My friend."
          ""
     , entity "POLICEXPHONEANSWER3.day6.choices=0"
-        "No, the evidence can lie. My friend."
+        "*Sound from outside*"
+        ""
+    , entity "POLICEXPHONEANSWER4.day6.choices=0"
+        "Go to City Council"
         ""
     , entity "COURTANSWER1.day6.choices=0"
         "......"
@@ -410,7 +422,7 @@ initialWorldModelSpec =
         "......"
         ""
     , entity "COURTANSWER3.day6.choices=0"
-        "But it only proves contiguity, right? Contiguity cannot derive to causation, right?]"
+        "It's a logic fallacy."
         ""
     , entity "COURTANSWER4.day6.choices=0"
         "But it was an arranged vacation plan by Jonathon"
@@ -419,12 +431,32 @@ initialWorldModelSpec =
         "Yes."
         ""
     , entity "COURTANSWER6.day6.choices=0"
-        "I go out for some personal affairs. But I don’t go there."
+        "I go out for some personal affairs. But I don't go there."
         ""
     , entity "COURTANSWER7.day6.choices=0"
         "......"
         ""
-
+    , entity "COURTANSWER8.choices=0"
+        "..."
+        ""
+    , entity "KEY_RESP.choices=0"
+        "But, wait..."
+        ""
+    , entity "KEY_END.choices=0"
+        "..."
+        ""
+    , entity "FAKE_RESP.choices=0"
+        "But, wait..."
+        ""
+    , entity "FAKE_END.choices=0"
+        "..."
+        ""
+    , entity "NOCAUGHT_RESP.choices=0"
+        "..."
+        ""
+    , entity "NOCAUGHT_GO.choices=0"
+        "Leave there"
+        ""
     ]
 
 
@@ -1448,59 +1480,35 @@ rulesSpec =
             IF: LETTER_EVI.trigger=0
             DO: LETTER_EVI.trigger=5
             """
-        |> rule_______________________ "policex1"
+        |> rule_______________________ "kay, you are"
            """
            ON: POLICEXPHONE
            IF: POLICEXPHONE.day6.trigger=1
            DO: POLICEXPHONEANSWER1.day6.choices=1
            """
-        |> rule_______________________ "policex2"
+        |> rule_______________________ "what trouble--daniel"
            """
            ON: POLICEXPHONEANSWER1
-           IF: POLICEXPHONE.day6.trigger=1
-               POLICEXPHONEANSWER1.day6.choices=1
-           DO: POLICEXPHONE.day6.trigger=2
-               POLICEXPHONEANSWER1.day6.choices=2
+           DO: POLICEXPHONEANSWER1.day6.choices=0
+               POLICEXPHONEANSWER2.day6.choices=1
            """
-        |> rule_______________________ "policex3"
-           """
-           ON: POLICEXPHONE
-           IF: POLICEXPHONE.day6.trigger=2
-               POLICEXPHONEANSWER1.day6.choices=2
-           DO: POLICEXPHONEANSWER2.day6.choices=1
-               POLICEXPHONE.day6.trigger=3
-           """
-        |> rule_______________________ "policex4"
+        |> rule_______________________ "no the evidence--ha who"
            """
            ON: POLICEXPHONEANSWER2
-           IF: POLICEXPHONE.day6.trigger=3
-               POLICEXPHONEANSWER2.day6.choices=1
-           DO: POLICEXPHONE.day6.trigger=4
-               POLICEXPHONEANSWER2.day6.choices=2
-           """
-        |> rule_______________________ "policex5"
-           """
-           ON: POLICEXPHONE
-           IF: POLICEXPHONE.day6.trigger=4
-               POLICEXPHONEANSWER2.day6.choices=2
-           DO: POLICEXPHONE.day6.trigger=5
+           DO: POLICEXPHONEANSWER2.day6.choices=0
                POLICEXPHONEANSWER3.day6.choices=1
            """
-        |> rule_______________________ "policex6"
+        |> rule_______________________ "sound--kay, you are"
            """
            ON: POLICEXPHONEANSWER3
-           IF: POLICEXPHONE.day6.trigger=5
-               POLICEXPHONEANSWER3.day6.choices=1
-           DO: POLICEXPHONE.day6.trigger=6
-               POLICEXPHONEANSWER3.day6.choices=2
+           DO: POLICEXPHONEANSWER3.day6.choices=0
+               POLICEXPHONEANSWER4.day6.choices=1
            """
-        |> rule_______________________ "policex7"
+        |> rule_______________________ "go to city council"
            """
-           ON: POLICEXPHONE
-           IF: POLICEXPHONE.day6.trigger=6
-               POLICEXPHONEANSWER3.day6.choices=2
-           DO: POLICEXPHONE.day6.trigger=7
-               POLICEXPHONEANSWER3.day6.choices=3
+           ON: POLICEXPHONEANSWER4
+           DO: POLICEXPHONEANSWER4.day6.choices=-1
+               POLICEXPHONE.day6.trigger=0
            """
         |> rule_______________________ "court1"
            """
@@ -1511,115 +1519,163 @@ rulesSpec =
         |> rule_______________________ "court2"
            """
            ON: COURTANSWER1
-           IF: COURTANSWER1.day6.choices=1
-               COURT.trigger=1
-           DO: COURTANSWER1.day6.choices=2
+           DO: COURTANSWER1.day6.choices=0
                COURT.trigger=2
            """
         |> rule_______________________ "court3"
            """
            ON: COURT
-           IF: COURTANSWER1.day6.choices=2
-               COURT.trigger=2
+           IF: COURT.trigger=2
            DO: COURTANSWER2.day6.choices=1
-               COURT.trigger=3
            """
         |> rule_______________________ "court4"
            """
            ON: COURTANSWER2
-           IF: COURTANSWER2.day6.choices=1
+           DO: COURTANSWER2.day6.choices=0
                COURT.trigger=3
-           DO: COURTANSWER2.day6.choices=2
-               COURT.trigger=4
            """
         |> rule_______________________ "court5"
                    """
                    ON: COURT
-                   IF: COURTANSWER2.day6.choices=2
-                       COURT.trigger=4
+                   IF: COURT.trigger=3
                    DO: COURTANSWER3.day6.choices=1
-                       COURT.trigger=5
                    """
         |> rule_______________________ "court6"
                    """
                    ON: COURTANSWER3
-                   IF: COURTANSWER3.day6.choices=1
-                       COURT.trigger=5
-                   DO: COURTANSWER3.day6.choices=2
-                       COURT.trigger=6
+                   DO: COURTANSWER3.day6.choices=0
+                       COURT.trigger=4
                    """
         |> rule_______________________ "court7"
                    """
                    ON: COURT
-                   IF: COURTANSWER3.day6.choices=2
-                       COURT.trigger=6
+                   IF: COURT.trigger=4
                    DO: COURTANSWER4.day6.choices=1
-                       COURT.trigger=7
                    """
         |> rule_______________________ "court8"
                    """
                    ON: COURTANSWER4
-                   IF: COURTANSWER4.day6.choices=1
-                       COURT.trigger=7
-                   DO: COURTANSWER4.day6.choices=2
-                       COURT.trigger=8
+                   DO: COURTANSWER4.day6.choices=0
+                       COURT.trigger=5
                    """
         |> rule_______________________ "court9"
                    """
                    ON: COURT
-                   IF: COURTANSWER4.day6.choices=2
-                       COURT.trigger=8
+                   IF: COURT.trigger=5
                    DO: COURTANSWER5.day6.choices=1
-                       COURT.trigger=9
                    """
         |> rule_______________________ "court10"
                    """
                    ON: COURTANSWER5
-                   IF: COURTANSWER5.day6.choices=1
-                       COURT.trigger=9
-                   DO: COURTANSWER5.day6.choices=2
-                       COURT.trigger=10
+                   DO: COURTANSWER5.day6.choices=0
+                       COURT.trigger=6
                    """
         |> rule_______________________ "court11"
                    """
                    ON: COURT
-                   IF: COURTANSWER5.day6.choices=2
-                       COURT.trigger=10
+                   IF: COURT.trigger=6
                    DO: COURTANSWER6.day6.choices=1
-                       COURT.trigger=11
                    """
         |> rule_______________________ "court12"
                    """
                    ON: COURTANSWER6
-                   IF: COURTANSWER6.day6.choices=1
-                       COURT.trigger=11
-                   DO: COURTANSWER6.day6.choices=2
-                       COURT.trigger=12
+                   DO: COURTANSWER6.day6.choices=0
+                       COURT.trigger=7
                    """
         |> rule_______________________ "court13"
                    """
                    ON: COURT
-                   IF: COURTANSWER6.day6.choices=2
-                       COURT.trigger=12
+                   IF: COURT.trigger=7
                    DO: COURTANSWER7.day6.choices=1
-                       COURT.trigger=13
                    """
         |> rule_______________________ "court14"
                    """
                    ON: COURTANSWER7
-                   IF: COURTANSWER7.day6.choices=1
-                       COURT.trigger=13
-                   DO: COURTANSWER7.day6.choices=2
-                       COURT.trigger=14
+                   DO: COURTANSWER7.day6.choices=0
+                       COURT.trigger=8
                    """
         |> rule_______________________ "court15"
                    """
                    ON: COURT
-                   IF: COURTANSWER7.day6.choices=2
-                       COURT.trigger=14
-                   DO: COURTANSWER7.day6.choices=3
-                       COURT.trigger=15
+                   IF: COURT.trigger=8
+                   DO: COURTANSWER8.day6.choices=1
                    """
+        |> rule_______________________ "court16"
+            """
+            ON: COURTANSWER8
+            DO: COURTANSWER8.choices=-1
+            """
+        |> rule_______________________ "key1"
+            """
+            ON: HAVING_KEY
+            IF: HAVING_KEY.trigger=1
+            DO: KEY_RESP.choices=1
+            """
+        |> rule_______________________ "key2"
+            """
+            ON: KEY_RESP
+            DO: KEY_RESP.choices=0
+                HAVING_KEY.trigger=0
+            """
+        |> rule_______________________ "key3"
+            """
+            ON: HAVING_KEY
+            IF: HAVING_KEY.trigger=0
+            DO: KEY_END.choices=1
+            """
+        |> rule_______________________ "key4"
+            """
+            ON: KEY_END
+            DO: KEY_END.choices=-1
+            """
+        |> rule_______________________ "fake1"
+            """
+            ON: HAVING_FAKE
+            IF: HAVING_FAKE.trigger=1
+            DO: FAKE_RESP.choices=1
+            """
+        |> rule_______________________ "fake2"
+            """
+            ON: FAKE_RESP
+            DO: FAKE_RESP.choices=0
+                HAVING_FAKE.trigger=0
+            """
+        |> rule_______________________ "fake3"
+            """
+            ON: HAVING_FAKE
+            IF: HAVING_FAKE.trigger=0
+            DO: FAKE_END.choices=1
+            """
+        |> rule_______________________ "fake4"
+            """
+            ON: FAKE_END
+            DO: FAKE_END.choices=-1
+            """
+
+        |> rule_______________________ "leave1"
+            """
+            ON: GOOD_COURT
+            IF: GOOD_COURT.trigger=1
+            DO: NOCAUGHT_RESP.choices=1
+            """
+        |> rule_______________________ "leave2"
+            """
+            ON: NOCAUGHT_RESP
+            DO: NOCAUGHT_RESP.choices=0
+                GOOD_COURT.trigger=0
+            """
+        |> rule_______________________ "leave3"
+            """
+            ON: GOOD_COURT
+            IF: GOOD_COURT.trigger=0
+            DO: NOCAUGHT_GO.choices=1
+            """
+        |> rule_______________________ "leave4"
+            """
+            ON: NOCAUGHT_GO
+            DO: NOCAUGHT_GO.choices=-1
+            """
+
 
 
 
@@ -1756,7 +1812,7 @@ narrative_content =
         |> content__________________________________ "connect computer"
             "You connect your computer with the hard disk. A message prompt you to key the code."
         |> content__________________________________ "input-you don't"
-            "You don't know why you input the correct password without much thinking. The computer read: \"Owner confirmed. Reporter [Player's name].\""
+            "You don't know why you input the correct password without much thinking. The computer read: \"Owner confirmed. Reporter Yuuki.\""
         |> content__________________________________ "it is my disk"
             "? It is my disk? In that reporter's home? And that dream......? That is to say, I'm not a novelist, I should be that reporter?"
         |> content__________________________________ "check the disk-there are two"
@@ -1772,7 +1828,7 @@ narrative_content =
         |> content__________________________________ "have a clear-you read"
             "You read the note out:"
         |> content__________________________________ "reveal of the"
-            "Reveal of the darkness of our city\nReporter: [Player's name]"
+            "Reveal of the darkness of our city\nReporter: Yuuki"
         |> content__________________________________ "our city"
             "Our city, or in other words, the city of criminal, is known for the increasing rate of criminals in recent years. The reason behind this is because of our master of the police office Jonathon. Thanks to the evidence provided by anonymous police, a light can be shed through the darkness of our city."
         |> content__________________________________ "jonathon keeps"
@@ -1868,7 +1924,7 @@ narrative_content =
         |> content__________________________________ "still move"
             "The moment you enter the park, they turn back and stare at you immediately. You can feel a strange and aggressive atmosphere is spreading in the park. You want to take out your weapon but you suddenly remember that your gun was left in the office because of vacation."
         |> content__________________________________ "escape-you try to"
-            "You try to escape but a familiar voice sound. It’s Jonathon."
+            "You try to escape but a familiar voice sound. It's Jonathon."
         |> content__________________________________ "hear-bad end"
             "My dear Kay, it seems that I have done a lot of useless work before. It never occurs to me that you will be so easy to deal with as you have been acting wisely until last month. Goodbye."
         |> content__________________________________ "exit"
@@ -1903,50 +1959,74 @@ narrative_content =
             "Even after she knows that you dream of being the darkness of our city, she still loves you and decides to turn you back to the light. So she filmed your trade with the owner of Paradise, your secret training of an armed team with the hope of threatening you back. How stupid she is?"
         |> content__________________________________ "letter6"
             "I know you have seen the photos through some media before. I will give you the memory card of those photos to you. Just forgive my sister.\n -- Daniel"
-        |> content__________________________________ "policex1"
-            "Phone rings"
-        |> content__________________________________ "policex2"
-            "Phone rings"
-        |> content__________________________________ "policex3"
-            "Kay, you are in great trouble!"
-        |> content__________________________________ "policex4"
-            "Kay, you are in great trouble!"
-        |> content__________________________________ "policex5"
-            "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won’t do such thing, the evidence doesn’t lie, Kay."
-        |> content__________________________________ "policex6"
-            "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won’t do such thing, the evidence doesn’t lie, Kay."
-        |> content__________________________________ "policex7"
+        |> content__________________________________ "kay, you are"
+            "kay, you are in great trouble!"
+        |> content__________________________________ "what trouble--daniel"
+            "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won't do such thing, the evidence doesn't lie, Kay."
+        |> content__________________________________ "no the evidence--ha who"
             "Ha, who knows? But thanks to the attention of the city council, this case will be discussed in the city council. I think they are coming to pick you up."
+        |> content__________________________________ "sound--kay, you are"
+            "Kay, you are accused of killing Mr. Daniel. The city council is calling you to receive an inquiry to roughly decide whether you should be responsible for that. And we will hold an inspection of your home."
+        |> content__________________________________ "go to city council"
+            "[Speaker] Welcome the arrival of the protagonist of today. Kay, you are accused of killing Daniel. Do you want to say anything first?"
         |> content__________________________________ "court1"
-            "Welcome the arrival of the protagonist of today. Kay, you are accused of killing Daniel. Do you want to say anything first?"
+            "[Speaker] Welcome the arrival of the protagonist of today. Kay, you are accused of killing Daniel. Do you want to say anything first?"
         |> content__________________________________ "court2"
-            "Welcome the arrival of the protagonist of today. Kay, you are accused of killing Daniel. Do you want to say anything first?"
+            "..."
         |> content__________________________________ "court3"
-            "Okay, you are allowed to keep silent. And now, it goes into the inquiry part. Welcome the police to show their evidence."
+            "[Speaker] Okay, you are allowed to keep silent. And now, it goes into the inquiry part. Welcome the police to show their evidence."
         |> content__________________________________ "court4"
-            "Okay, you are allowed to keep silent. And now, it goes into the inquiry part. Welcome the police to show their evidence."
+            "..."
         |> content__________________________________ "court5"
-             "First, Jonathon assigned you to solve the case of the death of Ann, Daniel’s sister. This case is reporting as solved without any evidence and now Daniel is died, too. You are the most suspicious one."
+             "[Police] First, Jonathon assigned you to solve the case of the death of Ann, Daniel's sister. This case is reporting as solved without any evidence and now Daniel is died, too. You are the most suspicious one."
         |> content__________________________________ "court6"
-             "First, Jonathon assigned you to solve the case of the death of Ann, Daniel’s sister. This case is reporting as solved without any evidence and now Daniel is died, too. You are the most suspicious one."
+             "But it only proves contiguity, right? Contiguity cannot derive to causation, right?"
         |> content__________________________________ "court7"
-             "Well. Among the police who have investigated this case, only you were on vacation during the day that Daniel was killed. It provided him with conditions to carry out the case."
+             "[Police] Well. Among the police who have investigated this case, only you were on vacation during the day that Daniel was killed. It provided him with conditions to carry out the case."
         |> content__________________________________ "court8"
-             "Well. Among the police who have investigated this case, only you were on vacation during the day that Daniel was killed. It provided him with conditions to carry out the case."
+             "But it was an arranged vacation plan by Jonathon"
         |> content__________________________________ "court9"
-             "You were not at home that night. Is it right?"
+             "[Police] You were not at home that night. Is it right?"
         |> content__________________________________ "court10"
-             "You were not at home that night. Is it right?"
+             "...Yes. I was not at home."
         |> content__________________________________ "court11"
-             "And according to the report of the autopsy, Daniel died about the night of your first vacation day. Do you have any explanation for your action that night?"
+             "[Police] And according to the report of the autopsy, Daniel died about the night of your first vacation day. Do you have any explanation for your action that night?"
         |> content__________________________________ "court12"
-             "And according to the report of the autopsy, Daniel died about the night of your first vacation day. Do you have any explanation for your action that night?"
+             "I went out for some personal affairs. But I did not go there."
         |> content__________________________________ "court13"
-             "But the monitoring cameras at that region happen to be disconnected. It’s quite interesting, right?"
+             "[Police] But the monitoring cameras at that region happen to be disconnected. It's quite interesting, right?"
         |> content__________________________________ "court14"
-             "But the monitoring cameras at that region happen to be disconnected. It’s quite interesting, right?"
+             "But you have no evidence to show that I have gone there, too! Right?"
         |> content__________________________________ "court15"
-             "Sorry for interrupting. Time for the inquiry has been out. Here goes to the time for material evidence."
+             "[Speaker] Sorry for interrupting. Time for the inquiry has been out. Here goes to the time for material evidence."
+        |> content__________________________________ "court16"
+            "..."
+        |> content__________________________________ "key1"
+            "[Police] One key for Daniel's home is found in Kay's Home. Why inspecting a home requires key? Or you want to do something else?"
+        |> content__________________________________ "key2"
+            "But, wait, that's not the case! That key is just inserted into one side-door in Daniel's room, it is strange so I took it as an..."
+        |> content__________________________________ "key3"
+            "[Speaker] Silence! It's enough to judge you as \"strongly suspicious\". According to the law, you should stay in prison before further investigation."
+        |> content__________________________________ "key4"
+            "..."
+        |> content__________________________________ "fake1"
+            "[Police] One memory card is found in Kay's Home. The content of it is photos of Kay's investigating around Daniel's house filmed by the monitoring cameras."
+        |> content__________________________________ "fake2"
+            "But, wait, that's not the case! I was sent by Jonathon there to investigate, that is just the evidence for Ann's case!..."
+        |> content__________________________________ "fake3"
+            "[Speaker] Silence! More likely to be for *your* case. It's enough to judge you as \"strongly suspicious\". According to the law, you should stay in prison before further investigation."
+        |> content__________________________________ "fake4"
+            "..."
+        |> content__________________________________ "leave1"
+            "[Police] Sorry, Sir Speaker. We haven't found any material evidence yet."
+        |> content__________________________________ "leave2"
+            "..."
+        |> content__________________________________ "leave3"
+            "[Speaker] Well. Then according to our law, Kay can only be viewed as \"slightly suspicious\". He will remain free until you can prove the causation instead of contiguity. You can go home now, Kay."
+        |> content__________________________________ "leave4"
+            "..."
+
+
 
 
 parsedData =

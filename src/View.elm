@@ -415,9 +415,9 @@ renderMapButton model =
             , class "fill"
             , onClick ToHome
             ]
-            [ Html.text "Home1" ]
+            [ Html.text "Home" ]
             ]
-            else if model.dayState == Day2 then
+            else if model.dayState == Day2 && model.dayState == Day2_Finished then
             div []
             [
             button
@@ -444,7 +444,7 @@ renderMapButton model =
             , class "fill"
             , onClick ToHome
             ]
-            [ Html.text "Home1" ]
+            [ Html.text "Home" ]
             ,
             button
             [ style "position" "absolute"
@@ -486,7 +486,7 @@ renderMapButton model =
             , class "fill"
             , onClick ToHome
             ]
-            [ Html.text "Home1" ]
+            [ Html.text "Home" ]
             ,
             button
             [ style "position" "absolute"
@@ -528,7 +528,7 @@ renderMapButton model =
             , class "fill"
             , onClick ToHome
             ]
-            [ Html.text "Home1" ]
+            [ Html.text "Home" ]
             ,
             button
             [ style "position" "absolute"
@@ -570,7 +570,7 @@ renderMapButton model =
             , class "fill"
             , onClick ToHome
             ]
-            [ Html.text "Home1" ]
+            [ Html.text "Home" ]
             ,
             button
             [ style "position" "absolute"
@@ -625,7 +625,7 @@ renderMapButton model =
             , class "fill"
             , onClick ToHome
             ]
-            [ Html.text "Home1" ]
+            [ Html.text "Home" ]
             ,
             button
             [ style "position" "absolute"
@@ -667,7 +667,20 @@ renderMapButton model =
             , class "fill"
             , onClick ToHome
             ]
-            [ Html.text "Home1" ]
+            [ Html.text "Home" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "440px"
+            , style "top" "240px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToCityCouncil
+            ]
+            [ Html.text "City Council" ]
             ]
             else div [][]
 
