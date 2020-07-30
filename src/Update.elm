@@ -115,7 +115,7 @@ update msg model =
             , Cmd.none
             )
         ToBackStreet ->
-            ( mapSwitch CityCouncil model
+            ( mapSwitch BackStreet model
             , Cmd.none
             )
 
