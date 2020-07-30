@@ -26,6 +26,8 @@ type NPCType
     | Table
     | Closet
     | None
+    | PoliceX
+    | Judge
 
 
 
@@ -479,9 +481,9 @@ jonaliLee : NPC
 jonaliLee =
     { itemType = Lee
     , area =
-        { x = 900
+        { x = 520
         , y = 345
-        , wid = 60
+        , wid = 70
         , hei = 180
         }
     , interacttrue = False
@@ -495,9 +497,9 @@ jonaliBody : NPC
 jonaliBody =
     { itemType = JournalistBody
     , area =
-        { x = 600
+        { x = 425
         , y = 400
-        , wid = 180
+        , wid = 30
         , hei = 60
         }
     , interacttrue = False
@@ -555,6 +557,37 @@ homePhone =
      , name = ""
      }
 
+policeXPhone_day6 : NPC
+policeXPhone_day6 =
+    { itemType = Phone
+    , area =
+        { x = 0
+        , y = 0
+        , wid = 1200
+        , hei = 600
+        }
+    , interacttrue = False
+    , description = "POLICEXPHONE.day6"
+    , place = ( Home, Day6)
+    , isFinished = False
+    , name = ""
+    }
+
+courtSpeaker : NPC
+courtSpeaker =
+    { itemType = Phone
+    , area =
+        { x = 0
+        , y = 0
+        , wid = 1200
+        , hei = 600
+        }
+    , interacttrue = False
+    , description = "COURT.day6"
+    , place = ( CityCouncil , Day6)
+    , isFinished = False
+    , name = ""
+    }
 
 danielDaniel : NPC
 danielDaniel =
@@ -717,6 +750,7 @@ jonathonTable =
      , name = ""
      }
 
+
 allNPCs: List NPC
 allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night, cLee_day4
@@ -733,6 +767,8 @@ allNPCs =
     , staffNightClub
     , dangerPark
     , jonathonTable, jonathonCloset
+    , policeXPhone_day6
+    , courtSpeaker
     ]
 
 
