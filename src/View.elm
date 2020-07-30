@@ -1295,7 +1295,7 @@ renderhelp =
                                       , style "font-size" "18px"] [ Html.br [] []
                                                                   , Html.br [] []
                                                                   , Html.br [] []
-                                                                  , p [] [ text "Use 'W', 'A', 'S', 'D' to move." ]
+                                                                  , p [] [ text "Use '↑', '↓', '←', '→' to move." ]
                                                                   , p [] [ text "You cannot move if you run into an obstacle." ]
                                                                   , p [] [ text "Use 'X' to interact with NPCs. Click the choice which you want to choose." ]
                                                                   , p [] [ text "Carefully read the text, or you'll miss some information." ]
