@@ -1440,6 +1440,7 @@ day6_items_update_speaker model =
 
 
 
+
 badEndsStory : Float -> Model -> Model
 badEndsStory elapsed model =
     let
@@ -1526,10 +1527,10 @@ badEnd6 : Model -> ( Bool, String )
 badEnd6 model =
     let
         isKey =
-            findCertainQuestion model "KEY_END"
+            findCertainQuestion model "KEY_END" || findCertainQuestion model "FAKE_END"
     in
     if isKey then
-    (True, "[Bad End: Imprisoned]\nNews report: Recently, the case of a series of killings has been solved by Jonathon's team. The murderer Kay, a former policeman in our city was sentenced to life imprisonment. Thanks for Jonathon's effort on maintaining the order of our city, he was elected as the new speaker of our city council.")
+    (True, "[Bad End: Imprisoned]\nNews report: Recently, the case of a series of killings has been solved by Jonathon's team. The murderer Kay, a former policeman in our city, was sentenced to life imprisonment. Thanks for Jonathon's effort on maintaining justice, he was elected as the new speaker of our city council.")
     else (False, model.story)
 
 badEndsList : Model -> List (Bool, String)

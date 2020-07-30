@@ -396,7 +396,12 @@ initialWorldModelSpec =
     , entity "HAVING_KEY.trigger=1"
         "[Speaker] I think it's enough to judge him as “strongly suspicious”. According to the law, you should stay in prison before further investigation."
         ""
-
+    , entity "HAVING_FAKE.trigger=1"
+        "[Speaker] I think it's enough to judge him as “strongly suspicious”. According to the law, you should stay in prison before further investigation."
+        ""
+    , entity "GOOD_COURT.trigger=1"
+        "..."
+        ""
 -- day6choices
     , entity "POLICEXPHONEANSWER1.day6.choices=0"
         "What trouble?"
@@ -417,7 +422,7 @@ initialWorldModelSpec =
         "......"
         ""
     , entity "COURTANSWER3.day6.choices=0"
-        "But it only proves contiguity, right? Contiguity cannot derive to causation, right?]"
+        "It's a logic fallacy."
         ""
     , entity "COURTANSWER4.day6.choices=0"
         "But it was an arranged vacation plan by Jonathon"
@@ -440,7 +445,18 @@ initialWorldModelSpec =
     , entity "KEY_END.choices=0"
         "..."
         ""
-
+    , entity "FAKE_RESP.choices=0"
+        "But, wait..."
+        ""
+    , entity "FAKE_END.choices=0"
+        "..."
+        ""
+    , entity "NOCAUGHT_RESP.choices=0"
+        "..."
+        ""
+    , entity "NOCAUGHT_GO.choices=0"
+        "Leave there"
+        ""
     ]
 
 
@@ -1612,6 +1628,54 @@ rulesSpec =
             ON: KEY_END
             DO: KEY_END.choices=-1
             """
+        |> rule_______________________ "fake1"
+            """
+            ON: HAVING_FAKE
+            IF: HAVING_FAKE.trigger=1
+            DO: FAKE_RESP.choices=1
+            """
+        |> rule_______________________ "fake2"
+            """
+            ON: FAKE_RESP
+            DO: FAKE_RESP.choices=0
+                HAVING_FAKE.trigger=0
+            """
+        |> rule_______________________ "fake3"
+            """
+            ON: HAVING_FAKE
+            IF: HAVING_FAKE.trigger=0
+            DO: FAKE_END.choices=1
+            """
+        |> rule_______________________ "fake4"
+            """
+            ON: FAKE_END
+            DO: FAKE_END.choices=-1
+            """
+
+        |> rule_______________________ "leave1"
+            """
+            ON: GOOD_COURT
+            IF: GOOD_COURT.trigger=1
+            DO: NOCAUGHT_RESP.choices=1
+            """
+        |> rule_______________________ "leave2"
+            """
+            ON: NOCAUGHT_RESP
+            DO: NOCAUGHT_RESP.choices=0
+                GOOD_COURT.trigger=0
+            """
+        |> rule_______________________ "leave3"
+            """
+            ON: GOOD_COURT
+            IF: GOOD_COURT.trigger=0
+            DO: NOCAUGHT_GO.choices=1
+            """
+        |> rule_______________________ "leave4"
+            """
+            ON: NOCAUGHT_GO
+            DO: NOCAUGHT_GO.choices=-1
+            """
+
 
 
 
@@ -1938,12 +2002,28 @@ narrative_content =
         |> content__________________________________ "court16"
             "..."
         |> content__________________________________ "key1"
-            "One key for Daniel's home is found in Kay's Home. Why inspecting a home requires key? Or you want to do something else?"
+            "[Police] One key for Daniel's home is found in Kay's Home. Why inspecting a home requires key? Or you want to do something else?"
         |> content__________________________________ "key2"
-            "But, wait, that's not the case..."
+            "But, wait, that's not the case! That key is just inserted into one side-door in Daniel's room, it is strange so I took it as an..."
         |> content__________________________________ "key3"
-            "[Speaker] It's enough to judge you as \"strongly suspicious\". According to the law, you should stay in prison before further investigation."
+            "[Speaker] Silence! It's enough to judge you as \"strongly suspicious\". According to the law, you should stay in prison before further investigation."
         |> content__________________________________ "key4"
+            "..."
+        |> content__________________________________ "fake1"
+            "[Police] One memory card is found in Kay's Home. The content of it is photos of Kay's investigating around Daniel's house filmed by the monitoring cameras."
+        |> content__________________________________ "fake2"
+            "But, wait, that's not the case! I was sent by Jonathon there to investigate, that is just the evidence for Ann's case!..."
+        |> content__________________________________ "fake3"
+            "[Speaker] Silence! More likely to be for *your* case. It's enough to judge you as \"strongly suspicious\". According to the law, you should stay in prison before further investigation."
+        |> content__________________________________ "fake4"
+            "..."
+        |> content__________________________________ "fake1"
+            "[Police] Sorry, Sir Speaker. We haven't found any material evidence yet."
+        |> content__________________________________ "fake2"
+            "..."
+        |> content__________________________________ "fake3"
+            "[Speaker] Well. Then according to our law, Kay can only be viewed as \"slightly suspicious\". He will remain free until you can prove the causation instead of contiguity. You can go home now, Kay."
+        |> content__________________________________ "fake4"
             "..."
 
 
