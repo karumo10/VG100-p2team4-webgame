@@ -210,7 +210,7 @@ renderMapButton model =
             button
             [ style "position" "absolute"
             , style "left" "350px"
-            , style "top" "350px"
+            , style "top" "400px"
             , style "font-family" "Helvetica, Arial, sans-serif"
             , style "font-size" "12px"
             , style "height" "30px"
@@ -235,8 +235,8 @@ renderMapButton model =
             ,
             button
             [ style "position" "absolute"
-            , style "left" "320px"
-            , style "top" "450px"
+            , style "left" "330px"
+            , style "top" "270px"
             , style "font-family" "Helvetica, Arial, sans-serif"
             , style "font-size" "12px"
             , style "height" "30px"
@@ -261,7 +261,7 @@ renderMapButton model =
             ,
             button
             [ style "position" "absolute"
-            , style "left" "430px"
+            , style "left" "440px"
             , style "top" "240px"
             , style "font-family" "Helvetica, Arial, sans-serif"
             , style "font-size" "12px"
