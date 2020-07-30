@@ -543,12 +543,12 @@ renderPic model =
                     , height "600"
                     , transform "translate(-30,0)"
                     ] []]
+                ++ [renderdialog model]
                 ++ npcListView model
                 ++ ( heroToSvg model )
-                ++ [ renderdialog model ]
-                ++ [ renderchoice model ]
-                ++ [ renderportrait model ]
+                ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
             Park ->
@@ -561,12 +561,12 @@ renderPic model =
                     , height "600"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ])
-                ++ ( heroToSvg model )
+                ++ [renderdialog model]
                 ++ npcListView model
-                ++ [ renderdialog model ]
-                ++ [ renderchoice model ]
-                ++ [ renderportrait model ]
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
                 else
@@ -578,12 +578,12 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ])
 
-                ++ ( heroToSvg model )
+                ++ [renderdialog model]
                 ++ npcListView model
-                ++ [ renderdialog model ]
-                ++ [ renderchoice model ]
-                ++ [ renderportrait model ]
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
             Switching ->
@@ -620,11 +620,11 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ [renderdialog model]
-                ++ [renderchoice model]
+                ++ npcListView model
                 ++ ( heroToSvg model )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
-                ++ [ renderdialog model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
 
@@ -653,13 +653,12 @@ renderPic model =
                     , height "600"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
+                ++ [renderdialog model]
                 ++ npcListView model
                 ++ ( heroToSvg model )
-                ++ [ renderdialog model ]
-                ++ [ renderportrait model]
+                ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
-                ++ [ renderdialog model ]
-                ++ [ renderchoice model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
 
@@ -673,11 +672,11 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] []]
                 ++ [renderdialog model]
-                ++ [renderchoice model]
+                ++ npcListView model
                 ++ ( heroToSvg model )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
-                ++ [ renderdialog model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
 
@@ -692,11 +691,10 @@ renderPic model =
                     ] []]
                 ++ [renderdialog model]
                 ++ npcListView model
-                ++ [renderchoice model]
                 ++ ( heroToSvg model )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
-                ++ [ renderdialog model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
             CityCouncil->
@@ -710,11 +708,10 @@ renderPic model =
                     ] []]
                 ++ [renderdialog model]
                 ++ npcListView model
-                ++ [renderchoice model]
                 ++ ( heroToSvg model )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
-                ++ [ renderdialog model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
             BackStreet->
@@ -728,11 +725,10 @@ renderPic model =
                     ] []]
                 ++ [renderdialog model]
                 ++ npcListView model
-                ++ [renderchoice model]
                 ++ ( heroToSvg model )
                 ++ [renderportrait model]
                 ++ [ bedQuestToSvg model ]
-                ++ [ renderdialog model ]
+                ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
  -----
@@ -784,7 +780,7 @@ renderchoice model =
                 [] -> "0"
                 _ -> "1"
     in
-        Svg.foreignObject [ x "350", y "200", width "500", height "100%", style "opacity" opacity ]
+        Svg.foreignObject [ x "200", y "400", width "800", height "100%", style "opacity" opacity ]
                           [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset" ]
                               [ul [] <| List.map entityViewchoices (query "*.choices=1" model.worldModel)]
                           ]
@@ -963,7 +959,7 @@ renderGrid1Detail model =
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -980,7 +976,7 @@ renderGrid1Detail model =
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1011,7 +1007,7 @@ renderGrid2Detail model =
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1028,7 +1024,7 @@ renderGrid2Detail model =
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1061,7 +1057,7 @@ renderGrid3Detail model =
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1078,7 +1074,7 @@ renderGrid3Detail model =
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "opacity" opacity
           , style "margin" "auto"
@@ -1110,7 +1106,7 @@ renderGrid4Detail model =
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1127,7 +1123,7 @@ renderGrid4Detail model =
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "opacity" opacity
           , style "margin" "auto"
@@ -1159,7 +1155,7 @@ renderGrid5Detail model =
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1176,7 +1172,7 @@ renderGrid5Detail model =
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "opacity" opacity
           , style "margin" "auto"
@@ -1208,7 +1204,7 @@ renderGrid6Detail model=
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1225,7 +1221,7 @@ renderGrid6Detail model=
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1257,7 +1253,7 @@ renderGrid7Detail model=
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1274,7 +1270,7 @@ renderGrid7Detail model=
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1306,7 +1302,7 @@ renderGrid8Detail model =
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1323,7 +1319,7 @@ renderGrid8Detail model =
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1355,7 +1351,7 @@ renderGrid9Detail model=
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1372,7 +1368,7 @@ renderGrid9Detail model=
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1404,7 +1400,7 @@ renderGrid10Detail model =
           , style "background-color" "white"
           , style "position" "absolute"
           , style "left" "350px"
-          , style "top" "100px"
+          , style "top" "25px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
@@ -1421,7 +1417,7 @@ renderGrid10Detail model =
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
           , style "left" "107.5px"
-          , style "top" "310px"
+          , style "top" "300px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
