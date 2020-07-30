@@ -179,6 +179,217 @@ renderMapButton : Model -> Html Msg
 renderMapButton model =
     case model.map of
         Switching ->
+            if model.dayState == Day1 then
+            div []
+            [
+            button
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPoliceOffice
+            ]
+            [ Html.text "Police Office" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "800px"
+            , style "top" "200px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPark
+            ]
+            [ Html.text "Park" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "400px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToHome
+            ]
+            [ Html.text "Home1" ]
+            ]
+            else if model.dayState == Day2 then
+            div []
+            [
+            button
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPoliceOffice
+            ]
+            [ Html.text "Police Office" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "400px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToHome
+            ]
+            [ Html.text "Home1" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "200px"
+            , style "top" "100px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToJournalist
+            ]
+            [ Html.text "Journalist's Home" ]
+            ]
+            else if model.dayState == Day2_Night then
+            div []
+            [
+            button
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPoliceOffice
+            ]
+            [ Html.text "Police Office" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "400px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToHome
+            ]
+            [ Html.text "Home1" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "330px"
+            , style "top" "270px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToNightClub
+            ]
+            [ Html.text "NightClub" ]
+            ]
+            else if model.dayState == Day3 then
+            div []
+            [
+            button
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPoliceOffice
+            ]
+            [ Html.text "Police Office" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "400px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToHome
+            ]
+            [ Html.text "Home1" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "550px"
+            , style "top" "100px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToDaniel
+            ]
+            [ Html.text "Daniel's home" ]
+            ]
+            else if model.dayState == Day4 then
+            div []
+            [
+            button
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPoliceOffice
+            ]
+            [ Html.text "Police Office" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "400px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToHome
+            ]
+            [ Html.text "Home1" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "550px"
+            , style "top" "100px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToDaniel
+            ]
+            [ Html.text "Daniel's home" ]
+            ]
+            else if model.dayState == Day5 then
             div []
             [
             button
@@ -222,19 +433,6 @@ renderMapButton model =
             ,
             button
             [ style "position" "absolute"
-            , style "left" "200px"
-            , style "top" "100px"
-            , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "12px"
-            , style "height" "30px"
-            , style "width" "120px"
-            , class "fill"
-            , onClick ToJournalist
-            ]
-            [ Html.text "Journalist's Home" ]
-            ,
-            button
-            [ style "position" "absolute"
             , style "left" "330px"
             , style "top" "270px"
             , style "font-family" "Helvetica, Arial, sans-serif"
@@ -245,48 +443,42 @@ renderMapButton model =
             , onClick ToNightClub
             ]
             [ Html.text "NightClub" ]
-            ,
+            ]
+            else if model.dayState == Day6 then
+            div []
+            [
             button
             [ style "position" "absolute"
-            , style "left" "550px"
-            , style "top" "100px"
+            , style "left" "500px"
+            , style "top" "350px"
             , style "font-family" "Helvetica, Arial, sans-serif"
             , style "font-size" "12px"
             , style "height" "30px"
             , style "width" "120px"
             , class "fill"
-            , onClick ToDaniel
+            , onClick ToPoliceOffice
             ]
-            [ Html.text "Daniel's home" ]
+            [ Html.text "Police Office" ]
             ,
             button
             [ style "position" "absolute"
-            , style "left" "440px"
-            , style "top" "240px"
+            , style "left" "350px"
+            , style "top" "400px"
             , style "font-family" "Helvetica, Arial, sans-serif"
             , style "font-size" "12px"
             , style "height" "30px"
             , style "width" "120px"
             , class "fill"
-            , onClick ToCityCouncil
+            , onClick ToHome
             ]
-            [ Html.text "City Council" ]
-            ,
-            button
-            [ style "position" "absolute"
-            , style "left" "250px"
-            , style "top" "320px"
-            , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "12px"
-            , style "height" "30px"
-            , style "width" "120px"
-            , class "fill"
-            , onClick ToBackStreet
+            [ Html.text "Home1" ]
             ]
-            [ Html.text "Back Street" ]
+            else div [][]
 
 
-            ]
+
+
+
 
         EnergyDrain ->
             div []
