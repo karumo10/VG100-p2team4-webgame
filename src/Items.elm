@@ -40,6 +40,7 @@ type alias Item =
     , intro : String
     , comment : String
     , canBeExamined : Bool
+    , img : String
     }
 
 type alias Bag =
@@ -68,6 +69,7 @@ gunIni =
     , intro = "gun"
     , comment = "This is a gun"
     , canBeExamined = False
+    , img = ""
     }
 
 bulletProofIni : Item
@@ -83,6 +85,7 @@ bulletProofIni =
     , intro = "bulletproof"
     , comment = "Use this to prevent you from bullet"
     , canBeExamined = False
+    , img = ""
     }
 
 noteIni : Item
@@ -92,13 +95,13 @@ noteIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = Journalist
     , x = 700
     , y = 530
     , intro = "note"
     , comment = "Note"
     , canBeExamined = False
-
+    , img = "./items/note.png"
     }
 
 diskIni : Item
@@ -108,13 +111,13 @@ diskIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = Journalist
     , x = 700
     , y = 530
     , intro = "disk"
     , comment = "Disk"
     , canBeExamined = True
-
+    , img = "./items/disk.png"
     }
 
 pillIni : Item
@@ -124,13 +127,13 @@ pillIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = NightClub
     , x = 700
     , y = 530
     , intro = "pill"
     , comment = "Weird pills taken from Paradise."
     , canBeExamined = True
-
+    , img = "./items/pills_nightclub.png"
     }
 
 daggerIni : Item
@@ -140,12 +143,13 @@ daggerIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = NightClub
     , x = 700
     , y = 530
     , intro = "dagger"
     , comment = "A dagger with weird letters on it."
     , canBeExamined = True
+    , img = "./items/dagger_Ann.png"
     }
 
 trueMemCardIni : Item
@@ -155,12 +159,13 @@ trueMemCardIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = PoliceOffice
     , x = 700
     , y = 530
     , intro = "memory card"
     , comment = "VERIFICATION PASSED. ACCESS ALLOWED."
     , canBeExamined = True
+    , img = "./items/memorycard.png"
     }
 
 fakeMemCardIni : Item
@@ -170,12 +175,13 @@ fakeMemCardIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = Daniel
     , x = 700
     , y = 530
     , intro = "another memory card"
     , comment = "A memory card, used for cameras, found in Daniel's house."
     , canBeExamined = True
+    , img = "./items/memorycard_fake.png"
     }
 
 keyIni : Item
@@ -185,12 +191,13 @@ keyIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = Daniel
     , x = 700
     , y = 530
     , intro = "key"
     , comment = "The key found in Daniel's house."
     , canBeExamined = True
+    , img = "./items/key.png"
     }
 
 paperIni : Item
@@ -200,12 +207,13 @@ paperIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = Daniel
     , x = 700
     , y = 530
     , intro = "Paper"
     , comment = "A paper with customer's favor, found in Daniel's house."
     , canBeExamined = True
+    , img = "./items/custom's_favor.png"
     }
 
 bankIni : Item
@@ -215,12 +223,13 @@ bankIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = Daniel
     , x = 700
     , y = 530
     , intro = "Bank statement"
     , comment = "A bank account statement, found in Daniel's house."
     , canBeExamined = True
+    , img = "./items/bank_account_stat.png"
     }
 
 bankCardIni : Item
@@ -230,12 +239,13 @@ bankCardIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
-    , x = 700
-    , y = 530
+    , scene = PoliceOffice
+    , x = 300
+    , y = 100
     , intro = "Bank card"
     , comment = "A bank card taken from Jonathon's office."
     , canBeExamined = True
+    , img = "./items/bankcard.png"
     }
 
 dagger2Ini : Item
@@ -245,12 +255,13 @@ dagger2Ini =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
-    , x = 700
-    , y = 530
+    , scene = PoliceOffice
+    , x = 310
+    , y = 100
     , intro = "Dagger 2"
     , comment = "A dagger taken from Jonathon's office."
     , canBeExamined = True
+    , img = "./items/dagger_Jonathon.png"
     }
 
 letterIni : Item
@@ -260,12 +271,13 @@ letterIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = PoliceOffice
     , x = 700
     , y = 530
     , intro = "Letter"
     , comment = "Letter taken from Jonathon's office."
     , canBeExamined = True
+    , img = "./items/letter.png"
     }
 
 documentsIni : Item
@@ -275,14 +287,78 @@ documentsIni =
     , isHeld = False
     , isWear = False
     , number = 1
-    , scene = Park
+    , scene = PoliceOffice
     , x = 700
     , y = 530
     , intro = "Documents"
     , comment = "Documents taken from Jonathon's office."
     , canBeExamined = True
+    , img = "./items/documents.png"
     }
 
+pillsIni : Item
+pillsIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = PoliceOffice
+    , x = 700
+    , y = 530
+    , intro = "A bottle of pills"
+    , comment = "A plain bottle of pills. The most popular 'food' in this city, Paradise."
+    , canBeExamined = True
+    , img = "./items/pills_policeoffice.png"
+    }
+
+planIni : Item
+planIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = PoliceOffice
+    , x = 700
+    , y = 530
+    , intro = "Plan document"
+    , comment = "A plan document. The most popular 'food' in this city, Paradise."
+    , canBeExamined = True
+    , img = "./items/plan.png"
+    }
+
+bankaccIni : Item
+bankaccIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = PoliceOffice
+    , x = 700
+    , y = 530
+    , intro = "Another bank account statement"
+    , comment = "Another bank account statement taken from Jonathon's office."
+    , canBeExamined = True
+    , img = "./items/bank_account_stat_Jonathon.png"
+    }
+
+customconIni : Item
+customconIni =
+    { itemType = BulletProof
+    , isPick = False
+    , isHeld = False
+    , isWear = False
+    , number = 1
+    , scene = PoliceOffice
+    , x = 700
+    , y = 530
+    , intro = "A custom contract"
+    , comment = "A custom contract taken from Jonathon's office."
+    , canBeExamined = True
+    , img = "./items/custom_contract.png"
+    }
 
 
 emptyIni : Item
@@ -298,6 +374,7 @@ emptyIni =
     , intro = "empty"
     , comment = " Nothing here "
     , canBeExamined = False
+    , img = ""
     }
 
 emptyPickUp: Item
@@ -313,7 +390,7 @@ emptyPickUp =
     , intro = "3"
     , comment = ""
     , canBeExamined = False
-
+    , img = ""
     }
 
 bagIni : Bag
