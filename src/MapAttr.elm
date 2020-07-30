@@ -103,6 +103,8 @@ danielBarrier =
             [ ]
         _ -> danielList
 
+
+
 policeOfficeVehicle : List Vehicle
 policeOfficeVehicle =
     [ { area = { x = 820, y = 430, wid = 115, hei = 110 }, which = Elevator }
@@ -437,7 +439,7 @@ homeAttr_day6 =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , story = "Morning, another beginning of a week"
+    , story = "Phone rings... press X to pick the phone."
     , scene = ( Home, Day6 )
     , isFinished = False
     }
@@ -625,9 +627,9 @@ danielAttr_day4 =
 
 courtAttr_day6 : MapAttr
 courtAttr_day6 =
-    { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
-    , heroIni = { x = 0, y = 5000, width = 40, height = 120 }
-    , barrier = []
+    { exit = { x = 2000, y = 2000 , wid = 20, hei = 20  }
+    , heroIni = { x = 3050, y = 3050, width = 20, height = 20 }
+    , barrier = courtBarrierList
     , hint = []
     , vehicle = []
     , story = "On the court."

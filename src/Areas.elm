@@ -68,6 +68,14 @@ parkBarrierList =
     , {x = 0, y = 180, wid = 1200, hei = 20}
     ]
 
+courtBarrierList : List Area
+courtBarrierList =
+    [ { x = 3000, y = 3000, wid = 10, hei = 100 }
+    , { x = 3000, y = 3100, wid = 100, hei = 10 }
+    , { x = 3000, y = 3000, wid = 100, hei = 10 }
+    , { x = 3100, y = 3000, wid = 10, hei = 100 }]
+
+
 nightClubBarrierList : List Area
 nightClubBarrierList =
             [ { x = 150, y = 435 , wid = 910, hei = 20 } -- f1.ceiling (every floor 230)
