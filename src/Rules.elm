@@ -389,7 +389,7 @@ initialWorldModelSpec =
 -- day6
     , entity "POLICEXPHONE.day6.trigger=1"
         "Phone rings"
-        " Kay, you are accused of killing Mr. Daniel. The city council is calling you to receive an inquiry to roughly decide whether you should be responsible for that. And we will hold an inspection of your home."
+        "No phone calls now."
     , entity "COURT.day6.trigger=1"
         "..."
         ""
@@ -2017,13 +2017,13 @@ narrative_content =
             "[Speaker] Silence! More likely to be for *your* case. It's enough to judge you as \"strongly suspicious\". According to the law, you should stay in prison before further investigation."
         |> content__________________________________ "fake4"
             "..."
-        |> content__________________________________ "fake1"
+        |> content__________________________________ "leave1"
             "[Police] Sorry, Sir Speaker. We haven't found any material evidence yet."
-        |> content__________________________________ "fake2"
+        |> content__________________________________ "leave2"
             "..."
-        |> content__________________________________ "fake3"
+        |> content__________________________________ "leave3"
             "[Speaker] Well. Then according to our law, Kay can only be viewed as \"slightly suspicious\". He will remain free until you can prove the causation instead of contiguity. You can go home now, Kay."
-        |> content__________________________________ "fake4"
+        |> content__________________________________ "leave4"
             "..."
 
 

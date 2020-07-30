@@ -396,7 +396,7 @@ emptyPickUp =
 
 bagIni : Bag
 bagIni =
-    { grid1 = fakeMemCardIni
+    { grid1 = emptyIni
     , grid2 = emptyIni
     , grid3 = emptyIni
     , grid4 = emptyIni

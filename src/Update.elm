@@ -1218,6 +1218,7 @@ specialUpdates model
         |> day5_park_update_exit
         |> day6_home_teleport_council
         |> day6_items_update_speaker
+        |> day6_court_update_exit
     else model
 
 
@@ -1437,6 +1438,14 @@ day6_items_update_speaker model =
         { model | npcs_all = npcs_all_, npcs_curr = curr_npcs_ }
     else model
 
+day6_court_update_exit : Model -> Model
+day6_court_update_exit model =
+    let
+        isExiting = findCertainQuestion model "NOCAUGHT_GO"
+    in
+    if isExiting && (model.map,model.dayState) == (CityCouncil, Day6) && model.hero.y >= 2500 then
+    model |> teleportHero ( 2000, 2000 )
+    else model
 
 
 
