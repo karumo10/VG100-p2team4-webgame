@@ -1217,6 +1217,7 @@ specialUpdates model
         |> day5_nightclub_update_energy
         |> day5_park_update_exit
         |> day6_home_teleport_council
+        |> day6_items_update_speaker
     else model
 
 
@@ -1415,6 +1416,29 @@ day6_home_teleport_council model =
     if model.isTeleportedToCouncil == False && isCaught then
         { new_ | isTeleportedToCouncil = True }
     else model
+
+day6_items_update_speaker : Model -> Model
+day6_items_update_speaker model =
+    let
+        isHavingKey = isRepeat keyIni model
+        isHavingFakeCard = isRepeat fakeMemCardIni model
+        speaker = List.filter (\a -> a.place == (CityCouncil,Day6)) model.npcs_all
+            |> List.head |> withDefault courtSpeaker
+        speaker_ =
+            if isHavingKey then { speaker | description = "HAVING_KEY" }
+            else if isHavingFakeCard then { speaker | description = "HAVING_FAKE" }
+            else { speaker | description = "GOOD_COURT" }
+        rest = List.filter (\a -> a.place /= (CityCouncil,Day6)) model.npcs_all
+        npcs_all_ = [speaker_] ++ rest
+        curr_npcs_ = List.filter (\a -> a.place == (CityCouncil,Day6)) npcs_all_
+
+    in
+    if speaker.description == "COURT.day6" then
+        { model | npcs_all = npcs_all_, npcs_curr = curr_npcs_ }
+    else model
+
+
+
 
 badEndsStory : Float -> Model -> Model
 badEndsStory elapsed model =

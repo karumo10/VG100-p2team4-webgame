@@ -584,7 +584,7 @@ courtSpeaker =
         }
     , interacttrue = False
     , description = "COURT.day6"
-    , place = ( CityCouncil , Day6)
+    , place = ( CityCouncil , Day6 )
     , isFinished = False
     , name = ""
     }
