@@ -130,38 +130,38 @@ danielVehicle =
 
 hintsMaze1 : List Hint
 hintsMaze1 =
-    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "...haven't finished...report...no evidence..." }
-    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "There's still an interview..." }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Be careful! Be careful! Be careful...Jonathon..." }
-    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "...Jonathon...kill...not Kay...it's you..." } ]
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "...haven't finished...report...no evidence..." }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "There's still an interview..." }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Be careful! Be careful! Be careful...Jonathon..." }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "...Jonathon...kill...not Kay...it's you..." } ]
 
 hintsMaze2 : List Hint
 hintsMaze2 =
-    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "...It's quite interesting: now, you are me, I am you... You know that Jonathon is a bad guy as you write it in your novel? Even more interesting..." }
-    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Ah, it seems that you have lost some memory, my friends. I can tell you something. It's quite weird that the day we planned to meet in the office, I was called to help inspect a night club. Do you think so? Who will inspect a night club at morning?..." }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don't know which evidence you take in \"your\" home. They are both useful but you should pay attention how to use them properly, my dear friend..." }
-    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "...Listen! What is whirring and whizzing? Double, double! Toil and trouble; fire burn and cauldron bubble! ..." } ]
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "...It's quite interesting: now, you are me, I am you... You know that Jonathon is a bad guy as you write it in your novel? Even more interesting..." }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "Ah, it seems that you have lost some memory, my friends. I can tell you something. It's quite weird that the day we planned to meet in the office, I was called to help inspect a night club. Do you think so? Who will inspect a night club at morning?..." }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don't know which evidence you take in \"your\" home. They are both useful but you should pay attention how to use them properly, my dear friend..." }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "...Listen! What is whirring and whizzing? Double, double! Toil and trouble; fire burn and cauldron bubble! ..." } ]
 
 hintsMaze3 : List Hint
 hintsMaze3 =
-    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "Oh, it seems that tonight we have a new friend. Ha, Nice to see a new friend join our chat at night. Oh, our new friend seems to be in great pain and guilt. Ha, it's normal to be painful because of the death of family member but the guilty is quite interesting. Do you think so, my lucky, \"Kay\"?"}
-    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "It's fake. It's fake. It's fake. I had no choice to do. Forgive me. Forgive me. Forgive me. That will be destroyed tomorrow at a very early time. Please do save it." }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "How stupid our boss is? Use a place twice to carry out his plan of eliminating? My dear Jonathon, though the economic situation is very bad, with your ability, it should not be a case to create a new battlefield. Or, there exists more secret in Pa-ra-di-se?" }
-    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "Be careful, [player's name]. Jonathon seems to be impatient... Don't behave too aggressive." } ]
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "Oh, it seems that tonight we have a new friend. Ha, Nice to see a new friend join our chat at night. Oh, our new friend seems to be in great pain and guilt. Ha, it's normal to be painful because of the death of family member but the guilty is quite interesting. Do you think so, my lucky, \"Kay\"?"}
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "It's fake. It's fake. It's fake. I had no choice to do. Forgive me. Forgive me. Forgive me. That will be destroyed tomorrow at a very early time. Please do save it." }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "How stupid our boss is? Use a place twice to carry out his plan of eliminating? My dear Jonathon, though the economic situation is very bad, with your ability, it should not be a case to create a new battlefield. Or, there exists more secret in Pa-ra-di-se?" }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "Be careful, [player's name]. Jonathon seems to be impatient... Don't behave too aggressive." } ]
 
 hintsMaze4 : List Hint
 hintsMaze4 =
-    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "Do you think that, this sudden vacation is quite weird?" }
-    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "Do you think that, some things collecting in this \"sudden\" inspection are like traps?" }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "Do you think that, it's dangerous to possess a key with no knowledge of what it will unlock?" }
-    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "To be, or not to be: that is the question,\nWhether it's nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles, and by opposing end them." } ]
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "Do you think that, this sudden vacation is quite weird?" }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "Do you think that, some things collecting in this \"sudden\" inspection are like traps?" }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Do you think that, it's dangerous to possess a key with no knowledge of what it will unlock?" }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "To be, or not to be: that is the question,\nWhether it's nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles, and by opposing end them." } ]
 
 hintsMaze5 : List Hint
 hintsMaze5 =
-    [ { area = { x = 185, y = 135, wid = 20, hei = 20 }, content = "" }
-    , { area = { x = 360, y = 320, wid = 20, hei = 20 }, content = "" }
-    , { area = { x = 360, y = 435, wid = 20, hei = 20 }, content = "" }
-    , { area = { x = 530, y = 240, wid = 20, hei = 20 }, content = "" } ]
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "" }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "" } ]
 
 
 policeOfficeAttr_day1 : MapAttr
@@ -187,6 +187,7 @@ policeOfficeAttr_day2 =
     , scene = ( PoliceOffice, Day2 )
     , isFinished = False
     }
+
 policeOfficeAttr_day2_finished : MapAttr
 policeOfficeAttr_day2_finished =
     { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
@@ -650,8 +651,8 @@ courtAttr_day6 =
 
 dreamMazeAttr_day1 : MapAttr
 dreamMazeAttr_day1 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 + 135 , y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze1
     , vehicle = []
@@ -662,8 +663,8 @@ dreamMazeAttr_day1 =
 
 dreamMazeAttr_day2 : MapAttr
 dreamMazeAttr_day2 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze2
     , vehicle = []
@@ -674,8 +675,8 @@ dreamMazeAttr_day2 =
 
 dreamMazeAttr_day2_finished : MapAttr
 dreamMazeAttr_day2_finished =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze2
     , vehicle = []
@@ -686,8 +687,8 @@ dreamMazeAttr_day2_finished =
 
 dreamMazeAttr_day2_night : MapAttr
 dreamMazeAttr_day2_night =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze2
     , vehicle = []
@@ -698,8 +699,8 @@ dreamMazeAttr_day2_night =
 
 dreamMazeAttr_day3 : MapAttr
 dreamMazeAttr_day3 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze3
     , vehicle = []
@@ -710,8 +711,8 @@ dreamMazeAttr_day3 =
 
 dreamMazeAttr_day4 : MapAttr
 dreamMazeAttr_day4 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 , y = 15, width = 20, height = 20 } --judge box
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze4
     , vehicle = []
@@ -721,8 +722,8 @@ dreamMazeAttr_day4 =
     }
 dreamMazeAttr_day5 : MapAttr
 dreamMazeAttr_day5 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 470 , y = 575, width = 20, height = 20 } --no dream
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 470 + 135, y = 575, width = 20, height = 20 } --no dream
     , barrier = maze1Barrier
     , hint = hintsMaze5
     , vehicle = []

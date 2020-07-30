@@ -61,8 +61,8 @@ heroToSvgInMaze : Hero -> List (Svg msg)
 heroToSvgInMaze hero =
     let
         ( wid, hei ) = ( hero.width, hero.height )
-        ( x_, y_ ) = ( toFloat hero.x + wid/2, toFloat hero.y + hei/2 )
-        r_ = ( min wid hei ) / 2
+        ( x_, y_ ) = ( toFloat hero.x - 4 + wid/2 , toFloat hero.y + 1 + hei/2 )
+        r_ = ( min wid hei ) / 2 - 1
     in
     [
         circle

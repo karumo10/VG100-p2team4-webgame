@@ -597,6 +597,7 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ]
                 ++ [ renderdialog model ]
+                ++ [renderportrait model]
 
             EnergyDrain ->
 
@@ -606,6 +607,8 @@ renderPic model =
                     , width "1200"
                     , height "600"][]]
                 ++ [ renderdialog model ]
+                ++ [renderportrait model]
+
 
             Home ->
                 [Svg.image
@@ -628,7 +631,7 @@ renderPic model =
             DreamMaze ->
                 [Svg.image
                     [ xlinkHref "./dream_maze_1.png"
-                    , x "0"
+                    , x "135"
                     , y "0"
                     , width "900"
                     , height "630"
@@ -637,6 +640,8 @@ renderPic model =
                 --++ heroToSvg model.hero
                 ++ ( heroToSvgInMaze model.hero )
                 ++ [ renderdialog model ]
+                ++ [renderportrait model]
+
 
 
             Journalist ->
