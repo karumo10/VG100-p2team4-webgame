@@ -8,7 +8,7 @@ type Mode
     | Game
     | TotalTest
 gameMode______ : Mode
-gameMode______ = Game
+gameMode______ = GettingCoordinates
 
 type VehicleType
     = Elevator
@@ -461,11 +461,11 @@ journalistAttr_day2 =
     , barrier = journalistBarrier
     , hint = []
     , vehicle = []
-    , story = "Nasty Smell... How long hasn't this guy cleaned his home?"
+    , story = "Nasty Smell... How long hasn't this guy cleaned his home? Well, I should go there to help Lee to examine the body."
     , scene = ( Journalist, Day2 )
     , isFinished = False
-
     }
+
 journalistAttr_day2_finished : MapAttr
 journalistAttr_day2_finished =
     { exit = { x = 130, y = 205 , wid = 20, hei = 250 }

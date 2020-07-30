@@ -481,9 +481,9 @@ jonaliLee : NPC
 jonaliLee =
     { itemType = Lee
     , area =
-        { x = 900
+        { x = 520
         , y = 345
-        , wid = 60
+        , wid = 70
         , hei = 180
         }
     , interacttrue = False
@@ -497,9 +497,9 @@ jonaliBody : NPC
 jonaliBody =
     { itemType = JournalistBody
     , area =
-        { x = 600
+        { x = 425
         , y = 400
-        , wid = 180
+        , wid = 30
         , hei = 60
         }
     , interacttrue = False
