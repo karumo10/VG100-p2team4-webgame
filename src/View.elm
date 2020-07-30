@@ -62,7 +62,7 @@ renderMain model =
          [renderPic model
         , renderMapButton model
         --, renderdialog model
-        , renderMusic
+        , renderMusic model
         , axisHelper model
         --, renderBag model
         , renderGrid1Detail model
@@ -86,7 +86,7 @@ renderMain model =
         [ renderPic model
         , renderMapButton model
         --, renderdialog model
-        , renderMusic
+        , renderMusic model
         , axisHelper model
         --, renderBag model
         , renderStartButton model
@@ -153,26 +153,222 @@ axisHelper model =
     else
     div [] []
 
-renderMusic : Html Msg
-renderMusic =
-    div []
-    [ div []
-        [ Html.iframe
-            [ src "./trigger.mp3"
-            , autoplay True
-            , style "display" "none"
-            ] []
-        ]
-    , div []
-        [ Html.audio
-            [ id "player"
-            , autoplay True
-            , loop True
-            , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
-            , type_ "audio/mp3"
-            ] []
-        ]
-    ]
+renderMusic : Model-> Html Msg
+renderMusic model=
+    let
+        map=model.map
+    in
+    case map of
+        PoliceOffice ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        Park ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        NightClub ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        NightClub ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        Journalist ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        Home ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        Daniel ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        CityCouncil ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        BackStreet ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+        StarterPage ->
+                        div []
+                         [ div []
+                            [ Html.iframe
+                            [ src "./trigger.mp3"
+                            , autoplay True
+                            , style "display" "none"
+                            ] []
+                            ]
+                          , div []
+                            [ Html.audio
+                            [ id "player"
+                            , autoplay True
+                            , loop True
+                            , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                            , type_ "audio/mp3"
+                            ] []
+                            ]
+                            ]
+        _ ->
+                div []
+                 [ div []
+                    [ Html.iframe
+                    [ src "./trigger.mp3"
+                    , autoplay True
+                    , style "display" "none"
+                    ] []
+                    ]
+                  , div []
+                    [ Html.audio
+                    [ id "player"
+                    , autoplay True
+                    , loop True
+                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , type_ "audio/mp3"
+                    ] []
+                    ]
+                    ]
+
 
 
 renderMapButton : Model -> Html Msg
