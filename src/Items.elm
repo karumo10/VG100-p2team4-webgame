@@ -24,6 +24,7 @@ type Map
     | NightClub
     | Daniel
     | CityCouncil
+    | BackStreet
     | StarterPage
     | Story
     | AboutUs

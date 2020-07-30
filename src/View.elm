@@ -271,7 +271,19 @@ renderMapButton model =
             , onClick ToCityCouncil
             ]
             [ Html.text "City Council" ]
-
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "250px"
+            , style "top" "320px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToBackStreet
+            ]
+            [ Html.text "Back Street" ]
 
 
             ]
@@ -508,6 +520,23 @@ renderPic model =
                 ++ [ renderdialog model ]
                 ++ energytosvg model.energy model.energy_Full
 
+            BackStreet->
+                [ Svg.image
+                    [ xlinkHref "./street.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ [renderchoice model]
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [ renderdialog model ]
+                ++ energytosvg model.energy model.energy_Full
 
  -----
 
