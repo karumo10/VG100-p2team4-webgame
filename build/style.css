@@ -227,6 +227,7 @@ p.inset {
 
 #menuhelp:checked ~ .menuhelp {
     background-color: transparent;
+    color: white;
     transform: rotate(360deg);
     transition: transform 250ms ease;
 }
