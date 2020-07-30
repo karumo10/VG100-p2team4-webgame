@@ -403,6 +403,9 @@ initialWorldModelSpec =
     , entity "POLICEXPHONEANSWER3.day6.choices=0"
         "No, the evidence can lie. My friend."
         ""
+    , entity "POLICEXPHONEANSWER4.day6.choices=0"
+        "*Sound from outside*"
+        ""
     , entity "COURTANSWER1.day6.choices=0"
         "......"
         ""
@@ -1448,59 +1451,35 @@ rulesSpec =
             IF: LETTER_EVI.trigger=0
             DO: LETTER_EVI.trigger=5
             """
-        |> rule_______________________ "policex1"
+        |> rule_______________________ "kay, you are"
            """
            ON: POLICEXPHONE
            IF: POLICEXPHONE.day6.trigger=1
            DO: POLICEXPHONEANSWER1.day6.choices=1
            """
-        |> rule_______________________ "policex2"
+        |> rule_______________________ "what trouble--daniel"
            """
            ON: POLICEXPHONEANSWER1
-           IF: POLICEXPHONE.day6.trigger=1
-               POLICEXPHONEANSWER1.day6.choices=1
-           DO: POLICEXPHONE.day6.trigger=2
-               POLICEXPHONEANSWER1.day6.choices=2
+           DO: POLICEXPHONEANSWER1.day6.choices=0
+               POLICEXPHONEANSWER2.day6.choices=1
            """
-        |> rule_______________________ "policex3"
-           """
-           ON: POLICEXPHONE
-           IF: POLICEXPHONE.day6.trigger=2
-               POLICEXPHONEANSWER1.day6.choices=2
-           DO: POLICEXPHONEANSWER2.day6.choices=1
-               POLICEXPHONE.day6.trigger=3
-           """
-        |> rule_______________________ "policex4"
+        |> rule_______________________ "no the evidence--ha who"
            """
            ON: POLICEXPHONEANSWER2
-           IF: POLICEXPHONE.day6.trigger=3
-               POLICEXPHONEANSWER2.day6.choices=1
-           DO: POLICEXPHONE.day6.trigger=4
-               POLICEXPHONEANSWER2.day6.choices=2
-           """
-        |> rule_______________________ "policex5"
-           """
-           ON: POLICEXPHONE
-           IF: POLICEXPHONE.day6.trigger=4
-               POLICEXPHONEANSWER2.day6.choices=2
-           DO: POLICEXPHONE.day6.trigger=5
+           DO: POLICEXPHONEANSWER2.day6.choices=0
                POLICEXPHONEANSWER3.day6.choices=1
            """
-        |> rule_______________________ "policex6"
+        |> rule_______________________ "sound--kay, you are"
            """
            ON: POLICEXPHONEANSWER3
-           IF: POLICEXPHONE.day6.trigger=5
-               POLICEXPHONEANSWER3.day6.choices=1
-           DO: POLICEXPHONE.day6.trigger=6
-               POLICEXPHONEANSWER3.day6.choices=2
+           DO: POLICEXPHONEANSWER3.day6.choices=0
+               POLICEXPHONEANSWER4.day6.choices=1
            """
-        |> rule_______________________ "policex7"
+        |> rule_______________________ "go to city council"
            """
-           ON: POLICEXPHONE
-           IF: POLICEXPHONE.day6.trigger=6
-               POLICEXPHONEANSWER3.day6.choices=2
-           DO: POLICEXPHONE.day6.trigger=7
-               POLICEXPHONEANSWER3.day6.choices=3
+           ON: POLICEXPHONEANSWER4
+           DO: POLICEXPHONEANSWER4.day6.choices=-1
+               POLICEXPHONE.day6.trigger=0
            """
         |> rule_______________________ "court1"
            """
@@ -1903,20 +1882,16 @@ narrative_content =
             "Even after she knows that you dream of being the darkness of our city, she still loves you and decides to turn you back to the light. So she filmed your trade with the owner of Paradise, your secret training of an armed team with the hope of threatening you back. How stupid she is?"
         |> content__________________________________ "letter6"
             "I know you have seen the photos through some media before. I will give you the memory card of those photos to you. Just forgive my sister.\n -- Daniel"
-        |> content__________________________________ "policex1"
-            "Phone rings"
-        |> content__________________________________ "policex2"
-            "Phone rings"
-        |> content__________________________________ "policex3"
-            "Kay, you are in great trouble!"
-        |> content__________________________________ "policex4"
-            "Kay, you are in great trouble!"
-        |> content__________________________________ "policex5"
+        |> content__________________________________ "kay, you are"
+            "kay, you are in great trouble!"
+        |> content__________________________________ "what trouble--daniel"
             "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won’t do such thing, the evidence doesn’t lie, Kay."
-        |> content__________________________________ "policex6"
-            "Daniel was found dead in his department. And according to the early investigation, you are the most possible murderer. Though I trust you won’t do such thing, the evidence doesn’t lie, Kay."
-        |> content__________________________________ "policex7"
+        |> content__________________________________ "no the evidence--ha who"
             "Ha, who knows? But thanks to the attention of the city council, this case will be discussed in the city council. I think they are coming to pick you up."
+        |> content__________________________________ "sound--kay, you are"
+            "Kay, you are accused of killing Mr. Daniel. The city council is calling you to receive an inquiry to roughly decide whether you should be responsible for that. And we will hold an inspection of your home."
+        |> content__________________________________ "go to city council"
+            "Welcome the arrival of the protagonist of today. Kay, you are accused of killing Daniel. Do you want to say anything first?"
         |> content__________________________________ "court1"
             "Welcome the arrival of the protagonist of today. Kay, you are accused of killing Daniel. Do you want to say anything first?"
         |> content__________________________________ "court2"

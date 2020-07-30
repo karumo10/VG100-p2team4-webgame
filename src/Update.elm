@@ -1216,6 +1216,7 @@ specialUpdates model
         |> day4_daniel_finished_update_jonathon
         |> day5_nightclub_update_energy
         |> day5_park_update_exit
+        |> day6_home_teleport_council
     else model
 
 
@@ -1403,6 +1404,16 @@ day5_park_update_exit model =
     in
     if isExiting && (model.map,model.dayState) == (Park, Day5) && model.hero.y <= 2500 then
     model |> teleportHero ( 5000, 5000 )
+    else model
+
+day6_home_teleport_council : Model -> Model
+day6_home_teleport_council model =
+    let
+        isCaught = findCertainQuestion model "POLICEXPHONEANSWER4"
+        new_ = mapSwitch CityCouncil model
+    in
+    if model.isTeleportedToCouncil == False && isCaught then
+        { new_ | isTeleportedToCouncil = True }
     else model
 
 badEndsStory : Float -> Model -> Model

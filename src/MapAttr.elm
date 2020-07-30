@@ -626,14 +626,14 @@ danielAttr_day4 =
 courtAttr_day6 : MapAttr
 courtAttr_day6 =
     { exit = { x = 125, y = 385 , wid = 20, hei = 215  }
-        , heroIni = { x = 150, y = 475, width = 40, height = 120 }
-        , barrier = danielBarrier
-        , hint = []
-        , vehicle = danielVehicle
-        , story = "On the court."
-        , scene = ( CityCouncil, Day6 )
-        , isFinished = False
-        }
+    , heroIni = { x = 0, y = 5000, width = 40, height = 120 }
+    , barrier = []
+    , hint = []
+    , vehicle = []
+    , story = "On the court."
+    , scene = ( CityCouncil, Day6 )
+    , isFinished = False
+    }
 --energyDrainAttr : MapAttr
 --energyDrainAttr =
 --    { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
