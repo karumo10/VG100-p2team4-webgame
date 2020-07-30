@@ -165,6 +165,12 @@ hintsMaze5 =
     , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "" }
     , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "" } ]
 
+hintsMaze6 : List Hint
+hintsMaze6 =
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "It can be seen that Jonathon cannot wait to address you..." }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "You have made a lot of effort. But there exists little time now..." }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Tomorrow will be the last chance, Yuuki. You should take some risks." }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "It never occurs to me that Jonathon will love someone. HaHaHa!" } ]
 
 policeOfficeAttr_day1 : MapAttr
 policeOfficeAttr_day1 =
@@ -722,6 +728,7 @@ dreamMazeAttr_day4 =
     , scene = ( DreamMaze, Day4 )
     , isFinished = False
     }
+
 dreamMazeAttr_day5 : MapAttr
 dreamMazeAttr_day5 =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
@@ -731,6 +738,18 @@ dreamMazeAttr_day5 =
     , vehicle = []
     , story = "..."
     , scene = ( DreamMaze, Day5 )
+    , isFinished = False
+    }
+
+dreamMazeAttr_day6 : MapAttr
+dreamMazeAttr_day6 =
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 }
+    , barrier = maze1Barrier
+    , hint = hintsMaze6
+    , vehicle = []
+    , story = "It seems the maze appears tonight? huh."
+    , scene = ( DreamMaze, Day6 )
     , isFinished = False
     }
 
@@ -750,7 +769,7 @@ switchingAttr =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5, dreamMazeAttr_day6
     , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5
     , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4, parkAttr_day5
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
