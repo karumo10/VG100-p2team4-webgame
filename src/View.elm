@@ -729,23 +729,22 @@ renderGrid1Detail model =
         if model.bag.grid1 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          --[ Html.text ( toString model.hero.x++toString model.hero.y)
-          [ Html.text ( model.bag.grid1.comment )
+          [ Html.img [src model.bag.grid1.img, width "300px"] []
           ,
           div []
           [ button
@@ -754,8 +753,8 @@ renderGrid1Detail model =
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -778,22 +777,22 @@ renderGrid2Detail model =
         if model.bag.grid2 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid2.comment )
+          [ Html.img [src model.bag.grid2.img, width "300px"] []
           ,
           div []
           [ button
@@ -802,8 +801,8 @@ renderGrid2Detail model =
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -828,22 +827,22 @@ renderGrid3Detail model =
         if model.bag.grid3 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid3.comment )
+          [ Html.img [src model.bag.grid3.img, width "300px"] []
           ,
           div []
           [ button
@@ -852,8 +851,8 @@ renderGrid3Detail model =
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "opacity" opacity
           , style "margin" "auto"
@@ -877,22 +876,22 @@ renderGrid4Detail model =
         if model.bag.grid4 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid4.comment )
+          [ Html.img [src model.bag.grid4.img, width "300px"] []
           ,
           div []
           [ button
@@ -901,8 +900,8 @@ renderGrid4Detail model =
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "opacity" opacity
           , style "margin" "auto"
@@ -926,22 +925,22 @@ renderGrid5Detail model =
         if model.bag.grid5 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid5.comment )
+          [ Html.img [src model.bag.grid5.img, width "300px"] []
           ,
           div []
           [ button
@@ -950,8 +949,8 @@ renderGrid5Detail model =
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "opacity" opacity
           , style "margin" "auto"
@@ -975,22 +974,22 @@ renderGrid6Detail model=
         if model.bag.grid6 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid6.comment )
+          [ Html.img [src model.bag.grid6.img, width "300px"] []
           ,
           div []
           [ button
@@ -999,8 +998,8 @@ renderGrid6Detail model=
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1024,22 +1023,22 @@ renderGrid7Detail model=
         if model.bag.grid7 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid7.comment )
+          [ Html.img [src model.bag.grid7.img, width "300px"] []
           ,
           div []
           [ button
@@ -1048,8 +1047,8 @@ renderGrid7Detail model=
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1073,22 +1072,22 @@ renderGrid8Detail model =
         if model.bag.grid8 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid8.comment )
+          [ Html.img [src model.bag.grid8.img, width "300px"] []
           ,
           div []
           [ button
@@ -1097,8 +1096,8 @@ renderGrid8Detail model =
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1122,22 +1121,22 @@ renderGrid9Detail model=
         if model.bag.grid9 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid9.comment )
+          [ Html.img [src model.bag.grid9.img, width "300px"] []
           ,
           div []
           [ button
@@ -1146,8 +1145,8 @@ renderGrid9Detail model=
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
@@ -1171,22 +1170,22 @@ renderGrid10Detail model =
         if model.bag.grid10 /= trueMemCardIni || model.codeReached then
         div
           [ style "border-style" "inset"
-          , style "border-color" "white"
-          , style "border-width" "6px"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
           , style "border-radius" "20%"
-          , style "width" "500px"
-          , style "height" "30px"
+          , style "width" "300px"
+          , style "height" "300px"
           , style "background-color" "white"
           , style "position" "absolute"
-          , style "left" "300px"
-          , style "top" "300px"
+          , style "left" "350px"
+          , style "top" "100px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "font-family" "Helvetica, Arial, sans-serif"
           , style "font-size" "18px"
           , style "font-weight" "300"
           ]
-          [ Html.text ( model.bag.grid10.comment )
+          [ Html.img [src model.bag.grid10.img, width "300px"] []
           ,
           div []
           [ button
@@ -1195,8 +1194,8 @@ renderGrid10Detail model =
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
           , style "position" "absolute"
-          , style "left" "207.5px"
-          , style "top" "37px"
+          , style "left" "107.5px"
+          , style "top" "310px"
           , style "text-align" "center"
           , style "margin" "auto"
           , style "opacity" opacity
