@@ -187,6 +187,7 @@ policeOfficeAttr_day2 =
     , scene = ( PoliceOffice, Day2 )
     , isFinished = False
     }
+
 policeOfficeAttr_day2_finished : MapAttr
 policeOfficeAttr_day2_finished =
     { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
@@ -650,7 +651,7 @@ courtAttr_day6 =
 
 dreamMazeAttr_day1 : MapAttr
 dreamMazeAttr_day1 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 + 135 , y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze1
@@ -662,7 +663,7 @@ dreamMazeAttr_day1 =
 
 dreamMazeAttr_day2 : MapAttr
 dreamMazeAttr_day2 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze2
@@ -674,7 +675,7 @@ dreamMazeAttr_day2 =
 
 dreamMazeAttr_day2_finished : MapAttr
 dreamMazeAttr_day2_finished =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze2
@@ -686,7 +687,7 @@ dreamMazeAttr_day2_finished =
 
 dreamMazeAttr_day2_night : MapAttr
 dreamMazeAttr_day2_night =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze2
@@ -698,7 +699,7 @@ dreamMazeAttr_day2_night =
 
 dreamMazeAttr_day3 : MapAttr
 dreamMazeAttr_day3 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze3
@@ -710,7 +711,7 @@ dreamMazeAttr_day3 =
 
 dreamMazeAttr_day4 : MapAttr
 dreamMazeAttr_day4 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
     , barrier = maze1Barrier
     , hint = hintsMaze4
@@ -721,7 +722,7 @@ dreamMazeAttr_day4 =
     }
 dreamMazeAttr_day5 : MapAttr
 dreamMazeAttr_day5 =
-    { exit = { x = 470, y = 575 , wid = 20, hei = 20 }
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
     , heroIni = { x = 470 + 135, y = 575, width = 20, height = 20 } --no dream
     , barrier = maze1Barrier
     , hint = hintsMaze5
