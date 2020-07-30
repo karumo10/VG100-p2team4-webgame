@@ -1,2 +1,4 @@
 .idea
 elm-stuff
+build/style.js
+build/index.html
