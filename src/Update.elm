@@ -174,10 +174,12 @@ update msg model =
         ElevateTo3 ->
             case model.map of
                 PoliceOffice ->
-                    if model.dayState /= Day7 then
+                    if model.dayState /= Day7 || findCertainQuestion model "PASSWORD2" then
                     ( teleportHero ( 865, 60 ) model
                     , Cmd.none
                     )
+                    else
+                    ( interactWithJonathonLock model, Cmd.none )
                 Home ->
                      ( teleportHero ( 1050, 80 ) model
                      , Cmd.none
@@ -1041,6 +1043,26 @@ examineEvidence evi model =
     else
         model__
 
+interactWithJonathonLock : Model -> Model
+interactWithJonathonLock model =
+    let
+        currNPC = List.filter (\a -> a.description == "LOCK") model.npcs_all
+            |> List.head |> withDefault jonathonLock
+        currTrigger
+            = query currNPC.description model.worldModel
+            |> List.map Tuple.first -- get List ID
+            |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
+            |> withDefault "$my$own$error$msg$: no such npc, in interact by X please contact with group4"
+        model_ = interactWith__core currTrigger model |> Tuple.first
+        energy = model.energy
+        energy_ = energy - model.energy_Cost_interact
+    in
+    if model.playerDoing == MakingChoices then
+        model
+    else if energy_ < 0 then
+        {model| story = "Ah.... Why am I feel so tired, I should go home for a sleep......"}
+    else
+        model_
 
 
 

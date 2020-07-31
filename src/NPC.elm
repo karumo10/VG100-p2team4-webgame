@@ -25,6 +25,7 @@ type NPCType
     | Staff
     | Table
     | Closet
+    | Lock
     | None
     | PoliceX
     | Judge
@@ -734,6 +735,22 @@ dangerPark =
      , name = ""
      }
 
+jonathonLock : NPC
+jonathonLock =
+    { itemType = Lock
+     , area =
+         { x = -100
+         , y = -100
+         , wid = 1
+         , hei = 1
+         }
+     , interacttrue = False
+     , description = "LOCK"
+     , place = ( PoliceOffice, Day7 )
+     , isFinished = False
+     , name = ""
+     }
+
 jonathonCloset : NPC
 jonathonCloset =
     { itemType = Closet
@@ -782,7 +799,7 @@ allNPCs =
     , danielPaper, danielKey, danielMemCard, danielBank
     , staffNightClub
     , dangerPark
-    , jonathonTable, jonathonCloset
+    , jonathonTable, jonathonCloset, jonathonLock
     , courtSpeaker
     ]
 
