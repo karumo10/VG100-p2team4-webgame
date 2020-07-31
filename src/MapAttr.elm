@@ -458,7 +458,7 @@ homeAttr_day7 =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , story = "Ah... That is to say, I have to challenge Jonathon bravely but wisely... The only superior authority in our city is... the city council."
+    , story = "Ah... That is to say, I have to challenge Jonathon bravely but wisely... The only superior authority in our city is... the city council. Press X to phone there."
     , scene = ( Home, Day7 )
     , isFinished = False
     }

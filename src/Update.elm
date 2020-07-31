@@ -751,10 +751,12 @@ wakeUp model =
                 3 -> Day3
                 4 -> Day4
                 5 -> Day5
+                6 -> Day6
+                7 -> Day7
                 _ -> TooBigOrSmall
         model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
         story =
-            if day == 3 || day == 5 then
+            if day == 3 || day == 5 || day == 7 then
                 model_.story
             else if day == 6 then
             "What a comfortable night! No dream, no maze!"

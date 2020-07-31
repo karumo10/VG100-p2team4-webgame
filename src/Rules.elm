@@ -457,6 +457,20 @@ initialWorldModelSpec =
     , entity "NOCAUGHT_GO.choices=0"
         "Leave there"
         ""
+---- day7
+    , entity "PHONE_DAY7.trigger=0"
+        "phone council"
+        "You've phone the council yet."
+---- day7 choices
+    , entity "PHONE_ANS1.choices=0"
+        "I want to report Jonathon!"
+        ""
+    , entity "PHONE_ANS2.choices=0"
+        "Yeah, I'm sure."
+        ""
+    , entity "PHONE_ANS3.choices=0"
+        "Okay. Thank you."
+        ""
     ]
 
 
@@ -1675,6 +1689,44 @@ rulesSpec =
             ON: NOCAUGHT_GO
             DO: NOCAUGHT_GO.choices=-1
             """
+        |> rule_______________________ "phone c1"
+            """
+            ON: PHONE_DAY7
+            IF: PHONE_DAY7.trigger=0
+            DO: PHONE_ANS1.choices=1
+            """
+        |> rule_______________________ "phone c2"
+            """
+            ON: PHONE_ANS1
+            DO: PHONE_ANS1.choices=0
+                PHONE_DAY7.trigger=1
+            """
+        |> rule_______________________ "phone c3"
+            """
+            ON: PHONE_DAY7
+            IF: PHONE_DAY7.trigger=1
+            DO: PHONE_ANS2.choices=1
+            """
+        |> rule_______________________ "phone c4"
+            """
+            ON: PHONE_ANS2
+            DO: PHONE_ANS2.choices=0
+                PHONE_DAY7.trigger=2
+            """
+        |> rule_______________________ "phone c5"
+            """
+            ON: PHONE_DAY7
+            IF: PHONE_DAY7.trigger=2
+            DO: PHONE_ANS3.choices=1
+            """
+        |> rule_______________________ "phone c6"
+            """
+            ON: PHONE_ANS3
+            DO: PHONE_ANS3.choices=0
+                PHONE_DAY7.trigger=3
+            """
+
+
 
 
 
@@ -2025,9 +2077,18 @@ narrative_content =
             "[Speaker] Well. Then according to our law, Kay can only be viewed as \"slightly suspicious\". He will remain free until you can prove the causation instead of contiguity. You can go home now, Kay."
         |> content__________________________________ "leave4"
             "..."
-
-
-
+        |> content__________________________________ "phone c1"
+            "This is the city council. What can I do for you?"
+        |> content__________________________________ "phone c2"
+            "I, Kay, want to report the master of our police office Jonathon for scandal and murder."
+        |> content__________________________________ "phone c3"
+            "Kay? You are the \"slightly suspicious\" people. Do you have enough evidence to support your tip-off? Or otherwise, you will be sent to jail directly."
+        |> content__________________________________ "phone c4"
+            "Yeah, I'm sure."
+        |> content__________________________________ "phone c5"
+            "Okay, an inquiry regarding your tip-off will be held tomorrow. Please be well prepared."
+        |> content__________________________________ "phone c6"
+            "Okay. Thank you."
 
 parsedData =
     let

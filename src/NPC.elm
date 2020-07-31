@@ -568,10 +568,26 @@ policeXPhone_day6 =
         }
     , interacttrue = False
     , description = "POLICEXPHONE.day6"
-    , place = ( Home, Day6)
+    , place = ( Home, Day6 )
     , isFinished = False
     , name = ""
     }
+
+homePhone_day7 : NPC
+homePhone_day7 =
+     { itemType = Phone
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 1200
+         , hei = 600
+         }
+     , interacttrue = False
+     , description = "PHONE_DAY7"
+     , place = ( Home, Day7 )
+     , isFinished = False
+     , name = ""
+     }
 
 courtSpeaker : NPC
 courtSpeaker =
@@ -761,13 +777,12 @@ allNPCs =
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody
     , nightBody
-    , homePhone, danielPhone
+    , homePhone, danielPhone, homePhone_day7, policeXPhone_day6
     , danielDaniel
     , danielPaper, danielKey, danielMemCard, danielBank
     , staffNightClub
     , dangerPark
     , jonathonTable, jonathonCloset
-    , policeXPhone_day6
     , courtSpeaker
     ]
 
