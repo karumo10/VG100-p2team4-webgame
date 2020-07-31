@@ -464,6 +464,12 @@ initialWorldModelSpec =
     , entity "LOCK.trigger=0"
         "lock jonathon"
         "The lock is unlocked!"
+    , entity "CLOSET_7.trigger=1"
+        "closet day7"
+        "This place has been examined."
+    , entity "TABLE_7.trigger=1"
+        "table day7"
+        "This place has been examined."
 ---- day7 choices
     , entity "PHONE_ANS1.choices=0"
         "I want to report Jonathon!"
@@ -489,6 +495,7 @@ initialWorldModelSpec =
     , entity "PASSWORD4.choices=0"
         "ANNJ"
         ""
+
     ]
 
 
@@ -1811,6 +1818,18 @@ rulesSpec =
                 PASSWORD3.choices=0
                 PASSWORD4.choices=-1
             """
+        |> rule_______________________ "closet day7"
+            """
+            ON: CLOSET_7
+            IF: CLOSET_7.trigger=1
+            DO: CLOSET_7.trigger=0
+            """
+        |> rule_______________________ "table day7"
+            """
+            ON: TABLE_7
+            IF: TABLE_7.trigger=1
+            DO: TABLE_7.trigger=0
+            """
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -2191,6 +2210,10 @@ narrative_content =
             "The alarm rang. And an armed team came to the police office."
         |> content__________________________________ "wrong3"
             "The alarm rang. And an armed team came to the police office."
+        |> content__________________________________ "closet day7"
+            "You find lots of paper documents, including a bank account statement, a plan document and a custom contract. You put them into your bag."
+        |> content__________________________________ "table day7"
+            "You find another bottle of pills on Jonathon's desk."
 
 
 

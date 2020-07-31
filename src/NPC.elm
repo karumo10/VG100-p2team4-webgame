@@ -783,6 +783,37 @@ jonathonTable =
      , name = ""
      }
 
+jonathonCloset_day7 : NPC
+jonathonCloset_day7 =
+    { itemType = Closet
+     , area =
+         { x = 500
+         , y = 55
+         , wid = 75
+         , hei = 10
+         }
+     , interacttrue = False
+     , description = "CLOSET_7"
+     , place = ( PoliceOffice, Day7 )
+     , isFinished = False
+     , name = ""
+     }
+
+jonathonTable_day7 : NPC
+jonathonTable_day7 =
+    { itemType = Table
+     , area =
+         { x = 340
+         , y = 60
+         , wid = 40
+         , hei = 70
+         }
+     , interacttrue = False
+     , description = "TABLE_7"
+     , place = ( PoliceOffice, Day7 )
+     , isFinished = False
+     , name = ""
+     }
 
 allNPCs: List NPC
 allNPCs =
@@ -799,7 +830,7 @@ allNPCs =
     , danielPaper, danielKey, danielMemCard, danielBank
     , staffNightClub
     , dangerPark
-    , jonathonTable, jonathonCloset, jonathonLock
+    , jonathonTable, jonathonCloset, jonathonLock, jonathonCloset_day7, jonathonTable_day7
     , courtSpeaker
     ]
 
