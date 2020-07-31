@@ -84,6 +84,7 @@ type alias Model =
     , codeContent : String
     , codeReached : Bool
     , isTeleportedToCouncil : Bool
+    , isTalkingWithLeeDay7 : Bool
     , badEndPreviousMap : Map
     }
 
@@ -135,6 +136,7 @@ initial =
     , codeContent = ""
     , codeReached = False
     , isTeleportedToCouncil = False
+    , isTalkingWithLeeDay7 = False
     , badEndPreviousMap = BadEnds
     --, park_is_exited
     }

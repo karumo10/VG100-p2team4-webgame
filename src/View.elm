@@ -11,6 +11,8 @@ import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth
 import Items exposing ( .. )
 import Html exposing (Html, br, button, div, input, p, text, ul)
 import MapAttr exposing (Day(..), Mode(..), gameMode______)
+
+
 pixelWidth : Float
 pixelWidth =
     1050
@@ -702,7 +704,7 @@ renderMapButton model =
             ]
             [ Html.text "City Council" ]
             ]
-            else if model.dayState == Day7 then
+            else if model.dayState == Day7 && not model.isTalkingWithLeeDay7 then
             div []
             [
             button

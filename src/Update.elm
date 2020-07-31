@@ -1256,6 +1256,8 @@ specialUpdates model
         |> day6_items_update_speaker
         |> day6_court_update_exit
         |> day7_examine_finish_update_switching_npc
+        |> day7_lee_finished_update_eliminate_lee
+        |> updating_isTalkingWithLeeDay7
         --|> debugFinished
     else model
 
@@ -1510,10 +1512,35 @@ day7_examine_finish_update_switching_npc model =
         npcs_ = [lee_] ++ restNpcs
         maps_ = [switchingMap_] ++ restMap
     in
-    if isFinished && leeInSwitching.description /= "LEE_7" then
+    if isFinished && leeInSwitching.description /= "LEE7" then
     { model | npcs_all = npcs_, mapAttr_all = maps_ }
     else model
 
+day7_lee_finished_update_eliminate_lee : Model -> Model
+day7_lee_finished_update_eliminate_lee model =
+    let
+        isFinished = findCertainQuestion model "LEEANS5"
+        switchingMap = List.filter (\a -> a.scene == (Switching, Nowhere)) model.mapAttr_all
+            |> List.head |> withDefault switchingAttr
+        leeInSwitching = List.filter (\a -> a.itemType == PoliceX ) model.npcs_all
+            |> List.head |> withDefault switchingPolice
+        lee_ = { leeInSwitching | place = (NoPlace, Nowhere), description = "" }
+        story = "Where to go?"
+        switchingMap_ = { switchingMap | story = story }
+        restMap = List.filter (\a -> a.scene /= (Switching, Nowhere)) model.mapAttr_all
+        restNpcs = List.filter (\a -> a.itemType /= PoliceX) model.npcs_all
+        npcs_ = [lee_] ++ restNpcs
+        maps_ = [switchingMap_] ++ restMap
+    in
+    if isFinished && leeInSwitching.description == "LEE7" then
+    { model | npcs_all = npcs_, mapAttr_all = maps_ }
+    else model
+
+updating_isTalkingWithLeeDay7 : Model -> Model
+updating_isTalkingWithLeeDay7 model =
+    { model | isTalkingWithLeeDay7 =
+        (findCertainQuestion model "TABLE_7" && findCertainQuestion model "CLOSET_7" && findCertainQuestion model "PASSWORD2")
+        && (not (findCertainQuestion model "LEEANS5"))}
 
 
 
