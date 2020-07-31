@@ -1465,7 +1465,7 @@ badEndsStory elapsed model =
             |> Tuple.second
     in
     if accum_ > interval then
-        { model | story = story_, endingTimeAccum = 0 }
+        { model | story = story_, endingTimeAccum = 4000 }
     else
         { model | endingTimeAccum = accum_ }
 

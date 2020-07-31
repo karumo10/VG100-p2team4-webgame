@@ -981,7 +981,7 @@ renderPic model =
                  , width "1171"
                  , height "600"
                  , transform "translate(-30,0)"
-                 , Svg.Attributes.opacity "0.5"
+                 , Svg.Attributes.opacity (toString (0.5 * (model.endingTimeAccum / 4000)))
                  , fill "red"
                  ]
                  []]
