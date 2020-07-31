@@ -1568,8 +1568,20 @@ badEnd6 model =
     (True, "[Bad End: Imprisoned] News: Recently, the case of a series of killings has been solved by Jonathon's team. The murderer Kay, a former policeman in our city, was sentenced to life imprisonment. Thanks for Jonathon's effort on maintaining justice, he was elected as the new speaker of our city council.")
     else (False, model.story)
 
+badEnd7 : Model -> ( Bool, String )
+badEnd7 model =
+    let
+        isFalse =
+            findCertainQuestion model "PASSWORD1" || findCertainQuestion model "PASSWORD3" || findCertainQuestion model "PASSWORD4"
+    in
+    if isFalse then
+    (True, "[Bad End: Forget-Me-Not] News: New crime set: steal the secret of the darkness. The Owner of our city,\"Darkness\", has made a new crime valid -- steal the secret of the darkness. And the first one who is guilty of this crime is the former policeman Kay.")
+    else (False, model.story)
+
+
+
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
