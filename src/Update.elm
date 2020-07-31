@@ -174,6 +174,7 @@ update msg model =
         ElevateTo3 ->
             case model.map of
                 PoliceOffice ->
+                    if model.dayState /= Day7 then
                     ( teleportHero ( 865, 60 ) model
                     , Cmd.none
                     )

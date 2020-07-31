@@ -461,6 +461,9 @@ initialWorldModelSpec =
     , entity "PHONE_DAY7.trigger=0"
         "phone council"
         "It's night now. The game is afoot!"
+    , entity "LOCK.trigger=0"
+        "lock jonathon"
+        "The lock is unlocked!"
 ---- day7 choices
     , entity "PHONE_ANS1.choices=0"
         "I want to report Jonathon!"
@@ -473,6 +476,18 @@ initialWorldModelSpec =
         ""
     , entity "PHONE_ANS4.choices=0"
         "Wait until night"
+        ""
+    , entity "PASSWORD1.choices=0"
+        "AJNN"
+        ""
+    , entity "PASSWORD2.choices=0"
+        "ASWN"
+        ""
+    , entity "PASSWORD3.choices=0"
+        "AWNS"
+        ""
+    , entity "PASSWORD4.choices=0"
+        "ANNJ"
         ""
     ]
 
@@ -1755,6 +1770,47 @@ rulesSpec =
             ON: PHONE_DAY7.trigger=6
             DO: PHONE_DAY7.trigger=7
             """
+        |> rule_______________________ "lock1"
+            """
+            ON: LOCK
+            IF: LOCK.trigger=0
+            DO: PASSWORD1.choices=1
+                PASSWORD2.choices=1
+                PASSWORD3.choices=1
+                PASSWORD4.choices=1
+            """
+        |> rule_______________________ "right1"
+            """
+            ON: PASSWORD2
+            DO: PASSWORD1.choices=0
+                PASSWORD2.choices=-1
+                PASSWORD3.choices=0
+                PASSWORD4.choices=0
+            """
+        |> rule_______________________ "wrong1"
+            """
+            ON: PASSWORD1
+            DO: PASSWORD1.choices=-1
+                PASSWORD2.choices=0
+                PASSWORD3.choices=0
+                PASSWORD4.choices=0
+            """
+        |> rule_______________________ "wrong2"
+            """
+            ON: PASSWORD3
+            DO: PASSWORD1.choices=0
+                PASSWORD2.choices=0
+                PASSWORD3.choices=-1
+                PASSWORD4.choices=0
+            """
+        |> rule_______________________ "wrong3"
+            """
+            ON: PASSWORD4
+            DO: PASSWORD1.choices=0
+                PASSWORD2.choices=0
+                PASSWORD3.choices=0
+                PASSWORD4.choices=-1
+            """
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -2125,7 +2181,16 @@ narrative_content =
             "Playing......"
         |> content__________________________________ "waiting3"
             "It's night now. The game is afoot!"
-
+        |> content__________________________________ "lock1"
+            "The third floor is locked. A password is needed to unlock. Hint: Think about Jonathon’s love with Ann."
+        |> content__________________________________ "right1"
+            "The door opens."
+        |> content__________________________________ "wrong1"
+            "The alarm rang. And an armed team came to the police office."
+        |> content__________________________________ "wrong2"
+            "The alarm rang. And an armed team came to the police office."
+        |> content__________________________________ "wrong3"
+            "The alarm rang. And an armed team came to the police office."
 
 
 
