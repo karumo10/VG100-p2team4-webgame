@@ -817,10 +817,11 @@ renderPic model =
 
             Switching ->
 
-                [ Svg.image
+                [ rect [x "0", y "0", width "1150", height "610", fill "#a0775a"] []
+                , Svg.image
                     [ xlinkHref "./mapswitch.png"
-                    , x "0"
-                    , y "0"
+                    , x "5"
+                    , y "5"
                     , width "1200"
                     , height "600"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
