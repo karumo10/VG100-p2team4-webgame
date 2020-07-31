@@ -1475,9 +1475,10 @@ badEndsClear model =
     let
         haveBeenEnding = model.isEnd
         isEnding = List.foldr (||) False (List.map (Tuple.first) (badEndsList model))
+        previousMap = model.map
     in
     if not haveBeenEnding && isEnding then
-        { model | npcs_all = [], isEnd = True, map = BadEnds } |> teleportHero (1000, 1000)
+        { model | npcs_all = [], isEnd = True, map = BadEnds, badEndPreviousMap = previousMap } |> teleportHero (1000, 1000)
     else
     model
 
