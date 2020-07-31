@@ -1598,7 +1598,10 @@ pickUpWithEngine model =
     |> pickBankCard
     |> pickDocument
     |> pickDagger2
-
+    |> pickContract
+    |> pickDocument2
+    |> pickPillJo
+    |> pickBankStateJo
 
 
 
@@ -1689,6 +1692,23 @@ pickDocument model =
 pickLetter : Model -> Model
 pickLetter model =
     pickSingleItem "CLOSET" letterIni model
+
+pickBankStateJo : Model -> Model
+pickBankStateJo model =
+    pickSingleItem "CLOSET_7" bankaccIni model
+
+pickPillJo : Model -> Model
+pickPillJo model =
+    pickSingleItem "TABLE_7" pillsIni model
+
+pickDocument2 : Model -> Model
+pickDocument2 model =
+    pickSingleItem "CLOSET_7" planIni model
+
+pickContract : Model -> Model
+pickContract model =
+    pickSingleItem "CLOSET_7" customconIni model
+
 
 
 pickFakeMemCard : Model -> Model

@@ -1822,13 +1822,13 @@ rulesSpec =
             """
             ON: CLOSET_7
             IF: CLOSET_7.trigger=1
-            DO: CLOSET_7.trigger=0
+            DO: CLOSET_7.trigger=0.choices=-1
             """
         |> rule_______________________ "table day7"
             """
             ON: TABLE_7
             IF: TABLE_7.trigger=1
-            DO: TABLE_7.trigger=0
+            DO: TABLE_7.trigger=0.choices=-1
             """
 
 
