@@ -964,7 +964,7 @@ renderPic model =
 
 
             StarterPage ->
-                [image [xlinkHref "./title.png", x "300",y "100", width "600"][]]
+                [div [][]]
 
             Story ->
                 [div [][]]
@@ -1297,7 +1297,7 @@ renderBagButton model =
                           ]
     in
         [Html.input [Html.Attributes.type_ "checkbox", id "menu2"][]
-        ,Html.label [Html.Attributes.for "menu2", class "menu2"][Html.span [] [], Html.span [] [], Html.span [] [] ]
+        ,Html.label [Html.Attributes.for "menu2", class "menu2"][ text "B" ]
         ,Html.nav [class "nav2"] [div [class "container"]
                                       [div [ style "font-family" "Helvetica, Arial, sans-serif"
                                            , style "font-size" "18px"] [contents]]]
@@ -1800,14 +1800,14 @@ renderStartButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "450px"
-        , style "top" "350px"
-        , style "font-family" "Helvetica, Arial, sans-serif"
-        , style "font-size" "18px"
-        , style "font-weight" "300"
+        , style "left" "390px"
+        , style "top" "390px"
+        , style "font-size" "23px"
+        , style "font-family" "TRAJAN PRO"
         , style "height" "60px"
         , style "line-height" "60px"
-        , style "width" "130px"
+        , style "width" "250px"
+        , style "background-color" "#333333"
         , class "fill"
         , onClick StartGame
         ]
@@ -1820,14 +1820,14 @@ renderStoryButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "200px"
-        , style "top" "350px"
-        , style "font-family" "Helvetica, Arial, sans-serif"
-        , style "font-size" "18px"
-        , style "font-weight" "300"
+        , style "left" "390px"
+        , style "top" "470px"
+        , style "font-size" "23px"
+        , style "font-family" "TRAJAN PRO"
         , style "height" "60px"
         , style "line-height" "60px"
-        , style "width" "130px"
+        , style "width" "250px"
+        , style "background-color" "#333333"
         , class "fill"
         , onClick ViewStory
         ]
@@ -1840,14 +1840,14 @@ renderAboutUsButton model =
     if model.map == StarterPage then
     button
         [ style "position" "absolute"
-        , style "left" "700px"
-        , style "top" "350px"
-        , style "font-family" "Helvetica, Arial, sans-serif"
-        , style "font-size" "18px"
-        , style "font-weight" "300"
+        , style "left" "390px"
+        , style "top" "550px"
+        , style "font-size" "23px"
+        , style "font-family" "TRAJAN PRO"
         , style "height" "60px"
         , style "line-height" "60px"
-        , style "width" "130px"
+        , style "width" "250px"
+        , style "background-color" "#333333"
         , class "fill"
         , onClick ViewAboutUs
         ]
