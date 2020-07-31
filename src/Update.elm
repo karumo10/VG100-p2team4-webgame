@@ -1530,7 +1530,7 @@ badEnd5 model =
             findCertainQuestion model "HEAR"
     in
     if isCaught then
-    (True, "[Bad End: Forbidden Park]\nNews report: A new policeman is employed to replace the place of the missing police Kay.")
+    (True, "[Bad End: Forbidden Park]\nNews: A new policeman is employed to replace the place of the missing police Kay.")
     else (False, model.story)
 
 badEnd6 : Model -> ( Bool, String )
@@ -1540,7 +1540,7 @@ badEnd6 model =
             findCertainQuestion model "KEY_END" || findCertainQuestion model "FAKE_END"
     in
     if isKey then
-    (True, "[Bad End: Imprisoned]\nNews report: Recently, the case of a series of killings has been solved by Jonathon's team. The murderer Kay, a former policeman in our city, was sentenced to life imprisonment. Thanks for Jonathon's effort on maintaining justice, he was elected as the new speaker of our city council.")
+    (True, "[Bad End: Imprisoned] News: Recently, the case of a series of killings has been solved by Jonathon's team. The murderer Kay, a former policeman in our city, was sentenced to life imprisonment. Thanks for Jonathon's effort on maintaining justice, he was elected as the new speaker of our city council.")
     else (False, model.story)
 
 badEndsList : Model -> List (Bool, String)

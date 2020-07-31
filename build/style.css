@@ -59,6 +59,7 @@ p.inset {
     position: relative;
     min-height: 200px;
     padding: 20px;
+    white-space: pre-line;
 }
 
 /* this CS forms the triangles */
