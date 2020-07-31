@@ -702,6 +702,36 @@ renderMapButton model =
             ]
             [ Html.text "City Council" ]
             ]
+            else if model.dayState == Day7 then
+            div []
+            [
+            button
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPoliceOffice
+            ]
+            [ Html.text "Police Office" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "400px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToHome
+            ]
+            [ Html.text "Home" ]
+            ]
+
             else div [][]
 
 

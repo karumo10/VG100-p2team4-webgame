@@ -460,7 +460,7 @@ initialWorldModelSpec =
 ---- day7
     , entity "PHONE_DAY7.trigger=0"
         "phone council"
-        "You've phone the council yet."
+        "It's night now. The game is afoot!"
 ---- day7 choices
     , entity "PHONE_ANS1.choices=0"
         "I want to report Jonathon!"
@@ -470,6 +470,9 @@ initialWorldModelSpec =
         ""
     , entity "PHONE_ANS3.choices=0"
         "Okay. Thank you."
+        ""
+    , entity "PHONE_ANS4.choices=0"
+        "Wait until night"
         ""
     ]
 
@@ -1725,10 +1728,33 @@ rulesSpec =
             DO: PHONE_ANS3.choices=0
                 PHONE_DAY7.trigger=3
             """
-
-
-
-
+        |> rule_______________________ "wait_1"
+            """
+            ON: PHONE_DAY7
+            IF: PHONE_DAY7.trigger=3
+            DO: PHONE_ANS4.choices=1
+            """
+        |> rule_______________________ "wait_2"
+            """
+            ON: PHONE_ANS4
+            DO: PHONE_ANS4.choices=0
+                PHONE_DAY7.trigger=4
+            """
+        |> rule_______________________ "waiting1"
+            """
+            ON: PHONE_DAY7.trigger=4
+            DO: PHONE_DAY7.trigger=5
+            """
+        |> rule_______________________ "waiting2"
+            """
+            ON: PHONE_DAY7.trigger=5
+            DO: PHONE_DAY7.trigger=6
+            """
+        |> rule_______________________ "waiting3"
+            """
+            ON: PHONE_DAY7.trigger=6
+            DO: PHONE_DAY7.trigger=7
+            """
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -2089,6 +2115,29 @@ narrative_content =
             "Okay, an inquiry regarding your tip-off will be held tomorrow. Please be well prepared."
         |> content__________________________________ "phone c6"
             "Okay. Thank you."
+        |> content__________________________________ "wait_1"
+            "Hmm, there exists some critical evidence loss. Maybe tonight I should pay another visit to Jonathan’s office."
+        |> content__________________________________ "wait_2"
+            "You are waiting until night. Press X to play the most popular video game *Exocist: Haunted Gifts* to kill time. "
+        |> content__________________________________ "waiting1"
+            "Playing..."
+        |> content__________________________________ "waiting2"
+            "Playing......"
+        |> content__________________________________ "waiting3"
+            "It's night now. The game is afoot!"
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 parsedData =
     let
