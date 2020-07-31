@@ -457,6 +457,76 @@ initialWorldModelSpec =
     , entity "NOCAUGHT_GO.choices=0"
         "Leave there"
         ""
+---- day7
+    , entity "PHONE_DAY7.trigger=0"
+        "phone council"
+        "It's night now. The game is afoot!"
+    , entity "LOCK.trigger=0"
+        "lock jonathon"
+        "The lock is unlocked!"
+    , entity "CLOSET_7.trigger=1"
+        "closet day7"
+        "This place has been examined."
+    , entity "TABLE_7.trigger=1"
+        "table day7"
+        "This place has been examined."
+    , entity "LEE7.trigger=0"
+        "lee day7"
+        "Wish you good luck, Kay! Goodbye!"
+---- day7 choices
+    , entity "PHONE_ANS1.choices=0"
+        "I want to report Jonathon!"
+        ""
+    , entity "PHONE_ANS2.choices=0"
+        "Yeah, I'm sure."
+        ""
+    , entity "PHONE_ANS3.choices=0"
+        "Okay. Thank you."
+        ""
+    , entity "PHONE_ANS4.choices=0"
+        "Wait until night"
+        ""
+    , entity "PASSWORD1.choices=0"
+        "AJNN"
+        ""
+    , entity "PASSWORD2.choices=0"
+        "ASWN"
+        ""
+    , entity "PASSWORD3.choices=0"
+        "AWNS"
+        ""
+    , entity "PASSWORD4.choices=0"
+        "ANNJ"
+        ""
+    , entity "LEEANS1.choices=0"
+        "I'm collecting evidence"
+        ""
+    , entity "LEEANS2.choices=0"
+        "It's my mission"
+        ""
+    , entity "LEEANS3.choices=0"
+        "It's the last chance for us to defend the slim light of our city."
+        ""
+    , entity "LEEANS4.choices=0"
+        "Can you kindly compare these two kinds of pills?"
+        ""
+    , entity "LEEANS5.choices=0"
+        "The same to you, Lee!"
+        ""
+---last four items
+    , entity "BANK2.trigger=0"
+        "another bank account"
+        ""
+    , entity "PLAN.trigger=0"
+        "plan document"
+        ""
+    , entity "PILLS_JO.trigger=0"
+        "another bottle of pills"
+        "A plain bottle of pills. The most popular \"food\" in this city, Paradise."
+    , entity "CUSTOM.trigger=0"
+        "custom contract"
+        ""
+
     ]
 
 
@@ -1675,6 +1745,260 @@ rulesSpec =
             ON: NOCAUGHT_GO
             DO: NOCAUGHT_GO.choices=-1
             """
+        |> rule_______________________ "phone c1"
+            """
+            ON: PHONE_DAY7
+            IF: PHONE_DAY7.trigger=0
+            DO: PHONE_ANS1.choices=1
+            """
+        |> rule_______________________ "phone c2"
+            """
+            ON: PHONE_ANS1
+            DO: PHONE_ANS1.choices=0
+                PHONE_DAY7.trigger=1
+            """
+        |> rule_______________________ "phone c3"
+            """
+            ON: PHONE_DAY7
+            IF: PHONE_DAY7.trigger=1
+            DO: PHONE_ANS2.choices=1
+            """
+        |> rule_______________________ "phone c4"
+            """
+            ON: PHONE_ANS2
+            DO: PHONE_ANS2.choices=0
+                PHONE_DAY7.trigger=2
+            """
+        |> rule_______________________ "phone c5"
+            """
+            ON: PHONE_DAY7
+            IF: PHONE_DAY7.trigger=2
+            DO: PHONE_ANS3.choices=1
+            """
+        |> rule_______________________ "phone c6"
+            """
+            ON: PHONE_ANS3
+            DO: PHONE_ANS3.choices=0
+                PHONE_DAY7.trigger=3
+            """
+        |> rule_______________________ "wait_1"
+            """
+            ON: PHONE_DAY7
+            IF: PHONE_DAY7.trigger=3
+            DO: PHONE_ANS4.choices=1
+            """
+        |> rule_______________________ "wait_2"
+            """
+            ON: PHONE_ANS4
+            DO: PHONE_ANS4.choices=0
+                PHONE_DAY7.trigger=4
+            """
+        |> rule_______________________ "waiting1"
+            """
+            ON: PHONE_DAY7.trigger=4
+            DO: PHONE_DAY7.trigger=5
+            """
+        |> rule_______________________ "waiting2"
+            """
+            ON: PHONE_DAY7.trigger=5
+            DO: PHONE_DAY7.trigger=6
+            """
+        |> rule_______________________ "waiting3"
+            """
+            ON: PHONE_DAY7.trigger=6
+            DO: PHONE_DAY7.trigger=7
+            """
+        |> rule_______________________ "lock1"
+            """
+            ON: LOCK
+            IF: LOCK.trigger=0
+            DO: PASSWORD1.choices=1
+                PASSWORD2.choices=1
+                PASSWORD3.choices=1
+                PASSWORD4.choices=1
+            """
+        |> rule_______________________ "right1"
+            """
+            ON: PASSWORD2
+            DO: PASSWORD1.choices=0
+                PASSWORD2.choices=-1
+                PASSWORD3.choices=0
+                PASSWORD4.choices=0
+            """
+        |> rule_______________________ "wrong1"
+            """
+            ON: PASSWORD1
+            DO: PASSWORD1.choices=-1
+                PASSWORD2.choices=0
+                PASSWORD3.choices=0
+                PASSWORD4.choices=0
+            """
+        |> rule_______________________ "wrong2"
+            """
+            ON: PASSWORD3
+            DO: PASSWORD1.choices=0
+                PASSWORD2.choices=0
+                PASSWORD3.choices=-1
+                PASSWORD4.choices=0
+            """
+        |> rule_______________________ "wrong3"
+            """
+            ON: PASSWORD4
+            DO: PASSWORD1.choices=0
+                PASSWORD2.choices=0
+                PASSWORD3.choices=0
+                PASSWORD4.choices=-1
+            """
+        |> rule_______________________ "closet day7"
+            """
+            ON: CLOSET_7
+            IF: CLOSET_7.trigger=1
+            DO: CLOSET_7.trigger=0.choices=-1
+            """
+        |> rule_______________________ "table day7"
+            """
+            ON: TABLE_7
+            IF: TABLE_7.trigger=1
+            DO: TABLE_7.trigger=0.choices=-1
+            """
+        |> rule_______________________ "bank2_1"
+            """
+            ON: BANK2
+            IF: BANK2.trigger=0
+            DO: BANK2.trigger=1
+            """
+        |> rule_______________________ "bank2_2"
+            """
+            ON: BANK2
+            IF: BANK2.trigger=1
+            DO: BANK2.trigger=2
+            """
+        |> rule_______________________ "bank2_3"
+            """
+            ON: BANK2
+            IF: BANK2.trigger=2
+            DO: BANK2.trigger=0
+            """
+        |> rule_______________________ "plan1"
+            """
+            ON: PLAN
+            IF: PLAN.trigger=0
+            DO: PLAN.trigger=1
+            """
+        |> rule_______________________ "plan2"
+            """
+            ON: PLAN
+            IF: PLAN.trigger=1
+            DO: PLAN.trigger=2
+            """
+        |> rule_______________________ "plan3"
+            """
+            ON: PLAN
+            IF: PLAN.trigger=2
+            DO: PLAN.trigger=3
+            """
+        |> rule_______________________ "plan4"
+            """
+            ON: PLAN
+            IF: PLAN.trigger=3
+            DO: PLAN.trigger=0
+            """
+        |> rule_______________________ "custom1"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=0
+            DO: CUSTOM.trigger=1
+            """
+        |> rule_______________________ "custom2"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=1
+            DO: CUSTOM.trigger=2
+            """
+        |> rule_______________________ "custom3"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=2
+            DO: CUSTOM.trigger=3
+            """
+        |> rule_______________________ "custom4"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=3
+            DO: CUSTOM.trigger=4
+            """
+        |> rule_______________________ "custom5"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=4
+            DO: CUSTOM.trigger=5
+            """
+        |> rule_______________________ "custom6"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=5
+            DO: CUSTOM.trigger=0
+            """
+        |> rule_______________________ "lee7_1"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=0
+            DO: LEEANS1.choices=1
+            """
+        |> rule_______________________ "lee7_2"
+            """
+            ON: LEEANS1
+            DO: LEE7.trigger=1
+                LEEANS1.choices=0
+            """
+        |> rule_______________________ "lee7_3"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=1
+            DO: LEEANS2.choices=1
+            """
+        |> rule_______________________ "lee7_4"
+            """
+            ON: LEEANS2
+            DO: LEE7.trigger=2
+                LEEANS2.choices=0
+            """
+        |> rule_______________________ "lee7_5"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=2
+            DO: LEEANS3.choices=1
+            """
+        |> rule_______________________ "lee7_6"
+            """
+            ON: LEEANS3
+            DO: LEE7.trigger=3
+                LEEANS3.choices=0
+            """
+        |> rule_______________________ "lee7_7"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=3
+            DO: LEEANS4.choices=1
+            """
+        |> rule_______________________ "lee7_8"
+            """
+            ON: LEEANS4
+            DO: LEE7.trigger=4
+                LEEANS4.choices=0
+            """
+        |> rule_______________________ "lee7_9"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=4
+            DO: LEEANS5.choices=1
+            """
+        |> rule_______________________ "lee7_10"
+            """
+            ON: LEEANS5
+            DO: LEE7.trigger=5
+                LEEANS5.choices=-1
+            """
 
 
 
@@ -2025,9 +2349,88 @@ narrative_content =
             "[Speaker] Well. Then according to our law, Kay can only be viewed as \"slightly suspicious\". He will remain free until you can prove the causation instead of contiguity. You can go home now, Kay."
         |> content__________________________________ "leave4"
             "..."
-
-
-
+        |> content__________________________________ "phone c1"
+            "This is the city council. What can I do for you?"
+        |> content__________________________________ "phone c2"
+            "I, Kay, want to report the master of our police office Jonathon for scandal and murder."
+        |> content__________________________________ "phone c3"
+            "Kay? You are the \"slightly suspicious\" people. Do you have enough evidence to support your tip-off? Or otherwise, you will be sent to jail directly."
+        |> content__________________________________ "phone c4"
+            "Yeah, I'm sure."
+        |> content__________________________________ "phone c5"
+            "Okay, an inquiry regarding your tip-off will be held tomorrow. Please be well prepared."
+        |> content__________________________________ "phone c6"
+            "Okay. Thank you."
+        |> content__________________________________ "wait_1"
+            "Hmm, there exists some critical evidence loss. Maybe tonight I should pay another visit to Jonathan's office."
+        |> content__________________________________ "wait_2"
+            "You are waiting until night. Press X to play the most popular video game *Exocist: Haunted Gifts* to kill time. "
+        |> content__________________________________ "waiting1"
+            "Playing..."
+        |> content__________________________________ "waiting2"
+            "Playing......"
+        |> content__________________________________ "waiting3"
+            "It's night now. The game is afoot!"
+        |> content__________________________________ "lock1"
+            "The third floor is locked. A password is needed to unlock. Hint: Think about Jonathon's love with Ann."
+        |> content__________________________________ "right1"
+            "The door opens."
+        |> content__________________________________ "wrong1"
+            "The alarm rang. And an armed team came to the police office."
+        |> content__________________________________ "wrong2"
+            "The alarm rang. And an armed team came to the police office."
+        |> content__________________________________ "wrong3"
+            "The alarm rang. And an armed team came to the police office."
+        |> content__________________________________ "closet day7"
+            "You find lots of paper documents, including a bank account statement, a plan document and a custom contract. You put them into your bag."
+        |> content__________________________________ "table day7"
+            "You find another bottle of pills on Jonathon's desk."
+        |> content__________________________________ "bank2_1"
+            "BANK CARD NUMBER 1000001"
+        |> content__________________________________ "bank2_2"
+            "Three weeks ago. 150000 To Ann\nTwo weeks ago. 10000000 To Daniel\nTen days ago. 60000 To Weapon maker"
+        |> content__________________________________ "bank2_3"
+            "One week ago. 500000 To Aurora Pharmaceutical Company\nOne week ago. 200000 To Paradise Night Club"
+        |> content__________________________________ "plan1"
+            "--TOP SECRET--\nRoad to Darkness"
+        |> content__________________________________ "plan2"
+            "Become the leader police of city police office ☑\nOwn or support a night club in CBD area ☑\nEdit the law of medicine custom ☑"
+        |> content__________________________________ "plan3"
+            "Make night club as the main entertainment option in the city ☑\nMake the night club as the biggest night club ☑\nOwn an armed personal troop ☑"
+        |> content__________________________________ "plan4"
+            "Become the speaker of the city council □\nBecome the owner of the city □\nBecome *the Darkness* □"
+        |> content__________________________________ "custom1"
+            "Contract of custom \"food\"\nThe Buyer: Stallworth\nBank Card Number: 1000001\nThe Seller: Aurora Pharmaceutical Company"
+        |> content__________________________________ "custom2"
+            "Content and reason for customization:\nBased on the Paradise pill, add customized chemical elements to optimize the power of analyzing equipment of the police office."
+        |> content__________________________________ "custom3"
+            "Feature of the customized elements added:\nCannot be analyzed by current analyzing equipment of the police office\nHave same appearance and similar physical properties as Paradise"
+        |> content__________________________________ "custom4"
+            "Warning:\nAdded elements can be toxic, buyer should obey the local law of customing medicine and strictly obey the reason for customization."
+        |> content__________________________________ "custom5"
+            "Price: \n350000 For customization; 100000 For tax;\n30000 For product; 15000 For secret-keeping;\n5000 For service"
+        |> content__________________________________ "custom6"
+            "Signature:\nBuyer: Jonathon\nSeller: Aurora Pharmaceutical Company"
+        |> content__________________________________ "lee7_1"
+            "Hey, Kay. Jonathon told me to inspect you. Where did you go tonight?"
+        |> content__________________________________ "lee7_2"
+            "I'm collecting evidence to report Jonathon's crime to the city council."
+        |> content__________________________________ "lee7_3"
+            "Are you crazy, Kay? Why do you keep fighting against Jonathan? You know that makes no sense!"
+        |> content__________________________________ "lee7_4"
+            "Ha, it's my mission. My rebirth is just for completing the remaining mission."
+        |> content__________________________________ "lee7_5"
+            "What are you saying, Kay? You know that Jonathon will sooner or later be the speaker of the city council and then become the owner of the city gradually."
+        |> content__________________________________ "lee7_6"
+            "It's the last chance for us to defend the slim light of our city. This city should belong to everyone living here not the group of some people or even one person. Can you do me a favor?"
+        |> content__________________________________ "lee7_7"
+            "(Long time thinking... sigh) Okay. Hey, listen, bro. In fact I felt Jonathon weird as well, but I just...I just dare not to fight against him. This time I will stand by your side and do my best. What can I do?"
+        |> content__________________________________ "lee7_8"
+            "Can you kindly compare these two kinds of pills? And report them to the Speaker in tomorrow's inquiry?"
+        |> content__________________________________ "lee7_9"
+            "You even apply for an inquiry tomorrow? Okay, I will analyze them this night. Wish you good luck, Kay."
+        |> content__________________________________ "lee7_10"
+            "The same to you, Lee, my best brother! (hug)"
 
 parsedData =
     let

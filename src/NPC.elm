@@ -25,6 +25,7 @@ type NPCType
     | Staff
     | Table
     | Closet
+    | Lock
     | None
     | PoliceX
     | Judge
@@ -52,7 +53,7 @@ emptyNPC =
         }
     , interacttrue = False
     , description = ""
-    , place = ( Switching, Nowhere )
+    , place = ( Story, Nowhere )
     , isFinished = True
     , name = ""
     }
@@ -568,10 +569,26 @@ policeXPhone_day6 =
         }
     , interacttrue = False
     , description = "POLICEXPHONE.day6"
-    , place = ( Home, Day6)
+    , place = ( Home, Day6 )
     , isFinished = False
     , name = ""
     }
+
+homePhone_day7 : NPC
+homePhone_day7 =
+     { itemType = Phone
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 1200
+         , hei = 600
+         }
+     , interacttrue = False
+     , description = "PHONE_DAY7"
+     , place = ( Home, Day7 )
+     , isFinished = False
+     , name = ""
+     }
 
 courtSpeaker : NPC
 courtSpeaker =
@@ -718,6 +735,22 @@ dangerPark =
      , name = ""
      }
 
+jonathonLock : NPC
+jonathonLock =
+    { itemType = Lock
+     , area =
+         { x = -100
+         , y = -100
+         , wid = 1
+         , hei = 1
+         }
+     , interacttrue = False
+     , description = "LOCK"
+     , place = ( PoliceOffice, Day7 )
+     , isFinished = False
+     , name = ""
+     }
+
 jonathonCloset : NPC
 jonathonCloset =
     { itemType = Closet
@@ -750,6 +783,54 @@ jonathonTable =
      , name = ""
      }
 
+jonathonCloset_day7 : NPC
+jonathonCloset_day7 =
+    { itemType = Closet
+     , area =
+         { x = 500
+         , y = 55
+         , wid = 75
+         , hei = 10
+         }
+     , interacttrue = False
+     , description = "CLOSET_7"
+     , place = ( PoliceOffice, Day7 )
+     , isFinished = False
+     , name = ""
+     }
+
+jonathonTable_day7 : NPC
+jonathonTable_day7 =
+    { itemType = Table
+     , area =
+         { x = 340
+         , y = 60
+         , wid = 40
+         , hei = 70
+         }
+     , interacttrue = False
+     , description = "TABLE_7"
+     , place = ( PoliceOffice, Day7 )
+     , isFinished = False
+     , name = ""
+     }
+
+switchingPolice : NPC
+switchingPolice =
+    { itemType = PoliceX
+     , area =
+         { x = 6000
+         , y = 6000
+         , wid = 100
+         , hei = 100
+         }
+     , interacttrue = False
+     , description = ""
+     , place = ( NoPlace, Nowhere )
+     , isFinished = False
+     , name = "LEE"
+     }
+
 
 allNPCs: List NPC
 allNPCs =
@@ -761,14 +842,14 @@ allNPCs =
     , pLee, pAllen, pAdkins, pCatherine
     , jonaliLee, jonaliEvidence, jonaliBody
     , nightBody
-    , homePhone, danielPhone
+    , homePhone, danielPhone, homePhone_day7, policeXPhone_day6
     , danielDaniel
     , danielPaper, danielKey, danielMemCard, danielBank
     , staffNightClub
     , dangerPark
-    , jonathonTable, jonathonCloset
-    , policeXPhone_day6
+    , jonathonTable, jonathonCloset, jonathonLock, jonathonCloset_day7, jonathonTable_day7
     , courtSpeaker
+    , switchingPolice
     ]
 
 
@@ -796,6 +877,10 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
     | DocumentsEvi
     | Dagger2Evi
     | BankCardEvi
+    | PillsJoEvi
+    | PlanEvi
+    | BankAccJoEvi
+    | CustomEvi
     | NoEvi
 
 disk_evi : Evidence
@@ -904,6 +989,38 @@ letter_evi : Evidence
 letter_evi =
     { eviType = LetterEvi
     , description = "LETTER_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+customcon_evi : Evidence
+customcon_evi =
+    { eviType = CustomEvi
+    , description = "CUSTOM"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+bankacc_evi : Evidence
+bankacc_evi =
+    { eviType = BankAccJoEvi
+    , description = "BANK2"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+plan_evi : Evidence
+plan_evi =
+    { eviType = PlanEvi
+    , description = "PLAN"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+pills_jo_evi : Evidence
+pills_jo_evi =
+    { eviType = PillsJoEvi
+    , description = "PILLS_JO"
     , usedPlace = Home
     , isExamined = False
     }

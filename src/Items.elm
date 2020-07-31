@@ -29,6 +29,7 @@ type Map
     | Story
     | AboutUs
     | BadEnds
+    | NoPlace
 
 type alias Item =
     { itemType : ItemType
@@ -397,7 +398,7 @@ emptyPickUp =
 
 bagIni : Bag
 bagIni =
-    { grid1 = keyIni
+    { grid1 = emptyIni
     , grid2 = emptyIni
     , grid3 = emptyIni
     , grid4 = emptyIni

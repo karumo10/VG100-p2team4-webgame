@@ -174,9 +174,12 @@ update msg model =
         ElevateTo3 ->
             case model.map of
                 PoliceOffice ->
+                    if model.dayState /= Day7 || findCertainQuestion model "PASSWORD2" then
                     ( teleportHero ( 865, 60 ) model
                     , Cmd.none
                     )
+                    else
+                    ( interactWithJonathonLock model, Cmd.none )
                 Home ->
                      ( teleportHero ( 1050, 80 ) model
                      , Cmd.none
@@ -368,6 +371,10 @@ update msg model =
                     else if currItem == bankCardIni then bank_card_evi
                     else if currItem == dagger2Ini then dagger2_evi
                     else if currItem == documentsIni then documents_evi
+                    else if currItem == pillsIni then pills_jo_evi
+                    else if currItem == planIni then plan_evi
+                    else if currItem == bankaccIni then bankacc_evi
+                    else if currItem == customconIni then customcon_evi
                     else empty_evi
             in
             ( examineEvidence currEvi model, Cmd.none )
@@ -751,10 +758,13 @@ wakeUp model =
                 3 -> Day3
                 4 -> Day4
                 5 -> Day5
+                6 -> Day6
+                7 -> Day7
+                8 -> Day8
                 _ -> TooBigOrSmall
         model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
         story =
-            if day == 3 || day == 5 then
+            if day == 3 || day == 5 || day == 7 then
                 model_.story
             else if day == 6 then
             "What a comfortable night! No dream, no maze!"
@@ -778,7 +788,14 @@ mapSwitch newMap model =
         mapAttr
             =
             case newMap of
-                Switching -> switchingAttr -- including drainenergy, switching & start page
+                Switching ->
+                    if dayState /= Day7 then
+                    switchingAttr -- including drainenergy, switching & start page
+                    else
+                    List.filter (\a -> a.scene == ( Switching, Nowhere )) model.mapAttr_all
+                    |> List.head
+                    |> withDefault switchingAttr
+
                 _ ->
                     List.filter (\a -> a.scene == scene) model.mapAttr_all
                     |> List.head
@@ -1038,6 +1055,26 @@ examineEvidence evi model =
     else
         model__
 
+interactWithJonathonLock : Model -> Model
+interactWithJonathonLock model =
+    let
+        currNPC = List.filter (\a -> a.description == "LOCK") model.npcs_all
+            |> List.head |> withDefault jonathonLock
+        currTrigger
+            = query currNPC.description model.worldModel
+            |> List.map Tuple.first -- get List ID
+            |> List.head -- get first (suppose only one ID for one NPC. Is it true????)
+            |> withDefault "$my$own$error$msg$: no such npc, in interact by X please contact with group4"
+        model_ = interactWith__core currTrigger model |> Tuple.first
+        energy = model.energy
+        energy_ = energy - model.energy_Cost_interact
+    in
+    if model.playerDoing == MakingChoices then
+        model
+    else if energy_ < 0 then
+        {model| story = "Ah.... Why am I feel so tired, I should go home for a sleep......"}
+    else
+        model_
 
 
 
@@ -1219,9 +1256,22 @@ specialUpdates model
         |> day6_home_teleport_council
         |> day6_items_update_speaker
         |> day6_court_update_exit
+        |> day7_examine_finish_update_switching_npc
+        |> day7_lee_finished_update_eliminate_lee
+        |> updating_isTalkingWithLeeDay7
+        --|> debugFinished
     else model
 
 
+debugFinished : Model -> Model
+debugFinished model =
+    let
+        policeMap = List.filter (\a -> a.scene == (PoliceOffice, Day7)) model.mapAttr_all
+                |> List.head |> withDefault policeOfficeAttr_day7
+        isFinished = policeMap.isFinished
+        story = Debug.toString isFinished
+    in
+        { model | story = story }
 
 
 day2_journalist_finished_update_day : Model -> Model -- format: (IMPORTANT) `time`_`mapname`_finished_update. means that this map at this time is finished, and then update somthing.
@@ -1447,6 +1497,51 @@ day6_court_update_exit model =
     model |> teleportHero ( 2000, 2000 )
     else model
 
+day7_examine_finish_update_switching_npc : Model -> Model
+day7_examine_finish_update_switching_npc model =
+    let
+        isFinished = findCertainQuestion model "TABLE_7" && findCertainQuestion model "CLOSET_7" && findCertainQuestion model "PASSWORD2"
+        switchingMap = List.filter (\a -> a.scene == (Switching, Nowhere)) model.mapAttr_all
+            |> List.head |> withDefault switchingAttr
+        leeInSwitching = List.filter (\a -> a.itemType == PoliceX ) model.npcs_all
+            |> List.head |> withDefault switchingPolice
+        lee_ = { leeInSwitching | place = (Switching, Nowhere), description = "LEE7" }
+        story = " Before you enter the home, you meet one of your former colleagues, Lee. Press X to talk with him."
+        switchingMap_ = { switchingMap | story = story }
+        restMap = List.filter (\a -> a.scene /= (Switching, Nowhere)) model.mapAttr_all
+        restNpcs = List.filter (\a -> a.itemType /= PoliceX) model.npcs_all
+        npcs_ = [lee_] ++ restNpcs
+        maps_ = [switchingMap_] ++ restMap
+    in
+    if isFinished && leeInSwitching.description /= "LEE7" then
+    { model | npcs_all = npcs_, mapAttr_all = maps_ }
+    else model
+
+day7_lee_finished_update_eliminate_lee : Model -> Model
+day7_lee_finished_update_eliminate_lee model =
+    let
+        isFinished = findCertainQuestion model "LEEANS5"
+        switchingMap = List.filter (\a -> a.scene == (Switching, Nowhere)) model.mapAttr_all
+            |> List.head |> withDefault switchingAttr
+        leeInSwitching = List.filter (\a -> a.itemType == PoliceX ) model.npcs_all
+            |> List.head |> withDefault switchingPolice
+        lee_ = { leeInSwitching | place = (NoPlace, Nowhere), description = "" }
+        story = "Where to go?"
+        switchingMap_ = { switchingMap | story = story }
+        restMap = List.filter (\a -> a.scene /= (Switching, Nowhere)) model.mapAttr_all
+        restNpcs = List.filter (\a -> a.itemType /= PoliceX) model.npcs_all
+        npcs_ = [lee_] ++ restNpcs
+        maps_ = [switchingMap_] ++ restMap
+    in
+    if isFinished && leeInSwitching.description == "LEE7" then
+    { model | npcs_all = npcs_, mapAttr_all = maps_ }
+    else model
+
+updating_isTalkingWithLeeDay7 : Model -> Model
+updating_isTalkingWithLeeDay7 model =
+    { model | isTalkingWithLeeDay7 =
+        (findCertainQuestion model "TABLE_7" && findCertainQuestion model "CLOSET_7" && findCertainQuestion model "PASSWORD2")
+        && (not (findCertainQuestion model "LEEANS5"))}
 
 
 
@@ -1543,8 +1638,20 @@ badEnd6 model =
     (True, "[Bad End: Imprisoned] News: Recently, the case of a series of killings has been solved by Jonathon's team. The murderer Kay, a former policeman in our city, was sentenced to life imprisonment. Thanks for Jonathon's effort on maintaining justice, he was elected as the new speaker of our city council.")
     else (False, model.story)
 
+badEnd7 : Model -> ( Bool, String )
+badEnd7 model =
+    let
+        isFalse =
+            findCertainQuestion model "PASSWORD1" || findCertainQuestion model "PASSWORD3" || findCertainQuestion model "PASSWORD4"
+    in
+    if isFalse then
+    (True, "[Bad End: Forget-Me-Not] News: New crime set: steal the secret of the darkness. The Owner of our city,\"Darkness\", has made a new crime valid -- steal the secret of the darkness. And the first one who is guilty of this crime is the former policeman Kay.")
+    else (False, model.story)
+
+
+
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =
@@ -1561,7 +1668,10 @@ pickUpWithEngine model =
     |> pickBankCard
     |> pickDocument
     |> pickDagger2
-
+    |> pickContract
+    |> pickDocument2
+    |> pickPillJo
+    |> pickBankStateJo
 
 
 
@@ -1652,6 +1762,23 @@ pickDocument model =
 pickLetter : Model -> Model
 pickLetter model =
     pickSingleItem "CLOSET" letterIni model
+
+pickBankStateJo : Model -> Model
+pickBankStateJo model =
+    pickSingleItem "CLOSET_7" bankaccIni model
+
+pickPillJo : Model -> Model
+pickPillJo model =
+    pickSingleItem "TABLE_7" pillsIni model
+
+pickDocument2 : Model -> Model
+pickDocument2 model =
+    pickSingleItem "CLOSET_7" planIni model
+
+pickContract : Model -> Model
+pickContract model =
+    pickSingleItem "CLOSET_7" customconIni model
+
 
 
 pickFakeMemCard : Model -> Model

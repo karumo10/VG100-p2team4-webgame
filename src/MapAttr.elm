@@ -24,6 +24,8 @@ type Day
     | Day4
     | Day5
     | Day6
+    | Day7
+    | Day8
     | Nowhere
     | TooBigOrSmall
 
@@ -172,6 +174,14 @@ hintsMaze6 =
     , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Tomorrow will be the last chance, Yuuki. You should take some risks." }
     , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "It never occurs to me that Jonathon will love someone. HaHaHa!" } ]
 
+hintsMaze7 : List Hint
+hintsMaze7 =
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "Now the story has come to the end. What will happen tomorrow? I'm looking forward to it." }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "Thinking about the relationship between each pieces of evidence before you go to the city council tomorrow, my friend." }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Pay attention that Jonathon has an armed team. If you don't overwhelmingly beat him in the city council. It's hard to imagine what will happen." }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "Out, out, brief candle!...\nLife s but a walking shadow，a poor player\nThat struts and frets his hour upon the stage\nAnd then is heard no more." } ]
+
+
 policeOfficeAttr_day1 : MapAttr
 policeOfficeAttr_day1 =
     { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
@@ -251,7 +261,7 @@ policeOfficeAttr_day5 =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , story = "There is no one in the police office tonight. It’s quite weird. But at the same time, it is the best time to have a deeper investigation of Jonathon’s office."
+    , story = "There is no one in the police office tonight. It's quite weird. But at the same time, it is the best time to have a deeper investigation of Jonathon's office."
     , scene = ( PoliceOffice, Day5 )
     , isFinished = False
     }
@@ -263,10 +273,23 @@ policeOfficeAttr_day6 =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , story = "DAY6"
+    , story = ""
     , scene = ( PoliceOffice, Day6 )
     , isFinished = False
     }
+
+policeOfficeAttr_day7 : MapAttr
+policeOfficeAttr_day7 =
+    { exit = { x = 165, y = 480 , wid = 70, hei = 120 }
+    , heroIni = { x = 300, y = 520, width = 20, height = 60 }
+    , barrier = policeOfficeBarrier
+    , hint = []
+    , vehicle = policeOfficeVehicle
+    , story = "It's so lucky that tonight, no one is at the police office again."
+    , scene = ( PoliceOffice, Day7 )
+    , isFinished = False
+    }
+
 
 parkAttr_day1 : MapAttr
 parkAttr_day1 =
@@ -447,6 +470,29 @@ homeAttr_day6 =
     , vehicle = homeVehicle
     , story = "Phone rings... press X to pick the phone."
     , scene = ( Home, Day6 )
+    , isFinished = False
+    }
+
+homeAttr_day7 : MapAttr
+homeAttr_day7 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Ah... That is to say, I have to challenge Jonathon bravely but wisely... The only superior authority in our city is... the city council. Press X to phone there."
+    , scene = ( Home, Day7 )
+    , isFinished = False
+    }
+homeAttr_day8 : MapAttr
+homeAttr_day8 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Home, sweet home."
+    , scene = ( Home, Day8 )
     , isFinished = False
     }
 
@@ -753,12 +799,25 @@ dreamMazeAttr_day6 =
     , isFinished = False
     }
 
+dreamMazeAttr_day7 : MapAttr
+dreamMazeAttr_day7 =
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 }
+    , barrier = maze1Barrier
+    , hint = hintsMaze7
+    , vehicle = []
+    , story = "......"
+    , scene = ( DreamMaze, Day7 )
+    , isFinished = False
+    }
+
+
 
 switchingAttr : MapAttr
 switchingAttr =
     { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
-    , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
-    , barrier = []
+    , heroIni = { x = 6050, y = 6050, width = 2, height = 2 }
+    , barrier = switchingBarrierList
     , hint = []
     , vehicle = []
     , story = "Where to go?"
@@ -769,15 +828,15 @@ switchingAttr =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5, dreamMazeAttr_day6
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5, dreamMazeAttr_day6, dreamMazeAttr_day7
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5, homeAttr_day6, homeAttr_day7, homeAttr_day8
     , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4, parkAttr_day5
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
-    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5
+    , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5, policeOfficeAttr_day6, policeOfficeAttr_day7
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5
     , danielAttr_day3, danielAttr_day4
     , switchingAttr
-    , policeOfficeAttr_day6, homeAttr_day6, courtAttr_day6]
+    , courtAttr_day6]
 
 
 

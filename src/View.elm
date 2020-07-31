@@ -11,6 +11,8 @@ import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth
 import Items exposing ( .. )
 import Html exposing (Html, br, button, div, input, p, text, ul)
 import MapAttr exposing (Day(..), Mode(..), gameMode______)
+
+
 pixelWidth : Float
 pixelWidth =
     1050
@@ -702,6 +704,36 @@ renderMapButton model =
             ]
             [ Html.text "City Council" ]
             ]
+            else if model.dayState == Day7 && not model.isTalkingWithLeeDay7 then
+            div []
+            [
+            button
+            [ style "position" "absolute"
+            , style "left" "500px"
+            , style "top" "350px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPoliceOffice
+            ]
+            [ Html.text "Police Office" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "400px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToHome
+            ]
+            [ Html.text "Home" ]
+            ]
+
             else div [][]
 
 
@@ -827,6 +859,7 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ]
                 ++ [ renderdialog model ]
+                ++ [ renderchoice model ]
                 ++ [renderportrait model]
 
             EnergyDrain ->
@@ -988,6 +1021,9 @@ renderPic model =
                  []]
                  ++ [renderdialog model]
 
+            NoPlace ->
+                [rect[][]]
+
 
 
 
@@ -1129,6 +1165,11 @@ renderPreviousMap model =
 
             BadEnds ->
                 [rect[][]]
+
+            NoPlace ->
+                [rect[][]]
+
+
 
 
 

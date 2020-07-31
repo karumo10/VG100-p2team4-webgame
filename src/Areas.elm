@@ -76,6 +76,14 @@ courtBarrierList =
     , { x = 3100, y = 3000, wid = 10, hei = 100 }]
 
 
+switchingBarrierList : List Area
+switchingBarrierList =
+    [ { x = 6000, y = 6000, wid = 10, hei = 100 }
+    , { x = 6000, y = 6100, wid = 100, hei = 10 }
+    , { x = 6000, y = 6000, wid = 100, hei = 10 }
+    , { x = 6100, y = 6000, wid = 10, hei = 100 }]
+
+
 nightClubBarrierList : List Area
 nightClubBarrierList =
             [ { x = 150, y = 435 , wid = 910, hei = 20 } -- f1.ceiling (every floor 230)
