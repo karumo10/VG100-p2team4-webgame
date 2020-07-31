@@ -695,7 +695,7 @@ renderMapButton model =
              button
              [ style "background" "red"
              , style "position" "absolute"
-             , style "left" "500px"
+             , style "left" "350px"
              , style "top" "400px"
              , style "color" "#f3f2e9"
              , style "cursor" "pointer"
