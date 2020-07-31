@@ -146,10 +146,10 @@ hintsMaze2 =
 
 hintsMaze3 : List Hint
 hintsMaze3 =
-    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "Oh, it seems that tonight we have a new friend. Ha, Nice to see a new friend join our chat at night. Oh, our new friend seems to be in great pain and guilt. Ha, it's normal to be painful because of the death of family member but the guilty is quite interesting. Do you think so, my lucky, \"Kay\"?"}
-    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "It's fake. It's fake. It's fake. I had no choice to do. Forgive me. Forgive me. Forgive me. That will be destroyed tomorrow at a very early time. Please do save it." }
-    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "How stupid our boss is? Use a place twice to carry out his plan of eliminating? My dear Jonathon, though the economic situation is very bad, with your ability, it should not be a case to create a new battlefield. Or, there exists more secret in Pa-ra-di-se?" }
-    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "Be careful, [player's name]. Jonathon seems to be impatient... Don't behave too aggressive." } ]
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "Nice to see a new friend join our chat at night. Oh, our new friend seems to be in great pain and guilt. Ha, it's normal to be painful because of the death of family member but the guilty is quite interesting. Do you think so, my lucky, Yuuki?"}
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "It's fake. It's fake. It's fake. I had no choice to do. Forgive me. Forgive me. Forgive me. The key evidence will be destroyed tomorrow at a very early time. Please do save it." }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "How stupid our boss is? Too obvious intention!" }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "Be careful, Yuuki. Jonathon seems to be impatient... Don't behave too aggressive." } ]
 
 hintsMaze4 : List Hint
 hintsMaze4 =
@@ -168,7 +168,7 @@ hintsMaze5 =
 hintsMaze6 : List Hint
 hintsMaze6 =
     [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "It can be seen that Jonathon cannot wait to address you..." }
-    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "You have made a lot of effort. But there exists little time now..." }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "Yukki, you have made a lot of effort. But there exists little time now..." }
     , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Tomorrow will be the last chance, Yuuki. You should take some risks." }
     , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "It never occurs to me that Jonathon will love someone. HaHaHa!" } ]
 
