@@ -760,6 +760,7 @@ wakeUp model =
                 5 -> Day5
                 6 -> Day6
                 7 -> Day7
+                8 -> Day8
                 _ -> TooBigOrSmall
         model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
         story =
