@@ -53,7 +53,7 @@ emptyNPC =
         }
     , interacttrue = False
     , description = ""
-    , place = ( Switching, Nowhere )
+    , place = ( Story, Nowhere )
     , isFinished = True
     , name = ""
     }
@@ -815,6 +815,23 @@ jonathonTable_day7 =
      , name = ""
      }
 
+switchingPolice : NPC
+switchingPolice =
+    { itemType = PoliceX
+     , area =
+         { x = 6000
+         , y = 6000
+         , wid = 100
+         , hei = 100
+         }
+     , interacttrue = False
+     , description = ""
+     , place = ( NoPlace, Nowhere )
+     , isFinished = False
+     , name = "LEE"
+     }
+
+
 allNPCs: List NPC
 allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night, cLee_day4
@@ -832,6 +849,7 @@ allNPCs =
     , dangerPark
     , jonathonTable, jonathonCloset, jonathonLock, jonathonCloset_day7, jonathonTable_day7
     , courtSpeaker
+    , switchingPolice
     ]
 
 

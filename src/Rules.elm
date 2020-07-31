@@ -470,6 +470,9 @@ initialWorldModelSpec =
     , entity "TABLE_7.trigger=1"
         "table day7"
         "This place has been examined."
+    , entity "LEE7.trigger=0"
+        "lee day7"
+        "Wish you good luck, Kay! Goodbye!"
 ---- day7 choices
     , entity "PHONE_ANS1.choices=0"
         "I want to report Jonathon!"
@@ -494,6 +497,21 @@ initialWorldModelSpec =
         ""
     , entity "PASSWORD4.choices=0"
         "ANNJ"
+        ""
+    , entity "LEEANS1.choices=0"
+        "I’m collecting evidence"
+        ""
+    , entity "LEEANS2.choices=0"
+        "It’s my mission"
+        ""
+    , entity "LEEANS3.choices=0"
+        "It’s the last chance for us to defend the slim light of our city."
+        ""
+    , entity "LEEANS4.choices=0"
+        "Can you kindly compare these two kinds of pills?"
+        ""
+    , entity "LEEANS5.choices=0"
+        "The same to you, Lee!"
         ""
 ---last four items
     , entity "BANK2.trigger=0"
@@ -1921,6 +1939,67 @@ rulesSpec =
             IF: CUSTOM.trigger=5
             DO: CUSTOM.trigger=0
             """
+        |> rule_______________________ "lee7_1"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=0
+            DO: LEEANS1.choices=1
+            """
+        |> rule_______________________ "lee7_2"
+            """
+            ON: LEEANS1
+            DO: LEE7.trigger=1
+                LEEANS1.choices=0
+            """
+        |> rule_______________________ "lee7_3"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=1
+            DO: LEEANS2.choices=1
+            """
+        |> rule_______________________ "lee7_4"
+            """
+            ON: LEEANS2
+            DO: LEE7.trigger=2
+                LEEANS2.choices=0
+            """
+        |> rule_______________________ "lee7_5"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=2
+            DO: LEEANS3.choices=1
+            """
+        |> rule_______________________ "lee7_6"
+            """
+            ON: LEEANS3
+            DO: LEE7.trigger=3
+                LEEANS3.choices=0
+            """
+        |> rule_______________________ "lee7_7"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=3
+            DO: LEEANS4.choices=1
+            """
+        |> rule_______________________ "lee7_8"
+            """
+            ON: LEEANS4
+            DO: LEE7.trigger=4
+                LEEANS4.choices=0
+            """
+        |> rule_______________________ "lee7_9"
+            """
+            ON: LEE7
+            IF: LEE7.trigger=4
+            DO: LEEANS5.choices=1
+            """
+        |> rule_______________________ "lee7_10"
+            """
+            ON: LEEANS5
+            DO: LEE7.trigger=5
+                LEEANS5.choices=-1
+            """
+
 
 
 
@@ -2332,8 +2411,26 @@ narrative_content =
             "Price: \n350000 For customization; 100000 For tax;\n30000 For product; 15000 For secret-keeping;\n5000 For service"
         |> content__________________________________ "custom6"
             "Signature:\nBuyer: Jonathon\nSeller: Aurora Pharmaceutical Company"
-
-
+        |> content__________________________________ "lee7_1"
+            "Hey, Kay. Jonathon told me to inspect you. Where did you go tonight?"
+        |> content__________________________________ "lee7_2"
+            "I’m collecting evidence to report Jonathon’s crime to the city council."
+        |> content__________________________________ "lee7_3"
+            "Are you crazy, Kay? Why do you keep fighting against Jonathan? You know that makes no sense!"
+        |> content__________________________________ "lee7_4"
+            "Ha, it’s my mission. My rebirth is just for completing the remaining mission."
+        |> content__________________________________ "lee7_5"
+            "What are you saying, Kay? You know that Jonathon will sooner or later be the speaker of the city council and then become the owner of the city gradually."
+        |> content__________________________________ "lee7_6"
+            "It’s the last chance for us to defend the slim light of our city. This city should belong to everyone living here not the group of some people or even one person. Can you do me a favor?"
+        |> content__________________________________ "lee7_7"
+            "(Long time thinking... sigh) Okay. Hey, listen, bro. In fact I felt Jonathon weird as well, but I just...I just dare not to fight against him. This time I will stand by your side and do my best. What can I do?"
+        |> content__________________________________ "lee7_8"
+            "Can you kindly compare these two kinds of pills? And report them to the Speaker in tomorrow’s inquiry?"
+        |> content__________________________________ "lee7_9"
+            "You even apply for an inquiry tomorrow? Okay, I will analyze them this night. Wish you good luck, Kay."
+        |> content__________________________________ "lee7_10"
+            "The same to you, Lee, my best brother! (hug)"
 
 parsedData =
     let

@@ -783,8 +783,8 @@ dreamMazeAttr_day6 =
 switchingAttr : MapAttr
 switchingAttr =
     { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
-    , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
-    , barrier = []
+    , heroIni = { x = 6050, y = 6050, width = 2, height = 2 }
+    , barrier = switchingBarrierList
     , hint = []
     , vehicle = []
     , story = "Where to go?"

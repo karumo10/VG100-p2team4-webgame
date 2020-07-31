@@ -29,6 +29,7 @@ type Map
     | Story
     | AboutUs
     | BadEnds
+    | NoPlace
 
 type alias Item =
     { itemType : ItemType

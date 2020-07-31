@@ -787,7 +787,14 @@ mapSwitch newMap model =
         mapAttr
             =
             case newMap of
-                Switching -> switchingAttr -- including drainenergy, switching & start page
+                Switching ->
+                    if dayState /= Day7 then
+                    switchingAttr -- including drainenergy, switching & start page
+                    else
+                    List.filter (\a -> a.scene == ( Switching, Nowhere )) model.mapAttr_all
+                    |> List.head
+                    |> withDefault switchingAttr
+
                 _ ->
                     List.filter (\a -> a.scene == scene) model.mapAttr_all
                     |> List.head
@@ -1248,9 +1255,20 @@ specialUpdates model
         |> day6_home_teleport_council
         |> day6_items_update_speaker
         |> day6_court_update_exit
+        |> day7_examine_finish_update_switching_npc
+        --|> debugFinished
     else model
 
 
+debugFinished : Model -> Model
+debugFinished model =
+    let
+        policeMap = List.filter (\a -> a.scene == (PoliceOffice, Day7)) model.mapAttr_all
+                |> List.head |> withDefault policeOfficeAttr_day7
+        isFinished = policeMap.isFinished
+        story = Debug.toString isFinished
+    in
+        { model | story = story }
 
 
 day2_journalist_finished_update_day : Model -> Model -- format: (IMPORTANT) `time`_`mapname`_finished_update. means that this map at this time is finished, and then update somthing.
@@ -1474,6 +1492,26 @@ day6_court_update_exit model =
     in
     if isExiting && (model.map,model.dayState) == (CityCouncil, Day6) && model.hero.y >= 2500 then
     model |> teleportHero ( 2000, 2000 )
+    else model
+
+day7_examine_finish_update_switching_npc : Model -> Model
+day7_examine_finish_update_switching_npc model =
+    let
+        isFinished = findCertainQuestion model "TABLE_7" && findCertainQuestion model "CLOSET_7" && findCertainQuestion model "PASSWORD2"
+        switchingMap = List.filter (\a -> a.scene == (Switching, Nowhere)) model.mapAttr_all
+            |> List.head |> withDefault switchingAttr
+        leeInSwitching = List.filter (\a -> a.itemType == PoliceX ) model.npcs_all
+            |> List.head |> withDefault switchingPolice
+        lee_ = { leeInSwitching | place = (Switching, Nowhere), description = "LEE7" }
+        story = " Before you enter the home, you meet one of your former colleagues, Lee. Press X to talk with him."
+        switchingMap_ = { switchingMap | story = story }
+        restMap = List.filter (\a -> a.scene /= (Switching, Nowhere)) model.mapAttr_all
+        restNpcs = List.filter (\a -> a.itemType /= PoliceX) model.npcs_all
+        npcs_ = [lee_] ++ restNpcs
+        maps_ = [switchingMap_] ++ restMap
+    in
+    if isFinished && leeInSwitching.description /= "LEE_7" then
+    { model | npcs_all = npcs_, mapAttr_all = maps_ }
     else model
 
 
