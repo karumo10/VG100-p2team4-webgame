@@ -7,7 +7,7 @@ import Message exposing (Msg(..))
 import Model exposing (..)
 import Tosvg exposing (..)
 import Svg exposing (image, rect, svg, Svg)
-import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth,xlinkHref,transform)
+import Svg.Attributes exposing (x,y,width,height,viewBox,fill,stroke,strokeWidth,xlinkHref,transform,opacity)
 import Items exposing ( .. )
 import Html exposing (Html, br, button, div, input, p, text, ul)
 import MapAttr exposing (Day(..), Mode(..), gameMode______)
@@ -349,6 +349,26 @@ renderMusic model=
                             ] []
                             ]
                             ]
+        BadEnds ->
+                        div []
+                         [ div []
+                            [ Html.iframe
+                            [ src "./trigger.mp3"
+                            , autoplay True
+                            , style "display" "none"
+                            ] []
+                            ]
+                          , div []
+                            [ Html.audio
+                            [ id "player"
+                            , autoplay True
+                            , loop True
+                            , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                            , type_ "audio/mp3"
+                            ] []
+                            ]
+                            ]
+
         _ ->
                 div []
                  [ div []
@@ -740,7 +760,7 @@ renderPic model =
             ] ]
         ] ++
         (
-        if not model.isEnd then
+        --if not model.isEnd then
         case model.map of
             PoliceOffice ->
 
@@ -782,7 +802,7 @@ renderPic model =
                 ([ Svg.rect
                     [ x "0"
                     , y "0"
-                    , width "1200"
+                    , width "1171"
                     , height "600"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ])
@@ -953,17 +973,25 @@ renderPic model =
                 [div [][]]
 
 
-        else
-        [Svg.rect
-        [ x "0"
-        , y "0"
-        , width "1200"
-        , height "600"
-        , transform "translate(-30,0)"
-        , fill "black"
-        ]
-        []]
-        ++ [renderdialog model]
+            BadEnds ->
+                renderPreviousMap model ++
+                 [Svg.rect
+                 [ x "0"
+                 , y "0"
+                 , width "1171"
+                 , height "600"
+                 , transform "translate(-30,0)"
+                 , Svg.Attributes.opacity (toString (0.5 * (model.endingTimeAccum / 4000)))
+                 , fill "red"
+                 ]
+                 []]
+                 ++ [renderdialog model]
+
+
+
+
+
+        --else
 
 
 
@@ -973,6 +1001,136 @@ renderPic model =
         ++ itemsToSvg model
         ++ dayToSvg model )
         )
+
+renderPreviousMap : Model -> List ( Svg Msg )
+renderPreviousMap model =
+    case model.badEndPreviousMap of
+            PoliceOffice ->
+
+                [Svg.image
+                    [ xlinkHref "./police_office.png" -- I'll change all the maps into 1050*630... ——Lan Wang
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)"
+                    ] []]
+            Park ->
+                if model.dayState /= Day5 then
+                [ Svg.image
+                    [ xlinkHref "./park.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ]
+                else
+                [ Svg.rect
+                    [ x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ]
+
+            Switching ->
+
+                [ Svg.image
+                    [ xlinkHref "./mapswitch.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ]
+            EnergyDrain ->
+
+                [Svg.rect
+                    [ x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"][]]
+            Home ->
+                [Svg.image
+                    [ xlinkHref "./Kay's_home.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+            DreamMaze ->
+                [Svg.image
+                    [ xlinkHref "./dream_maze_1.png"
+                    , x "135"
+                    , y "0"
+                    , width "900"
+                    , height "630"
+                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ]
+            Journalist ->
+                [ Svg.image
+                    [ xlinkHref "./journalist's_home.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+            NightClub ->
+                [ Svg.image
+                    [ xlinkHref "./nightclub.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+            Daniel ->
+                [ Svg.image
+                    [ xlinkHref "./Ann_and_Daniel's_home.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+            CityCouncil->
+                [ Svg.image
+                    [ xlinkHref "./court.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+            BackStreet->
+                [ Svg.image
+                    [ xlinkHref "./street.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+
+            StarterPage ->
+                [rect[][]]
+
+            Story ->
+                [rect[][]]
+
+
+            AboutUs ->
+                [rect[][]]
+
+
+            BadEnds ->
+                [rect[][]]
+
+
+
 
 renderdialog : Model -> Svg Msg
 renderdialog model =
