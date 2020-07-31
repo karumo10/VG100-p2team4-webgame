@@ -349,6 +349,26 @@ renderMusic model=
                             ] []
                             ]
                             ]
+        BadEnds ->
+                        div []
+                         [ div []
+                            [ Html.iframe
+                            [ src "./trigger.mp3"
+                            , autoplay True
+                            , style "display" "none"
+                            ] []
+                            ]
+                          , div []
+                            [ Html.audio
+                            [ id "player"
+                            , autoplay True
+                            , loop True
+                            , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                            , type_ "audio/mp3"
+                            ] []
+                            ]
+                            ]
+
         _ ->
                 div []
                  [ div []
