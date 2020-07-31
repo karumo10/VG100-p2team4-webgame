@@ -495,6 +495,19 @@ initialWorldModelSpec =
     , entity "PASSWORD4.choices=0"
         "ANNJ"
         ""
+---last four items
+    , entity "BANK2.trigger=0"
+        "another bank account"
+        ""
+    , entity "PLAN.trigger=0"
+        "plan document"
+        ""
+    , entity "PILLS_JO.trigger=0"
+        "another bottle of pills"
+        "A plain bottle of pills. The most popular \"food\" in this city, Paradise."
+    , entity "CUSTOM.trigger=0"
+        "custom contract"
+        ""
 
     ]
 
@@ -1830,6 +1843,85 @@ rulesSpec =
             IF: TABLE_7.trigger=1
             DO: TABLE_7.trigger=0.choices=-1
             """
+        |> rule_______________________ "bank2_1"
+            """
+            ON: BANK2
+            IF: BANK2.trigger=0
+            DO: BANK2.trigger=1
+            """
+        |> rule_______________________ "bank2_2"
+            """
+            ON: BANK2
+            IF: BANK2.trigger=1
+            DO: BANK2.trigger=2
+            """
+        |> rule_______________________ "bank2_3"
+            """
+            ON: BANK2
+            IF: BANK2.trigger=2
+            DO: BANK2.trigger=0
+            """
+        |> rule_______________________ "plan1"
+            """
+            ON: PLAN
+            IF: PLAN.trigger=0
+            DO: PLAN.trigger=1
+            """
+        |> rule_______________________ "plan2"
+            """
+            ON: PLAN
+            IF: PLAN.trigger=1
+            DO: PLAN.trigger=2
+            """
+        |> rule_______________________ "plan3"
+            """
+            ON: PLAN
+            IF: PLAN.trigger=2
+            DO: PLAN.trigger=3
+            """
+        |> rule_______________________ "plan4"
+            """
+            ON: PLAN
+            IF: PLAN.trigger=3
+            DO: PLAN.trigger=0
+            """
+        |> rule_______________________ "custom1"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=0
+            DO: CUSTOM.trigger=1
+            """
+        |> rule_______________________ "custom2"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=1
+            DO: CUSTOM.trigger=2
+            """
+        |> rule_______________________ "custom3"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=2
+            DO: CUSTOM.trigger=3
+            """
+        |> rule_______________________ "custom4"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=3
+            DO: CUSTOM.trigger=4
+            """
+        |> rule_______________________ "custom5"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=4
+            DO: CUSTOM.trigger=5
+            """
+        |> rule_______________________ "custom6"
+            """
+            ON: CUSTOM
+            IF: CUSTOM.trigger=5
+            DO: CUSTOM.trigger=0
+            """
+
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -2214,16 +2306,32 @@ narrative_content =
             "You find lots of paper documents, including a bank account statement, a plan document and a custom contract. You put them into your bag."
         |> content__________________________________ "table day7"
             "You find another bottle of pills on Jonathon's desk."
-
-
-
-
-
-
-
-
-
-
+        |> content__________________________________ "bank2_1"
+            "BANK CARD NUMBER 1000001"
+        |> content__________________________________ "bank2_2"
+            "Three weeks ago. 150000 To Ann\nTwo weeks ago. 10000000 To Daniel\nTen days ago. 60000 To Weapon maker"
+        |> content__________________________________ "bank2_3"
+            "One week ago. 500000 To Aurora Pharmaceutical Company\nOne week ago. 200000 To Paradise Night Club"
+        |> content__________________________________ "plan1"
+            "--TOP SECRET--\nRoad to Darkness"
+        |> content__________________________________ "plan2"
+            "Become the leader police of city police office ☑\nOwn or support a night club in CBD area ☑\nEdit the law of medicine custom ☑"
+        |> content__________________________________ "plan3"
+            "Make night club as the main entertainment option in the city ☑\nMake the night club as the biggest night club ☑\nOwn an armed personal troop ☑"
+        |> content__________________________________ "plan4"
+            "Become the speaker of the city council □\nBecome the owner of the city □\nBecome *the Darkness* □"
+        |> content__________________________________ "custom1"
+            "Contract of custom \"food\"\nThe Buyer: Stallworth\nBank Card Number: 1000001\nThe Seller: Aurora Pharmaceutical Company"
+        |> content__________________________________ "custom2"
+            "Content and reason for customization:\nBased on the Paradise pill, add customized chemical elements to optimize the power of analyzing equipment of the police office."
+        |> content__________________________________ "custom3"
+            "Feature of the customized elements added:\nCannot be analyzed by current analyzing equipment of the police office\nHave same appearance and similar physical properties as Paradise"
+        |> content__________________________________ "custom4"
+            "Warning:\nAdded elements can be toxic, buyer should obey the local law of customing medicine and strictly obey the reason for customization."
+        |> content__________________________________ "custom5"
+            "Price: \n350000 For customization; 100000 For tax;\n30000 For product; 15000 For secret-keeping;\n5000 For service"
+        |> content__________________________________ "custom6"
+            "Signature:\nBuyer: Jonathon\nSeller: Aurora Pharmaceutical Company"
 
 
 

@@ -371,6 +371,10 @@ update msg model =
                     else if currItem == bankCardIni then bank_card_evi
                     else if currItem == dagger2Ini then dagger2_evi
                     else if currItem == documentsIni then documents_evi
+                    else if currItem == pillsIni then pills_jo_evi
+                    else if currItem == planIni then plan_evi
+                    else if currItem == bankaccIni then bankacc_evi
+                    else if currItem == customconIni then customcon_evi
                     else empty_evi
             in
             ( examineEvidence currEvi model, Cmd.none )

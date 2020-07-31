@@ -859,6 +859,10 @@ type EvidenceType -- one type, one evidence! THAT'S IMPORTANT for the update of 
     | DocumentsEvi
     | Dagger2Evi
     | BankCardEvi
+    | PillsJoEvi
+    | PlanEvi
+    | BankAccJoEvi
+    | CustomEvi
     | NoEvi
 
 disk_evi : Evidence
@@ -967,6 +971,38 @@ letter_evi : Evidence
 letter_evi =
     { eviType = LetterEvi
     , description = "LETTER_EVI"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+customcon_evi : Evidence
+customcon_evi =
+    { eviType = CustomEvi
+    , description = "CUSTOM"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+bankacc_evi : Evidence
+bankacc_evi =
+    { eviType = BankAccJoEvi
+    , description = "BANK2"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+plan_evi : Evidence
+plan_evi =
+    { eviType = PlanEvi
+    , description = "PLAN"
+    , usedPlace = Home
+    , isExamined = False
+    }
+
+pills_jo_evi : Evidence
+pills_jo_evi =
+    { eviType = PillsJoEvi
+    , description = "PILLS_JO"
     , usedPlace = Home
     , isExamined = False
     }
