@@ -530,11 +530,46 @@ initialWorldModelSpec =
     , entity "SOUND.trigger=0"
         "sound out"
         "You should go to the city council, together with the police."
-
+    , entity "COURT8.trigger=0"
+        "court final"
+        "We will inspect them carefully, as Jonathon's former accusation has been judged as highly suspicious by our secret discussion. Jonathon, you have to stay here for some time. For the last accusation, we will inspect in the following days. Here comes the end of the hearing."
 
 ---day8 choices
     , entity "GO_COURT.choices=0"
         "Go to city council"
+        ""
+    , entity "BANKACC_CARD8.choices=0"
+        "Show two bank account statements and bank card"
+        ""
+    , entity "PAPER8.choices=0"
+        "Show a paper with customer's favor"
+        ""
+    , entity "LETTER8.choices=0"
+        "Show the letter"
+        ""
+    , entity "LETTER8_.choices=0"
+        "Show the letter again"
+        ""
+    , entity "MEMCARD8.choices=0"
+        "Show the memory card"
+        ""
+    , entity "CONTRACT8.choices=0"
+        "Show the contract"
+        ""
+    , entity "CALL_LEE.choices=0"
+        "Call Lee"
+        ""
+    , entity "BANKACC2_8.choices"
+        "Show another bank account statement"
+        ""
+    , entity "SUB_DOCUMENT8.choices"
+        "Submit Documents"
+        ""
+    , entity "SUB_PLAN8.choices"
+        "Submit Plan document"
+        ""
+    , entity "SUB_CARD_ACC8.choices"
+        "Submit Bank Card and Bank account statements"
         ""
 
     ]
@@ -2021,7 +2056,123 @@ rulesSpec =
             DO: GO_COURT.choices=-1
                 SOUND.trigger=1
             """
+        |> rule_______________________ "court8_1"
+            """
+            ON: COURT8
+            IF: COURT8.trigger=0
+            DO: BANKACC_CARD8.choices=1
+            """
+        |> rule_______________________ "court8_2"
+            """
+            ON: BANKACC_CARD8
+            DO: BANKACC_CARD8.choices=-1
+                COURT8.trigger=1
+            """
+        |> rule_______________________ "court8_3"
+            """
+            ON: COURT8
+            IF: COURT8.trigger=1
+            DO: PAPER8.choices=1
+            """
+        |> rule_______________________ "court8_4"
+            """
+            ON: PAPER8
+            DO: PAPER8.choices=-1
+                COURT8.trigger=2
+            """
+        |> rule_______________________ "court8_5"
+            """
+            ON: COURT8
+            IF: COURT8.trigger=2
+            DO: LETTER8.choices=1
+            """
+        |> rule_______________________ "court8_6"
+            """
+            ON: LETTER8
+            DO: COURT8.trigger=3
+                LETTER8.choices=-1
+            """
+        |> rule_______________________ "court8_7"
+            """
+            ON: COURT8
+            IF: COURT8.trigger=3
+            DO: LETTER8_.choices=1
+            """
+        |> rule_______________________ "court8_8"
+            """
+            ON: LETTER8_
+            DO: LETTER8_.choices=-1
+                COURT8.trigger=4
+            """
+        |> rule_______________________ "court8_9"
+            """
+            ON: COURT8
+            IF: COURT8.trigger=4
+            DO: MEMCARD8.choices=1
+            """
+        |> rule_______________________ "court8_10"
+            """
+            ON: MEMCARD8
+            DO: MEMCARD8.choices=-1
+                COURT8.trigger=5
+            """
+        |> rule_______________________ "court8_11"
+            """
+            ON: COURT8
+            IF: COURT8.trigger=5
+            DO: CONTRACT8.choices=1
+            """
+        |> rule_______________________ "court8_12"
+            """
+            ON: CONTRACT8
+            DO: CONTRACT8.choices=-1
+                CALL_LEE.choices=1
+            """
+        |> rule_______________________ "court8_13"
+            """
+            ON: CALL_LEE
+            DO: CALL_LEE.choices=-1
+                BANKACC2_8.choices=1
+            """
+        |> rule_______________________ "court8_14"
+            """
+            ON: BANKACC2_8
+            DO: BANKACC2_8.choices=-1
+                COURT8.trigger=6
+            """
+        |> rule_______________________ "court8_15"
+            """
+            ON: COURT8
+            IF: COURT8.trigger=6
+            DO: SUB_DOCUMENT8.choices=1
+                SUB_PLAN8.choices=1
+                SUB_CARD_ACC8.choices=1
+            """
+        |> rule_______________________ "sub_doc"
+            """
+            ON: SUB_DOCUMENT8
+            DO: SUB_DOCUMENT8.choices=-1
+            """
+        |> rule_______________________ "sub_plan"
+            """
+            ON: SUB_PLAN8
+            DO: SUB_PLAN8.choices=-1
+            """
+        |> rule_______________________ "sub_bank"
+            """
+            ON: SUB_CARD_ACC8
+            DO: SUB_CARD_ACC8.choices=-1
+            """
+        |> rule_______________________ "court_final"
+            """
+            ON: COURT8
+            IF: SUB_DOCUMENT8.choices=-1
+                SUB_PLAN8.choices=-1
+                SUB_CARD_ACC8.choices=-1
+                COURT8.trigger=6
+            DO: COURT8.trigger=7
 
+            """
 
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -2453,9 +2604,58 @@ narrative_content =
         |> content__________________________________ "lee7_10"
             "The same to you, Lee, my best brother! (hug)"
         |> content__________________________________ "home8_1"
-            "Kay, here is the city council. The hearing of your tip-off on Jonathon’s crimes will be held today. City council pays so special attention to your tip-off that special security measures are taken. Please go with us. "
+            "Kay, here is the city council. The hearing of your tip-off on Jonathon's crimes will be held today. City council pays so special attention to your tip-off that special security measures are taken. Please go with us. "
         |> content__________________________________ "home8_2"
             "You go to the city council."
+        |> content__________________________________ "court8_1"
+            "Citizens, welcome to the hearing on the master of our police office. As this is a special hearing, we will jump to the material evidence showing directly. Your first accusation of Jonathon is that he keeps an abnormal relationship with Ann, a nightclub worker."
+        |> content__________________________________ "court8_2"
+            "This bank account statement is correspondent to the bank card found in Jonathon's office. From this, you can see that Jonathon does support Daniel and Ann."
+        |> content__________________________________ "court8_3"
+            "The court is in silence. Everyone is listening to you. \nIt's still your time to present evidence! Press X to show more evidence."
+        |> content__________________________________ "court8_4"
+            "From this paper written by Ann, we can see that Jonathon does have a special meaning for Ann and he loves the food Paradise."
+        |> content__________________________________ "court8_5"
+            "The court is in silence. Everyone is listening to you. \nIt's still your time to present evidence! Press X to show more evidence."
+        |> content__________________________________ "court8_6"
+            "From this letter, the special relationship between Jonathon and Ann can be fully verified. I think up to here, Jonathon's relationship with Ann can be confirmed."
+        |> content__________________________________ "court8_7"
+            "[Speaker] Based on the material you show, we will consider carefully. Then please show material evidence for your second accusation -- He kills Ann."
+        |> content__________________________________ "court8_8"
+            " Again, from this letter, we know that due to her love for Jonathon, Ann got into the habit of taking Paradise and tried to stop Jonathon from bad behaviors. But, by threatening Daniel, Jonathon got the memory card."
+        |> content__________________________________ "court8_9"
+            "The court is in silence. Everyone is listening to you. \nIt's still your time to present evidence! Press X to show more evidence."
+        |> content__________________________________ "court8_10"
+            "And here, this memory card contains Ann's filming of Jonathon's receiving bribe. This can be the reason for Jonathon's killing."
+        |> content__________________________________ "court8_11"
+            "[Jonathon] Ha, interesting slander. How can you prove that I kill Ann, my lover, as you say? How can I have the willingness to kill her?"
+        |> content__________________________________ "court8_12"
+            "Don't be impatient, My dear boss. Here is a contract found in your office. This shows that you customize a special version of Paradise and I want to call my friend."
+        |> content__________________________________ "court8_13"
+            "I'm Lee. This special version does can cheat the analyzing equipment of the police office. But this is a report from Middle Chemistry Lab which shows that the version of Ann's Paradise taking that night added special elements used in war equipment which is also found in the Paradise in your office."
+        |> content__________________________________ "court8_14"
+            "This bank account statement also shows that your trade with Weapon maker, a famous chemical weapon maker. "
+        |> content__________________________________ "court8_15"
+            "[Speaker] Time for material evidence shown has been due. Now comes to the part that you say that Jonathon is planning to overturn the political order of our city. This causes the high attention of the city council. Please submit your evidence for this part."
+        |> content__________________________________ "sub_doc"
+            "You submit the documents."
+        |> content__________________________________ "sub_plan"
+            "You submit plan document."
+        |> content__________________________________ "sub_bank"
+            "You submit bank card and the bank account statements."
+        |> content__________________________________ "court_final"
+            "We will inspect them carefully, as Jonathon's former accusation has been judged as highly suspicious by our secret discussion. Jonathon, you have to stay here for some time. For the last accusation, we will inspect in the following days. Here comes the end of the hearing."
+
+
+
+
+
+
+
+
+
+
+
 
 
 

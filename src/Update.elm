@@ -1466,7 +1466,7 @@ day6_and_day8_home_teleport_council model =
         isAgree_day8 = findCertainQuestion model "GO_COURT"
         new_ = mapSwitch CityCouncil model
     in
-    if model.isTeleportedToCouncil == False && (isCaught || isAgree_day8) then
+    if model.isTeleportedToCouncil == False && ((model.dayState == Day6 && isCaught) || (model.dayState == Day8 && isAgree_day8)) then
         { new_ | isTeleportedToCouncil = True }
     else model
 

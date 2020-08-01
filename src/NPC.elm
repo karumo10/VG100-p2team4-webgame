@@ -607,6 +607,24 @@ courtSpeaker =
     , name = ""
     }
 
+courtFinal : NPC
+courtFinal =
+    { itemType = Phone
+    , area =
+        { x = 3000
+        , y = 3000
+        , wid = 100
+        , hei = 100
+        }
+    , interacttrue = False
+    , description = "COURT8"
+    , place = ( CityCouncil , Day8 )
+    , isFinished = False
+    , name = ""
+    }
+
+
+
 danielDaniel : NPC
 danielDaniel =
      { itemType = Daniel_People
@@ -849,6 +867,7 @@ homeOutsideSounds =
      }
 
 
+
 allNPCs: List NPC
 allNPCs =
     [ cLee_day1, cLee_day2, cLee_day2_finished, cLee_day2_night, cLee_day4
@@ -865,7 +884,7 @@ allNPCs =
     , staffNightClub
     , dangerPark
     , jonathonTable, jonathonCloset, jonathonLock, jonathonCloset_day7, jonathonTable_day7
-    , courtSpeaker
+    , courtSpeaker, courtFinal
     , switchingPolice, homeOutsideSounds
     ]
 
