@@ -536,6 +536,7 @@ initialWorldModelSpec =
     , entity "COURT_FAIL.trigger=0"
         "fail!!!"
         "[Speaker] That’s the end of this hearing. We will take your evidence and discuss before final decision."
+
 ---day8 choices
     , entity "GO_COURT.choices=0"
         "Go to city council"
@@ -572,6 +573,12 @@ initialWorldModelSpec =
         ""
     , entity "SUB_CARD_ACC8.choices"
         "Submit Bank Card and Bank account statements"
+        ""
+    , entity "LEAVE8_F.choices=0"
+        "Leave here..."
+        ""
+    , entity "LEAVE8.choices=0"
+        "Leave here."
         ""
 
     ]
@@ -2128,19 +2135,19 @@ rulesSpec =
             """
             ON: CONTRACT8
             DO: CONTRACT8.choices=-1
-                COURT8.choices=10
+                COURT8.trigger=10
             """
         |> rule_______________________ "court8_add1"
             """
             ON: COURT8
-            IF: COURT8.choices=10
+            IF: COURT8.trigger=10
             DO: CALL_LEE.choices=1
             """
         |> rule_______________________ "court8_13"
             """
             ON: CALL_LEE
             DO: CALL_LEE.choices=-1
-                COURT8.choices=11
+                COURT8.trigger=11
             """
         |> rule_______________________ "court8_add2"
             """
@@ -2184,13 +2191,25 @@ rulesSpec =
                 SUB_PLAN8.choices=-1
                 SUB_CARD_ACC8.choices=-1
                 COURT8.trigger=6
-            DO: COURT8.trigger=7
+            DO: LEAVE8.choices=1
+            """
+        |> rule_______________________ "win_leave"
+            """
+            ON: LEAVE8
+            DO: LEAVE8.choices=-1
+                COURT8.trigger=7
             """
         |> rule_______________________ "fail8_1"
             """
             ON: COURT_FAIL
             IF: COURT_FAIL.trigger=0
-            DO: COURT_FAIL.trigger=1
+            DO: LEAVE8_F.choices=1
+            """
+        |> rule_______________________ "fail8_2"
+            """
+            ON: LEAVE8_F
+            DO: LEAVE8_F.choices=-1
+                COURT_FAIL.trigger=1
             """
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
@@ -2640,7 +2659,7 @@ narrative_content =
         |> content__________________________________ "court8_7"
             "[Speaker] Based on the material you show, we will consider carefully. Then please show material evidence for your second accusation -- He kills Ann."
         |> content__________________________________ "court8_8"
-            " Again, from this letter, we know that due to her love for Jonathon, Ann got into the habit of taking Paradise and tried to stop Jonathon from bad behaviors. But, by threatening Daniel, Jonathon got the memory card."
+            "Again, from this letter, we know that due to her love for Jonathon, Ann got into the habit of taking Paradise and tried to stop Jonathon from bad behaviors. But, by threatening Daniel, Jonathon got the memory card."
         |> content__________________________________ "court8_9"
             "The court is in silence. Everyone is listening to you. \nIt's still your time to present evidence! Press X to show more evidence."
         |> content__________________________________ "court8_10"
@@ -2654,7 +2673,7 @@ narrative_content =
         |> content__________________________________ "court8_13"
             "I'm Lee. This special version does can cheat the analyzing equipment of the police office. But this is a report from Middle Chemistry Lab which shows that the version of Ann's Paradise taking that night added special elements used in war equipment which is also found in the Paradise in your office."
         |> content__________________________________ "court8_add2"
-            "The court falls in deathly silence. Everyone is listening to you. \nIt's still your time to present evidence! Press X to show more evidence."
+            "The court falls in deathly silence. Everyone is listening to you. \nIt's still your time to present evidence."
         |> content__________________________________ "court8_14"
             "This bank account statement also shows that your trade with Weapon maker, a famous chemical weapon maker. "
         |> content__________________________________ "court8_15"
@@ -2669,7 +2688,10 @@ narrative_content =
             "We will inspect them carefully, as Jonathon's former accusation has been judged as highly suspicious by our secret discussion. Jonathon, you have to stay here for some time. For the last accusation, we will inspect in the following days. Here comes the end of the hearing."
         |> content__________________________________ "fail8_1"
             "The speaker does not admit this evidence.\n You start to blame yourself. Why don't you take this evidence together with you? Why don't you examine this evidence thoroughly before?..."
-
+        |> content__________________________________ "fail8_2"
+            "You leave the court."
+        |> content__________________________________ "win_leave"
+            "You leave the court."
 
 
 

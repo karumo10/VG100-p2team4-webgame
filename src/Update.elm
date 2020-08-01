@@ -1268,6 +1268,7 @@ specialUpdates model
         |> day7_lee_finished_update_eliminate_lee
         |> updating_isTalkingWithLeeDay7
         |> day8_final_court
+        |> day8_court_update_exit
         --|> debugFinished
     else model
 
@@ -1580,6 +1581,16 @@ day8_final_court model =
     if isFailed && (model.map, model.dayState) == ( CityCouncil , Day8 ) && court_day8.description /= "COURT_FAIL" then
     { model | npcs_all = npcs_, npcs_curr = curr_npcs }
     else model
+
+day8_court_update_exit : Model -> Model
+day8_court_update_exit model =
+    let
+        isExiting = findCertainQuestion model "LEAVE8" || findCertainQuestion model "LEAVE8_F"
+    in
+    if isExiting && (model.map,model.dayState) == (CityCouncil, Day8) && model.hero.y >= 2500 then
+    model |> teleportHero ( 2000, 2000 )
+    else model
+
 
 
 
