@@ -465,6 +465,7 @@ update msg model =
                     else if currItem == planIni then plan_evi
                     else if currItem == bankaccIni then bankacc_evi
                     else if currItem == customconIni then customcon_evi
+                    else if currItem == fakeMemCardIni then fakeMemCardContent_evi
                     else empty_evi
             in
             ( examineEvidence currEvi model, Cmd.none )
@@ -497,6 +498,8 @@ animate elapsed model =
         |> dirhero
         |> badEndsClear
         |> badEndsStory elapsed
+        |> goodEndsClear
+        |> goodEndsStory elapsed
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -854,7 +857,7 @@ wakeUp model =
                 _ -> TooBigOrSmall
         model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
         story =
-            if day == 3 || day == 5 || day == 7 then
+            if day == 3 || day == 5 || day == 7 || day == 8 then
                 model_.story
             else if day == 6 then
             "What a comfortable night! No dream, no maze!"
@@ -867,7 +870,8 @@ wakeUp model =
             else model_.energy_Full
         energy = model_.energy_Full
     in
-    { model_ | story = story, day = day, energy = energy, dayState = dayState, energy_Full = energy_Full }
+
+    { model_ | story = story, day = day, energy = energy, dayState = dayState, energy_Full = energy_Full, isTeleportedToCouncil = False }
 
 
 mapSwitch : Map -> Model -> Model
@@ -1179,6 +1183,13 @@ interactWith__core trigger model =
                                   |> NarrativeEngine.Debug.setLastInteractionId trigger
                     }, Cmd.none)
 
+isEvidenceExamined : Model -> EvidenceType -> Bool
+isEvidenceExamined model evi =
+    let
+        currEvi = List.filter (\a -> a.eviType == evi) model.evidence_all
+            |> List.head |> withDefault empty_evi
+    in
+    currEvi.isExamined
 
 
 examineEvidence : Evidence -> Model -> Model
@@ -1412,12 +1423,14 @@ specialUpdates model
         |> day4_daniel_finished_update_jonathon
         |> day5_nightclub_update_energy
         |> day5_park_update_exit
-        |> day6_home_teleport_council
+        |> day6_and_day8_home_teleport_council
         |> day6_items_update_speaker
         |> day6_court_update_exit
         |> day7_examine_finish_update_switching_npc
         |> day7_lee_finished_update_eliminate_lee
         |> updating_isTalkingWithLeeDay7
+        --|> day8_final_court
+        |> day8_court_update_exit
         --|> debugFinished
     else model
 
@@ -1567,7 +1580,7 @@ day4_daniel_evidence_update_phone model =
         npcs_curr_ = List.filter (\a -> a.place == (Daniel, Day4) ) npcs_all_
         story_daniel = "Your phone is ringing. Press X to answer the phone."
     in
-    if ( daniel_phone.place == (Daniel, Nowhere) ) then
+    if ( daniel_phone.place == (Daniel, Nowhere) && model.dayState == Day4 && model.map == Daniel) then
         if isFinished then
             { model | npcs_all = npcs_all_, npcs_curr = npcs_curr_, story = story_daniel }
         else
@@ -1617,13 +1630,14 @@ day5_park_update_exit model =
     model |> teleportHero ( 5000, 5000 )
     else model
 
-day6_home_teleport_council : Model -> Model
-day6_home_teleport_council model =
+day6_and_day8_home_teleport_council : Model -> Model
+day6_and_day8_home_teleport_council model =
     let
         isCaught = findCertainQuestion model "POLICEXPHONEANSWER4"
+        isAgree_day8 = findCertainQuestion model "GO_COURT"
         new_ = mapSwitch CityCouncil model
     in
-    if model.isTeleportedToCouncil == False && isCaught then
+    if model.isTeleportedToCouncil == False && ((model.dayState == Day6 && isCaught) || (model.dayState == Day8 && isAgree_day8)) then
         { new_ | isTeleportedToCouncil = True }
     else model
 
@@ -1702,6 +1716,44 @@ updating_isTalkingWithLeeDay7 model =
         (findCertainQuestion model "TABLE_7" && findCertainQuestion model "CLOSET_7" && findCertainQuestion model "PASSWORD2")
         && (not (findCertainQuestion model "LEEANS5"))}
 
+day8_final_court : Model -> Model
+day8_final_court model =
+    let
+        isFailed
+            =  findCertainQuestion model "BANKACC_CARD8" && not (isEvidenceExamined model BankCardEvi && isEvidenceExamined model BankAccJoEvi && isRepeat bankaccIni model && isRepeat bankCardIni model)
+            || findCertainQuestion model "PAPER8" && not (isEvidenceExamined model PaperEvi && isRepeat paperIni model)
+            || findCertainQuestion model "LETTER8" && not (isEvidenceExamined model LetterEvi && isRepeat letterIni model)
+            || findCertainQuestion model "LETTER8_" && not (isEvidenceExamined model LetterEvi && isRepeat letterIni model)
+            || findCertainQuestion model "MEMCARD8" && not (model.codeReached && isRepeat trueMemCardIni model)
+            || findCertainQuestion model "CONTRACT8" && not (isEvidenceExamined model CustomEvi && isRepeat customconIni model)
+            || findCertainQuestion model "CALL_LEE" && not (isEvidenceExamined model PillsJoEvi && isEvidenceExamined model Pill && isRepeat pillIni model && isRepeat pillsIni model)
+            || findCertainQuestion model "BANKACC2_8" && not (isEvidenceExamined model BankAccJoEvi && isRepeat bankaccIni model)
+            || findCertainQuestion model "SUB_DOCUMENT8" && not (isEvidenceExamined model DocumentsEvi && isRepeat documentsIni model)
+            || findCertainQuestion model "SUB_PLAN8" && not (isEvidenceExamined model PlanEvi && isRepeat planIni model)
+            || findCertainQuestion model "SUB_CARD_ACC8" && not (isEvidenceExamined model BankCardEvi && isEvidenceExamined model BankAccountEvi && isEvidenceExamined model BankAccJoEvi && isRepeat bankaccIni model && isRepeat bankCardIni model && isRepeat bankIni model )
+        court_day8 = List.filter (\a -> a.place == ( CityCouncil , Day8 )) model.npcs_all
+            |> List.head |> withDefault courtFinal
+        rest = List.filter (\a -> a.place /= ( CityCouncil , Day8 )) model.npcs_all
+        court_day8_ = { court_day8 | description = "COURT_FAIL" }
+        npcs_ = [court_day8_] ++ rest
+        curr_npcs = List.filter (\a -> a.place == ( CityCouncil , Day8 )) npcs_
+        story_debug =
+            Debug.toString (isRepeat bankCardIni model) ++ Debug.toString (isRepeat bankaccIni model ) ++ Debug.toString (isEvidenceExamined model BankAccJoEvi) ++ Debug.toString (isEvidenceExamined model BankCardEvi)
+    in
+    if isFailed && (model.map, model.dayState) == ( CityCouncil , Day8 ) && court_day8.description /= "COURT_FAIL" then
+    { model | npcs_all = npcs_, npcs_curr = curr_npcs }
+    else model
+
+day8_court_update_exit : Model -> Model
+day8_court_update_exit model =
+    let
+        isExiting = findCertainQuestion model "LEAVE8_F"
+    in
+    if isExiting && (model.map,model.dayState) == (CityCouncil, Day8) && model.hero.y >= 2500 then
+    model |> teleportHero ( 2000, 2000 )
+    else model
+
+
 
 
 badEndsStory : Float -> Model -> Model
@@ -1724,6 +1776,7 @@ badEndsStory elapsed model =
         { model | endingTimeAccum = accum_ }
 
 
+
 badEndsClear : Model -> Model
 badEndsClear model =
     let
@@ -1736,6 +1789,36 @@ badEndsClear model =
     else
     model
 
+goodEndsClear : Model -> Model
+goodEndsClear model =
+    let
+        haveBeenEnding = model.isGoodEnd
+        isEnding = List.foldr (||) False (List.map (Tuple.first) (goodEndsList model))
+        previousMap = model.map
+    in
+    if not haveBeenEnding && isEnding then
+        { model | npcs_all = [], isGoodEnd = True, map = BadEnds, badEndPreviousMap = previousMap } |> teleportHero (1000, 1000)
+    else
+    model
+
+goodEndsStory : Float -> Model -> Model
+goodEndsStory elapsed model =
+    let
+        isEnding = model.isGoodEnd
+        accum = model.endingTimeAccum
+        accum_ =
+            if isEnding then accum + elapsed
+            else accum
+        interval = 4000
+        story_ = List.filter (\a -> Tuple.first a == True) (goodEndsList model)
+            |> List.head
+            |> withDefault (True, "error!!!!!!!!!!!!")
+            |> Tuple.second
+    in
+    if accum_ > interval then
+        { model | story = story_, endingTimeAccum = 4000 }
+    else
+        { model | endingTimeAccum = accum_ }
 
 
 
@@ -1807,7 +1890,18 @@ badEnd7 model =
     (True, "[Bad End: Forget-Me-Not] News: New crime set: steal the secret of the darkness. The Owner of our city,\"Darkness\", has made a new crime valid -- steal the secret of the darkness. And the first one who is guilty of this crime is the former policeman Kay.")
     else (False, model.story)
 
+goodEnd : Model -> ( Bool, String )
+goodEnd model =
+    let
+        isGood =
+            findCertainQuestion model "LEAVE8"
+    in
+    if isGood then
+    (True, "[End: Double Rebirth] Our Hero Kay Becomes the Chief Police\nStorm in CBD: City Council takes over the night club Paradise!\nEnd of darkness: Former chief police, Jonathan, sentenced to death!\nAlso notice: Curfew Tonight near Park region!")
+    else (False, model.story)
 
+goodEndsList : Model -> List (Bool,String)
+goodEndsList model = [ goodEnd model ]
 
 badEndsList : Model -> List (Bool, String)
 badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model ]

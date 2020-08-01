@@ -491,7 +491,7 @@ homeAttr_day8 =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , story = "Home, sweet home."
+    , story = "This day, the judgment day, who will win, who will lose? Can your rebirth contribute to the rebirth of the city?\nThere is someone calling you from out side. Press X to hear."
     , scene = ( Home, Day8 )
     , isFinished = False
     }
@@ -688,6 +688,21 @@ courtAttr_day6 =
     , scene = ( CityCouncil, Day6 )
     , isFinished = False
     }
+
+
+courtAttr_day8 : MapAttr
+courtAttr_day8 =
+    { exit = { x = 2000, y = 2000 , wid = 20, hei = 20  }
+    , heroIni = { x = 3050, y = 3050, width = 20, height = 20 }
+    , barrier = courtBarrierList
+    , hint = []
+    , vehicle = []
+    , story = "On the court, again."
+    , scene = ( CityCouncil, Day8 )
+    , isFinished = False
+    }
+
+
 --energyDrainAttr : MapAttr
 --energyDrainAttr =
 --    { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
@@ -836,7 +851,7 @@ allMapAttrs =
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5
     , danielAttr_day3, danielAttr_day4
     , switchingAttr
-    , courtAttr_day6]
+    , courtAttr_day6, courtAttr_day8 ]
 
 
 

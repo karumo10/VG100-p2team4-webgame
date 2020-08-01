@@ -28,6 +28,7 @@ type NPCType
     | Lock
     | None
     | PoliceX
+    | Sound
     | Judge
 
 
@@ -606,6 +607,24 @@ courtSpeaker =
     , name = ""
     }
 
+courtFinal : NPC
+courtFinal =
+    { itemType = Phone
+    , area =
+        { x = 3000
+        , y = 3000
+        , wid = 100
+        , hei = 100
+        }
+    , interacttrue = False
+    , description = "COURT8"
+    , place = ( CityCouncil , Day8 )
+    , isFinished = False
+    , name = ""
+    }
+
+
+
 danielDaniel : NPC
 danielDaniel =
      { itemType = Daniel_People
@@ -831,6 +850,23 @@ switchingPolice =
      , name = "LEE"
      }
 
+homeOutsideSounds : NPC
+homeOutsideSounds =
+    { itemType = Sound
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 1200
+         , hei = 600
+         }
+     , interacttrue = False
+     , description = "SOUND"
+     , place = ( Home, Day8 )
+     , isFinished = False
+     , name = ""
+     }
+
+
 
 allNPCs: List NPC
 allNPCs =
@@ -848,8 +884,8 @@ allNPCs =
     , staffNightClub
     , dangerPark
     , jonathonTable, jonathonCloset, jonathonLock, jonathonCloset_day7, jonathonTable_day7
-    , courtSpeaker
-    , switchingPolice
+    , courtSpeaker, courtFinal
+    , switchingPolice, homeOutsideSounds
     ]
 
 
@@ -1043,6 +1079,8 @@ allEvidence =
     , key_evi, bank_account_evi, paper_evi
     , fakeMemCardContent_evi, documents_evi
     , bank_card_evi, letter_evi, dagger2_evi
+    , pills_jo_evi, plan_evi, bankacc_evi
+    , customcon_evi
     ]
 
 
