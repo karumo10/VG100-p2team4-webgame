@@ -45,6 +45,16 @@ type Msg
     | RenderGrid8Detail
     | RenderGrid9Detail
     | RenderGrid10Detail
+    | RenderGrid11Detail
+    | RenderGrid12Detail
+    | RenderGrid13Detail
+    | RenderGrid14Detail
+    | RenderGrid15Detail
+    | RenderGrid16Detail
+    | RenderGrid17Detail
+    | RenderGrid18Detail
+    | RenderGrid19Detail
+    | RenderGrid20Detail
     | ExamineItemsInBag Int
     | StartGame
     | ViewAboutUs

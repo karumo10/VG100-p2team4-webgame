@@ -326,6 +326,86 @@ update msg model =
             ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
+        RenderGrid11Detail ->
+            if model.whichGridIsOpen /= 11 then
+            ({ model | whichGridIsOpen = 11 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid12Detail ->
+            if model.whichGridIsOpen /= 12 then
+            ({ model | whichGridIsOpen = 12 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid13Detail ->
+            if model.whichGridIsOpen /= 13 then
+            ({ model | whichGridIsOpen = 13 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid14Detail ->
+            if model.whichGridIsOpen /= 14 then
+            ({ model | whichGridIsOpen = 14 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid15Detail ->
+            if model.whichGridIsOpen /= 15 then
+            ({ model | whichGridIsOpen = 15 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid16Detail ->
+            if model.whichGridIsOpen /= 16 then
+            ({ model | whichGridIsOpen = 16 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid17Detail ->
+            if model.whichGridIsOpen /= 17 then
+            ({ model | whichGridIsOpen = 17 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid18Detail ->
+            if model.whichGridIsOpen /= 18 then
+            ({ model | whichGridIsOpen = 18 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid19Detail ->
+            if model.whichGridIsOpen /= 19 then
+            ({ model | whichGridIsOpen = 19 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid20Detail ->
+            if model.whichGridIsOpen /= 20 then
+            ({ model | whichGridIsOpen = 20 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
         StartGame ->
             ({ model | map = PoliceOffice }
             , Cmd.none)
@@ -356,6 +436,16 @@ update msg model =
                         8 -> model.bag.grid8
                         9 -> model.bag.grid9
                         10 -> model.bag.grid10
+                        11 -> model.bag.grid11
+                        12 -> model.bag.grid12
+                        13 -> model.bag.grid13
+                        14 -> model.bag.grid14
+                        15 -> model.bag.grid15
+                        16 -> model.bag.grid16
+                        17 -> model.bag.grid17
+                        18 -> model.bag.grid18
+                        19 -> model.bag.grid19
+                        20 -> model.bag.grid20
                         _ -> emptyIni
                 currEvi =
                     if currItem == noteIni then note_evi
@@ -880,6 +970,16 @@ pickUp model =
         g8 = model.bag.grid8
         g9 = model.bag.grid9
         g10 = model.bag.grid10
+        g11 = model.bag.grid11
+        g12 = model.bag.grid12
+        g13 = model.bag.grid13
+        g14 = model.bag.grid14
+        g15 = model.bag.grid15
+        g16 = model.bag.grid16
+        g17 = model.bag.grid17
+        g18 = model.bag.grid18
+        g19 = model.bag.grid19
+        g20 = model.bag.grid20
         t1 = model.bag.grid1.itemType
         t2 = model.bag.grid2.itemType
         t3 = model.bag.grid3.itemType
@@ -890,32 +990,91 @@ pickUp model =
         t8 = model.bag.grid8.itemType
         t9 = model.bag.grid9.itemType
         t10 = model.bag.grid10.itemType
+        t11 = model.bag.grid11.itemType
+        t12 = model.bag.grid12.itemType
+        t13 = model.bag.grid13.itemType
+        t14 = model.bag.grid14.itemType
+        t15 = model.bag.grid15.itemType
+        t16 = model.bag.grid16.itemType
+        t17 = model.bag.grid17.itemType
+        t18 = model.bag.grid18.itemType
+        t19 = model.bag.grid19.itemType
+        t20 = model.bag.grid20.itemType
         energy = model.energy
         energy_ = energy - model.energy_Cost_pickup
-
     in
     if not isPickUp then
     model
     else if isThereAny == 1 && t1 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_ ,story="get it" }
+    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_ ,story="get it" }
     else if isThereAny == 1 && t1 /= Empty && t2 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
     else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty && abletoPick2 && isPickUp then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item } , items = itemsLeft , energy=energy_}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = item , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_ ,story="get it" }
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = item , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = item , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = item , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = item , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = item , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = item , grid18 = g18 , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = item , grid19 = g19 , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 /= Empty && t19 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = item , grid20 = g20 } , items = itemsLeft , energy=energy_}
+    else if isThereAny == 1 && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 /= Empty && t19 /= Empty && t20 == Empty && abletoPick2 && isPickUp then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = item } , items = itemsLeft , energy=energy_}
     else if isThereAny == 0 then
     {model| story="Nothing to pick up！"}
     else if not abletoPick2 then
@@ -1713,6 +1872,16 @@ pickSingleItem theChoice itemIni model =
         g8 = model.bag.grid8
         g9 = model.bag.grid9
         g10 = model.bag.grid10
+        g11 = model.bag.grid11
+        g12 = model.bag.grid12
+        g13 = model.bag.grid13
+        g14 = model.bag.grid14
+        g15 = model.bag.grid15
+        g16 = model.bag.grid16
+        g17 = model.bag.grid17
+        g18 = model.bag.grid18
+        g19 = model.bag.grid19
+        g20 = model.bag.grid20
         t1 = model.bag.grid1.itemType
         t2 = model.bag.grid2.itemType
         t3 = model.bag.grid3.itemType
@@ -1723,27 +1892,87 @@ pickSingleItem theChoice itemIni model =
         t8 = model.bag.grid8.itemType
         t9 = model.bag.grid9.itemType
         t10 = model.bag.grid10.itemType
+        t11 = model.bag.grid11.itemType
+        t12 = model.bag.grid12.itemType
+        t13 = model.bag.grid13.itemType
+        t14 = model.bag.grid14.itemType
+        t15 = model.bag.grid15.itemType
+        t16 = model.bag.grid16.itemType
+        t17 = model.bag.grid17.itemType
+        t18 = model.bag.grid18.itemType
+        t19 = model.bag.grid19.itemType
+        t20 = model.bag.grid20.itemType
     in
     if repeatOrNot == False && t1 == Empty then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 == Empty  then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 }}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item }}
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = item , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = item , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = item , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = item , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = item , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = item , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = item , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = item , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 /= Empty && t19 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = item , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 /= Empty && t19 /= Empty && t20 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = item } }
     else
     model
 
@@ -1833,6 +2062,16 @@ pickDiskOrNote model =
         g8 = model.bag.grid8
         g9 = model.bag.grid9
         g10 = model.bag.grid10
+        g11 = model.bag.grid11
+        g12 = model.bag.grid12
+        g13 = model.bag.grid13
+        g14 = model.bag.grid14
+        g15 = model.bag.grid15
+        g16 = model.bag.grid16
+        g17 = model.bag.grid17
+        g18 = model.bag.grid18
+        g19 = model.bag.grid19
+        g20 = model.bag.grid20
         t1 = model.bag.grid1.itemType
         t2 = model.bag.grid2.itemType
         t3 = model.bag.grid3.itemType
@@ -1843,27 +2082,87 @@ pickDiskOrNote model =
         t8 = model.bag.grid8.itemType
         t9 = model.bag.grid9.itemType
         t10 = model.bag.grid10.itemType
+        t11 = model.bag.grid11.itemType
+        t12 = model.bag.grid12.itemType
+        t13 = model.bag.grid13.itemType
+        t14 = model.bag.grid14.itemType
+        t15 = model.bag.grid15.itemType
+        t16 = model.bag.grid16.itemType
+        t17 = model.bag.grid17.itemType
+        t18 = model.bag.grid18.itemType
+        t19 = model.bag.grid19.itemType
+        t20 = model.bag.grid20.itemType
     in
     if repeatOrNot == False && t1 == Empty then
-    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = item , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
-    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = item , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 == Empty  then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = item , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = item , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = item , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = item , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = item , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = item , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10 } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = item , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
     else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 == Empty then
-    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item } }
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = item
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = item , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = item , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = item , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = item , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = item , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = item , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = item , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = item , grid19 = g19 , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 /= Empty && t19 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = item , grid20 = g20 } }
+    else if repeatOrNot == False && t1 /= Empty && t2 /= Empty && t3 /= Empty && t4 /= Empty && t5 /= Empty && t6 /= Empty && t7 /= Empty && t8 /= Empty && t9 /= Empty && t10 /= Empty
+     && t11 /= Empty && t12 /= Empty && t13 /= Empty && t14 /= Empty && t15 /= Empty && t16 /= Empty && t17 /= Empty && t18 /= Empty && t19 /= Empty && t20 == Empty then
+    { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+    , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = item } }
     else
     model
 

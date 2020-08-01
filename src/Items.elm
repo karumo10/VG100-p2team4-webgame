@@ -57,6 +57,16 @@ type alias Bag =
     , grid8 : Item
     , grid9 : Item
     , grid10 : Item
+    , grid11 : Item
+    , grid12 : Item
+    , grid13 : Item
+    , grid14 : Item
+    , grid15 : Item
+    , grid16 : Item
+    , grid17 : Item
+    , grid18 : Item
+    , grid19 : Item
+    , grid20 : Item
     }
 
 gunIni : Item
@@ -408,6 +418,16 @@ bagIni =
     , grid8 = emptyIni
     , grid9 = emptyIni
     , grid10 = emptyIni
+    , grid11 = emptyIni
+    , grid12 = emptyIni
+    , grid13 = emptyIni
+    , grid14 = emptyIni
+    , grid15 = emptyIni
+    , grid16 = emptyIni
+    , grid17 = emptyIni
+    , grid18 = emptyIni
+    , grid19 = emptyIni
+    , grid20 = emptyIni
     }
 
 isNotPick: Item -> Bool
