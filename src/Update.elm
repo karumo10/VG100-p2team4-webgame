@@ -764,7 +764,7 @@ wakeUp model =
                 _ -> TooBigOrSmall
         model_ = sceneSwitch Home dayState model |> teleportHero ( 840, 100 ) -- bed side
         story =
-            if day == 3 || day == 5 || day == 7 then
+            if day == 3 || day == 5 || day == 7 || day == 8 then
                 model_.story
             else if day == 6 then
             "What a comfortable night! No dream, no maze!"
@@ -777,7 +777,8 @@ wakeUp model =
             else model_.energy_Full
         energy = model_.energy_Full
     in
-    { model_ | story = story, day = day, energy = energy, dayState = dayState, energy_Full = energy_Full }
+
+    { model_ | story = story, day = day, energy = energy, dayState = dayState, energy_Full = energy_Full, isTeleportedToCouncil = False }
 
 
 mapSwitch : Map -> Model -> Model
@@ -1253,7 +1254,7 @@ specialUpdates model
         |> day4_daniel_finished_update_jonathon
         |> day5_nightclub_update_energy
         |> day5_park_update_exit
-        |> day6_home_teleport_council
+        |> day6_and_day8_home_teleport_council
         |> day6_items_update_speaker
         |> day6_court_update_exit
         |> day7_examine_finish_update_switching_npc
@@ -1458,13 +1459,14 @@ day5_park_update_exit model =
     model |> teleportHero ( 5000, 5000 )
     else model
 
-day6_home_teleport_council : Model -> Model
-day6_home_teleport_council model =
+day6_and_day8_home_teleport_council : Model -> Model
+day6_and_day8_home_teleport_council model =
     let
         isCaught = findCertainQuestion model "POLICEXPHONEANSWER4"
+        isAgree_day8 = findCertainQuestion model "GO_COURT"
         new_ = mapSwitch CityCouncil model
     in
-    if model.isTeleportedToCouncil == False && isCaught then
+    if model.isTeleportedToCouncil == False && (isCaught || isAgree_day8) then
         { new_ | isTeleportedToCouncil = True }
     else model
 

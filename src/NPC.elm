@@ -28,6 +28,7 @@ type NPCType
     | Lock
     | None
     | PoliceX
+    | Sound
     | Judge
 
 
@@ -831,6 +832,22 @@ switchingPolice =
      , name = "LEE"
      }
 
+homeOutsideSounds : NPC
+homeOutsideSounds =
+    { itemType = Sound
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 1200
+         , hei = 600
+         }
+     , interacttrue = False
+     , description = "SOUND"
+     , place = ( Home, Day8 )
+     , isFinished = False
+     , name = ""
+     }
+
 
 allNPCs: List NPC
 allNPCs =
@@ -849,7 +866,7 @@ allNPCs =
     , dangerPark
     , jonathonTable, jonathonCloset, jonathonLock, jonathonCloset_day7, jonathonTable_day7
     , courtSpeaker
-    , switchingPolice
+    , switchingPolice, homeOutsideSounds
     ]
 
 

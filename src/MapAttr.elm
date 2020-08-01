@@ -491,7 +491,7 @@ homeAttr_day8 =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , story = "Home, sweet home."
+    , story = "This day, the judgment day, who will win, who will lose? Can your rebirth contribute to the rebirth of the city?\nThere is someone calling you from out side. Press X to hear."
     , scene = ( Home, Day8 )
     , isFinished = False
     }

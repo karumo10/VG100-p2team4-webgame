@@ -526,6 +526,16 @@ initialWorldModelSpec =
     , entity "CUSTOM.trigger=0"
         "custom contract"
         ""
+---day8
+    , entity "SOUND.trigger=0"
+        "sound out"
+        "You should go to the city council, together with the police."
+
+
+---day8 choices
+    , entity "GO_COURT.choices=0"
+        "Go to city council"
+        ""
 
     ]
 
@@ -1999,7 +2009,18 @@ rulesSpec =
             DO: LEE7.trigger=5
                 LEEANS5.choices=-1
             """
-
+        |> rule_______________________ "home8_1"
+            """
+            ON: SOUND
+            IF: SOUND.trigger=0
+            DO: GO_COURT.choices=1
+            """
+        |> rule_______________________ "home8_2"
+            """
+            ON: GO_COURT
+            DO: GO_COURT.choices=-1
+                SOUND.trigger=1
+            """
 
 
 
@@ -2431,6 +2452,14 @@ narrative_content =
             "You even apply for an inquiry tomorrow? Okay, I will analyze them this night. Wish you good luck, Kay."
         |> content__________________________________ "lee7_10"
             "The same to you, Lee, my best brother! (hug)"
+        |> content__________________________________ "home8_1"
+            "Kay, here is the city council. The hearing of your tip-off on Jonathon’s crimes will be held today. City council pays so special attention to your tip-off that special security measures are taken. Please go with us. "
+        |> content__________________________________ "home8_2"
+            "You go to the city council."
+
+
+
+
 
 parsedData =
     let
