@@ -375,6 +375,7 @@ update msg model =
                     else if currItem == planIni then plan_evi
                     else if currItem == bankaccIni then bankacc_evi
                     else if currItem == customconIni then customcon_evi
+                    else if currItem == fakeMemCardIni then fakeMemCardContent_evi
                     else empty_evi
             in
             ( examineEvidence currEvi model, Cmd.none )
@@ -407,6 +408,8 @@ animate elapsed model =
         |> dirhero
         |> badEndsClear
         |> badEndsStory elapsed
+        |> goodEndsClear
+        |> goodEndsStory elapsed
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -1267,7 +1270,7 @@ specialUpdates model
         |> day7_examine_finish_update_switching_npc
         |> day7_lee_finished_update_eliminate_lee
         |> updating_isTalkingWithLeeDay7
-        |> day8_final_court
+        --|> day8_final_court
         |> day8_court_update_exit
         --|> debugFinished
     else model
@@ -1418,7 +1421,7 @@ day4_daniel_evidence_update_phone model =
         npcs_curr_ = List.filter (\a -> a.place == (Daniel, Day4) ) npcs_all_
         story_daniel = "Your phone is ringing. Press X to answer the phone."
     in
-    if ( daniel_phone.place == (Daniel, Nowhere) ) then
+    if ( daniel_phone.place == (Daniel, Nowhere) && model.dayState == Day4 && model.map == Daniel) then
         if isFinished then
             { model | npcs_all = npcs_all_, npcs_curr = npcs_curr_, story = story_daniel }
         else
@@ -1585,7 +1588,7 @@ day8_final_court model =
 day8_court_update_exit : Model -> Model
 day8_court_update_exit model =
     let
-        isExiting = findCertainQuestion model "LEAVE8" || findCertainQuestion model "LEAVE8_F"
+        isExiting = findCertainQuestion model "LEAVE8_F"
     in
     if isExiting && (model.map,model.dayState) == (CityCouncil, Day8) && model.hero.y >= 2500 then
     model |> teleportHero ( 2000, 2000 )
@@ -1614,6 +1617,7 @@ badEndsStory elapsed model =
         { model | endingTimeAccum = accum_ }
 
 
+
 badEndsClear : Model -> Model
 badEndsClear model =
     let
@@ -1626,6 +1630,36 @@ badEndsClear model =
     else
     model
 
+goodEndsClear : Model -> Model
+goodEndsClear model =
+    let
+        haveBeenEnding = model.isGoodEnd
+        isEnding = List.foldr (||) False (List.map (Tuple.first) (goodEndsList model))
+        previousMap = model.map
+    in
+    if not haveBeenEnding && isEnding then
+        { model | npcs_all = [], isGoodEnd = True, map = BadEnds, badEndPreviousMap = previousMap } |> teleportHero (1000, 1000)
+    else
+    model
+
+goodEndsStory : Float -> Model -> Model
+goodEndsStory elapsed model =
+    let
+        isEnding = model.isGoodEnd
+        accum = model.endingTimeAccum
+        accum_ =
+            if isEnding then accum + elapsed
+            else accum
+        interval = 4000
+        story_ = List.filter (\a -> Tuple.first a == True) (goodEndsList model)
+            |> List.head
+            |> withDefault (True, "error!!!!!!!!!!!!")
+            |> Tuple.second
+    in
+    if accum_ > interval then
+        { model | story = story_, endingTimeAccum = 4000 }
+    else
+        { model | endingTimeAccum = accum_ }
 
 
 
@@ -1697,7 +1731,18 @@ badEnd7 model =
     (True, "[Bad End: Forget-Me-Not] News: New crime set: steal the secret of the darkness. The Owner of our city,\"Darkness\", has made a new crime valid -- steal the secret of the darkness. And the first one who is guilty of this crime is the former policeman Kay.")
     else (False, model.story)
 
+goodEnd : Model -> ( Bool, String )
+goodEnd model =
+    let
+        isGood =
+            findCertainQuestion model "LEAVE8"
+    in
+    if isGood then
+    (True, "[End: Double Rebirth] Our Hero Kay Becomes the Chief Police\nStorm in CBD: City Council takes over the night club Paradise!\nEnd of darkness: Former chief police, Jonathan, sentenced to death!\nAlso notice: Curfew Tonight near Park region!")
+    else (False, model.story)
 
+goodEndsList : Model -> List (Bool,String)
+goodEndsList model = [ goodEnd model ]
 
 badEndsList : Model -> List (Bool, String)
 badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model ]

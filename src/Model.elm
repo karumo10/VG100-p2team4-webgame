@@ -48,6 +48,7 @@ type alias Model =
     , heroimage : String
     , step : Int
     , isEnd : Bool
+    , isGoodEnd : Bool
     , endingTimeAccum : Float
     , heroPickUp : Bool
     , heroInteractWithNpc : Bool
@@ -99,6 +100,7 @@ initial =
     , heroimage = "./heror.png"
     , step = 0
     , isEnd = False
+    , isGoodEnd = False
     , endingTimeAccum = 0
     , heroPickUp = False
     , heroInteractWithNpc = False

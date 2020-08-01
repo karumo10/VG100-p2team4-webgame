@@ -1050,6 +1050,11 @@ renderPic model =
 
 
             BadEnds ->
+                let
+                    c =
+                        if model.isGoodEnd == True then "white"
+                        else "red"
+                in
                 renderPreviousMap model ++
                  [Svg.rect
                  [ x "0"
@@ -1058,7 +1063,7 @@ renderPic model =
                  , height "600"
                  , transform "translate(-30,0)"
                  , Svg.Attributes.opacity (toString (0.5 * (model.endingTimeAccum / 4000)))
-                 , fill "red"
+                 , fill c
                  ]
                  []]
                  ++ [renderdialog model]
