@@ -965,7 +965,7 @@ renderPic model =
 
 
             StarterPage ->
-                [div [][]]
+                [image [xlinkHref "./title.png", x "300", y "100", width "570"][]]
 
             Story ->
                 [div [][]]
