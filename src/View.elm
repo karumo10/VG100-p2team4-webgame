@@ -901,13 +901,13 @@ renderPic model =
 
             Switching ->
 
-                [ rect [x "0", y "0", width "1150", height "610", fill "#a0775a"] []
+                [ rect [x "0", y "0", width "1150", height "600", fill "#a0775a"] []
                 , Svg.image
                     [ xlinkHref "./mapswitch.png"
                     , x "5"
                     , y "5"
                     , width "1200"
-                    , height "600"
+                    , height "590"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ]
                 ++ [ renderdialog model ]
@@ -1135,7 +1135,7 @@ renderPreviousMap model =
                     , x "0"
                     , y "0"
                     , width "1200"
-                    , height "600"
+                    , height "590"
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ]
             EnergyDrain ->
@@ -1233,8 +1233,8 @@ renderPreviousMap model =
 
 renderdialog : Model -> Svg Msg
 renderdialog model =
-    Svg.foreignObject [ x "200", y "630", width "1000", height "150"]
-                      [ p [ style "flex" "1 1 auto", style "font-size" "1.4em", style "padding" "0 1em", Html.Attributes.class "inset2" ]
+    Svg.foreignObject [ x "200", y "600", width "1000", height "180"]
+                      [ p [ style "flex" "1 1 auto", style "font-size" "1.3em", style "padding" "0 1em", Html.Attributes.class "inset2" ]
                           [ text model.story ]
                       ]
 
@@ -1258,11 +1258,11 @@ renderportrait model =
             case model.portrait of
                 "" ->
                     Svg.image [ Svg.Attributes.xlinkHref ("./portrait/player.png")
-                              , x "10", y "640", width "160"
+                              , x "5", y "610", width "180"
                               ] []
                 _ ->
                     Svg.image [ Svg.Attributes.xlinkHref ("./portrait/"++model.portrait++".png")
-                              , x "10", y "640", width "160"
+                              , x "5", y "610", width "180"
                               ] []
     in
         portr
