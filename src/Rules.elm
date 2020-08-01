@@ -533,13 +533,15 @@ initialWorldModelSpec =
     , entity "COURT8.trigger=0"
         "court final"
         "We will inspect them carefully, as Jonathon's former accusation has been judged as highly suspicious by our secret discussion. Jonathon, you have to stay here for some time. For the last accusation, we will inspect in the following days. Here comes the end of the hearing."
-
+    , entity "COURT_FAIL.trigger=0"
+        "fail!!!"
+        "[Speaker] That’s the end of this hearing. We will take your evidence and discuss before final decision."
 ---day8 choices
     , entity "GO_COURT.choices=0"
         "Go to city council"
         ""
-    , entity "BANKACC_CARD8.choices=0"
-        "Show two bank account statements and bank card"
+    , entity "BANKACC_CARD8.choices=0" --
+        "Show the another bank account statements and bank card"
         ""
     , entity "PAPER8.choices=0"
         "Show a paper with customer's favor"
@@ -2126,13 +2128,25 @@ rulesSpec =
             """
             ON: CONTRACT8
             DO: CONTRACT8.choices=-1
-                CALL_LEE.choices=1
+                COURT8.choices=10
+            """
+        |> rule_______________________ "court8_add1"
+            """
+            ON: COURT8
+            IF: COURT8.choices=10
+            DO: CALL_LEE.choices=1
             """
         |> rule_______________________ "court8_13"
             """
             ON: CALL_LEE
             DO: CALL_LEE.choices=-1
-                BANKACC2_8.choices=1
+                COURT8.choices=11
+            """
+        |> rule_______________________ "court8_add2"
+            """
+            ON: COURT8
+            IF: COURT8.trigger=11
+            DO: BANKACC2_8.choices=1
             """
         |> rule_______________________ "court8_14"
             """
@@ -2171,9 +2185,13 @@ rulesSpec =
                 SUB_CARD_ACC8.choices=-1
                 COURT8.trigger=6
             DO: COURT8.trigger=7
-
             """
-
+        |> rule_______________________ "fail8_1"
+            """
+            ON: COURT_FAIL
+            IF: COURT_FAIL.trigger=0
+            DO: COURT_FAIL.trigger=1
+            """
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
 content__________________________________ =
@@ -2631,8 +2649,12 @@ narrative_content =
             "[Jonathon] Ha, interesting slander. How can you prove that I kill Ann, my lover, as you say? How can I have the willingness to kill her?"
         |> content__________________________________ "court8_12"
             "Don't be impatient, My dear boss. Here is a contract found in your office. This shows that you customize a special version of Paradise and I want to call my friend."
+        |> content__________________________________ "court8_add1"
+            "Calling Lee..."
         |> content__________________________________ "court8_13"
             "I'm Lee. This special version does can cheat the analyzing equipment of the police office. But this is a report from Middle Chemistry Lab which shows that the version of Ann's Paradise taking that night added special elements used in war equipment which is also found in the Paradise in your office."
+        |> content__________________________________ "court8_add2"
+            "The court falls in deathly silence. Everyone is listening to you. \nIt's still your time to present evidence! Press X to show more evidence."
         |> content__________________________________ "court8_14"
             "This bank account statement also shows that your trade with Weapon maker, a famous chemical weapon maker. "
         |> content__________________________________ "court8_15"
@@ -2645,7 +2667,8 @@ narrative_content =
             "You submit bank card and the bank account statements."
         |> content__________________________________ "court_final"
             "We will inspect them carefully, as Jonathon's former accusation has been judged as highly suspicious by our secret discussion. Jonathon, you have to stay here for some time. For the last accusation, we will inspect in the following days. Here comes the end of the hearing."
-
+        |> content__________________________________ "fail8_1"
+            "The speaker does not admit this evidence.\n You start to blame yourself. Why don't you take this evidence together with you? Why don't you examine this evidence thoroughly before?..."
 
 
 

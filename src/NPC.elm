@@ -1079,6 +1079,8 @@ allEvidence =
     , key_evi, bank_account_evi, paper_evi
     , fakeMemCardContent_evi, documents_evi
     , bank_card_evi, letter_evi, dagger2_evi
+    , pills_jo_evi, plan_evi, bankacc_evi
+    , customcon_evi
     ]
 
 

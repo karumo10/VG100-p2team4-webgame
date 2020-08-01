@@ -1021,6 +1021,13 @@ interactWith__core trigger model =
                                   |> NarrativeEngine.Debug.setLastInteractionId trigger
                     }, Cmd.none)
 
+isEvidenceExamined : Model -> EvidenceType -> Bool
+isEvidenceExamined model evi =
+    let
+        currEvi = List.filter (\a -> a.eviType == evi) model.evidence_all
+            |> List.head |> withDefault empty_evi
+    in
+    currEvi.isExamined
 
 
 examineEvidence : Evidence -> Model -> Model
@@ -1260,6 +1267,7 @@ specialUpdates model
         |> day7_examine_finish_update_switching_npc
         |> day7_lee_finished_update_eliminate_lee
         |> updating_isTalkingWithLeeDay7
+        |> day8_final_court
         --|> debugFinished
     else model
 
@@ -1544,6 +1552,34 @@ updating_isTalkingWithLeeDay7 model =
     { model | isTalkingWithLeeDay7 =
         (findCertainQuestion model "TABLE_7" && findCertainQuestion model "CLOSET_7" && findCertainQuestion model "PASSWORD2")
         && (not (findCertainQuestion model "LEEANS5"))}
+
+day8_final_court : Model -> Model
+day8_final_court model =
+    let
+        isFailed
+            =  findCertainQuestion model "BANKACC_CARD8" && not (isEvidenceExamined model BankCardEvi && isEvidenceExamined model BankAccJoEvi && isRepeat bankaccIni model && isRepeat bankCardIni model)
+            || findCertainQuestion model "PAPER8" && not (isEvidenceExamined model PaperEvi && isRepeat paperIni model)
+            || findCertainQuestion model "LETTER8" && not (isEvidenceExamined model LetterEvi && isRepeat letterIni model)
+            || findCertainQuestion model "LETTER8_" && not (isEvidenceExamined model LetterEvi && isRepeat letterIni model)
+            || findCertainQuestion model "MEMCARD8" && not (model.codeReached && isRepeat trueMemCardIni model)
+            || findCertainQuestion model "CONTRACT8" && not (isEvidenceExamined model CustomEvi && isRepeat customconIni model)
+            || findCertainQuestion model "CALL_LEE" && not (isEvidenceExamined model PillsJoEvi && isEvidenceExamined model Pill && isRepeat pillIni model && isRepeat pillsIni model)
+            || findCertainQuestion model "BANKACC2_8" && not (isEvidenceExamined model BankAccJoEvi && isRepeat bankaccIni model)
+            || findCertainQuestion model "SUB_DOCUMENT8" && not (isEvidenceExamined model DocumentsEvi && isRepeat documentsIni model)
+            || findCertainQuestion model "SUB_PLAN8" && not (isEvidenceExamined model PlanEvi && isRepeat planIni model)
+            || findCertainQuestion model "SUB_CARD_ACC8" && not (isEvidenceExamined model BankCardEvi && isEvidenceExamined model BankAccountEvi && isEvidenceExamined model BankAccJoEvi && isRepeat bankaccIni model && isRepeat bankCardIni model && isRepeat bankIni model )
+        court_day8 = List.filter (\a -> a.place == ( CityCouncil , Day8 )) model.npcs_all
+            |> List.head |> withDefault courtFinal
+        rest = List.filter (\a -> a.place /= ( CityCouncil , Day8 )) model.npcs_all
+        court_day8_ = { court_day8 | description = "COURT_FAIL" }
+        npcs_ = [court_day8_] ++ rest
+        curr_npcs = List.filter (\a -> a.place == ( CityCouncil , Day8 )) npcs_
+        story_debug =
+            Debug.toString (isRepeat bankCardIni model) ++ Debug.toString (isRepeat bankaccIni model ) ++ Debug.toString (isEvidenceExamined model BankAccJoEvi) ++ Debug.toString (isEvidenceExamined model BankCardEvi)
+    in
+    if isFailed && (model.map, model.dayState) == ( CityCouncil , Day8 ) && court_day8.description /= "COURT_FAIL" then
+    { model | npcs_all = npcs_, npcs_curr = curr_npcs }
+    else model
 
 
 

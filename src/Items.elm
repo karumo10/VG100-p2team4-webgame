@@ -398,13 +398,13 @@ emptyPickUp =
 
 bagIni : Bag
 bagIni =
-    { grid1 = emptyIni
-    , grid2 = emptyIni
-    , grid3 = emptyIni
-    , grid4 = emptyIni
-    , grid5 = emptyIni
-    , grid6 = emptyIni
-    , grid7 = emptyIni
+    { grid1 = trueMemCardIni
+    , grid2 = bankaccIni
+    , grid3 = bankCardIni
+    , grid4 = letterIni
+    , grid5 = paperIni
+    , grid6 = pillsIni
+    , grid7 = customconIni
     , grid8 = emptyIni
     , grid9 = emptyIni
     , grid10 = emptyIni
