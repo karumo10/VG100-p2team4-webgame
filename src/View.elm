@@ -77,6 +77,16 @@ renderMain model =
         , renderGrid8Detail model
         , renderGrid9Detail model
         , renderGrid10Detail model
+        , renderGrid11Detail model
+        , renderGrid12Detail model
+        , renderGrid13Detail model
+        , renderGrid14Detail model
+        , renderGrid15Detail model
+        , renderGrid16Detail model
+        , renderGrid17Detail model
+        , renderGrid18Detail model
+        , renderGrid19Detail model
+        , renderGrid20Detail model
         , renderStartButton model
         , renderAboutUsButton model
         , renderStoryButton model
@@ -1334,7 +1344,107 @@ renderBagButton model =
                           , style "position" "absolute"
                           , style "left" "80px"
                           , style "top" "420px"
-                          ] [ text model.bag.grid10.intro ]
+                          ] [ text model.bag.grid10.intro ],
+
+                         button
+                         [ onClick RenderGrid11Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "160px"
+                         , style "top" "100px"
+                         ] [ text model.bag.grid11.intro ],
+
+                         button
+                         [ onClick RenderGrid12Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "160px"
+                         , style "top" "180px"
+                         ] [ text model.bag.grid12.intro ],
+
+                         button
+                         [ onClick RenderGrid13Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "160px"
+                         , style "top" "260px"
+                         ] [ text model.bag.grid13.intro ],
+
+                         button
+                         [ onClick RenderGrid14Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "160px"
+                         , style "top" "340px"
+                         ] [ text model.bag.grid14.intro ],
+
+                         button
+                         [ onClick RenderGrid15Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "160px"
+                         , style "top" "420px"
+                         ] [ text model.bag.grid15.intro ],
+
+                         button
+                         [ onClick RenderGrid16Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "240px"
+                         , style "top" "100px"
+                         ] [ text model.bag.grid16.intro ],
+
+                         button
+                         [ onClick RenderGrid17Detail
+                         , Html.Attributes.style "width" "60px"
+                         , Html.Attributes.style "height" "60px"
+                         , Html.Attributes.style "font-size" "18px"
+                         , style "position" "absolute"
+                         , style "left" "240px"
+                         , style "top" "180px"
+                         ] [ text model.bag.grid17.intro ],
+
+                          button
+                          [ onClick RenderGrid18Detail
+                          , Html.Attributes.style "width" "60px"
+                          , Html.Attributes.style "height" "60px"
+                          , Html.Attributes.style "font-size" "18px"
+                          , style "position" "absolute"
+                          , style "left" "240px"
+                          , style "top" "260px"
+                          ] [ text model.bag.grid18.intro ],
+
+                           button
+                           [ onClick RenderGrid19Detail
+                           , Html.Attributes.style "width" "60px"
+                           , Html.Attributes.style "height" "60px"
+                           , Html.Attributes.style "font-size" "18px"
+                           , style "position" "absolute"
+                           , style "left" "240px"
+                           , style "top" "340px"
+                           ] [ text model.bag.grid19.intro ],
+
+                           button
+                           [ onClick RenderGrid20Detail
+                           , Html.Attributes.style "width" "60px"
+                           , Html.Attributes.style "height" "60px"
+                           , Html.Attributes.style "font-size" "18px"
+                           , style "position" "absolute"
+                           , style "left" "240px"
+                           , style "top" "420px"
+                           ] [ text model.bag.grid20.intro ]
 
                           ]
     in
@@ -1344,7 +1454,6 @@ renderBagButton model =
                                       [div [ style "font-family" "Helvetica, Arial, sans-serif"
                                            , style "font-size" "18px"] [contents]]]
         ]
-
 
 
 
@@ -1836,6 +1945,496 @@ renderGrid10Detail model =
         else renderInput opacity model
     else
     div [][]
+
+renderGrid11Detail : Model -> Html Msg
+renderGrid11Detail model =
+    let
+        opacity =
+            case model.bag.grid11.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+    if model.whichGridIsOpen == 11 then
+        if model.bag.grid11 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid11.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
+          ]
+          else renderInput opacity model
+    else
+    div [][]
+
+renderGrid12Detail : Model -> Html Msg
+renderGrid12Detail model =
+    let
+        opacity =
+            case model.bag.grid12.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+    if model.whichGridIsOpen == 12 then
+        if model.bag.grid12 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid12.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
+            ]
+            else renderInput opacity model
+    else
+    div [][]
+
+renderGrid13Detail : Model -> Html Msg
+renderGrid13Detail model =
+    let
+        opacity =
+            case model.bag.grid13.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+
+    if model.whichGridIsOpen == 13 then
+        if model.bag.grid13 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid13.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "opacity" opacity
+          , style "margin" "auto"
+          ] [ text "Examine" ]
+          ]
+        ]
+        else renderInput opacity model
+    else
+    div [][]
+
+renderGrid14Detail : Model -> Html Msg
+renderGrid14Detail model =
+    let
+        opacity =
+            case model.bag.grid14.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+    if model.whichGridIsOpen == 14 then
+        if model.bag.grid14 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid14.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "opacity" opacity
+          , style "margin" "auto"
+          ] [ text "Examine" ]
+          ]
+        ]
+        else renderInput opacity model
+    else
+    div [][]
+
+renderGrid15Detail : Model -> Html Msg
+renderGrid15Detail model =
+    let
+        opacity =
+            case model.bag.grid15.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+    if model.whichGridIsOpen == 15 then
+        if model.bag.grid15 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid15.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "opacity" opacity
+          , style "margin" "auto"
+          ] [ text "Examine" ]
+          ]
+        ]
+        else renderInput opacity model
+    else
+    div [][]
+
+renderGrid16Detail : Model -> Html Msg
+renderGrid16Detail model=
+    let
+        opacity =
+            case model.bag.grid16.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+    if model.whichGridIsOpen == 16 then
+        if model.bag.grid16 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid16.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
+        ]
+        else renderInput opacity model
+    else
+    div [][]
+
+renderGrid17Detail : Model -> Html Msg
+renderGrid17Detail model=
+    let
+        opacity =
+            case model.bag.grid17.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+    if model.whichGridIsOpen == 17 then
+        if model.bag.grid17 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid17.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
+        ]
+        else renderInput opacity model
+    else
+    div [][]
+
+renderGrid18Detail : Model -> Html Msg
+renderGrid18Detail model =
+    let
+        opacity =
+            case model.bag.grid18.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+    if model.whichGridIsOpen == 18 then
+        if model.bag.grid18 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid18.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
+        ]
+        else renderInput opacity model
+    else
+    div [][]
+
+renderGrid19Detail : Model -> Html Msg
+renderGrid19Detail model=
+    let
+        opacity =
+            case model.bag.grid19.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+    if model.whichGridIsOpen == 19 then
+        if model.bag.grid19 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid19.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
+        ]
+        else renderInput opacity model
+    else
+    div [][]
+
+renderGrid20Detail : Model -> Html Msg
+renderGrid20Detail model =
+    let
+        opacity =
+            case model.bag.grid20.canBeExamined of
+                True -> "1"
+                False -> "0"
+    in
+
+    if model.whichGridIsOpen == 20 then
+        if model.bag.grid20 /= trueMemCardIni || model.codeReached then
+        div
+          [ style "border-style" "inset"
+          , style "border-color" "#ffa940"
+          , style "border-width" "3px"
+          , style "border-radius" "20%"
+          , style "width" "300px"
+          , style "height" "300px"
+          , style "background-color" "white"
+          , style "position" "absolute"
+          , style "left" "350px"
+          , style "top" "25px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "font-family" "Helvetica, Arial, sans-serif"
+          , style "font-size" "18px"
+          , style "font-weight" "300"
+          ]
+          [ Html.img [src model.bag.grid20.img, width "300px"] []
+          ,
+          div []
+          [ button
+          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          , Html.Attributes.style "width" "85px"
+          , Html.Attributes.style "height" "30px"
+          , Html.Attributes.style "font-size" "18px"
+          , style "position" "absolute"
+          , style "left" "107.5px"
+          , style "top" "300px"
+          , style "text-align" "center"
+          , style "margin" "auto"
+          , style "opacity" opacity
+          ] [ text "Examine" ]
+          ]
+        ]
+        else renderInput opacity model
+    else
+    div [][]
+
 
 renderStartButton : Model -> Html Msg
 renderStartButton model =

@@ -326,6 +326,86 @@ update msg model =
             ({ model | whichGridIsOpen = 0 }
             , Cmd.none)
 
+        RenderGrid11Detail ->
+            if model.whichGridIsOpen /= 11 then
+            ({ model | whichGridIsOpen = 11 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid12Detail ->
+            if model.whichGridIsOpen /= 12 then
+            ({ model | whichGridIsOpen = 12 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid13Detail ->
+            if model.whichGridIsOpen /= 13 then
+            ({ model | whichGridIsOpen = 13 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid14Detail ->
+            if model.whichGridIsOpen /= 14 then
+            ({ model | whichGridIsOpen = 14 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid15Detail ->
+            if model.whichGridIsOpen /= 15 then
+            ({ model | whichGridIsOpen = 15 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid16Detail ->
+            if model.whichGridIsOpen /= 16 then
+            ({ model | whichGridIsOpen = 16 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid17Detail ->
+            if model.whichGridIsOpen /= 17 then
+            ({ model | whichGridIsOpen = 17 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid18Detail ->
+            if model.whichGridIsOpen /= 18 then
+            ({ model | whichGridIsOpen = 18 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid19Detail ->
+            if model.whichGridIsOpen /= 19 then
+            ({ model | whichGridIsOpen = 19 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
+        RenderGrid20Detail ->
+            if model.whichGridIsOpen /= 20 then
+            ({ model | whichGridIsOpen = 20 }
+            , Cmd.none)
+            else
+            ({ model | whichGridIsOpen = 0 }
+            , Cmd.none)
+
         StartGame ->
             ({ model | map = PoliceOffice }
             , Cmd.none)
