@@ -449,7 +449,7 @@ renderMapButton model =
             ]
             [ Html.text "Home" ]
             ]
-            else if model.dayState == Day2 && model.dayState == Day2_Finished then
+            else if model.dayState == Day2 || model.dayState == Day2_Finished then
             div []
             [
             button
