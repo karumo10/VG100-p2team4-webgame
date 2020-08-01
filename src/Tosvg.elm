@@ -108,7 +108,7 @@ elevatorQuestToSvg model =
                                  , height "280"
                                  , Svg.Attributes.viewBox "0 0 100 280"
                                  ]
-                                 [ rect [ x "10" , y "10"
+                                 [ rect [ x "10" , y "100"
                                         , width "80" , height "80"
                                         , strokeWidth "5px"
                                         , stroke "black"
@@ -116,7 +116,7 @@ elevatorQuestToSvg model =
                                         , onClick ElevateTo1
                                         , Svg.Attributes.class "h"
                                         ] [] -- f1
-                                 , rect [ x "10", y "100"
+                                 , rect [ x "10", y "10"
                                         , width "80", height "80"
                                         , strokeWidth "5px"
                                         , stroke "black"
@@ -124,12 +124,12 @@ elevatorQuestToSvg model =
                                         , onClick ElevateTo2
                                         , Svg.Attributes.class "h"
                                         ] [] -- f2
-                                 , text_ [ x "35", y "60"
+                                 , text_ [ x "35", y "150"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
                                         , onClick ElevateTo1
                                          ] [ text "1" ]
-                                 , text_ [ x "35", y "150"
+                                 , text_ [ x "35", y "60"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
                                         , onClick ElevateTo2
@@ -144,7 +144,7 @@ elevatorQuestToSvg model =
                                  , height "280"
                                  , Svg.Attributes.viewBox "0 0 100 280"
                                  ]
-                                 [ rect [ x "10" , y "10"
+                                 [ rect [ x "10" , y "190"
                                         , width "80" , height "80"
                                         , strokeWidth "5px"
                                         , stroke "black"
@@ -160,7 +160,7 @@ elevatorQuestToSvg model =
                                         , onClick ElevateTo2
                                         , Svg.Attributes.class "h"
                                         ] [] -- f2
-                                 , rect [ x "10", y "190"
+                                 , rect [ x "10", y "10"
                                         , width "80", height "80"
                                         , strokeWidth "5px"
                                         , stroke "black"
@@ -168,7 +168,7 @@ elevatorQuestToSvg model =
                                         , onClick ElevateTo3
                                         , Svg.Attributes.class "h"
                                         ] [] -- f3
-                                 , text_ [ x "35", y "60"
+                                 , text_ [ x "35", y "240"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
                                         , onClick ElevateTo1
@@ -178,7 +178,7 @@ elevatorQuestToSvg model =
                                          , fontSize "40px"
                                         , onClick ElevateTo2
                                          ] [ text "2" ]
-                                 , text_ [ x "35", y "240"
+                                 , text_ [ x "35", y "60"
                                          , fill "#F7CA18"
                                          , fontSize "40px"
                                         , onClick ElevateTo3
@@ -191,7 +191,7 @@ elevatorQuestToSvg model =
                                   , height "280"
                                   , Svg.Attributes.viewBox "0 0 100 280"
                                   ]
-                                  [ rect [ x "10" , y "10"
+                                  [ rect [ x "10" , y "190"
                                   , width "80" , height "80"
                                   , strokeWidth "5px"
                                   , stroke "black"
@@ -207,7 +207,7 @@ elevatorQuestToSvg model =
                                   , onClick ElevateTo2
                                   , Svg.Attributes.class "h"
                                   ] [] -- f2
-                                  , rect [ x "10", y "190"
+                                  , rect [ x "10", y "10"
                                   , width "80", height "80"
                                   , strokeWidth "5px"
                                   , stroke "black"
@@ -215,7 +215,7 @@ elevatorQuestToSvg model =
                                   , onClick ElevateTo3
                                   , Svg.Attributes.class "h"
                                   ] [] -- f3
-                                  , text_ [ x "35", y "60"
+                                  , text_ [ x "35", y "240"
                                   , fill "#F7CA18"
                                   , fontSize "40px"
                                   , onClick ElevateTo1
@@ -225,7 +225,7 @@ elevatorQuestToSvg model =
                                   , fontSize "40px"
                                   , onClick ElevateTo2
                                   ] [ text "2" ]
-                                  , text_ [ x "35", y "240"
+                                  , text_ [ x "35", y "60"
                                   , fill "#F7CA18"
                                   , fontSize "40px"
                                   , onClick ElevateTo3
@@ -238,7 +238,7 @@ elevatorQuestToSvg model =
                                                   , height "280"
                                                   , Svg.Attributes.viewBox "0 0 100 280"
                                                   ]
-                                                  [ rect [ x "10" , y "10"
+                                                  [ rect [ x "10" , y "190"
                                                   , width "80" , height "80"
                                                   , strokeWidth "5px"
                                                   , stroke "black"
@@ -254,7 +254,7 @@ elevatorQuestToSvg model =
                                                   , onClick ElevateTo2
                                                   , Svg.Attributes.class "h"
                                                   ] [] -- f2
-                                                  , rect [ x "10", y "190"
+                                                  , rect [ x "10", y "10"
                                                   , width "80", height "80"
                                                   , strokeWidth "5px"
                                                   , stroke "black"
@@ -262,7 +262,7 @@ elevatorQuestToSvg model =
                                                   , onClick ElevateTo3
                                                   , Svg.Attributes.class "h"
                                                   ] [] -- f3
-                                                  , text_ [ x "35", y "60"
+                                                  , text_ [ x "35", y "240"
                                                   , fill "#F7CA18"
                                                   , fontSize "40px"
                                                   , onClick ElevateTo1
@@ -272,7 +272,7 @@ elevatorQuestToSvg model =
                                                   , fontSize "40px"
                                                   , onClick ElevateTo2
                                                   ] [ text "2" ]
-                                                  , text_ [ x "35", y "240"
+                                                  , text_ [ x "35", y "60"
                                                   , fill "#F7CA18"
                                                   , fontSize "40px"
                                                   , onClick ElevateTo3
