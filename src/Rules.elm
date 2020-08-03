@@ -618,6 +618,30 @@ initialWorldModelSpec =
     , entity "WAIT3.choices=0"
         "Wait"
         ""
+    , entity "SHOOT4.choices=0"
+        "Shoot"
+        ""
+    , entity "HIDE1.choices=0"
+        "Hide at the same place"
+        ""
+    , entity "MOVE1.choices=0"
+        "Move toward the barrel"
+        ""
+    , entity "SHOOT5.choices=0"
+        "Shoot"
+        ""
+    , entity "MOVE_C.choices=0"
+        "Move toward the cabinet"
+        ""
+    , entity "STAY.choices=0"
+        "Stay at the same place"
+        ""
+    , entity "DASH.choices=0"
+        "Dash!"
+        ""
+    , entity "SHOOT6.choices=0"
+        "Shoot!"
+        ""
     ]
 
 
@@ -2336,7 +2360,89 @@ rulesSpec =
             ON: WAIT3
             DO: WAIT3.choices=-1
                 SHOOT3.choices=0
+                STREET.trigger=3
             """
+        |> rule_______________________ "street4"
+            """
+            ON: STREET
+            IF: STREET.trigger=3
+            DO: SHOOT4.choices=1
+            """
+        |> rule_______________________ "shoot4"
+            """
+            ON: SHOOT4
+            DO: SHOOT4.choices=-1
+                STREET.trigger=4
+            """
+        |> rule_______________________ "street5"
+            """
+            ON: STREET
+            IF: STREET.trigger=4
+            DO: HIDE1.choices=1
+                MOVE1.choices=1
+            """
+        |> rule_______________________ "hide1"
+            """
+            ON: HIDE1
+            DO: HIDE1.choices=-1
+                MOVE1.choices=0
+            """
+        |> rule_______________________ "move1"
+            """
+            ON: MOVE1
+            DO: HIDE1.choices=0
+                MOVE1.choices=-1
+                STREET.trigger=5
+            """
+        |> rule_______________________ "street6"
+            """
+            ON: STREET
+            IF: STREET.trigger=5
+            DO: SHOOT5.choices=1
+            """
+        |> rule_______________________ "shoot5"
+            """
+            ON: SHOOT5
+            DO: SHOOT5.choices=-1
+                STREET.trigger=7
+            """
+        |> rule_______________________ "street7"
+            """
+            ON: STREET
+            IF: STREET.trigger=7
+            DO: MOVE_C.choices=1
+                STAY.choices=1
+                DASH.choices=1
+            """
+        |> rule_______________________ "move_c"
+            """
+            ON: MOVE_C
+            DO: MOVE_C.choices=-1
+                STAY.choices=0
+                DASH.choices=0
+            """
+        |> rule_______________________ "stay"
+            """
+            ON: STAY
+            DO: MOVE_C.choices=0
+                STAY.choices=-1
+                DASH.choices=0
+            """
+        |> rule_______________________ "dash"
+            """
+            ON: DASH
+            DO: MOVE_C.choices=0
+                STAY.choices=0
+                DASH.choices=-1
+                SHOOT6.choices=1
+            """
+        |> rule_______________________ "shoot6"
+            """
+            ON: SHOOT6
+            DO: SHOOT6.choices=-1
+                STREET.trigger=8
+            """
+
 
 
 
@@ -2850,11 +2956,31 @@ narrative_content =
         |> content__________________________________ "shoot3"
             "You decide to have a sudden attack to get the grasp of the battlefield. But you are too naïve, the well-trained personal troop of Jonathon notice you soon and they let you taste the feel of suppressive fire."
         |> content__________________________________ "wait3"
-            "Area clear, Sir. You hear the sounds. And you know that it’s time to attack!"
-
-
-
-
+            "[One police] Area clear, Sir. "
+        |> content__________________________________ "street4"
+            "You hear the sounds. And you know that it’s time to attack!"
+        |> content__________________________________ "shoot4"
+            "With the protection of the overturned desk, you make a trial shoot! Bang! The bullet was a little bit shifting away! "
+        |> content__________________________________ "street5"
+            "...Jonathon’s troop notices you! You decide to..."
+        |> content__________________________________ "hide1"
+            "Your coordinates have been exposed. Then a sudden explosion."
+        |> content__________________________________ "move1"
+            "The moment you arrive at the barrel, a sudden explosion happens at your original place!"
+        |> content__________________________________ "street6"
+            "Now, you decide to..."
+        |> content__________________________________ "shoot5"
+            "Another shoot! But the guard near Jonathon blocks the bullet! Now you have only one bullet remains."
+        |> content__________________________________ "street7"
+            "And you hear the sound \"He is still alive. More fire needed!\" You decide to..."
+        |> content__________________________________ "move_c"
+            "Boom! Boom! Boom! Area Strike! All the near places are cleared, including you."
+        |> content__________________________________ "stay"
+            "Boom! Boom! Boom! Area Strike! All the near places are cleared, including you."
+        |> content__________________________________ "dash"
+            "Win or Dead! Dash! Dash! Dash! You dash out bravely! The obsession in your mind seems to give you infinite power! You feel like that you are invincible!"
+        |> content__________________________________ "shoot6"
+            "The finale of the dual comes. You come closer to Jonathon rapidly and a precise and powerful shoot. Jonathon is falling down and the surrounding troop is frozen..."
 
 
 
