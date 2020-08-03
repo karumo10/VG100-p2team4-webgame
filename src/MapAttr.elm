@@ -382,7 +382,7 @@ homeAttr_day1 =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , story = "Home, sweet home."
+    , story = "Home, sweet home. \n \n \n \n \n Tutorial: Go to the bed and press F for sleep to finish the tutorial!"
     , scene = ( Home, Day1 )
     , isFinished = False
 
