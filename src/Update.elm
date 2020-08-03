@@ -233,7 +233,7 @@ update msg model =
 
         Adkinscatch ->
             ({ model | correctsolved = (model.correctsolved + 1), conclusion = 0
-                     , story = "I think Adkins's alibi is not always valid since he has his own office. He was the boss, so no one would disturb him and he could go out without anyone noticing. I told this to Allen, and he got the monitoring of Adkins's firm and found Brennan entered the firm without coming out. Then Adkins admitted that he killed Brennan because he was compared to Brennan from an early age. Everyone knew Brennan but no one heard him. Even Catherine was attracted only to Brennan. This is a tragedy of envy. \n Tutorial: Now take the police car to go home for sleep!" }
+                     , story = "I think Adkins's alibi is not always valid since he was the boss, so no one would disturb him and he could go out without anyone noticing. Allen got the monitoring of Adkins's firm and found Brennan entered the firm without coming out. Then Adkins admitted that he killed Brennan because he was compared to Brennan from an early age. Even Catherine was attracted only to Brennan. This is a tragedy of envy. \n Tutorial: Now take the police car to go home for sleep!" }
             , Cmd.none)
 
         Catherinecatch ->
