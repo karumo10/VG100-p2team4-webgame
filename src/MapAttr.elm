@@ -26,6 +26,7 @@ type Day
     | Day6
     | Day7
     | Day8
+    | Day9
     | Nowhere
     | TooBigOrSmall
 
@@ -496,6 +497,18 @@ homeAttr_day8 =
     , isFinished = False
     }
 
+homeAttr_day9 : MapAttr
+homeAttr_day9 =
+    { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
+    , heroIni = { x = 665, y = 520, width = 20, height = 60 }
+    , barrier = homeBarrier
+    , hint = []
+    , vehicle = homeVehicle
+    , story = "Several days after the hearings, the judgment has been made that due to lack of evidence, both you and Jonathon are innocent. You are definitely fired by the police office. Press X to continue."
+    , scene = ( Home, Day9 )
+    , isFinished = False
+    }
+
 journalistAttr_day1 : MapAttr
 journalistAttr_day1 =
     { exit = { x = 130, y = 205 , wid = 20, hei = 250 }
@@ -702,6 +715,17 @@ courtAttr_day8 =
     , isFinished = False
     }
 
+backstreetAttr_day8 : MapAttr
+backstreetAttr_day8 =
+    { exit = { x = 2000, y = 2000 , wid = 20, hei = 20  }
+    , heroIni = { x = 3050, y = 3050, width = 20, height = 20 }
+    , barrier = courtBarrierList
+    , hint = []
+    , vehicle = []
+    , story = "You see a group of people is walking towards with weapons equipped. But you cannot see where Jonathon is."
+    , scene = ( BackStreet, Day9 )
+    , isFinished = False
+    }
 
 --energyDrainAttr : MapAttr
 --energyDrainAttr =
@@ -826,6 +850,18 @@ dreamMazeAttr_day7 =
     , isFinished = False
     }
 
+dreamMazeAttr_day8 : MapAttr
+dreamMazeAttr_day8 =
+    { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
+    , heroIni = { x = 470 + 135, y = 575, width = 20, height = 20 } --no dream
+    , barrier = maze1Barrier
+    , hint = hintsMaze5
+    , vehicle = []
+    , story = "..."
+    , scene = ( DreamMaze, Day8 )
+    , isFinished = False
+    }
+
 
 
 switchingAttr : MapAttr
@@ -843,15 +879,16 @@ switchingAttr =
 
 allMapAttrs : List MapAttr
 allMapAttrs =
-    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5, dreamMazeAttr_day6, dreamMazeAttr_day7
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5, homeAttr_day6, homeAttr_day7, homeAttr_day8
+    [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5, dreamMazeAttr_day6, dreamMazeAttr_day7, dreamMazeAttr_day8
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5, homeAttr_day6, homeAttr_day7, homeAttr_day8, homeAttr_day9
     , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4, parkAttr_day5
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5, policeOfficeAttr_day6, policeOfficeAttr_day7
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5
     , danielAttr_day3, danielAttr_day4
     , switchingAttr
-    , courtAttr_day6, courtAttr_day8 ]
+    , courtAttr_day6, courtAttr_day8
+    , backstreetAttr_day8 ]
 
 
 

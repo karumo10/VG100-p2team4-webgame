@@ -778,6 +778,36 @@ renderMapButton model =
             ]
             [ Html.text "Home" ]
             ]
+            else if model.dayState == Day9 then
+            div []
+            [
+            button
+            [ style "position" "absolute"
+            , style "left" "350px"
+            , style "top" "400px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToHome
+            ]
+            [ Html.text "Home" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "230px"
+            , style "top" "345px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToBackStreet
+            ]
+            [ Html.text "Back Street" ]
+
+            ]
 
             else div [][]
 
@@ -1073,6 +1103,7 @@ renderPic model =
                 let
                     c =
                         if model.isGoodEnd == True then "white"
+                        else if model.isSpecialEnd == True then "black"
                         else "red"
                 in
                 renderPreviousMap model ++
@@ -1087,6 +1118,7 @@ renderPic model =
                  ]
                  []]
                  ++ [renderdialog model]
+
 
             NoPlace ->
                 [rect[][]]
