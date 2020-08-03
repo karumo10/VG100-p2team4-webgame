@@ -1444,7 +1444,8 @@ renderBagButton : Model -> List(Html Msg)
 renderBagButton model =
     let
         contents =
-                        div []
+                        div
+                        [ ]
                         [
                         button
                         [ onClick RenderGrid1Detail
@@ -1453,7 +1454,7 @@ renderBagButton model =
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
                         , style "top" "100px"
-                        ] [ text model.bag.grid1.intro ],
+                        ] [ div [style "font-size" "12px"] [text model.bag.grid1.intro] ],
 
                         button
                         [ onClick RenderGrid2Detail
@@ -1462,7 +1463,7 @@ renderBagButton model =
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
                         , style "top" "180px"
-                        ] [ text model.bag.grid2.intro ],
+                        ] [ div [style "font-size" "12px"] [ text model.bag.grid2.intro ]] ,
 
                         button
                         [ onClick RenderGrid3Detail
@@ -1471,7 +1472,7 @@ renderBagButton model =
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
                         , style "top" "260px"
-                        ] [ text model.bag.grid3.intro ],
+                        ] [ div [style "font-size" "12px"] [ text model.bag.grid3.intro ] ],
 
                         button
                         [ onClick RenderGrid4Detail
@@ -1480,7 +1481,7 @@ renderBagButton model =
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
                         , style "top" "340px"
-                        ] [ text model.bag.grid4.intro ],
+                        ] [ div [style "font-size" "12px"] [ text model.bag.grid4.intro ] ],
 
                         button
                         [ onClick RenderGrid5Detail
@@ -1489,7 +1490,7 @@ renderBagButton model =
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
                         , style "top" "420px"
-                        ] [ text model.bag.grid5.intro ],
+                        ] [ div [style "font-size" "12px"] [ text model.bag.grid5.intro ] ],
 
                         button
                         [ onClick RenderGrid6Detail
@@ -1499,7 +1500,7 @@ renderBagButton model =
                         , style "position" "absolute"
                         , style "left" "80px"
                         , style "top" "100px"
-                        ] [ text model.bag.grid6.intro ],
+                        ] [ div [style "font-size" "12px"] [ text model.bag.grid6.intro ]],
 
                         button
                         [ onClick RenderGrid7Detail
@@ -1509,7 +1510,7 @@ renderBagButton model =
                         , style "position" "absolute"
                         , style "left" "80px"
                         , style "top" "180px"
-                        ] [ text model.bag.grid7.intro ],
+                        ] [ div [style "font-size" "12px"] [ text model.bag.grid7.intro ]],
 
                          button
                          [ onClick RenderGrid8Detail
@@ -1519,7 +1520,7 @@ renderBagButton model =
                          , style "position" "absolute"
                          , style "left" "80px"
                          , style "top" "260px"
-                         ] [ text model.bag.grid8.intro ],
+                         ] [ div [style "font-size" "12px"][ text model.bag.grid8.intro ]],
 
                           button
                           [ onClick RenderGrid9Detail
@@ -1529,7 +1530,7 @@ renderBagButton model =
                           , style "position" "absolute"
                           , style "left" "80px"
                           , style "top" "340px"
-                          ] [ text model.bag.grid9.intro ],
+                          ] [ div [style "font-size" "12px"][ text model.bag.grid9.intro ]],
 
                           button
                           [ onClick RenderGrid10Detail
@@ -1539,7 +1540,7 @@ renderBagButton model =
                           , style "position" "absolute"
                           , style "left" "80px"
                           , style "top" "420px"
-                          ] [ text model.bag.grid10.intro ],
+                          ] [ div [style "font-size" "12px"] [ text model.bag.grid10.intro ]],
 
                          button
                          [ onClick RenderGrid11Detail
@@ -1549,7 +1550,7 @@ renderBagButton model =
                          , style "position" "absolute"
                          , style "left" "160px"
                          , style "top" "100px"
-                         ] [ text model.bag.grid11.intro ],
+                         ] [ div [style "font-size" "12px"] [ text model.bag.grid11.intro ]],
 
                          button
                          [ onClick RenderGrid12Detail
@@ -1559,7 +1560,7 @@ renderBagButton model =
                          , style "position" "absolute"
                          , style "left" "160px"
                          , style "top" "180px"
-                         ] [ text model.bag.grid12.intro ],
+                         ] [ div [style "font-size" "12px"] [ text model.bag.grid12.intro ]],
 
                          button
                          [ onClick RenderGrid13Detail
@@ -1569,7 +1570,7 @@ renderBagButton model =
                          , style "position" "absolute"
                          , style "left" "160px"
                          , style "top" "260px"
-                         ] [ text model.bag.grid13.intro ],
+                         ] [ div [style "font-size" "12px"] [ text model.bag.grid13.intro ]],
 
                          button
                          [ onClick RenderGrid14Detail
@@ -1579,7 +1580,7 @@ renderBagButton model =
                          , style "position" "absolute"
                          , style "left" "160px"
                          , style "top" "340px"
-                         ] [ text model.bag.grid14.intro ],
+                         ] [ div [style "font-size" "12px"] [ text model.bag.grid14.intro ]],
 
                          button
                          [ onClick RenderGrid15Detail
@@ -1589,7 +1590,7 @@ renderBagButton model =
                          , style "position" "absolute"
                          , style "left" "160px"
                          , style "top" "420px"
-                         ] [ text model.bag.grid15.intro ],
+                         ] [ div [style "font-size" "12px"] [ text model.bag.grid15.intro ]],
 
                          button
                          [ onClick RenderGrid16Detail
@@ -1599,7 +1600,7 @@ renderBagButton model =
                          , style "position" "absolute"
                          , style "left" "240px"
                          , style "top" "100px"
-                         ] [ text model.bag.grid16.intro ],
+                         ] [ div [style "font-size" "12px"] [ text model.bag.grid16.intro ]],
 
                          button
                          [ onClick RenderGrid17Detail
@@ -1609,7 +1610,7 @@ renderBagButton model =
                          , style "position" "absolute"
                          , style "left" "240px"
                          , style "top" "180px"
-                         ] [ text model.bag.grid17.intro ],
+                         ] [ div [style "font-size" "12px"] [ text model.bag.grid17.intro ]],
 
                           button
                           [ onClick RenderGrid18Detail
@@ -1619,7 +1620,7 @@ renderBagButton model =
                           , style "position" "absolute"
                           , style "left" "240px"
                           , style "top" "260px"
-                          ] [ text model.bag.grid18.intro ],
+                          ] [ div [style "font-size" "12px"] [ text model.bag.grid18.intro ]],
 
                            button
                            [ onClick RenderGrid19Detail
@@ -1629,7 +1630,7 @@ renderBagButton model =
                            , style "position" "absolute"
                            , style "left" "240px"
                            , style "top" "340px"
-                           ] [ text model.bag.grid19.intro ],
+                           ] [ div [style "font-size" "12px"] [ text model.bag.grid19.intro ]],
 
                            button
                            [ onClick RenderGrid20Detail
@@ -1639,7 +1640,7 @@ renderBagButton model =
                            , style "position" "absolute"
                            , style "left" "240px"
                            , style "top" "420px"
-                           ] [ text model.bag.grid20.intro ]
+                           ] [ div [style "font-size" "12px"][ text model.bag.grid20.intro ] ]
 
                           ]
     in
