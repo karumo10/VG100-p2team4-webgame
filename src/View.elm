@@ -870,9 +870,25 @@ renderPic model =
         --if not model.isEnd then
         case model.map of
             PoliceOffice ->
-
+                if model.dayState /= Day2 then
                 [Svg.image
                     [ xlinkHref "./police_office.png" -- I'll change all the maps into 1050*630... ——Lan Wang
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)"
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
+                ++ energytosvg model.energy model.energy_Full
+                else
+                [Svg.image
+                    [ xlinkHref "./police_office_without_lee.png" -- I'll change all the maps into 1050*630... ——Lan Wang
                     , x "0"
                     , y "0"
                     , width "1200"
