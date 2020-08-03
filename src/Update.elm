@@ -1973,6 +1973,16 @@ badEnd8 model =
     (True, "[Bad End: Dark Fever] Darkness is spreading in the city. Jonathon completes his plan successfully. The city's rebirth can never be reached.")
     else (False, model.story)
 
+badEnd9 : Model -> ( Bool, String )
+badEnd9 model =
+    let
+        isLied =
+            findCertainQuestion model "BAD_LIE"
+    in
+    if isLied then
+    (True, "[Bad End: Meaningless Lie] Jonathon just nodded. After that, nothing important happened. The whole world had been in peace until the day you were knock over on the street...")
+    else (False, model.story)
+
 
 goodEnd : Model -> ( Bool, String )
 goodEnd model =
@@ -1999,7 +2009,7 @@ goodEndsList : Model -> List (Bool,String)
 goodEndsList model = [ goodEnd model ]
 
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model, badEnd8 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model, badEnd8 model, badEnd9 model ]
 
 specialEndsList :  Model -> List (Bool, String)
 specialEndsList model = [ specialEnd model ]
