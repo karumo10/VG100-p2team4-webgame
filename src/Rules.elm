@@ -584,6 +584,9 @@ initialWorldModelSpec =
     , entity "MIND.trigger=0"
         "mind in home day9"
         "..."
+    , entity "STREET.trigger=0"
+        "street dialogs"
+        "..."
 ---day9 choices
     , entity "FEEL.choices=0"
         "A strange feeling"
@@ -596,6 +599,24 @@ initialWorldModelSpec =
         ""
     , entity "TP_STREET.choices=0"
         "Go to backstreet"
+        ""
+    , entity "SHOOT1.choices=0"
+        "Shoot"
+        ""
+    , entity "WAIT1.choices=0"
+        "Wait"
+        ""
+    , entity "SHOOT2.choices=0"
+        "Shoot"
+        ""
+    , entity "WAIT2.choices=0"
+        "Wait"
+        ""
+    , entity "SHOOT3.choices=0"
+        "Shoot"
+        ""
+    , entity "WAIT3.choices=0"
+        "Wait"
         ""
     ]
 
@@ -2257,6 +2278,65 @@ rulesSpec =
             DO: MIND.trigger=1
                 TP_STREET.choices=-1
             """
+        |> rule_______________________ "street1"
+            """
+            ON: STREET
+            IF: STREET.trigger=0
+            DO: SHOOT1.choices=1
+                WAIT1.choices=1
+            """
+        |> rule_______________________ "shoot1"
+            """
+            ON: SHOOT1
+            DO: SHOOT1.choices=-1
+                WAIT1.choices=0
+            """
+        |> rule_______________________ "wait1"
+            """
+            ON: WAIT1
+            DO: SHOOT1.choices=0
+                WAIT1.choices=-1
+                STREET.trigger=1
+            """
+        |> rule_______________________ "street2"
+            """
+            ON: STREET
+            IF: STREET.trigger=1
+            DO: SHOOT2.choices=1
+                WAIT2.choices=1
+            """
+        |> rule_______________________ "shoot2"
+            """
+            ON: SHOOT2
+            DO: SHOOT2.choices=-1
+                WAIT2.choices=0
+            """
+        |> rule_______________________ "wait2"
+            """
+            ON: WAIT2
+            DO: SHOOT2.choices=0
+                WAIT2.choices=-1
+                STREET.trigger=2
+            """
+        |> rule_______________________ "street3"
+            """
+            ON: STREET
+            IF: STREET.trigger=2
+            DO: SHOOT3.choices=1
+                WAIT3.choices=1
+            """
+        |> rule_______________________ "shoot3"
+            """
+            ON: SHOOT3
+            DO: SHOOT3.choices=-1
+                WAIT3.choices=0
+            """
+        |> rule_______________________ "wait3"
+            """
+            ON: WAIT3
+            DO: WAIT3.choices=-1
+                SHOOT3.choices=0
+            """
 
 
 
@@ -2753,8 +2833,24 @@ narrative_content =
             "Backstreet? The most chaotic area in our city It’s the best chance to kill Jonathan! Yuuki, don’t waste time."
         |> content__________________________________ "mind5"
             "You go to the Backstreet."
-
-
+        |> content__________________________________ "street1"
+            " You see a group of people is walking towards with weapons equipped. But you cannot see where Jonathon is."
+        |> content__________________________________ "shoot1"
+            "A missing shoot! And the group of people fires in the place you hide at the same time. It’s the gang in this area."
+        |> content__________________________________ "wait1"
+            "You decide to wait for a while. The group of people disappears in the darkness... "
+        |> content__________________________________ "street2"
+            "Later, another group of people appears, they wear the uniform of police office."
+        |> content__________________________________ "shoot2"
+            "A precise shoot! A policeman fell down. But your place is exposed too. The police surround this area quickly and you are captured. It is the patrol of this area..."
+        |> content__________________________________ "wait2"
+            "They pass through you and you notice that they are patrol of this area. Someone in the patrol tells you that they are clearing the way for the coming of Jonathon."
+        |> content__________________________________ "street3"
+            "The patrol disappears. One hour later, in the protection of a group of people with deep dark uniform, your target, Jonathon appears."
+        |> content__________________________________ "shoot3"
+            "You decide to have a sudden attack to get the grasp of the battlefield. But you are too naïve, the well-trained personal troop of Jonathon notice you soon and they let you taste the feel of suppressive fire."
+        |> content__________________________________ "wait3"
+            "Area clear, Sir. You hear the sounds. And you know that it’s time to attack!"
 
 
 

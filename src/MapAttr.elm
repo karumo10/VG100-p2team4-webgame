@@ -715,6 +715,17 @@ courtAttr_day8 =
     , isFinished = False
     }
 
+backstreetAttr_day8 : MapAttr
+backstreetAttr_day8 =
+    { exit = { x = 2000, y = 2000 , wid = 20, hei = 20  }
+    , heroIni = { x = 3050, y = 3050, width = 20, height = 20 }
+    , barrier = courtBarrierList
+    , hint = []
+    , vehicle = []
+    , story = "You see a group of people is walking towards with weapons equipped. But you cannot see where Jonathon is."
+    , scene = ( BackStreet, Day9 )
+    , isFinished = False
+    }
 
 --energyDrainAttr : MapAttr
 --energyDrainAttr =
@@ -876,7 +887,8 @@ allMapAttrs =
     , nightClubAttr_day1, nightClubAttr_day2, nightClubAttr_day2_finished, nightClubAttr_day2_night, nightClubAttr_day3, nightClubAttr_day4, nightClubAttr_day5
     , danielAttr_day3, danielAttr_day4
     , switchingAttr
-    , courtAttr_day6, courtAttr_day8 ]
+    , courtAttr_day6, courtAttr_day8
+    , backstreetAttr_day8 ]
 
 
 

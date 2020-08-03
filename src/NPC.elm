@@ -883,6 +883,22 @@ homeMind =
      , name = ""
      }
 
+streetBattle : NPC
+streetBattle =
+    { itemType = Phone
+    , area =
+        { x = 3000
+        , y = 3000
+        , wid = 100
+        , hei = 100
+        }
+    , interacttrue = False
+    , description = "STREET"
+    , place = ( BackStreet , Day9 )
+    , isFinished = False
+    , name = ""
+    }
+
 
 allNPCs: List NPC
 allNPCs =
@@ -902,6 +918,7 @@ allNPCs =
     , jonathonTable, jonathonCloset, jonathonLock, jonathonCloset_day7, jonathonTable_day7
     , courtSpeaker, courtFinal
     , switchingPolice, homeOutsideSounds, homeMind
+    , streetBattle
     ]
 
 
