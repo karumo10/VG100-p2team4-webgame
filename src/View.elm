@@ -2,7 +2,6 @@ module View exposing (..)
 import Html.Attributes exposing (autoplay, class, id, loop, src, style, type_, value)
 import Html.Events exposing (on, onClick, onInput, onMouseDown, onMouseUp)
 import Debug exposing (toString)
-import Json.Decode as Json
 import Message exposing (Msg(..))
 import Model exposing (..)
 import Tosvg exposing (..)
@@ -50,8 +49,6 @@ view model =
         , style "transform" ("scale(" ++ String.fromFloat r ++ ")")]
          (renderMain model)
 
-
-
         ]
         ++ (rendersuspectlist model)
         ++ (elevatorQuestToSvg model)
@@ -63,10 +60,8 @@ renderMain model =
         if not model.isEnd then
          [renderPic model
         , renderMapButton model
-        --, renderdialog model
         , renderMusic model
         , axisHelper model
-        --, renderBag model
         , renderGrid1Detail model
         , renderGrid2Detail model
         , renderGrid3Detail model
@@ -92,16 +87,13 @@ renderMain model =
         , renderStoryButton model
         , renderBackButton model
         , renderCloseGrid model
-        --, renderInput model
         ]
 
         else
         [ renderPic model
         , renderMapButton model
-        --, renderdialog model
         , renderMusic model
         , axisHelper model
-        --, renderBag model
         , renderStartButton model
         , renderAboutUsButton model
         , renderStoryButton model
