@@ -1901,7 +1901,7 @@ badEnd1 model =
         isEatPill = findCertainQuestion model "TAKE_PILL"
     in
     if isEatPill then
-    (True, "[Bad End: Reckless Authority]\nYou thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late." )
+    (True, "[Bad End: Reckless Trial]\nYou thought you've made a great decision until the scene before your eyes started to blur and distort. You struggle to induce vomiting, but it's too late." )
     else (False, model.story)
 
 badEnd2 : Model -> ( Bool, String )
@@ -1983,6 +1983,25 @@ badEnd9 model =
     (True, "[Bad End: Meaningless Lie] Jonathon just nodded. After that, nothing important happened. The whole world had been in peace until the day you were knock over on the street...")
     else (False, model.story)
 
+badEnd10 :Model -> ( Bool, String )
+badEnd10 model =
+    let
+        isDrained =
+            isdrained model
+    in
+    if isDrained then
+    (True, "[Bad End: Scattered Soul] A sudden headache...... A sense of powerlessness is spreading...... You feel like you are gradually losing the grasp of this body. Your soul can no longer live in this body. You may have wasted too much effort on useless affairs.")
+    else (False, model.story)
+
+isdrained: Model -> Bool
+isdrained model =
+    let
+        curr=model.energy
+    in
+    if curr>=0 then
+    False
+    else
+    True
 
 goodEnd : Model -> ( Bool, String )
 goodEnd model =
@@ -2009,7 +2028,7 @@ goodEndsList : Model -> List (Bool,String)
 goodEndsList model = [ goodEnd model ]
 
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model, badEnd8 model, badEnd9 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model, badEnd8 model, badEnd9 model , badEnd10 model]
 
 specialEndsList :  Model -> List (Bool, String)
 specialEndsList model = [ specialEnd model ]
