@@ -298,7 +298,7 @@ parkAttr_day1 =
     , barrier = parkBarrier
     , hint = []
     , vehicle = []
-    , story = "I arrive at the park. This is a desolate place."
+    , story = "I arrive at the park. This is a desolate place. \n \n \n \n \n Tutorial: Talk with Lee. He seems to need your help."
     , scene = ( Park, Day1 )
     , isFinished = False
     }
