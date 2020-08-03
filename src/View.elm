@@ -996,8 +996,25 @@ renderPic model =
 
 
             Daniel ->
+                if model.dayState /= Day4 then
                 [ Svg.image
                     [ xlinkHref "./Ann_and_Daniel's_home.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
+                ++ energytosvg model.energy model.energy_Full
+                else
+                [ Svg.image
+                    [ xlinkHref "./Ann_and_Daniel's_home_without_npcs.png"
                     , x "0"
                     , y "0"
                     , width "1200"
