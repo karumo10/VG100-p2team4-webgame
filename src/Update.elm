@@ -1964,7 +1964,7 @@ badEnd8 model =
             findCertainQuestion model "DEATH2"
     in
     if isKilled then
-    (True, "[Bad End: Dark Fever] Darkness is spreading in the city. Jonathon completes his plan successfully. The city’s rebirth can never be reached.")
+    (True, "[Bad End: Dark Fever] Darkness is spreading in the city. Jonathon completes his plan successfully. The city's rebirth can never be reached.")
     else (False, model.story)
 
 

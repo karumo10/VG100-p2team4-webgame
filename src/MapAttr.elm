@@ -171,7 +171,7 @@ hintsMaze5 =
 hintsMaze6 : List Hint
 hintsMaze6 =
     [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "It can be seen that Jonathon cannot wait to address you..." }
-    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "Yukki, you have made a lot of effort. But there exists little time now..." }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "Yuuki, you have made a lot of effort. But there exists little time now..." }
     , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Tomorrow will be the last chance, Yuuki. You should take some risks." }
     , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "It never occurs to me that Jonathon will love someone. HaHaHa!" } ]
 
