@@ -1092,7 +1092,7 @@ renderPic model =
             NightClub ->
                 if model.dayState == Day5 then
                 [ Svg.image
-                    [ xlinkHref "./nightclub.png"
+                    [ xlinkHref "./nightclub_without_body.png"
                     , x "0"
                     , y "0"
                     , width "1200"
@@ -1108,7 +1108,7 @@ renderPic model =
                 ++ energytosvg model.energy model.energy_Full
                 else
                 [ Svg.image
-                    [ xlinkHref "./nightclub_without_npc.png"
+                    [ xlinkHref "./nightclub.png"
                     , x "0"
                     , y "0"
                     , width "1200"
