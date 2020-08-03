@@ -847,7 +847,7 @@ dreamMazeAttr_day8 =
     , hint = hintsMaze5
     , vehicle = []
     , story = "..."
-    , scene = ( DreamMaze, Day5 )
+    , scene = ( DreamMaze, Day8 )
     , isFinished = False
     }
 
@@ -869,7 +869,7 @@ switchingAttr =
 allMapAttrs : List MapAttr
 allMapAttrs =
     [ dreamMazeAttr_day1, dreamMazeAttr_day2, dreamMazeAttr_day2_finished, dreamMazeAttr_day2_night, dreamMazeAttr_day3, dreamMazeAttr_day4, dreamMazeAttr_day5, dreamMazeAttr_day6, dreamMazeAttr_day7, dreamMazeAttr_day8
-    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5, homeAttr_day6, homeAttr_day7, homeAttr_day8
+    , homeAttr_day1, homeAttr_day2, homeAttr_day2_finished, homeAttr_day2_night, homeAttr_day3, homeAttr_day4, homeAttr_day5, homeAttr_day6, homeAttr_day7, homeAttr_day8, homeAttr_day9
     , parkAttr_day1, parkAttr_day2, parkAttr_day2_finished, parkAttr_day2_night, parkAttr_day3, parkAttr_day4, parkAttr_day5
     , journalistAttr_day1, journalistAttr_day2, journalistAttr_day2_finished, journalistAttr_day2_night, journalistAttr_day3, journalistAttr_day4
     , policeOfficeAttr_day1, policeOfficeAttr_day2, policeOfficeAttr_day2_finished, policeOfficeAttr_day2_night, policeOfficeAttr_day3, policeOfficeAttr_day4, policeOfficeAttr_day5, policeOfficeAttr_day6, policeOfficeAttr_day7

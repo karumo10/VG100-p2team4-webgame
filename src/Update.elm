@@ -1433,6 +1433,7 @@ specialUpdates model
         |> day8_final_court
         |> day8_court_update_exit
         |> day8_court_update_home
+        |> day9_teleport_backstreet
         --|> debugFinished
     else model
 
@@ -1774,6 +1775,15 @@ day8_court_update_home model =
         { model | npcs_all = npcs_, mapAttr_all = maps_ }
     else model
 
+day9_teleport_backstreet : Model -> Model
+day9_teleport_backstreet model =
+    let
+        isGo = findCertainQuestion model "TP_STREET"
+        new_ = mapSwitch BackStreet model
+    in
+    if model.isTeleportedToCouncil == False && ((model.dayState == Day9 && isGo) ) then
+        { new_ | isTeleportedToCouncil = True }
+    else model
 
 
 
