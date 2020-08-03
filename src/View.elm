@@ -1561,7 +1561,7 @@ renderGrid1Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -1660,7 +1660,7 @@ renderGrid2Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -1761,7 +1761,7 @@ renderGrid3Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -1861,7 +1861,7 @@ renderGrid4Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -1961,7 +1961,7 @@ renderGrid5Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2061,7 +2061,7 @@ renderGrid6Detail model=
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2161,7 +2161,7 @@ renderGrid7Detail model=
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2261,7 +2261,7 @@ renderGrid8Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2361,7 +2361,7 @@ renderGrid9Detail model=
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2461,7 +2461,7 @@ renderGrid10Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2560,7 +2560,7 @@ renderGrid11Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2659,7 +2659,7 @@ renderGrid12Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2760,7 +2760,7 @@ renderGrid13Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2859,7 +2859,7 @@ renderGrid14Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -2959,7 +2959,7 @@ renderGrid15Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -3059,7 +3059,7 @@ renderGrid16Detail model=
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -3159,7 +3159,7 @@ renderGrid17Detail model=
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -3259,7 +3259,7 @@ renderGrid18Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -3359,7 +3359,7 @@ renderGrid19Detail model=
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
@@ -3459,7 +3459,7 @@ renderGrid20Detail model =
           ,
           div []
           [ button
-          [ onClick (ExamineItemsInBag model.whichGridIsOpen)
+          [ onClick (AskDelete model.whichGridIsOpen)
           , Html.Attributes.style "width" "85px"
           , Html.Attributes.style "height" "30px"
           , Html.Attributes.style "font-size" "18px"
