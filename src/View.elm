@@ -373,6 +373,10 @@ renderMusic model=
                             ] []
                             ]
                             ]
+        Switching ->
+                div []
+                 [ ]
+
 
         _ ->
                 div []
