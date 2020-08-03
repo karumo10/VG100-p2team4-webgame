@@ -2220,9 +2220,9 @@ narrative_content : Dict String String
 narrative_content =
     Dict.empty
         |> content__________________________________ "talk with bob"
-            "{BOBPOLICEOFFICE.trigger=1? Don't disturb me.| Good morning. What can I do for you?}"
+            "{BOBPOLICEOFFICE.trigger=1? Don't disturb me.| Good morning. Are you new here?}"
         |> content__________________________________ "yes"
-            "Don't kid me, Kay."
+            "Ah, go to the next floor to talk with Allen. \n \n \n \n Tutorial: When you pass through an NPC, if you see the change of portrait, it means that you can interact with him or her by pressing X."
         |> content__________________________________ "no"
             "You'll be late, Kay."
         |> content__________________________________ "talk with lee"
@@ -2232,7 +2232,7 @@ narrative_content =
         |> content__________________________________ "pay attention next time"
             "Kay? That's not like you."
         |> content__________________________________ "talk with allen 1"
-            "{ALLENPOLICEOFFICE.trigger=1? What are you waiting for? Go to the park!(Go to the gate to go to other places.)| Kay, you are almost late! Now go with me at once, a body is found in the park.}"
+            "{ALLENPOLICEOFFICE.trigger=1? What are you waiting for? Go to the park!| Kay, you are almost late! Now go with me at once, a body is found in the park.\n \n \n \n \n Tutorial:Go to the gate to go to other places.}"
         |> content__________________________________ "talk with allen park"
             "{ALLENPARK.trigger=1? Go to ask them about this case. Lee has told me that Brennan died about 9 p.m. yesterday. | What do you think about this? What looks suspicious?}"
         |> content__________________________________ "nothing"
