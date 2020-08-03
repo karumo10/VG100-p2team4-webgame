@@ -135,10 +135,10 @@ danielVehicle =
 
 hintsMaze1 : List Hint
 hintsMaze1 =
-    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "Youkoso! Welcome to the dream maze. My friends! \n \n \n \n Tutorial:Dream maze is where you can hear the echo of some souls. Each time you come near to the gentle light, you can here correspondent echo!" }
-    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "There's still an interview... \n \n \n \n Tutorial:This seems to be the echo of your own soul. The echo will contain useful information! " }
-    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Be careful! Be careful! Be careful...Jonathon... \n \n \n \n Tutorial:Arriving at the exit will completely end one day!" }
-    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "Be careful to search every corner of maps in the following stories! \n \n \n \n Tutorial:This seems to be the echo from higher dimension world. The source of the echo seems to have the ability to change this world easily." } ]
+    [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "Youkoso! Welcome to the dream maze. My friends! \n \n \n \n Tutorial: Dream maze is where you can hear the echo of some souls. Each time you come near to the gentle light, you can here correspondent echo!" }
+    , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "There's still an interview... \n \n \n \n Tutorial: This seems to be the echo of your own soul. The echo will contain useful information! " }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "Be careful! Be careful! Be careful...Jonathon... \n \n \n \n Tutorial: Arriving at the exit will completely end one day!" }
+    , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "Be careful to search every corner of maps in the following stories! \n \n \n \n Tutorial: This seems to be the echo from higher dimension world. The source of the echo seems to have the ability to change this world easily." } ]
 
 hintsMaze2 : List Hint
 hintsMaze2 =
@@ -202,7 +202,7 @@ policeOfficeAttr_day2 =
     , barrier = policeOfficeBarrier
     , hint = []
     , vehicle = policeOfficeVehicle
-    , story = "Another day at work, another boring day. But I need to avoid being killed."
+    , story = "Another day at work, another boring day. But I need to avoid being killed. \n \n \n \n \n Hint: Allen seems to be searching of you."
     , scene = ( PoliceOffice, Day2 )
     , isFinished = False
     }
