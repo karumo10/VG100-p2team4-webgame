@@ -144,7 +144,7 @@ hintsMaze2 : List Hint
 hintsMaze2 =
     [ { area = { x = 185 + 135, y = 135, wid = 20, hei = 20 }, content = "...It's quite interesting: now, you are me, I am you... You know that Jonathon is a bad guy as you write it in your novel? Even more interesting..." }
     , { area = { x = 360 + 135, y = 320, wid = 20, hei = 20 }, content = "Ah, it seems that you have lost some memory, my friends. I can tell you something. It's quite weird that the day we planned to meet in the office, I was called to help inspect a night club. Do you think so? Who will inspect a night club at morning?..." }
-    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don't know which evidence you take in \"your\" home. They are both useful but you should pay attention how to use them properly, my dear friend..." }
+    , { area = { x = 360 + 135, y = 435, wid = 20, hei = 20 }, content = "The suicide case? Oh, I have gone to the scene, too. But I don't know which evidence you take in \"your\" home. Have a clear at it, my friends!" }
     , { area = { x = 530 + 135, y = 240, wid = 20, hei = 20 }, content = "...Listen! What is whirring and whizzing? Double, double! Toil and trouble; fire burn and cauldron bubble! ..." } ]
 
 hintsMaze3 : List Hint
