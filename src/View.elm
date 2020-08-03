@@ -1108,6 +1108,7 @@ renderPic model =
                  []]
                  ++ [renderdialog model]
 
+
             NoPlace ->
                 [rect[][]]
 

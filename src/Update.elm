@@ -1921,6 +1921,17 @@ badEnd7 model =
     (True, "[Bad End: Forget-Me-Not] News: New crime set: steal the secret of the darkness. The Owner of our city,\"Darkness\", has made a new crime valid -- steal the secret of the darkness. And the first one who is guilty of this crime is the former policeman Kay.")
     else (False, model.story)
 
+badEnd8 : Model -> ( Bool, String )
+badEnd8 model =
+    let
+        isKilled =
+            findCertainQuestion model "DEATH2"
+    in
+    if isKilled then
+    (True, "[Bad End: Dark Fever] Darkness is spreading in the city. Jonathon completes his plan successfully. The city’s rebirth can never be reached.")
+    else (False, model.story)
+
+
 goodEnd : Model -> ( Bool, String )
 goodEnd model =
     let
@@ -1935,7 +1946,7 @@ goodEndsList : Model -> List (Bool,String)
 goodEndsList model = [ goodEnd model ]
 
 badEndsList : Model -> List (Bool, String)
-badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model ]
+badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model, badEnd8 model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =

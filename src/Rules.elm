@@ -642,6 +642,12 @@ initialWorldModelSpec =
     , entity "SHOOT6.choices=0"
         "Shoot!"
         ""
+    , entity "DEATH1.choices=0"
+        "..."
+        ""
+    , entity "DEATH2.choices=0"
+        "Kay?"
+        ""
     ]
 
 
@@ -2314,6 +2320,7 @@ rulesSpec =
             ON: SHOOT1
             DO: SHOOT1.choices=-1
                 WAIT1.choices=0
+                STREET.trigger=-2.choices=-1
             """
         |> rule_______________________ "wait1"
             """
@@ -2334,6 +2341,7 @@ rulesSpec =
             ON: SHOOT2
             DO: SHOOT2.choices=-1
                 WAIT2.choices=0
+                STREET.trigger=-2.choices=-1
             """
         |> rule_______________________ "wait2"
             """
@@ -2354,6 +2362,7 @@ rulesSpec =
             ON: SHOOT3
             DO: SHOOT3.choices=-1
                 WAIT3.choices=0
+                STREET.trigger=-2.choices=-1
             """
         |> rule_______________________ "wait3"
             """
@@ -2386,6 +2395,7 @@ rulesSpec =
             ON: HIDE1
             DO: HIDE1.choices=-1
                 MOVE1.choices=0
+                STREET.trigger=-2.choices=-1
             """
         |> rule_______________________ "move1"
             """
@@ -2420,6 +2430,7 @@ rulesSpec =
             DO: MOVE_C.choices=-1
                 STAY.choices=0
                 DASH.choices=0
+                STREET.trigger=-2.choices=-1
             """
         |> rule_______________________ "stay"
             """
@@ -2427,6 +2438,7 @@ rulesSpec =
             DO: MOVE_C.choices=0
                 STAY.choices=-1
                 DASH.choices=0
+                STREET.trigger=-2.choices=-1
             """
         |> rule_______________________ "dash"
             """
@@ -2442,7 +2454,23 @@ rulesSpec =
             DO: SHOOT6.choices=-1
                 STREET.trigger=8
             """
-
+        |> rule_______________________ "death1"
+            """
+            ON: STREET
+            IF: STREET.trigger=-2.choices=-1
+            DO: DEATH1.choices=1
+            """
+        |> rule_______________________ "death2"
+            """
+            ON: DEATH1
+            DO: DEATH1.choices=0
+                DEATH2.choices=1
+            """
+        |> rule_______________________ "death3"
+            """
+            ON: DEATH2
+            DO: DEATH2.choices=-1
+            """
 
 
 
@@ -2981,8 +3009,12 @@ narrative_content =
             "Win or Dead! Dash! Dash! Dash! You dash out bravely! The obsession in your mind seems to give you infinite power! You feel like that you are invincible!"
         |> content__________________________________ "shoot6"
             "The finale of the dual comes. You come closer to Jonathon rapidly and a precise and powerful shoot. Jonathon is falling down and the surrounding troop is frozen..."
-
-
+        |> content__________________________________ "death1"
+            "[???] Am I die again...?"
+        |> content__________________________________ "death2"
+            "[???] Even by falling into darkness, you still fail to kill the darkness..."
+        |> content__________________________________ "death3"
+            "It's the end, bro. We fail. But luckily, at least you calm down."
 
 
 parsedData =
