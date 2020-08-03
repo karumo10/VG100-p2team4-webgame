@@ -580,7 +580,23 @@ initialWorldModelSpec =
     , entity "LEAVE8.choices=0"
         "Leave here."
         ""
-
+----day9
+    , entity "MIND.trigger=0"
+        "mind in home day9"
+        "..."
+---day9 choices
+    , entity "FEEL.choices=0"
+        "A strange feeling"
+        ""
+    , entity "LOOK_NEWS.choices=0"
+        "Look at the newspaper"
+        ""
+    , entity "WHISPER.choices=0"
+        "A whisper from your brain..."
+        ""
+    , entity "TP_STREET.choices=0"
+        "Go to backstreet"
+        ""
     ]
 
 
@@ -2211,6 +2227,41 @@ rulesSpec =
             DO: LEAVE8_F.choices=-1
                 COURT_FAIL.trigger=1
             """
+        |> rule_______________________ "mind1"
+            """
+            ON: MIND
+            IF: MIND.trigger=0
+            DO: FEEL.choices=1
+            """
+        |> rule_______________________ "mind2"
+            """
+            ON: FEEL
+            DO: FEEL.choices=0
+                LOOK_NEWS.choices=1
+            """
+        |> rule_______________________ "mind3"
+            """
+            ON: LOOK_NEWS
+            DO: LOOK_NEWS.choices=0
+                WHISPER.choices=1
+            """
+        |> rule_______________________ "mind4"
+            """
+            ON: WHISPER
+            DO: WHISPER.choices=0
+                TP_STREET.choices=1
+            """
+        |> rule_______________________ "mind5"
+            """
+            ON: TP_STREET
+            DO: MIND.trigger=1
+                TP_STREET.choices=-1
+            """
+
+
+
+
+
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
 content__________________________________ =
@@ -2692,10 +2743,16 @@ narrative_content =
             "You leave the court."
         |> content__________________________________ "win_leave"
             "You leave the court."
-
-
-
-
+        |> content__________________________________ "mind1"
+            "That voice comes again..."
+        |> content__________________________________ "mind2"
+            "You feel a weird obsession haunting you these days…… The whole day, the only thing you are thinking of is killing Jonathon. Besides, you haven’t entered the dream maze for several nights."
+        |> content__________________________________ "mind3"
+            "Report: Chief Police Jonathon is going to inspect the backstreet area this morning."
+        |> content__________________________________ "mind4"
+            "Backstreet? The most chaotic area in our city It’s the best chance to kill Jonathan! Yuuki, don’t waste time."
+        |> content__________________________________ "mind5"
+            "You go to the Backstreet."
 
 
 

@@ -29,6 +29,7 @@ type NPCType
     | None
     | PoliceX
     | Sound
+    | Mind
     | Judge
 
 
@@ -866,6 +867,21 @@ homeOutsideSounds =
      , name = ""
      }
 
+homeMind : NPC
+homeMind =
+    { itemType = Mind
+     , area =
+         { x = 0
+         , y = 0
+         , wid = 1200
+         , hei = 600
+         }
+     , interacttrue = False
+     , description = "MIND"
+     , place = ( Home, Day9 )
+     , isFinished = False
+     , name = ""
+     }
 
 
 allNPCs: List NPC
@@ -885,7 +901,7 @@ allNPCs =
     , dangerPark
     , jonathonTable, jonathonCloset, jonathonLock, jonathonCloset_day7, jonathonTable_day7
     , courtSpeaker, courtFinal
-    , switchingPolice, homeOutsideSounds
+    , switchingPolice, homeOutsideSounds, homeMind
     ]
 
 
