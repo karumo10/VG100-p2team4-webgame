@@ -580,7 +580,74 @@ initialWorldModelSpec =
     , entity "LEAVE8.choices=0"
         "Leave here."
         ""
-
+----day9
+    , entity "MIND.trigger=0"
+        "mind in home day9"
+        "..."
+    , entity "STREET.trigger=0"
+        "street dialogs"
+        "..."
+---day9 choices
+    , entity "FEEL.choices=0"
+        "A strange feeling"
+        ""
+    , entity "LOOK_NEWS.choices=0"
+        "Look at the newspaper"
+        ""
+    , entity "WHISPER.choices=0"
+        "A whisper from your brain..."
+        ""
+    , entity "TP_STREET.choices=0"
+        "Go to backstreet"
+        ""
+    , entity "SHOOT1.choices=0"
+        "Shoot"
+        ""
+    , entity "WAIT1.choices=0"
+        "Wait"
+        ""
+    , entity "SHOOT2.choices=0"
+        "Shoot"
+        ""
+    , entity "WAIT2.choices=0"
+        "Wait"
+        ""
+    , entity "SHOOT3.choices=0"
+        "Shoot"
+        ""
+    , entity "WAIT3.choices=0"
+        "Wait"
+        ""
+    , entity "SHOOT4.choices=0"
+        "Shoot"
+        ""
+    , entity "HIDE1.choices=0"
+        "Hide at the same place"
+        ""
+    , entity "MOVE1.choices=0"
+        "Move toward the barrel"
+        ""
+    , entity "SHOOT5.choices=0"
+        "Shoot"
+        ""
+    , entity "MOVE_C.choices=0"
+        "Move toward the cabinet"
+        ""
+    , entity "STAY.choices=0"
+        "Stay at the same place"
+        ""
+    , entity "DASH.choices=0"
+        "Dash!"
+        ""
+    , entity "SHOOT6.choices=0"
+        "Shoot!"
+        ""
+    , entity "DEATH1.choices=0"
+        "..."
+        ""
+    , entity "DEATH2.choices=0"
+        "Kay?"
+        ""
     ]
 
 
@@ -2211,6 +2278,209 @@ rulesSpec =
             DO: LEAVE8_F.choices=-1
                 COURT_FAIL.trigger=1
             """
+        |> rule_______________________ "mind1"
+            """
+            ON: MIND
+            IF: MIND.trigger=0
+            DO: FEEL.choices=1
+            """
+        |> rule_______________________ "mind2"
+            """
+            ON: FEEL
+            DO: FEEL.choices=0
+                LOOK_NEWS.choices=1
+            """
+        |> rule_______________________ "mind3"
+            """
+            ON: LOOK_NEWS
+            DO: LOOK_NEWS.choices=0
+                WHISPER.choices=1
+            """
+        |> rule_______________________ "mind4"
+            """
+            ON: WHISPER
+            DO: WHISPER.choices=0
+                TP_STREET.choices=1
+            """
+        |> rule_______________________ "mind5"
+            """
+            ON: TP_STREET
+            DO: MIND.trigger=1
+                TP_STREET.choices=-1
+            """
+        |> rule_______________________ "street1"
+            """
+            ON: STREET
+            IF: STREET.trigger=0
+            DO: SHOOT1.choices=1
+                WAIT1.choices=1
+            """
+        |> rule_______________________ "shoot1"
+            """
+            ON: SHOOT1
+            DO: SHOOT1.choices=-1
+                WAIT1.choices=0
+                STREET.trigger=-2
+            """
+        |> rule_______________________ "wait1"
+            """
+            ON: WAIT1
+            DO: SHOOT1.choices=0
+                WAIT1.choices=-1
+                STREET.trigger=1
+            """
+        |> rule_______________________ "street2"
+            """
+            ON: STREET
+            IF: STREET.trigger=1
+            DO: SHOOT2.choices=1
+                WAIT2.choices=1
+            """
+        |> rule_______________________ "shoot2"
+            """
+            ON: SHOOT2
+            DO: SHOOT2.choices=-1
+                WAIT2.choices=0
+                STREET.trigger=-2
+            """
+        |> rule_______________________ "wait2"
+            """
+            ON: WAIT2
+            DO: SHOOT2.choices=0
+                WAIT2.choices=-1
+                STREET.trigger=2
+            """
+        |> rule_______________________ "street3"
+            """
+            ON: STREET
+            IF: STREET.trigger=2
+            DO: SHOOT3.choices=1
+                WAIT3.choices=1
+            """
+        |> rule_______________________ "shoot3"
+            """
+            ON: SHOOT3
+            DO: SHOOT3.choices=-1
+                WAIT3.choices=0
+                STREET.trigger=-2
+            """
+        |> rule_______________________ "wait3"
+            """
+            ON: WAIT3
+            DO: WAIT3.choices=-1
+                SHOOT3.choices=0
+                STREET.trigger=3
+            """
+        |> rule_______________________ "street4"
+            """
+            ON: STREET
+            IF: STREET.trigger=3
+            DO: SHOOT4.choices=1
+            """
+        |> rule_______________________ "shoot4"
+            """
+            ON: SHOOT4
+            DO: SHOOT4.choices=-1
+                STREET.trigger=4
+            """
+        |> rule_______________________ "street5"
+            """
+            ON: STREET
+            IF: STREET.trigger=4
+            DO: HIDE1.choices=1
+                MOVE1.choices=1
+            """
+        |> rule_______________________ "hide1"
+            """
+            ON: HIDE1
+            DO: HIDE1.choices=-1
+                MOVE1.choices=0
+                STREET.trigger=-2
+            """
+        |> rule_______________________ "move1"
+            """
+            ON: MOVE1
+            DO: HIDE1.choices=0
+                MOVE1.choices=-1
+                STREET.trigger=5
+            """
+        |> rule_______________________ "street6"
+            """
+            ON: STREET
+            IF: STREET.trigger=5
+            DO: SHOOT5.choices=1
+            """
+        |> rule_______________________ "shoot5"
+            """
+            ON: SHOOT5
+            DO: SHOOT5.choices=-1
+                STREET.trigger=7
+            """
+        |> rule_______________________ "street7"
+            """
+            ON: STREET
+            IF: STREET.trigger=7
+            DO: MOVE_C.choices=1
+                STAY.choices=1
+                DASH.choices=1
+            """
+        |> rule_______________________ "move_c"
+            """
+            ON: MOVE_C
+            DO: MOVE_C.choices=-1
+                STAY.choices=0
+                DASH.choices=0
+                STREET.trigger=-2
+            """
+        |> rule_______________________ "stay"
+            """
+            ON: STAY
+            DO: MOVE_C.choices=0
+                STAY.choices=-1
+                DASH.choices=0
+                STREET.trigger=-2
+            """
+        |> rule_______________________ "dash"
+            """
+            ON: DASH
+            DO: MOVE_C.choices=0
+                STAY.choices=0
+                DASH.choices=-1
+                SHOOT6.choices=1
+            """
+        |> rule_______________________ "shoot6"
+            """
+            ON: SHOOT6
+            DO: SHOOT6.choices=-1
+                STREET.trigger=8
+            """
+        |> rule_______________________ "death1"
+            """
+            ON: STREET
+            IF: STREET.trigger=-2
+            DO: DEATH1.choices=1
+            """
+        |> rule_______________________ "death2"
+            """
+            ON: DEATH1
+            DO: DEATH1.choices=0
+                DEATH2.choices=1
+            """
+        |> rule_______________________ "death3"
+            """
+            ON: DEATH2
+            DO: DEATH2.choices=-1
+            """
+        |> rule_______________________ "s ending"
+            """
+            ON: STREET
+            IF: STREET.trigger=8
+            DO: STREET.trigger=9.choices=-1
+            """
+
+
+
+
 
 content__________________________________ : String -> String -> Dict String String -> Dict String String
 content__________________________________ =
@@ -2692,17 +2962,66 @@ narrative_content =
             "You leave the court."
         |> content__________________________________ "win_leave"
             "You leave the court."
-
-
-
-
-
-
-
-
-
-
-
+        |> content__________________________________ "mind1"
+            "That voice comes again..."
+        |> content__________________________________ "mind2"
+            "You feel a weird obsession haunting you these days…… The whole day, the only thing you are thinking of is killing Jonathon. Besides, you haven’t entered the dream maze for several nights."
+        |> content__________________________________ "mind3"
+            "Report: Chief Police Jonathon is going to inspect the backstreet area this morning."
+        |> content__________________________________ "mind4"
+            "Backstreet? The most chaotic area in our city It’s the best chance to kill Jonathan! Yuuki, don’t waste time."
+        |> content__________________________________ "mind5"
+            "You go to the Backstreet."
+        |> content__________________________________ "street1"
+            " You see a group of people is walking towards with weapons equipped. But you cannot see where Jonathon is."
+        |> content__________________________________ "shoot1"
+            "A missing shoot! And the group of people fires in the place you hide at the same time. It’s the gang in this area."
+        |> content__________________________________ "wait1"
+            "You decide to wait for a while. The group of people disappears in the darkness... "
+        |> content__________________________________ "street2"
+            "Later, another group of people appears, they wear the uniform of police office."
+        |> content__________________________________ "shoot2"
+            "A precise shoot! A policeman fell down. But your place is exposed too. The police surround this area quickly and you are captured. It is the patrol of this area..."
+        |> content__________________________________ "wait2"
+            "They pass through you and you notice that they are patrol of this area. Someone in the patrol tells you that they are clearing the way for the coming of Jonathon."
+        |> content__________________________________ "street3"
+            "The patrol disappears. One hour later, in the protection of a group of people with deep dark uniform, your target, Jonathon appears."
+        |> content__________________________________ "shoot3"
+            "You decide to have a sudden attack to get the grasp of the battlefield. But you are too naïve, the well-trained personal troop of Jonathon notice you soon and they let you taste the feel of suppressive fire."
+        |> content__________________________________ "wait3"
+            "[One police] Area clear, Sir. "
+        |> content__________________________________ "street4"
+            "You hear the sounds. And you know that it’s time to attack!"
+        |> content__________________________________ "shoot4"
+            "With the protection of the overturned desk, you make a trial shoot! Bang! The bullet was a little bit shifting away! "
+        |> content__________________________________ "street5"
+            "...Jonathon’s troop notices you! You decide to..."
+        |> content__________________________________ "hide1"
+            "Your coordinates have been exposed. Then a sudden explosion."
+        |> content__________________________________ "move1"
+            "The moment you arrive at the barrel, a sudden explosion happens at your original place!"
+        |> content__________________________________ "street6"
+            "Now, you decide to..."
+        |> content__________________________________ "shoot5"
+            "Another shoot! But the guard near Jonathon blocks the bullet! Now you have only one bullet remains."
+        |> content__________________________________ "street7"
+            "And you hear the sound \"He is still alive. More fire needed!\" You decide to..."
+        |> content__________________________________ "move_c"
+            "Boom! Boom! Boom! Area Strike! All the near places are cleared, including you."
+        |> content__________________________________ "stay"
+            "Boom! Boom! Boom! Area Strike! All the near places are cleared, including you."
+        |> content__________________________________ "dash"
+            "Win or Dead! Dash! Dash! Dash! You dash out bravely! The obsession in your mind seems to give you infinite power! You feel like that you are invincible!"
+        |> content__________________________________ "shoot6"
+            "The finale of the dual comes. You come closer to Jonathon rapidly and a precise and powerful shoot. Jonathon is falling down and the surrounding troop is frozen..."
+        |> content__________________________________ "death1"
+            "[???] Am I die again...?"
+        |> content__________________________________ "death2"
+            "[???] Even by falling into darkness, you still fail to kill the darkness..."
+        |> content__________________________________ "death3"
+            "It's the end, bro. We fail. But luckily, at least you calm down."
+        |> content__________________________________ "s ending"
+            "The darkness is ended. But at the same time, the slim light is also disappearing.\n [City Daily] Jonathon the Thug is Defeated: The remnants of Jonathan quickly swear allegiance to our new leader Kay!\n [Capital Post] COUP D'ETAT! A coup was initialized by a former policeman called Kay. The Army will carry out operation within 24 hrs."
 
 
 
