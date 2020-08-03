@@ -231,8 +231,8 @@ elevatorQuestToSvg model =
                                   , onClick ElevateTo3
                                   ] [ text "3" ]]] ]
                     else [div [][]]
-                _ ->
-                                    if model.hero.x >= 1050 && model.hero.x <= 1080 then
+                Daniel ->
+                                    if model.hero.x >= 900 then
                                     [div [Html.Attributes.class "main", Html.Attributes.class "basicBox"]
                                          [Svg.svg [ width "100"
                                                   , height "280"
@@ -254,14 +254,6 @@ elevatorQuestToSvg model =
                                                   , onClick ElevateTo2
                                                   , Svg.Attributes.class "h"
                                                   ] [] -- f2
-                                                  , rect [ x "10", y "10"
-                                                  , width "80", height "80"
-                                                  , strokeWidth "5px"
-                                                  , stroke "black"
-                                                  , fill "white"
-                                                  , onClick ElevateTo3
-                                                  , Svg.Attributes.class "h"
-                                                  ] [] -- f3
                                                   , text_ [ x "35", y "240"
                                                   , fill "#F7CA18"
                                                   , fontSize "40px"
@@ -272,12 +264,10 @@ elevatorQuestToSvg model =
                                                   , fontSize "40px"
                                                   , onClick ElevateTo2
                                                   ] [ text "2" ]
-                                                  , text_ [ x "35", y "60"
-                                                  , fill "#F7CA18"
-                                                  , fontSize "40px"
-                                                  , onClick ElevateTo3
-                                                  ] [ text "3" ]]] ]
+                                                  ]] ]
                                     else [div [][]]
+                _ ->
+                                     [div [][]]
 
 
 
