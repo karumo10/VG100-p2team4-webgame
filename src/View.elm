@@ -668,19 +668,19 @@ renderMapButton model =
             else if model.dayState == Day6 then
             div []
             [
-            button
-            [ style "position" "absolute"
-            , style "left" "500px"
-            , style "top" "350px"
-            , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "12px"
-            , style "height" "30px"
-            , style "width" "120px"
-            , class "fill"
-            , onClick ToPoliceOffice
-            ]
-            [ Html.text "Police Office" ]
-            ,
+            --button
+            --[ style "position" "absolute"
+            --, style "left" "500px"
+            --, style "top" "350px"
+            --, style "font-family" "Helvetica, Arial, sans-serif"
+            --, style "font-size" "12px"
+            --, style "height" "30px"
+            --, style "width" "120px"
+            --, class "fill"
+            --, onClick ToPoliceOffice
+            --]
+            --[ Html.text "Police Office" ]
+            --,
             button
             [ style "position" "absolute"
             , style "left" "350px"
@@ -870,9 +870,25 @@ renderPic model =
         --if not model.isEnd then
         case model.map of
             PoliceOffice ->
-                if model.dayState /= Day2 then
+                if model.dayState == Day5 || model.dayState == Day7 then
                 [Svg.image
-                    [ xlinkHref "./police_office.png" -- I'll change all the maps into 1050*630... ——Lan Wang
+                    [ xlinkHref "./police_office_night.png" -- I'll change all the maps into 1050*630... ——Lan Wang
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)"
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
+                ++ energytosvg model.energy model.energy_Full
+                else if model.dayState == Day2 then
+                [Svg.image
+                    [ xlinkHref "./police_office_without_lee.png" -- I'll change all the maps into 1050*630... ——Lan Wang
                     , x "0"
                     , y "0"
                     , width "1200"
@@ -888,7 +904,7 @@ renderPic model =
                 ++ energytosvg model.energy model.energy_Full
                 else
                 [Svg.image
-                    [ xlinkHref "./police_office_without_lee.png" -- I'll change all the maps into 1050*630... ——Lan Wang
+                    [ xlinkHref "./police_office.png" -- I'll change all the maps into 1050*630... ——Lan Wang
                     , x "0"
                     , y "0"
                     , width "1200"
@@ -1017,8 +1033,25 @@ renderPic model =
 
 
             NightClub ->
+                if model.dayState == Day5 then
                 [ Svg.image
                     [ xlinkHref "./nightclub.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
+                ++ energytosvg model.energy model.energy_Full
+                else
+                [ Svg.image
+                    [ xlinkHref "./nightclub_without_npc.png"
                     , x "0"
                     , y "0"
                     , width "1200"
