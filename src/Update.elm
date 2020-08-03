@@ -1429,8 +1429,9 @@ specialUpdates model
         |> day7_examine_finish_update_switching_npc
         |> day7_lee_finished_update_eliminate_lee
         |> updating_isTalkingWithLeeDay7
-        --|> day8_final_court
+        |> day8_final_court
         |> day8_court_update_exit
+        |> day8_court_update_home
         --|> debugFinished
     else model
 
@@ -1753,6 +1754,25 @@ day8_court_update_exit model =
     model |> teleportHero ( 2000, 2000 )
     else model
 
+day8_court_update_home : Model -> Model
+day8_court_update_home model =
+    let
+        isExiting = findCertainQuestion model "LEAVE8_F"
+        home = List.filter (\a -> a.scene == (Home, Day8)) model.mapAttr_all
+            |> List.head |> withDefault homeAttr_day8
+        rest = List.filter (\a -> a.scene /= (Home, Day8)) model.mapAttr_all
+        home_ = { home | story = "You feel very tired. You really need a sleep and a break for several days..." }
+        maps_ = [home_] ++ rest
+        home_npc = List.filter (\a -> a.place == (Home, Day8)) model.npcs_all
+            |> List.head |> withDefault homeOutsideSounds
+        rest_npc = List.filter (\a -> a.place /= (Home, Day8)) model.npcs_all
+        home_npc_ = { home_npc | place = (NoPlace, Nowhere) }
+        npcs_ = [home_npc_] ++ rest_npc
+    in
+    if (isExiting && home.story /= "You feel very tired. You really need a sleep and a break for several days...") then
+        { model | npcs_all = npcs_, mapAttr_all = maps_ }
+    else model
+
 
 
 
@@ -1897,7 +1917,7 @@ goodEnd model =
             findCertainQuestion model "LEAVE8"
     in
     if isGood then
-    (True, "[End: Double Rebirth] Our Hero Kay Becomes the Chief Police\nStorm in CBD: City Council takes over the night club Paradise!\nEnd of darkness: Former chief police, Jonathan, sentenced to death!\nAlso notice: Curfew Tonight near Park region!")
+    (True, "[Perfect End: Double Rebirth] Our Hero Kay Becomes the Chief Police\nStorm in CBD: City Council takes over the night club Paradise!\nEnd of darkness: Former chief police, Jonathan, sentenced to death!\nAlso notice: Curfew Tonight near Park region!")
     else (False, model.story)
 
 goodEndsList : Model -> List (Bool,String)
