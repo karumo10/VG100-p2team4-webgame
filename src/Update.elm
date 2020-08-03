@@ -476,6 +476,9 @@ update msg model =
         CloseGrid ->
             ( { model | whichGridIsOpen = 0 }, Cmd.none )
 
+        AskDelete ->
+            ( { model | isAskingDelete = True }, Cmd.none )
+
 
 
 

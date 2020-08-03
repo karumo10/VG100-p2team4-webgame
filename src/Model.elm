@@ -87,6 +87,7 @@ type alias Model =
     , isTeleportedToCouncil : Bool
     , isTalkingWithLeeDay7 : Bool
     , badEndPreviousMap : Map
+    , isAskingDelete : Bool
     }
 
 initial : Model
@@ -140,6 +141,7 @@ initial =
     , isTeleportedToCouncil = False
     , isTalkingWithLeeDay7 = False
     , badEndPreviousMap = BadEnds
+    , isAskingDelete = False
     --, park_is_exited
     }
 

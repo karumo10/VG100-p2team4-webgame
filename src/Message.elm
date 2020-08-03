@@ -62,4 +62,5 @@ type Msg
     | BackToStarter
     | ChangeCodeText String
     | CloseGrid
+    | AskDelete
 
