@@ -91,6 +91,7 @@ renderMain model =
         , renderAboutUsButton model
         , renderStoryButton model
         , renderBackButton model
+        , renderCloseGrid model
         --, renderInput model
         ]
 
@@ -2598,3 +2599,24 @@ renderhelp =
                                           , p [] [ text "Sometimes you get some items. You can see them in your bag (top right corner). You can examine or destroy items in you home."]
                                           ]]]
         ]
+
+
+renderCloseGrid : Model -> Html Msg
+renderCloseGrid model =
+    if model.whichGridIsOpen /= 0 then
+    button
+        [ style "position" "absolute"
+        , style "left" "610px"
+        , style "top" "50px"
+        , style "font-family" "Helvetica, Arial, sans-serif"
+        , style "font-size" "10px"
+        , style "font-weight" "100"
+        , style "height" "20px"
+        , style "line-height" "20x"
+        , style "width" "20px"
+        , class "fill"
+        , onClick CloseGrid
+        ]
+        [ Html.text "X " ]
+    else
+    div [][]

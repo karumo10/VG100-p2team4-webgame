@@ -473,6 +473,9 @@ update msg model =
         ChangeCodeText code ->
             ( { model | codeContent = code }, Cmd.none )
 
+        CloseGrid ->
+            ( { model | whichGridIsOpen = 0 }, Cmd.none )
+
 
 
 

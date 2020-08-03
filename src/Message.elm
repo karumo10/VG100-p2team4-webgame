@@ -61,4 +61,5 @@ type Msg
     | ViewStory
     | BackToStarter
     | ChangeCodeText String
+    | CloseGrid
 
