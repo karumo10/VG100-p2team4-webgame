@@ -401,6 +401,7 @@ intToFloat a =
 
 dayToSvg : Model -> List (Svg msg)
 dayToSvg model =
+    if model.map /= Story && model.map /= StarterPage && model.map /= AboutUs && model.day /= 9 then
     [
         text_
         [ x "20"
@@ -411,6 +412,19 @@ dayToSvg model =
         ] [text ("Day " ++ (Debug.toString model.day))]
 
     ]
+    else if model.map /= Story && model.map /= StarterPage && model.map /= AboutUs && model.day == 9 then
+    [
+        text_
+        [ x "20"
+        , y "20"
+        , fill "black"
+        , fontSize "20"
+        , fontFamily "Segoe UI Black"
+        ] [text ("Day ??") ]
+
+    ]
+
+    else [ text_[][]]
 
 
 
