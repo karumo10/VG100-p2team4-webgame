@@ -1093,6 +1093,7 @@ renderPic model =
                 let
                     c =
                         if model.isGoodEnd == True then "white"
+                        else if model.isSpecialEnd == True then "black"
                         else "red"
                 in
                 renderPreviousMap model ++

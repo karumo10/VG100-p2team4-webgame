@@ -496,10 +496,7 @@ animate elapsed model =
         |> judgeIsMakingChoices
         |> pickUpWithEngine
         |> dirhero
-        |> badEndsClear
-        |> badEndsStory elapsed
-        |> goodEndsClear
-        |> goodEndsStory elapsed
+        |> endings elapsed
 
 
 teleportHero : ( Int, Int ) -> Model -> Model
@@ -1785,6 +1782,15 @@ day9_teleport_backstreet model =
         { new_ | isTeleportedToCouncil = True }
     else model
 
+endings : Float -> Model -> Model
+endings elapsed model =
+    model
+        |> badEndsClear
+        |> badEndsStory elapsed
+        |> goodEndsClear
+        |> goodEndsStory elapsed
+        |> specialEndsClear
+        |> specialEndsStory elapsed
 
 
 badEndsStory : Float -> Model -> Model
@@ -1851,6 +1857,36 @@ goodEndsStory elapsed model =
     else
         { model | endingTimeAccum = accum_ }
 
+specialEndsClear : Model -> Model
+specialEndsClear model =
+    let
+        haveBeenEnding = model.isSpecialEnd
+        isEnding = List.foldr (||) False (List.map (Tuple.first) (specialEndsList model))
+        previousMap = model.map
+    in
+    if not haveBeenEnding && isEnding then
+        { model | npcs_all = [], isSpecialEnd = True, map = BadEnds, badEndPreviousMap = previousMap } |> teleportHero (1000, 1000)
+    else
+    model
+
+specialEndsStory : Float -> Model -> Model
+specialEndsStory elapsed model =
+    let
+        isEnding = model.isSpecialEnd
+        accum = model.endingTimeAccum
+        accum_ =
+            if isEnding then accum + elapsed
+            else accum
+        interval = 4000
+        story_ = List.filter (\a -> Tuple.first a == True) (specialEndsList model)
+            |> List.head
+            |> withDefault (True, "error!!!!!!!!!!!!")
+            |> Tuple.second
+    in
+    if accum_ > interval then
+        { model | story = story_, endingTimeAccum = 4000 }
+    else
+        { model | endingTimeAccum = accum_ }
 
 
 badEnd1 : Model -> ( Bool, String )
@@ -1942,11 +1978,25 @@ goodEnd model =
     (True, "[Perfect End: Double Rebirth] Our Hero Kay Becomes the Chief Police\nStorm in CBD: City Council takes over the night club Paradise!\nEnd of darkness: Former chief police, Jonathan, sentenced to death!\nAlso notice: Curfew Tonight near Park region!")
     else (False, model.story)
 
+specialEnd : Model -> ( Bool , String )
+specialEnd model =
+    let
+        isSpecial =
+            findCertainQuestion model "STREET"
+    in
+    if isSpecial then
+    (True, "[Special End: Disappearing Slim Light] You succeed in revenging the darkness \"Jonathon\" in your rebirth. But at the same time, the obsession gets control of you.\n You do take revenge successfully, and now you're the new ruler of this city. \nHowever, is all this worth it?")
+    else (False, model.story)
+
+
 goodEndsList : Model -> List (Bool,String)
 goodEndsList model = [ goodEnd model ]
 
 badEndsList : Model -> List (Bool, String)
 badEndsList model = [ badEnd1 model, badEnd2 model, badEnd3 model, badEnd4 model, badEnd5 model, badEnd6 model, badEnd7 model, badEnd8 model ]
+
+specialEndsList :  Model -> List (Bool, String)
+specialEndsList model = [ specialEnd model ]
 
 pickUpWithEngine : Model -> Model
 pickUpWithEngine model =

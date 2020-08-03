@@ -2320,7 +2320,7 @@ rulesSpec =
             ON: SHOOT1
             DO: SHOOT1.choices=-1
                 WAIT1.choices=0
-                STREET.trigger=-2.choices=-1
+                STREET.trigger=-2
             """
         |> rule_______________________ "wait1"
             """
@@ -2341,7 +2341,7 @@ rulesSpec =
             ON: SHOOT2
             DO: SHOOT2.choices=-1
                 WAIT2.choices=0
-                STREET.trigger=-2.choices=-1
+                STREET.trigger=-2
             """
         |> rule_______________________ "wait2"
             """
@@ -2362,7 +2362,7 @@ rulesSpec =
             ON: SHOOT3
             DO: SHOOT3.choices=-1
                 WAIT3.choices=0
-                STREET.trigger=-2.choices=-1
+                STREET.trigger=-2
             """
         |> rule_______________________ "wait3"
             """
@@ -2395,7 +2395,7 @@ rulesSpec =
             ON: HIDE1
             DO: HIDE1.choices=-1
                 MOVE1.choices=0
-                STREET.trigger=-2.choices=-1
+                STREET.trigger=-2
             """
         |> rule_______________________ "move1"
             """
@@ -2430,7 +2430,7 @@ rulesSpec =
             DO: MOVE_C.choices=-1
                 STAY.choices=0
                 DASH.choices=0
-                STREET.trigger=-2.choices=-1
+                STREET.trigger=-2
             """
         |> rule_______________________ "stay"
             """
@@ -2438,7 +2438,7 @@ rulesSpec =
             DO: MOVE_C.choices=0
                 STAY.choices=-1
                 DASH.choices=0
-                STREET.trigger=-2.choices=-1
+                STREET.trigger=-2
             """
         |> rule_______________________ "dash"
             """
@@ -2457,7 +2457,7 @@ rulesSpec =
         |> rule_______________________ "death1"
             """
             ON: STREET
-            IF: STREET.trigger=-2.choices=-1
+            IF: STREET.trigger=-2
             DO: DEATH1.choices=1
             """
         |> rule_______________________ "death2"
@@ -2471,7 +2471,12 @@ rulesSpec =
             ON: DEATH2
             DO: DEATH2.choices=-1
             """
-
+        |> rule_______________________ "s ending"
+            """
+            ON: STREET
+            IF: STREET.trigger=8
+            DO: STREET.trigger=9.choices=-1
+            """
 
 
 
@@ -3015,6 +3020,9 @@ narrative_content =
             "[???] Even by falling into darkness, you still fail to kill the darkness..."
         |> content__________________________________ "death3"
             "It's the end, bro. We fail. But luckily, at least you calm down."
+        |> content__________________________________ "s ending"
+            "The darkness is ended. But at the same time, the slim light is also disappearing.\n [City Daily] Jonathon the Thug is Defeated: The remnants of Jonathan quickly swear allegiance to our new leader Kay!\n [Capital Post] COUP D'ETAT! A coup was initialized by a former policeman called Kay. The Army will carry out operation within 24 hrs."
+
 
 
 parsedData =

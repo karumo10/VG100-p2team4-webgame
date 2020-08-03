@@ -49,6 +49,7 @@ type alias Model =
     , step : Int
     , isEnd : Bool
     , isGoodEnd : Bool
+    , isSpecialEnd : Bool
     , endingTimeAccum : Float
     , heroPickUp : Bool
     , heroInteractWithNpc : Bool
@@ -101,6 +102,7 @@ initial =
     , step = 0
     , isEnd = False
     , isGoodEnd = False
+    , isSpecialEnd = False
     , endingTimeAccum = 0
     , heroPickUp = False
     , heroInteractWithNpc = False
