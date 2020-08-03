@@ -178,7 +178,7 @@ renderMusic model=
                     [ id "player"
                     , autoplay True
                     , loop True
-                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , src "./audio/police~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                     , type_ "audio/mp3"
                     ] []
                     ]
@@ -197,7 +197,7 @@ renderMusic model=
                     [ id "player"
                     , autoplay True
                     , loop True
-                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , src "./audio/park~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                     , type_ "audio/mp3"
                     ] []
                     ]
@@ -235,7 +235,7 @@ renderMusic model=
                     [ id "player"
                     , autoplay True
                     , loop True
-                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , src "././audio/nightclub~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                     , type_ "audio/mp3"
                     ] []
                     ]
@@ -273,7 +273,7 @@ renderMusic model=
                     [ id "player"
                     , autoplay True
                     , loop True
-                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , src "././audio/home~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                     , type_ "audio/mp3"
                     ] []
                     ]
@@ -292,7 +292,7 @@ renderMusic model=
                     [ id "player"
                     , autoplay True
                     , loop True
-                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , src "./audio/daniel~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                     , type_ "audio/mp3"
                     ] []
                     ]
@@ -311,7 +311,7 @@ renderMusic model=
                     [ id "player"
                     , autoplay True
                     , loop True
-                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , src "./audio/court~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                     , type_ "audio/mp3"
                     ] []
                     ]
@@ -330,7 +330,7 @@ renderMusic model=
                     [ id "player"
                     , autoplay True
                     , loop True
-                    , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                    , src "./audio/backstreet~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                     , type_ "audio/mp3"
                     ] []
                     ]
@@ -349,7 +349,7 @@ renderMusic model=
                             [ id "player"
                             , autoplay True
                             , loop True
-                            , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                            , src "./audio/starter~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                             , type_ "audio/mp3"
                             ] []
                             ]
@@ -368,7 +368,7 @@ renderMusic model=
                             [ id "player"
                             , autoplay True
                             , loop True
-                            , src "./bgm.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                            , src "./audio/ending~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
                             , type_ "audio/mp3"
                             ] []
                             ]
