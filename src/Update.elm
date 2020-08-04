@@ -865,15 +865,9 @@ wakeUp model =
                 model_.story
             else
             "It's time to get up... Uhh, indeed a weird dream."
-        isAPlayBoy = findCertainQuestion model "YES_NIGHT"
-        energy_Full =
-            if day == 6 && isAPlayBoy then model_.energy_Full // 2
-            else if day == 7 && isAPlayBoy then model_.energy_Full * 2
-            else model_.energy_Full
-        energy = model_.energy_Full
     in
 
-    { model_ | story = story, day = day, energy = energy, dayState = dayState, energy_Full = energy_Full, isTeleportedToCouncil = False }
+    { model_ | story = story, day = day,  dayState = dayState,  isTeleportedToCouncil = False }
 
 
 mapSwitch : Map -> Model -> Model
@@ -1619,10 +1613,11 @@ day5_nightclub_update_energy : Model -> Model
 day5_nightclub_update_energy model =
     let
         isAPlayBoy = findCertainQuestion model "YES_NIGHT"
+        deduction_energy= 500
 
     in
     if isAPlayBoy && (model.map,model.dayState) == (NightClub, Day5) then
-    { model | energy = 0 }
+    { model | energy = deduction_energy }
     else model
 
 day5_park_update_exit : Model -> Model
