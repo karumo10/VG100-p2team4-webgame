@@ -8,7 +8,7 @@ type Mode
     | Game
     | TotalTest
 gameMode______ : Mode
-gameMode______ = Game
+gameMode______ = TotalTest
 
 type VehicleType
     = Elevator
@@ -728,25 +728,11 @@ backstreetAttr_day8 =
     , isFinished = False
     }
 
---energyDrainAttr : MapAttr
---energyDrainAttr =
---    { exit = { x = 0, y = 0 , wid = 0, hei = 0 }
---    , heroIni = { x = 6000, y = 6000, width = 20, height = 60 }
---    , barrier = []
---    , hint = []
---    , vehicle = []
---    , story = "I'm tired...all I desire is somewhere to take a nap."
---    , scene = ( Switching, Nowhere )
---    , isFinished = False
---
---    }
-
-
 
 dreamMazeAttr_day1 : MapAttr
 dreamMazeAttr_day1 =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 + 135 , y = 15, width = 20, height = 20 } --judge box
+    , heroIni = { x = 415 + 135 , y = 15, width = 20, height = 20 }
     , barrier = maze1Barrier
     , hint = hintsMaze1
     , vehicle = []
@@ -758,7 +744,7 @@ dreamMazeAttr_day1 =
 dreamMazeAttr_day2 : MapAttr
 dreamMazeAttr_day2 =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 }
     , barrier = maze1Barrier
     , hint = hintsMaze2
     , vehicle = []
@@ -770,7 +756,7 @@ dreamMazeAttr_day2 =
 dreamMazeAttr_day2_finished : MapAttr
 dreamMazeAttr_day2_finished =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 }
     , barrier = maze1Barrier
     , hint = hintsMaze2
     , vehicle = []
@@ -782,7 +768,7 @@ dreamMazeAttr_day2_finished =
 dreamMazeAttr_day2_night : MapAttr
 dreamMazeAttr_day2_night =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 }
     , barrier = maze1Barrier
     , hint = hintsMaze2
     , vehicle = []
@@ -794,7 +780,7 @@ dreamMazeAttr_day2_night =
 dreamMazeAttr_day3 : MapAttr
 dreamMazeAttr_day3 =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 }
     , barrier = maze1Barrier
     , hint = hintsMaze3
     , vehicle = []
@@ -806,7 +792,7 @@ dreamMazeAttr_day3 =
 dreamMazeAttr_day4 : MapAttr
 dreamMazeAttr_day4 =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 } --judge box
+    , heroIni = { x = 415 + 135, y = 15, width = 20, height = 20 }
     , barrier = maze1Barrier
     , hint = hintsMaze4
     , vehicle = []
@@ -818,7 +804,7 @@ dreamMazeAttr_day4 =
 dreamMazeAttr_day5 : MapAttr
 dreamMazeAttr_day5 =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 470 + 135, y = 575, width = 20, height = 20 } --no dream
+    , heroIni = { x = 470 + 135, y = 575, width = 20, height = 20 }
     , barrier = maze1Barrier
     , hint = hintsMaze5
     , vehicle = []
@@ -854,7 +840,7 @@ dreamMazeAttr_day7 =
 dreamMazeAttr_day8 : MapAttr
 dreamMazeAttr_day8 =
     { exit = { x = 470 + 135, y = 575 , wid = 20, hei = 20 }
-    , heroIni = { x = 470 + 135, y = 575, width = 20, height = 20 } --no dream
+    , heroIni = { x = 470 + 135, y = 575, width = 20, height = 20 }
     , barrier = maze1Barrier
     , hint = hintsMaze5
     , vehicle = []

@@ -2,14 +2,7 @@ module Items exposing (..)
 
 type ItemType
     = Gun
-    | Bullets
-    | Knife
-    | BaseballBat
     | BulletProof
-    | Helmet
-    | Evidence1
-    | Evidence2
-    | Evidence3
     | Key
     | Empty
 
@@ -17,8 +10,8 @@ type Map
     = PoliceOffice
     | Park
     | Home
-    | Switching -- an interface allowing player to choose where to go, also can be design as dialog box
-    | EnergyDrain --no energy, home is the only choice
+    | Switching
+    | EnergyDrain
     | DreamMaze
     | Journalist
     | NightClub
