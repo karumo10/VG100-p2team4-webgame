@@ -1171,7 +1171,7 @@ renderPic model =
 
             Story ->
                     [ Svg.image
-                    [ xlinkHref "./story.png"
+                    [ xlinkHref "./Story.png"
                     , x "0"
                     , y "0"
                     , width "1200"
