@@ -3558,7 +3558,7 @@ renderBackButton model =
     if model.map == Story || model.map == AboutUs then
     button
         [ style "position" "absolute"
-        , style "left" "500px"
+        , style "left" "442px"
         , style "top" "650px"
         , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "18px"
