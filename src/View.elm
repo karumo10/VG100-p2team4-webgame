@@ -354,6 +354,44 @@ renderMusic model=
                             ] []
                             ]
                             ]
+        AboutUs ->
+                        div []
+                         [ div []
+                            [ Html.iframe
+                            [ src "./trigger.mp3"
+                            , autoplay True
+                            , style "display" "none"
+                            ] []
+                            ]
+                          , div []
+                            [ Html.audio
+                            [ id "player"
+                            , autoplay True
+                            , loop True
+                            , src "./audio/starter~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                            , type_ "audio/mp3"
+                            ] []
+                            ]
+                            ]
+        Story ->
+                        div []
+                         [ div []
+                            [ Html.iframe
+                            [ src "./trigger.mp3"
+                            , autoplay True
+                            , style "display" "none"
+                            ] []
+                            ]
+                          , div []
+                            [ Html.audio
+                            [ id "player"
+                            , autoplay True
+                            , loop True
+                            , src "./audio/starter~1.mp3" --If bgm need to be switched, I think here should be a function._Kevin
+                            , type_ "audio/mp3"
+                            ] []
+                            ]
+                            ]
         BadEnds ->
                         div []
                          [ div []
