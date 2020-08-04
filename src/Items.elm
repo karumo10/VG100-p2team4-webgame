@@ -436,3 +436,29 @@ isNotPick item =
     False
     else
     True
+
+type alias Discarded =
+    { item : Item
+    , isDiscarded : Bool
+    }
+
+itemDiscardedList : List Discarded
+itemDiscardedList =
+    [ { item = noteIni, isDiscarded = False }
+    , { item = diskIni, isDiscarded = False }
+    , { item = pillIni, isDiscarded = False }
+    , { item = daggerIni, isDiscarded = False }
+    , { item = trueMemCardIni, isDiscarded = False }
+    , { item = fakeMemCardIni, isDiscarded = False }
+    , { item = keyIni, isDiscarded = False }
+    , { item = paperIni, isDiscarded = False }
+    , { item = bankIni, isDiscarded = False }
+    , { item = bankCardIni, isDiscarded = False }
+    , { item = dagger2Ini, isDiscarded = False }
+    , { item = letterIni, isDiscarded = False }
+    , { item = documentsIni, isDiscarded = False }
+    , { item = pillsIni, isDiscarded = False }
+    , { item = planIni, isDiscarded = False }
+    , { item = bankaccIni, isDiscarded = False }
+    , { item = customconIni, isDiscarded = False }
+    ]

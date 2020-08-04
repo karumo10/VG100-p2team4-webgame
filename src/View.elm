@@ -1522,7 +1522,7 @@ renderSingleBagButton num model =
                 "15px"
             else if grid == trueMemCardIni || grid == fakeMemCardIni || grid == daggerIni || grid == dagger2Ini || grid == letterIni || grid == bankCardIni then
                 "12px"
-            else if grid == bankIni || grid == bankaccIni || grid == letterIni || grid == planIni || grid == documentsIni || grid == customconIni then
+            else if grid == bankIni || grid == bankaccIni || grid == planIni || grid == documentsIni || grid == customconIni then
                 "10px"
             else "12px"
     in
