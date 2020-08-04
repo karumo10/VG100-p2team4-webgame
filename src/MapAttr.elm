@@ -485,6 +485,7 @@ homeAttr_day7 =
     , scene = ( Home, Day7 )
     , isFinished = False
     }
+
 homeAttr_day8 : MapAttr
 homeAttr_day8 =
     { exit = { x = 610, y = 450 , wid = 20, hei = 150 }
