@@ -408,7 +408,7 @@ homeAttr_day2_finished =
     , barrier = homeBarrier
     , hint = []
     , vehicle = homeVehicle
-    , story = "$my$own$error$msg$ : You are not supposed to appear here. You are expected to be at the police office. Please contact with developer Yuxiang Zhou from Group 4."
+    , story = "Home, sweet home. You should go to the police office now."
     , scene = ( Home, Day2_Finished )
     , isFinished = False
     }
