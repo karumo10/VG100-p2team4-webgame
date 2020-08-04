@@ -487,6 +487,19 @@ renderMapButton model =
             , onClick ToJournalist
             ]
             [ Html.text "Journalist's Home" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "800px"
+            , style "top" "200px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPark
+            ]
+            [ Html.text "Park" ]
             ]
             else if model.dayState == Day2_Night then
             div []
@@ -571,6 +584,20 @@ renderMapButton model =
             , onClick ToDaniel
             ]
             [ Html.text "Daniel's home" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "800px"
+            , style "top" "200px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPark
+            ]
+            [ Html.text "Park" ]
+
             ]
             else if model.dayState == Day4 then
             div []
@@ -613,6 +640,20 @@ renderMapButton model =
             , onClick ToDaniel
             ]
             [ Html.text "Daniel's home" ]
+            ,
+            button
+            [ style "position" "absolute"
+            , style "left" "800px"
+            , style "top" "200px"
+            , style "font-family" "Helvetica, Arial, sans-serif"
+            , style "font-size" "12px"
+            , style "height" "30px"
+            , style "width" "120px"
+            , class "fill"
+            , onClick ToPark
+            ]
+            [ Html.text "Park" ]
+
             ]
             else if model.dayState == Day5 then
             div []
@@ -672,19 +713,19 @@ renderMapButton model =
             else if model.dayState == Day6 then
             div []
             [
-            button
-            [ style "position" "absolute"
-            , style "left" "500px"
-            , style "top" "350px"
-            , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "12px"
-            , style "height" "30px"
-            , style "width" "120px"
-            , class "fill"
-            , onClick ToPoliceOffice
-            ]
-            [ Html.text "Police Office" ]
-            ,
+            --button
+            --[ style "position" "absolute"
+            --, style "left" "500px"
+            --, style "top" "350px"
+            --, style "font-family" "Helvetica, Arial, sans-serif"
+            --, style "font-size" "12px"
+            --, style "height" "30px"
+            --, style "width" "120px"
+            --, class "fill"
+            --, onClick ToPoliceOffice
+            --]
+            --[ Html.text "Police Office" ]
+            --,
             button
             [ style "position" "absolute"
             , style "left" "350px"
@@ -874,7 +915,39 @@ renderPic model =
         --if not model.isEnd then
         case model.map of
             PoliceOffice ->
-
+                if model.dayState == Day5 || model.dayState == Day7 then
+                [Svg.image
+                    [ xlinkHref "./police_office_night.png" -- I'll change all the maps into 1050*630... ——Lan Wang
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)"
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
+                ++ energytosvg model.energy model.energy_Full
+                else if model.dayState == Day2 then
+                [Svg.image
+                    [ xlinkHref "./police_office_without_lee.png" -- I'll change all the maps into 1050*630... ——Lan Wang
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)"
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
+                ++ energytosvg model.energy model.energy_Full
+                else
                 [Svg.image
                     [ xlinkHref "./police_office.png" -- I'll change all the maps into 1050*630... ——Lan Wang
                     , x "0"
@@ -892,7 +965,7 @@ renderPic model =
                 ++ energytosvg model.energy model.energy_Full
 
             Park ->
-                if model.dayState /= Day5 then
+                if model.dayState == Day1 then
                 ([ Svg.image
                     [ xlinkHref "./park.png"
                     , x "0"
@@ -909,7 +982,7 @@ renderPic model =
                 ++ [renderchoice model]
                 ++ energytosvg model.energy model.energy_Full
 
-                else
+                else if model.dayState == Day5 then
                 ([ Svg.rect
                     [ x "0"
                     , y "0"
@@ -918,6 +991,22 @@ renderPic model =
                     , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
                     ] [] ])
 
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
+                ++ energytosvg model.energy model.energy_Full
+                else
+                ([ Svg.image
+                    [ xlinkHref "./park_without_npc.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] [] ])
                 ++ [renderdialog model]
                 ++ npcListView model
                 ++ ( heroToSvg model )
@@ -1005,6 +1094,23 @@ renderPic model =
 
 
             NightClub ->
+                if model.dayState == Day5 then
+                [ Svg.image
+                    [ xlinkHref "./nightclub_without_body.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "600"
+                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    ] []]
+                ++ [renderdialog model]
+                ++ npcListView model
+                ++ ( heroToSvg model )
+                ++ [renderportrait model]
+                ++ [ bedQuestToSvg model ]
+                ++ [renderchoice model]
+                ++ energytosvg model.energy model.energy_Full
+                else
                 [ Svg.image
                     [ xlinkHref "./nightclub.png"
                     , x "0"
@@ -1338,208 +1444,108 @@ rendersuspectlist model =
                                           , style "font-size" "18px"] suspect]]
         ]
 
+
+renderSingleBagButton : Int -> Model -> Html Msg
+renderSingleBagButton num model =
+    let
+        command =
+            case num of
+                1 -> RenderGrid1Detail
+                2 -> RenderGrid2Detail
+                3 -> RenderGrid3Detail
+                4 -> RenderGrid4Detail
+                5 -> RenderGrid5Detail
+                6 -> RenderGrid6Detail
+                7 -> RenderGrid7Detail
+                8 -> RenderGrid8Detail
+                9 -> RenderGrid9Detail
+                10 -> RenderGrid10Detail
+                11 -> RenderGrid11Detail
+                12 -> RenderGrid12Detail
+                13 -> RenderGrid13Detail
+                14 -> RenderGrid14Detail
+                15 -> RenderGrid15Detail
+                16 -> RenderGrid16Detail
+                17 -> RenderGrid17Detail
+                18 -> RenderGrid18Detail
+                19 -> RenderGrid19Detail
+                20 -> RenderGrid20Detail
+                _ -> RenderGrid20Detail
+        ( left, top ) =
+            case num of
+                1 -> ( "20px", "100px" )
+                2 -> ( "20px", "180px" )
+                3 -> ( "20px", "260px" )
+                4 -> ( "20px", "340px" )
+                5 -> ( "20px", "420px" )
+                6 -> ( "100px", "100px" )
+                7 -> ( "100px", "180px" )
+                8 -> ( "100px", "260px" )
+                9 -> ( "100px", "340px" )
+                10 -> ( "100px", "420px" )
+                11 -> ( "180px", "100px" )
+                12 -> ( "180px", "180px" )
+                13 -> ( "180px", "260px" )
+                14 -> ( "180px", "340px" )
+                15 -> ( "180px", "420px" )
+                16 -> ( "260px", "100px" )
+                17 -> ( "260px", "180px" )
+                18 -> ( "260px", "260px" )
+                19 -> ( "260px", "340px" )
+                20 -> ( "260px", "420px" )
+                _ -> ( "260px", "420px" )
+        grid =
+            case num of
+                1 -> model.bag.grid1
+                2 -> model.bag.grid2
+                3 -> model.bag.grid3
+                4 -> model.bag.grid4
+                5 -> model.bag.grid5
+                6 -> model.bag.grid6
+                7 -> model.bag.grid7
+                8 -> model.bag.grid8
+                9 -> model.bag.grid9
+                10 -> model.bag.grid10
+                11 -> model.bag.grid11
+                12 -> model.bag.grid12
+                13 -> model.bag.grid13
+                14 -> model.bag.grid14
+                15 -> model.bag.grid15
+                16 -> model.bag.grid16
+                17 -> model.bag.grid17
+                18 -> model.bag.grid18
+                19 -> model.bag.grid19
+                20 -> model.bag.grid20
+                _ -> emptyIni
+        font_size =
+            if grid == noteIni || grid == pillIni || grid == keyIni || grid == pillsIni || grid == diskIni || grid == bankCardIni then
+                "15px"
+            else if grid == trueMemCardIni || grid == fakeMemCardIni || grid == daggerIni || grid == dagger2Ini || grid == letterIni || grid == bankCardIni then
+                "12px"
+            else if grid == bankIni || grid == bankaccIni || grid == letterIni || grid == planIni || grid == documentsIni || grid == customconIni then
+                "10px"
+            else "12px"
+    in
+    button
+        [ onClick command
+        , Html.Attributes.style "width" "60px"
+        , Html.Attributes.style "height" "60px"
+        , Html.Attributes.style "font-size" font_size
+        , style "position" "absolute"
+        , style "left" left
+        , style "top" top
+        ] [text grid.intro]
+
+
 renderBagButton : Model -> List(Html Msg)
 renderBagButton model =
     let
         contents =
-                        div []
-                        [
-                        button
-                        [ onClick RenderGrid1Detail
-                        , Html.Attributes.style "width" "60px"
-                        , Html.Attributes.style "height" "60px"
-                        , Html.Attributes.style "font-size" "18px"
-                        , style "position" "absolute"
-                        , style "top" "100px"
-                        ] [ text model.bag.grid1.intro ],
-
-                        button
-                        [ onClick RenderGrid2Detail
-                        , Html.Attributes.style "width" "60px"
-                        , Html.Attributes.style "height" "60px"
-                        , Html.Attributes.style "font-size" "18px"
-                        , style "position" "absolute"
-                        , style "top" "180px"
-                        ] [ text model.bag.grid2.intro ],
-
-                        button
-                        [ onClick RenderGrid3Detail
-                        , Html.Attributes.style "width" "60px"
-                        , Html.Attributes.style "height" "60px"
-                        , Html.Attributes.style "font-size" "18px"
-                        , style "position" "absolute"
-                        , style "top" "260px"
-                        ] [ text model.bag.grid3.intro ],
-
-                        button
-                        [ onClick RenderGrid4Detail
-                        , Html.Attributes.style "width" "60px"
-                        , Html.Attributes.style "height" "60px"
-                        , Html.Attributes.style "font-size" "18px"
-                        , style "position" "absolute"
-                        , style "top" "340px"
-                        ] [ text model.bag.grid4.intro ],
-
-                        button
-                        [ onClick RenderGrid5Detail
-                        , Html.Attributes.style "width" "60px"
-                        , Html.Attributes.style "height" "60px"
-                        , Html.Attributes.style "font-size" "18px"
-                        , style "position" "absolute"
-                        , style "top" "420px"
-                        ] [ text model.bag.grid5.intro ],
-
-                        button
-                        [ onClick RenderGrid6Detail
-                        , Html.Attributes.style "width" "60px"
-                        , Html.Attributes.style "height" "60px"
-                        , Html.Attributes.style "font-size" "18px"
-                        , style "position" "absolute"
-                        , style "left" "80px"
-                        , style "top" "100px"
-                        ] [ text model.bag.grid6.intro ],
-
-                        button
-                        [ onClick RenderGrid7Detail
-                        , Html.Attributes.style "width" "60px"
-                        , Html.Attributes.style "height" "60px"
-                        , Html.Attributes.style "font-size" "18px"
-                        , style "position" "absolute"
-                        , style "left" "80px"
-                        , style "top" "180px"
-                        ] [ text model.bag.grid7.intro ],
-
-                         button
-                         [ onClick RenderGrid8Detail
-                         , Html.Attributes.style "width" "60px"
-                         , Html.Attributes.style "height" "60px"
-                         , Html.Attributes.style "font-size" "18px"
-                         , style "position" "absolute"
-                         , style "left" "80px"
-                         , style "top" "260px"
-                         ] [ text model.bag.grid8.intro ],
-
-                          button
-                          [ onClick RenderGrid9Detail
-                          , Html.Attributes.style "width" "60px"
-                          , Html.Attributes.style "height" "60px"
-                          , Html.Attributes.style "font-size" "18px"
-                          , style "position" "absolute"
-                          , style "left" "80px"
-                          , style "top" "340px"
-                          ] [ text model.bag.grid9.intro ],
-
-                          button
-                          [ onClick RenderGrid10Detail
-                          , Html.Attributes.style "width" "60px"
-                          , Html.Attributes.style "height" "60px"
-                          , Html.Attributes.style "font-size" "18px"
-                          , style "position" "absolute"
-                          , style "left" "80px"
-                          , style "top" "420px"
-                          ] [ text model.bag.grid10.intro ],
-
-                         button
-                         [ onClick RenderGrid11Detail
-                         , Html.Attributes.style "width" "60px"
-                         , Html.Attributes.style "height" "60px"
-                         , Html.Attributes.style "font-size" "18px"
-                         , style "position" "absolute"
-                         , style "left" "160px"
-                         , style "top" "100px"
-                         ] [ text model.bag.grid11.intro ],
-
-                         button
-                         [ onClick RenderGrid12Detail
-                         , Html.Attributes.style "width" "60px"
-                         , Html.Attributes.style "height" "60px"
-                         , Html.Attributes.style "font-size" "18px"
-                         , style "position" "absolute"
-                         , style "left" "160px"
-                         , style "top" "180px"
-                         ] [ text model.bag.grid12.intro ],
-
-                         button
-                         [ onClick RenderGrid13Detail
-                         , Html.Attributes.style "width" "60px"
-                         , Html.Attributes.style "height" "60px"
-                         , Html.Attributes.style "font-size" "18px"
-                         , style "position" "absolute"
-                         , style "left" "160px"
-                         , style "top" "260px"
-                         ] [ text model.bag.grid13.intro ],
-
-                         button
-                         [ onClick RenderGrid14Detail
-                         , Html.Attributes.style "width" "60px"
-                         , Html.Attributes.style "height" "60px"
-                         , Html.Attributes.style "font-size" "18px"
-                         , style "position" "absolute"
-                         , style "left" "160px"
-                         , style "top" "340px"
-                         ] [ text model.bag.grid14.intro ],
-
-                         button
-                         [ onClick RenderGrid15Detail
-                         , Html.Attributes.style "width" "60px"
-                         , Html.Attributes.style "height" "60px"
-                         , Html.Attributes.style "font-size" "18px"
-                         , style "position" "absolute"
-                         , style "left" "160px"
-                         , style "top" "420px"
-                         ] [ text model.bag.grid15.intro ],
-
-                         button
-                         [ onClick RenderGrid16Detail
-                         , Html.Attributes.style "width" "60px"
-                         , Html.Attributes.style "height" "60px"
-                         , Html.Attributes.style "font-size" "18px"
-                         , style "position" "absolute"
-                         , style "left" "240px"
-                         , style "top" "100px"
-                         ] [ text model.bag.grid16.intro ],
-
-                         button
-                         [ onClick RenderGrid17Detail
-                         , Html.Attributes.style "width" "60px"
-                         , Html.Attributes.style "height" "60px"
-                         , Html.Attributes.style "font-size" "18px"
-                         , style "position" "absolute"
-                         , style "left" "240px"
-                         , style "top" "180px"
-                         ] [ text model.bag.grid17.intro ],
-
-                          button
-                          [ onClick RenderGrid18Detail
-                          , Html.Attributes.style "width" "60px"
-                          , Html.Attributes.style "height" "60px"
-                          , Html.Attributes.style "font-size" "18px"
-                          , style "position" "absolute"
-                          , style "left" "240px"
-                          , style "top" "260px"
-                          ] [ text model.bag.grid18.intro ],
-
-                           button
-                           [ onClick RenderGrid19Detail
-                           , Html.Attributes.style "width" "60px"
-                           , Html.Attributes.style "height" "60px"
-                           , Html.Attributes.style "font-size" "18px"
-                           , style "position" "absolute"
-                           , style "left" "240px"
-                           , style "top" "340px"
-                           ] [ text model.bag.grid19.intro ],
-
-                           button
-                           [ onClick RenderGrid20Detail
-                           , Html.Attributes.style "width" "60px"
-                           , Html.Attributes.style "height" "60px"
-                           , Html.Attributes.style "font-size" "18px"
-                           , style "position" "absolute"
-                           , style "left" "240px"
-                           , style "top" "420px"
-                           ] [ text model.bag.grid20.intro ]
-
-                          ]
+            div [] [ renderSingleBagButton 1 model, renderSingleBagButton 2 model, renderSingleBagButton 3 model, renderSingleBagButton 4 model
+                   , renderSingleBagButton 5 model, renderSingleBagButton 6 model, renderSingleBagButton 7 model, renderSingleBagButton 8 model
+                   , renderSingleBagButton 9 model, renderSingleBagButton 10 model, renderSingleBagButton 11 model, renderSingleBagButton 12 model
+                   , renderSingleBagButton 13 model, renderSingleBagButton 14 model, renderSingleBagButton 15 model, renderSingleBagButton 16 model
+                   , renderSingleBagButton 17 model, renderSingleBagButton 18 model, renderSingleBagButton 19 model, renderSingleBagButton 20 model ]
     in
         [Html.input [Html.Attributes.type_ "checkbox", id "menu2"][]
         ,Html.label [Html.Attributes.for "menu2", class "menu2"][ text "B" ]
