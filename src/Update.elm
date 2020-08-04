@@ -865,9 +865,14 @@ wakeUp model =
                 model_.story
             else
             "It's time to get up... Uhh, indeed a weird dream."
+        npcs = model_.npcs_all
     in
-
-    { model_ | story = story, day = day,  dayState = dayState,  isTeleportedToCouncil = False }
+    if day == 8 then
+    { model_ | story = story, day = day, dayState = dayState,  isTeleportedToCouncil = False, npcs_all = npcs ++ [courtFinal] }
+    else if day == 6 then
+    { model_ | story = story, day = day, dayState = dayState,  isTeleportedToCouncil = False, npcs_all = npcs ++ [courtSpeaker] }
+    else
+    { model_ | story = story, day = day, dayState = dayState,  isTeleportedToCouncil = False }
 
 
 mapSwitch : Map -> Model -> Model
@@ -2062,8 +2067,21 @@ isRepeat item model =
          g8 = model.bag.grid8
          g9 = model.bag.grid9
          g10 = model.bag.grid10
+         g11 = model.bag.grid11
+         g12 = model.bag.grid12
+         g13 = model.bag.grid13
+         g14 = model.bag.grid14
+         g15 = model.bag.grid15
+         g16 = model.bag.grid16
+         g17 = model.bag.grid17
+         g18 = model.bag.grid18
+         g19 = model.bag.grid19
+         g20 = model.bag.grid20
+
+
     in
-    if item == g1 || item == g2 || item == g3 || item == g4 || item == g5 || item == g6 || item == g7 || item == g8 || item == g9 || item == g10 then
+    if item == g1 || item == g2 || item == g3 || item == g4 || item == g5 || item == g6 || item == g7 || item == g8 || item == g9 || item == g10
+        || item == g11 || item == g12 || item == g13 || item == g14 || item == g15 || item == g16 || item == g17 || item == g18 || item == g19 || item == g20 then
     True
     else
     False
