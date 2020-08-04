@@ -548,19 +548,6 @@ renderMapButton model =
             [
             button
             [ style "position" "absolute"
-            , style "left" "500px"
-            , style "top" "350px"
-            , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "12px"
-            , style "height" "30px"
-            , style "width" "120px"
-            , class "fill"
-            , onClick ToPoliceOffice
-            ]
-            [ Html.text "Police Office" ]
-            ,
-            button
-            [ style "position" "absolute"
             , style "left" "350px"
             , style "top" "400px"
             , style "font-family" "Helvetica, Arial, sans-serif"
@@ -713,19 +700,6 @@ renderMapButton model =
             else if model.dayState == Day6 then
             div []
             [
-            --button
-            --[ style "position" "absolute"
-            --, style "left" "500px"
-            --, style "top" "350px"
-            --, style "font-family" "Helvetica, Arial, sans-serif"
-            --, style "font-size" "12px"
-            --, style "height" "30px"
-            --, style "width" "120px"
-            --, class "fill"
-            --, onClick ToPoliceOffice
-            --]
-            --[ Html.text "Police Office" ]
-            --,
             button
             [ style "position" "absolute"
             , style "left" "350px"
@@ -738,19 +712,6 @@ renderMapButton model =
             , onClick ToHome
             ]
             [ Html.text "Home" ]
-            ,
-            button
-            [ style "position" "absolute"
-            , style "left" "440px"
-            , style "top" "240px"
-            , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "12px"
-            , style "height" "30px"
-            , style "width" "120px"
-            , class "fill"
-            , onClick ToCityCouncil
-            ]
-            [ Html.text "City Council" ]
             ]
             else if model.dayState == Day7 && not model.isTalkingWithLeeDay7 then
             div []
@@ -784,32 +745,6 @@ renderMapButton model =
             else if model.dayState == Day8 then
             div []
             [
-            button
-            [ style "position" "absolute"
-            , style "left" "500px"
-            , style "top" "350px"
-            , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "12px"
-            , style "height" "30px"
-            , style "width" "120px"
-            , class "fill"
-            , onClick ToPoliceOffice
-            ]
-            [ Html.text "Police Office" ]
-            ,
-            button
-            [ style "position" "absolute"
-            , style "left" "440px"
-            , style "top" "240px"
-            , style "font-family" "Helvetica, Arial, sans-serif"
-            , style "font-size" "12px"
-            , style "height" "30px"
-            , style "width" "120px"
-            , class "fill"
-            , onClick ToCityCouncil
-            ]
-            [ Html.text "City Council" ]
-            ,
             button
             [ style "position" "absolute"
             , style "left" "350px"
@@ -851,14 +786,8 @@ renderMapButton model =
             , onClick ToBackStreet
             ]
             [ Html.text "Back Street" ]
-
             ]
-
             else div [][]
-
-
-
-
 
 
         EnergyDrain ->
@@ -1203,10 +1132,25 @@ renderPic model =
                 [image [xlinkHref "./title.png", x "300", y "100", width "570"][]]
 
             Story ->
-                [div [][]]
+                    [ Svg.image
+                    [ xlinkHref "./story.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "800"
+                    , transform "translate(-30,0)"
+                    ] []]
+
 
             AboutUs ->
-                [div [][]]
+                    [ Svg.image
+                    [ xlinkHref "./aboutus.png"
+                    , x "0"
+                    , y "0"
+                    , width "1200"
+                    , height "800"
+                    , transform "translate(-30,0)"
+                    ] []]
 
 
             BadEnds ->
@@ -1233,11 +1177,6 @@ renderPic model =
             NoPlace ->
                 [rect[][]]
 
-
-
-
-
-        --else
 
 
 
@@ -1277,7 +1216,7 @@ renderPreviousMap model =
                     , y "0"
                     , width "1200"
                     , height "600"
-                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , transform "translate(-30,0)"
                     ] [] ]
 
             Switching ->
@@ -1288,7 +1227,7 @@ renderPreviousMap model =
                     , y "0"
                     , width "1200"
                     , height "590"
-                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , transform "translate(-30,0)"
                     ] [] ]
             EnergyDrain ->
 
@@ -1304,7 +1243,7 @@ renderPreviousMap model =
                     , y "0"
                     , width "1200"
                     , height "600"
-                    , transform "translate(-30,0)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , transform "translate(-30,0)"
                     ] []]
             DreamMaze ->
                 [Svg.image
@@ -1313,7 +1252,7 @@ renderPreviousMap model =
                     , y "0"
                     , width "900"
                     , height "630"
-                    , transform "translate(0,-20)" -- in this scale for a 2388*1688 picture, all things are favorable. But I still confused about this. So can anyone help? --zhouyuxiang 7/9
+                    , transform "translate(0,-20)"
                     ] [] ]
             Journalist ->
                 [ Svg.image
@@ -3620,7 +3559,7 @@ renderBackButton model =
     button
         [ style "position" "absolute"
         , style "left" "500px"
-        , style "top" "350px"
+        , style "top" "650px"
         , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "18px"
         , style "font-weight" "300"
@@ -3630,7 +3569,7 @@ renderBackButton model =
         , class "fill"
         , onClick BackToStarter
         ]
-        [ Html.text "Back to Starter" ]
+        [ Html.text "Back" ]
     else
     div [][]
 

@@ -146,7 +146,6 @@ initial =
     , isTalkingWithLeeDay7 = False
     , badEndPreviousMap = BadEnds
     , isAskingDelete = False
-    --, park_is_exited
     }
 
 
@@ -220,9 +219,6 @@ getDescription config entityID worldModel_ =
         |> Maybe.map .description
         |> Maybe.withDefault ("ERROR can't find entity " ++ entityID)
         |> NarrativeParser.parse config
-        -- The parser can break up a narrative into chunks (for pagination for
-        -- example), but in our case we use the whole thing, so we just take the
-        -- head.
         |> List.head
         |> Maybe.withDefault ("ERROR parsing narrative content for " ++ entityID)
 
