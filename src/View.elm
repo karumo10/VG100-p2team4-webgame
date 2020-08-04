@@ -3684,10 +3684,12 @@ renderhelp =
                                           , p [] [ text "Use '↑', '↓', '←', '→' to move." ]
                                           , p [] [ text "You cannot move if you run into an obstacle." ]
                                           , p [] [ text "Use 'X' to interact with NPCs. Click the choice which you want to choose." ]
+                                          , p [] [ text "Use 'F' to interact with beds to sleep and end one day." ]
                                           , p [] [ text "Carefully read the text, or you'll miss some information." ]
                                           , p [] [ text "Talk with NPCs if you are stuck."]
                                           , p [] [ text "If the case you are solving required you to decide who is the murderer, please go to the suspect list (top left corner)."]
                                           , p [] [ text "Sometimes you get some items. You can see them in your bag (top right corner). You can examine or destroy items in you home."]
+                                          , p [] [ text "Examining one item for more than one time may give you useful information."]
                                           ]]]
         ]
 
