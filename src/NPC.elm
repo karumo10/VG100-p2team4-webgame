@@ -412,7 +412,7 @@ cJonathon_day4 =
     , description = "JONATHON_DAY4"
     , place = ( PoliceOffice , Day4 )
     , isFinished = False
-    , name = "Jonathon"
+    , name = "JONATHON"
     }
 
 
