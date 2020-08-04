@@ -47,8 +47,8 @@ policeBarrierList =
             , { x = 205, y = 300, wid = 60, hei = 20} -- f2.bookshelf.left
             , { x = 205, y = 500, wid = 75, hei = 20 } -- f1.bookshelf.up
             --, { x = 205, y = 525, wid = 60, hei = 20} -- f1.bookshelf.left
-            , { x = 205, y = 60, wid = 75, hei = 20 } -- f3.bookshelf.up
-            , { x = 205, y = 85, wid = 60, hei = 20} -- f3.bookshelf.left
+            , { x = 205, y = 60, wid = 185, hei = 20 } -- f3.bookshelf.up
+            , { x = 205, y = 85, wid = 150, hei = 20} -- f3.bookshelf.left
             , { x = 960, y = 420 , wid = 20, hei = 180 } -- f1.right wall
             , { x = 960, y = 190 , wid = 20, hei = 180 } -- f2.right wall
             , { x = 960, y = -40 , wid = 20, hei = 180 } -- f3.right wall
