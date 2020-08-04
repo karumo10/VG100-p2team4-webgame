@@ -2,14 +2,7 @@ module Items exposing (..)
 
 type ItemType
     = Gun
-    | Bullets
-    | Knife
-    | BaseballBat
     | BulletProof
-    | Helmet
-    | Evidence1
-    | Evidence2
-    | Evidence3
     | Key
     | Empty
 
@@ -17,8 +10,8 @@ type Map
     = PoliceOffice
     | Park
     | Home
-    | Switching -- an interface allowing player to choose where to go, also can be design as dialog box
-    | EnergyDrain --no energy, home is the only choice
+    | Switching
+    | EnergyDrain
     | DreamMaze
     | Journalist
     | NightClub
@@ -436,3 +429,29 @@ isNotPick item =
     False
     else
     True
+
+type alias Discarded =
+    { item : Item
+    , isDiscarded : Bool
+    }
+
+itemDiscardedList : List Discarded
+itemDiscardedList =
+    [ { item = noteIni, isDiscarded = False }
+    , { item = diskIni, isDiscarded = False }
+    , { item = pillIni, isDiscarded = False }
+    , { item = daggerIni, isDiscarded = False }
+    , { item = trueMemCardIni, isDiscarded = False }
+    , { item = fakeMemCardIni, isDiscarded = False }
+    , { item = keyIni, isDiscarded = False }
+    , { item = paperIni, isDiscarded = False }
+    , { item = bankIni, isDiscarded = False }
+    , { item = bankCardIni, isDiscarded = False }
+    , { item = dagger2Ini, isDiscarded = False }
+    , { item = letterIni, isDiscarded = False }
+    , { item = documentsIni, isDiscarded = False }
+    , { item = pillsIni, isDiscarded = False }
+    , { item = planIni, isDiscarded = False }
+    , { item = bankaccIni, isDiscarded = False }
+    , { item = customconIni, isDiscarded = False }
+    ]

@@ -60,6 +60,7 @@ type alias Model =
     , map : Map
     , mapAttr : MapAttr
     , bag : Bag
+    , itemDiscarded : List Discarded
     , items : List Item
     , worldModel : MyWorldModel
     , story : String
@@ -109,18 +110,19 @@ initial =
     , heroInteractWithNpc = False
     , state = Playing
     , size = ( 900, 600 )
-    , day = 5
-    , dayState = Day5
+    , day = 3
+    , dayState = Day3
     , map = StarterPage -- door at police office
     , mapAttr = policeOfficeAttr_day1
     --, mapAttr = nightClubAttr_day5
     , bag = bagIni
+    , itemDiscarded = itemDiscardedList
     , items = [  ]
     , worldModel = initialWorldModel
     , story = "I'm a novelist who travels to his own book. Yes, I think no better explanation can make the current condition clear. I'm now 'Kay', a policeman, and I know that I'll be killed by the chief police, Jonathon, because I know his crime. I need to beat him down.\n For starters, try to communicate with the nearest police."
     , ruleCounts = Dict.empty
     , debug = NarrativeEngine.Debug.init
-    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day5)) allNPCs
+    , npcs_curr = List.filter (\a -> a.place == (PoliceOffice, Day3)) allNPCs
     , npcs_all = allNPCs
     , evidence_all = allEvidence
     , mapAttr_all = allMapAttrs
@@ -144,7 +146,6 @@ initial =
     , isTalkingWithLeeDay7 = False
     , badEndPreviousMap = BadEnds
     , isAskingDelete = False
-    --, park_is_exited
     }
 
 
@@ -218,9 +219,6 @@ getDescription config entityID worldModel_ =
         |> Maybe.map .description
         |> Maybe.withDefault ("ERROR can't find entity " ++ entityID)
         |> NarrativeParser.parse config
-        -- The parser can break up a narrative into chunks (for pagination for
-        -- example), but in our case we use the whole thing, so we just take the
-        -- head.
         |> List.head
         |> Maybe.withDefault ("ERROR parsing narrative content for " ++ entityID)
 
