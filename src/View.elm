@@ -3629,6 +3629,7 @@ renderhelp =
                                           , p [] [ text "If the case you are solving required you to decide who is the murderer, please go to the suspect list (top left corner)."]
                                           , p [] [ text "Sometimes you get some items. You can see them in your bag (top right corner). You can examine or destroy items in you home."]
                                           , p [] [ text "Examining one item for more than one time may give you useful information."]
+                                          , p [] [ text "If part of the image doesn't show, try to zoom in or out your browser."]
                                           ]]]
         ]
 

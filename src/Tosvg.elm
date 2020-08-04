@@ -439,8 +439,8 @@ energytosvg energy energyFull =
     in
         [
             rect
-            [ x (x_|>Debug.toString)
-            , y (y_|>Debug.toString)
+            [ x ((x_ - 12)|>Debug.toString)
+            , y ((y_ - 3)|>Debug.toString)
             , height (wid|>Debug.toString)
             , width (lenTotal|>Debug.toString)
             , fill (toString (rgb 10 10 10))
@@ -449,8 +449,8 @@ energytosvg energy energyFull =
             ] []
             ,
             rect
-            [ x (x_|>Debug.toString)
-            , y (y_|>Debug.toString)
+            [ x ((x_ - 12)|>Debug.toString)
+            , y ((y_ - 3)|>Debug.toString)
             , height (wid|>Debug.toString)
             , width (len|>Debug.toString)
             , fill (toString (rgb 255 255 187))
@@ -458,21 +458,12 @@ energytosvg energy energyFull =
             ,
             text_
             [ x ((x_ - 80)|>Debug.toString)
-            , y ((y_ + 10)|>Debug.toString)
+            , y ((y_ + 6)|>Debug.toString)
             , fill "#999C86"
             , fontSize "15"
             , fontFamily "Segoe UI Black"
             , textDecoration "underline"
             ] [text "Energy"]
-            ,
-            text_
-            [ x ((x_ - 28)|>Debug.toString)
-            , y ((y_ + 10)|>Debug.toString)
-            , textDecoration "underline"
-            , fill "#999C86"
-            , fontSize "15"
-            , fontFamily "Segoe UI Black"
-            ] [text (Debug.toString energy)]
         ]
 
 
