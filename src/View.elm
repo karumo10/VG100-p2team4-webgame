@@ -1453,6 +1453,7 @@ renderBagButton model =
                         , Html.Attributes.style "height" "60px"
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
+                        , style "left" "20px"
                         , style "top" "100px"
                         ] [ div [style "font-size" "12px"] [text model.bag.grid1.intro] ],
 
@@ -1462,6 +1463,7 @@ renderBagButton model =
                         , Html.Attributes.style "height" "60px"
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
+                        , style "left" "20px"
                         , style "top" "180px"
                         ] [ div [style "font-size" "12px"] [ text model.bag.grid2.intro ]] ,
 
@@ -1471,6 +1473,7 @@ renderBagButton model =
                         , Html.Attributes.style "height" "60px"
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
+                        , style "left" "20px"
                         , style "top" "260px"
                         ] [ div [style "font-size" "12px"] [ text model.bag.grid3.intro ] ],
 
@@ -1480,6 +1483,7 @@ renderBagButton model =
                         , Html.Attributes.style "height" "60px"
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
+                        , style "left" "20px"
                         , style "top" "340px"
                         ] [ div [style "font-size" "12px"] [ text model.bag.grid4.intro ] ],
 
@@ -1489,6 +1493,7 @@ renderBagButton model =
                         , Html.Attributes.style "height" "60px"
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
+                        , style "left" "20px"
                         , style "top" "420px"
                         ] [ div [style "font-size" "12px"] [ text model.bag.grid5.intro ] ],
 
@@ -1498,7 +1503,7 @@ renderBagButton model =
                         , Html.Attributes.style "height" "60px"
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
-                        , style "left" "80px"
+                        , style "left" "100px"
                         , style "top" "100px"
                         ] [ div [style "font-size" "12px"] [ text model.bag.grid6.intro ]],
 
@@ -1508,7 +1513,7 @@ renderBagButton model =
                         , Html.Attributes.style "height" "60px"
                         , Html.Attributes.style "font-size" "18px"
                         , style "position" "absolute"
-                        , style "left" "80px"
+                        , style "left" "100px"
                         , style "top" "180px"
                         ] [ div [style "font-size" "12px"] [ text model.bag.grid7.intro ]],
 
@@ -1518,7 +1523,7 @@ renderBagButton model =
                          , Html.Attributes.style "height" "60px"
                          , Html.Attributes.style "font-size" "18px"
                          , style "position" "absolute"
-                         , style "left" "80px"
+                         , style "left" "100px"
                          , style "top" "260px"
                          ] [ div [style "font-size" "12px"][ text model.bag.grid8.intro ]],
 
@@ -1528,7 +1533,7 @@ renderBagButton model =
                           , Html.Attributes.style "height" "60px"
                           , Html.Attributes.style "font-size" "18px"
                           , style "position" "absolute"
-                          , style "left" "80px"
+                          , style "left" "100px"
                           , style "top" "340px"
                           ] [ div [style "font-size" "12px"][ text model.bag.grid9.intro ]],
 
@@ -1538,7 +1543,7 @@ renderBagButton model =
                           , Html.Attributes.style "height" "60px"
                           , Html.Attributes.style "font-size" "18px"
                           , style "position" "absolute"
-                          , style "left" "80px"
+                          , style "left" "100px"
                           , style "top" "420px"
                           ] [ div [style "font-size" "12px"] [ text model.bag.grid10.intro ]],
 
@@ -1548,7 +1553,7 @@ renderBagButton model =
                          , Html.Attributes.style "height" "60px"
                          , Html.Attributes.style "font-size" "18px"
                          , style "position" "absolute"
-                         , style "left" "160px"
+                         , style "left" "180px"
                          , style "top" "100px"
                          ] [ div [style "font-size" "12px"] [ text model.bag.grid11.intro ]],
 
@@ -1558,7 +1563,7 @@ renderBagButton model =
                          , Html.Attributes.style "height" "60px"
                          , Html.Attributes.style "font-size" "18px"
                          , style "position" "absolute"
-                         , style "left" "160px"
+                         , style "left" "180px"
                          , style "top" "180px"
                          ] [ div [style "font-size" "12px"] [ text model.bag.grid12.intro ]],
 
@@ -1568,7 +1573,7 @@ renderBagButton model =
                          , Html.Attributes.style "height" "60px"
                          , Html.Attributes.style "font-size" "18px"
                          , style "position" "absolute"
-                         , style "left" "160px"
+                         , style "left" "180px"
                          , style "top" "260px"
                          ] [ div [style "font-size" "12px"] [ text model.bag.grid13.intro ]],
 
@@ -1578,7 +1583,7 @@ renderBagButton model =
                          , Html.Attributes.style "height" "60px"
                          , Html.Attributes.style "font-size" "18px"
                          , style "position" "absolute"
-                         , style "left" "160px"
+                         , style "left" "180px"
                          , style "top" "340px"
                          ] [ div [style "font-size" "12px"] [ text model.bag.grid14.intro ]],
 
@@ -1588,7 +1593,7 @@ renderBagButton model =
                          , Html.Attributes.style "height" "60px"
                          , Html.Attributes.style "font-size" "18px"
                          , style "position" "absolute"
-                         , style "left" "160px"
+                         , style "left" "180px"
                          , style "top" "420px"
                          ] [ div [style "font-size" "12px"] [ text model.bag.grid15.intro ]],
 
@@ -1598,7 +1603,7 @@ renderBagButton model =
                          , Html.Attributes.style "height" "60px"
                          , Html.Attributes.style "font-size" "18px"
                          , style "position" "absolute"
-                         , style "left" "240px"
+                         , style "left" "260px"
                          , style "top" "100px"
                          ] [ div [style "font-size" "12px"] [ text model.bag.grid16.intro ]],
 
@@ -1608,7 +1613,7 @@ renderBagButton model =
                          , Html.Attributes.style "height" "60px"
                          , Html.Attributes.style "font-size" "18px"
                          , style "position" "absolute"
-                         , style "left" "240px"
+                         , style "left" "260px"
                          , style "top" "180px"
                          ] [ div [style "font-size" "12px"] [ text model.bag.grid17.intro ]],
 
@@ -1618,7 +1623,7 @@ renderBagButton model =
                           , Html.Attributes.style "height" "60px"
                           , Html.Attributes.style "font-size" "18px"
                           , style "position" "absolute"
-                          , style "left" "240px"
+                          , style "left" "260px"
                           , style "top" "260px"
                           ] [ div [style "font-size" "12px"] [ text model.bag.grid18.intro ]],
 
@@ -1628,7 +1633,7 @@ renderBagButton model =
                            , Html.Attributes.style "height" "60px"
                            , Html.Attributes.style "font-size" "18px"
                            , style "position" "absolute"
-                           , style "left" "240px"
+                           , style "left" "260px"
                            , style "top" "340px"
                            ] [ div [style "font-size" "12px"] [ text model.bag.grid19.intro ]],
 
@@ -1638,7 +1643,7 @@ renderBagButton model =
                            , Html.Attributes.style "height" "60px"
                            , Html.Attributes.style "font-size" "18px"
                            , style "position" "absolute"
-                           , style "left" "240px"
+                           , style "left" "260px"
                            , style "top" "420px"
                            ] [ div [style "font-size" "12px"][ text model.bag.grid20.intro ] ]
 
