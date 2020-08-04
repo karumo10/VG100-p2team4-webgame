@@ -865,15 +865,14 @@ wakeUp model =
                 model_.story
             else
             "It's time to get up... Uhh, indeed a weird dream."
-        isAPlayBoy = findCertainQuestion model "YES_NIGHT"
-        energy_Full =
-            if day == 6 && isAPlayBoy then model_.energy_Full // 2
-            else if day == 7 && isAPlayBoy then model_.energy_Full * 2
-            else model_.energy_Full
-        energy = model_.energy_Full
+        npcs = model_.npcs_all
     in
-
-    { model_ | story = story, day = day, energy = energy, dayState = dayState, energy_Full = energy_Full, isTeleportedToCouncil = False }
+    if day == 8 then
+    { model_ | story = story, day = day, dayState = dayState,  isTeleportedToCouncil = False, npcs_all = npcs ++ [courtFinal] }
+    else if day == 6 then
+    { model_ | story = story, day = day, dayState = dayState,  isTeleportedToCouncil = False, npcs_all = npcs ++ [courtSpeaker] }
+    else
+    { model_ | story = story, day = day, dayState = dayState,  isTeleportedToCouncil = False }
 
 
 mapSwitch : Map -> Model -> Model
@@ -1619,10 +1618,11 @@ day5_nightclub_update_energy : Model -> Model
 day5_nightclub_update_energy model =
     let
         isAPlayBoy = findCertainQuestion model "YES_NIGHT"
+        deduction_energy= 500
 
     in
     if isAPlayBoy && (model.map,model.dayState) == (NightClub, Day5) then
-    { model | energy = 0 }
+    { model | energy = deduction_energy }
     else model
 
 day5_park_update_exit : Model -> Model
@@ -2067,8 +2067,21 @@ isRepeat item model =
          g8 = model.bag.grid8
          g9 = model.bag.grid9
          g10 = model.bag.grid10
+         g11 = model.bag.grid11
+         g12 = model.bag.grid12
+         g13 = model.bag.grid13
+         g14 = model.bag.grid14
+         g15 = model.bag.grid15
+         g16 = model.bag.grid16
+         g17 = model.bag.grid17
+         g18 = model.bag.grid18
+         g19 = model.bag.grid19
+         g20 = model.bag.grid20
+
+
     in
-    if item == g1 || item == g2 || item == g3 || item == g4 || item == g5 || item == g6 || item == g7 || item == g8 || item == g9 || item == g10 then
+    if item == g1 || item == g2 || item == g3 || item == g4 || item == g5 || item == g6 || item == g7 || item == g8 || item == g9 || item == g10
+        || item == g11 || item == g12 || item == g13 || item == g14 || item == g15 || item == g16 || item == g17 || item == g18 || item == g19 || item == g20 then
     True
     else
     False
