@@ -2080,8 +2080,11 @@ pickSingleItem : String -> Item -> Model -> Model
 pickSingleItem theChoice itemIni model =
     let
         isTaken = findCertainQuestion model theChoice
+        isDiscarded = List.filter (\a -> a.item == itemIni) model.itemDiscarded
+            |> List.head |> withDefault { item = emptyIni, isDiscarded = False }
+            |> (\a -> a.isDiscarded)
         item =
-            if isTaken then itemIni
+            if isTaken && not isDiscarded then itemIni
             else emptyIni
         repeatOrNot = isRepeat item model
         g1 = model.bag.grid1
@@ -2388,6 +2391,16 @@ pickDiskOrNote model =
     else
     model
 
+itemDiscardedEdit : Item -> Model -> Model
+itemDiscardedEdit grid model =
+    let
+        list = model.itemDiscarded
+        list_ = List.map (\a -> if a.item == grid then
+                                { item = a.item, isDiscarded = True }
+                                else a) list
+    in
+    { model | itemDiscarded = list_ }
+
 itemDelete : Model -> Int -> Model
 itemDelete model whichGrid =
     let
@@ -2411,48 +2424,48 @@ itemDelete model whichGrid =
        g18 = model.bag.grid18
        g19 = model.bag.grid19
        g20 = model.bag.grid20
+       model_ =
+           case whichGrid of
+                1 -> { model | bag = { grid1 = emptyIni , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g1
+                2 -> { model | bag = { grid1 = g1 , grid2 = emptyIni , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g2
+                3 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = emptyIni , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g3
+                4 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = emptyIni , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g4
+                5 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = emptyIni , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g5
+                6 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = emptyIni , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g6
+                7 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = emptyIni , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g7
+                8 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = emptyIni , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g8
+                9 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = emptyIni , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g9
+                10 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = emptyIni
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g10
+                11 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = emptyIni , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g11
+                12 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = emptyIni , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g12
+                13 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = emptyIni , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g13
+                14 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = emptyIni , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g14
+                15 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = emptyIni , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g15
+                16 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = emptyIni , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g16
+                17 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = emptyIni , grid18 = g18 , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g17
+                18 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = emptyIni , grid19 = g19 , grid20 = g20 } } |> itemDiscardedEdit g18
+                19 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = emptyIni , grid20 = g20 } } |> itemDiscardedEdit g19
+                20 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
+                         , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = emptyIni } } |> itemDiscardedEdit g20
+                _ -> model
     in
-    case whichGrid of
-        1 -> { model | bag = { grid1 = emptyIni , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        2 -> { model | bag = { grid1 = g1 , grid2 = emptyIni , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        3 -> { model | bag = { grid1 = g1 , grid2 = g3 , grid3 = emptyIni , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        4 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = emptyIni , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        5 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = emptyIni , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        6 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = emptyIni , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        7 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = emptyIni , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        8 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = emptyIni , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        9 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = emptyIni , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        10 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = emptyIni
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        11 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = emptyIni , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        12 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = emptyIni , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        13 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = emptyIni , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        14 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = emptyIni , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        15 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = emptyIni , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        16 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = emptyIni , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        17 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = emptyIni , grid18 = g18 , grid19 = g19 , grid20 = g20 } }
-        18 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = emptyIni , grid19 = g19 , grid20 = g20 } }
-        19 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = emptyIni , grid20 = g20 } }
-        20 -> { model | bag = { grid1 = g1 , grid2 = g2 , grid3 = g3 , grid4 = g4 , grid5 = g5 , grid6 = g6 , grid7 = g7 , grid8 = g8 , grid9 = g9 , grid10 = g10
-                 , grid11 = g11 , grid12 = g12 , grid13 = g13 , grid14 = g14 , grid15 = g15 , grid16 = g16 , grid17 = g17 , grid18 = g18 , grid19 = g19 , grid20 = emptyIni } }
-        _ -> model
-
-
+    model_
